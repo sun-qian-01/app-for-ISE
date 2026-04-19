@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>管理端 - 学院学生综合服务与党团管理平台</title>
+  <link rel="stylesheet" href="./styles.css">
+</head>
+<body data-page="admin">
+  <div class="app-shell">
+    <aside class="sidebar sidebar--admin">
+      <a class="brand" href="./index.html">
+        <span class="brand__mark">ADM</span>
+        <span class="brand__text">业务管理台</span>
+      </a>
+      <nav class="nav">
+        <button class="nav__item is-active" data-target="overview">概览</button>
+        <button class="nav__item" data-target="approvals">审批处理</button>
+        <button class="nav__item" data-target="knowledge">知识库管理</button>
+        <button class="nav__item" data-target="students">学生画像</button>
+        <button class="nav__item" data-target="logs">审计日志</button>
+      </nav>
+    </aside>
+
+    <main class="content">
+      <header class="topbar">
+        <div>
+          <div class="eyebrow">管理端</div>
+          <h1>学生工作与党团事务管理台</h1>
+        </div>
+        <div class="topbar__actions">
+          <span class="pill pill--success">角色：辅导员 / 审批人</span>
+          <a class="button" href="./student.html">切换学生端</a>
+        </div>
+      </header>
+
+      <section class="view is-visible" id="view-overview">
+        <div class="grid grid--metrics">
+          <article class="metric-card">
+            <span>学生总数</span>
+            <strong>1036</strong>
+            <small>含本科与研究生</small>
+          </article>
+          <article class="metric-card">
+            <span>待审批</span>
+            <strong id="pendingApprovalCount">0</strong>
+            <small>证明与流程节点待处理</small>
+          </article>
+          <article class="metric-card">
+            <span>今日推送</span>
+            <strong>6</strong>
+            <small>覆盖 328 名目标学生</small>
+          </article>
+          <article class="metric-card">
+            <span>风险预警</span>
+            <strong>12</strong>
+            <small>学业与材料缺失提醒</small>
+          </article>
+        </div>
+
+        <div class="grid grid--two">
+          <section class="panel">
+            <div class="section-head">
+              <h2>业务看板</h2>
+            </div>
+            <div class="info-list">
+              <div><span>知识库条目</span><strong>86</strong></div>
+              <div><span>本周热门问题</span><strong>奖助学金评定</strong></div>
+              <div><span>党团流程进行中</span><strong>71 人</strong></div>
+              <div><span>证明申请处理中</span><strong>18 单</strong></div>
+            </div>
+          </section>
+
+          <section class="panel">
+            <div class="section-head">
+              <h2>待处理提醒</h2>
+            </div>
+            <div id="adminTodoList" class="stack"></div>
+          </section>
+        </div>
+      </section>
+
+      <section class="view" id="view-approvals">
+        <section class="panel">
+          <div class="section-head">
+            <h2>审批处理</h2>
+            <span class="pill pill--warn">按优先级排序</span>
+          </div>
+          <div id="approvalList" class="stack"></div>
+        </section>
+      </section>
+
+      <section class="view" id="view-knowledge">
+        <section class="panel">
+          <div class="section-head">
+            <h2>知识库管理</h2>
+            <button class="button">新增条目</button>
+          </div>
+          <div id="knowledgeAdminList" class="stack"></div>
+        </section>
+      </section>
+
+      <section class="view" id="view-students">
+        <section class="panel">
+          <div class="section-head">
+            <h2>学生画像与标签</h2>
+          </div>
+          <div id="studentSegmentList" class="stack"></div>
+        </section>
+      </section>
+
+      <section class="view" id="view-logs">
+        <section class="panel">
+          <div class="section-head">
+            <h2>审计日志</h2>
+          </div>
+          <div id="auditLogList" class="stack"></div>
+        </section>
+      </section>
+    </main>
+  </div>
+
+  <script src="./scripts/app.js"></script>
+</body>
+</html>
