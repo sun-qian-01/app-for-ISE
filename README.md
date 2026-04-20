@@ -23,6 +23,7 @@
 为后续正式开发补充了数据库与接口基线文档：
 
 - 总体设计草案：`docs/architecture.md`
+- 开发者日记：`docs/developer-diary.md`
 - 数据库表结构：`database/schema.sql`
 - 接口文档草案：`docs/api.md`
 
