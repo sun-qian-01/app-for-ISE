@@ -1,0 +1,60 @@
+.timeline-item {
+  display: flex;
+}
+
+.timeline-left {
+  width: 40rpx;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.dot {
+  width: 18rpx;
+  height: 18rpx;
+  border-radius: 50%;
+  margin-top: 8rpx;
+}
+
+.dot.completed {
+  background: #10b981;
+}
+
+.dot.processing {
+  background: #1f6feb;
+}
+
+.dot.pending {
+  background: #cbd5e1;
+}
+
+.dot.returned {
+  background: #ef4444;
+}
+
+.line {
+  width: 2rpx;
+  flex: 1;
+  background: #dbe2ea;
+  margin: 8rpx 0;
+}
+
+.timeline-content {
+  flex: 1;
+  border-bottom: 1rpx solid #eef2f7;
+  padding: 0 0 16rpx 0;
+  margin-bottom: 12rpx;
+}
+
+.stage-name {
+  font-weight: 600;
+}
+
+.stage-status {
+  font-size: 24rpx;
+  color: #475569;
+}
+
+.comment {
+  margin-top: 8rpx;
+}

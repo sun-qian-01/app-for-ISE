@@ -1,0 +1,18 @@
+{
+  "description": "学院综合服务平台小程序演示版",
+  "packOptions": {
+    "ignore": []
+  },
+  "setting": {
+    "es6": true,
+    "enhance": true,
+    "postcss": true,
+    "minified": true,
+    "urlCheck": false
+  },
+  "compileType": "miniprogram",
+  "libVersion": "2.33.0",
+  "appid": "touristappid",
+  "projectname": "app-for-ISE-mini-app",
+  "condition": {}
+}

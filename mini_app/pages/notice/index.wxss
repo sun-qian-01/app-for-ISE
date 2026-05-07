@@ -1,0 +1,21 @@
+.notice-item {
+  border-top: 1rpx solid #eef2f7;
+  padding: 18rpx 0;
+}
+
+.notice-title {
+  max-width: 500rpx;
+  font-weight: 600;
+}
+
+.notice-time {
+  margin: 6rpx 0;
+}
+
+.notice-content {
+  margin-bottom: 10rpx;
+}
+
+.read-btn {
+  width: 160rpx;
+}

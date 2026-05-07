@@ -1,0 +1,40 @@
+<view class="container">
+  <view class="card">
+    <view class="search-row">
+      <input
+        class="search-input"
+        placeholder="输入关键词，如 奖学金 / 复学"
+        value="{{keyword}}"
+        bindinput="onKeywordInput"
+      />
+      <button class="btn-primary search-btn" size="mini" bindtap="onSearch">搜索</button>
+    </view>
+
+    <scroll-view scroll-x class="category-scroll">
+      <view class="category-row">
+        <view
+          wx:for="{{categories}}"
+          wx:key="id"
+          class="category-chip {{activeCategory === item.id ? 'category-chip-active' : ''}}"
+          data-id="{{item.id}}"
+          bindtap="onCategoryTap"
+        >
+          {{item.name}}
+        </view>
+      </view>
+    </scroll-view>
+  </view>
+
+  <view class="card" wx:if="{{articleList.length}}">
+    <view class="card-title">检索结果（{{articleList.length}}）</view>
+    <view wx:for="{{articleList}}" wx:key="id" class="article-item">
+      <view class="article-title">{{item.title}}</view>
+      <view class="muted">{{item.summary}}</view>
+      <view class="keyword-line">关键词：{{item.keywordsText}}</view>
+    </view>
+  </view>
+
+  <view class="card" wx:else>
+    <view class="muted">未检索到匹配内容，请调整关键词或分类。</view>
+  </view>
+</view>

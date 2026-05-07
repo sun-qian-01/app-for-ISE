@@ -1,0 +1,41 @@
+<view class="container">
+  <view class="card">
+    <view class="card-title">你好，{{profile.name}}</view>
+    <view class="muted">学号：{{profile.studentNo}} · 专业：{{profile.major}}</view>
+    <view class="summary-row">
+      <view class="summary-item">
+        <view class="summary-num">{{profile.todoCount}}</view>
+        <view class="muted">待办</view>
+      </view>
+      <view class="summary-item">
+        <view class="summary-num">{{profile.unreadNoticeCount}}</view>
+        <view class="muted">未读通知</view>
+      </view>
+      <view class="summary-item">
+        <view class="summary-num">{{profile.currentStage}}</view>
+        <view class="muted">党团阶段</view>
+      </view>
+    </view>
+  </view>
+
+  <view class="card">
+    <view class="card-title">快捷入口</view>
+    <view class="entry-list">
+      <view class="entry-item" wx:for="{{quickEntries}}" wx:key="key" data-key="{{item.key}}" bindtap="onTapEntry">
+        <view class="entry-title">{{item.title}}</view>
+        <view class="muted">{{item.tip}}</view>
+      </view>
+    </view>
+  </view>
+
+  <view class="card">
+    <view class="row">
+      <view class="card-title">近期通知</view>
+      <view class="badge">最新 2 条</view>
+    </view>
+    <view wx:for="{{recentNotices}}" wx:key="id" class="notice-item">
+      <view class="notice-title">{{item.title}}</view>
+      <view class="muted">{{item.publishAt}}</view>
+    </view>
+  </view>
+</view>

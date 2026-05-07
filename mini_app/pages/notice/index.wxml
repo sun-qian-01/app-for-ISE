@@ -1,0 +1,26 @@
+<view class="container">
+  <view class="card">
+    <view class="row">
+      <view class="card-title">我的通知</view>
+      <button class="btn-secondary" size="mini" bindtap="onMarkAllRead">全部已读</button>
+    </view>
+
+    <view wx:for="{{noticeList}}" wx:key="id" class="notice-item">
+      <view class="row">
+        <view class="notice-title">{{item.title}}</view>
+        <view class="badge" wx:if="{{!item.read}}">未读</view>
+      </view>
+      <view class="muted notice-time">{{item.publishAt}}</view>
+      <view class="notice-content">{{item.content}}</view>
+      <button
+        wx:if="{{!item.read}}"
+        class="btn-primary read-btn"
+        size="mini"
+        data-id="{{item.id}}"
+        bindtap="onMarkRead"
+      >
+        标记已读
+      </button>
+    </view>
+  </view>
+</view>

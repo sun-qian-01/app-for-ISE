@@ -1,0 +1,34 @@
+.field-label {
+  margin: 12rpx 0 8rpx;
+  color: #475569;
+}
+
+.picker {
+  background: #f8fafc;
+  border-radius: 12rpx;
+  padding: 16rpx;
+}
+
+.textarea {
+  width: 100%;
+  min-height: 140rpx;
+  background: #f8fafc;
+  border-radius: 12rpx;
+  padding: 16rpx;
+  box-sizing: border-box;
+  margin-bottom: 16rpx;
+}
+
+.record-item {
+  border-top: 1rpx solid #eef2f7;
+  padding: 16rpx 0;
+}
+
+.record-title {
+  font-weight: 600;
+}
+
+.revoke-btn {
+  width: 180rpx;
+  margin-top: 10rpx;
+}
