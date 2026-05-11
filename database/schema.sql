@@ -522,6 +522,32 @@ create table if not exists audit_log (
     created_at timestamp not null default current_timestamp
 );
 
+create table if not exists system_event_log (
+    id bigserial primary key,
+    event_type varchar(32) not null,
+    event_level varchar(16) not null default 'info',
+    module_code varchar(64) not null,
+    event_code varchar(128),
+    event_message varchar(1000) not null,
+    user_id bigint references sys_user(id),
+    username_snapshot varchar(64),
+    real_name_snapshot varchar(64),
+    request_id varchar(64),
+    trace_id varchar(128),
+    request_method varchar(16),
+    request_path varchar(255),
+    request_ip varchar(64),
+    target_type varchar(64),
+    target_id bigint,
+    error_class varchar(255),
+    error_message text,
+    stack_trace text,
+    request_body_digest varchar(128),
+    extra_json text,
+    occurred_at timestamp not null default current_timestamp,
+    created_at timestamp not null default current_timestamp
+);
+
 create index if not exists idx_sys_user_student_id on sys_user(student_id);
 create index if not exists idx_sys_user_type_status on sys_user(user_type, status);
 create index if not exists idx_user_scope_user_type on sys_user_scope(user_id, scope_type);
@@ -543,3 +569,7 @@ create index if not exists idx_biz_application_student_status on biz_application
 create index if not exists idx_biz_application_approver_status on biz_application(current_approver_id, status);
 create index if not exists idx_audit_log_user_created on audit_log(user_id, created_at);
 create index if not exists idx_audit_log_target on audit_log(target_type, target_id);
+create index if not exists idx_system_event_level_time on system_event_log(event_level, occurred_at);
+create index if not exists idx_system_event_type_time on system_event_log(event_type, occurred_at);
+create index if not exists idx_system_event_user_time on system_event_log(user_id, occurred_at);
+create index if not exists idx_system_event_request_id on system_event_log(request_id);

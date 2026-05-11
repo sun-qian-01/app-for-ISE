@@ -835,9 +835,112 @@
 - 通知发布和归档
 - 知识库发布、停用和版本替换
 
-## 16. 枚举字典接口
+## 16. 系统事件与异常日志
 
-### 16.1 字典批量获取
+系统事件日志用于排查平台问题，和审计日志分开。审计日志关注业务操作责任，系统事件日志关注错误、异常、任务失败和请求链路。
+
+### 16.1 系统事件日志分页
+
+`GET /system-logs`
+
+查询参数：
+
+- `pageNo`
+- `pageSize`
+- `eventType`
+- `eventLevel`
+- `moduleCode`
+- `eventCode`
+- `userId`
+- `requestId`
+- `traceId`
+- `startTime`
+- `endTime`
+
+响应字段建议：
+
+- `id`
+- `eventType`
+- `eventLevel`
+- `moduleCode`
+- `eventCode`
+- `eventMessage`
+- `userId`
+- `usernameSnapshot`
+- `realNameSnapshot`
+- `requestId`
+- `traceId`
+- `requestMethod`
+- `requestPath`
+- `requestIp`
+- `targetType`
+- `targetId`
+- `errorClass`
+- `errorMessage`
+- `occurredAt`
+
+权限：仅管理老师、学院领导和系统管理员可查看；普通学生和班团骨干不可查看。
+
+### 16.2 系统事件日志详情
+
+`GET /system-logs/{logId}`
+
+响应在列表字段基础上增加：
+
+- `stackTrace`
+- `requestBodyDigest`
+- `extraJson`
+
+约束：
+
+- `stackTrace` 仅系统管理员和具备排障权限的管理人员可查看。
+- 日志详情不得返回密码、token、身份证号等敏感原文。
+
+### 16.3 前端错误上报
+
+`POST /system-logs/client-errors`
+
+请求体：
+
+```json
+{
+  "eventLevel": "error",
+  "moduleCode": "frontend",
+  "eventCode": "route_render_failed",
+  "eventMessage": "学生画像页面渲染失败",
+  "requestId": "202605111230001234",
+  "requestPath": "/student/profile",
+  "errorClass": "TypeError",
+  "errorMessage": "Cannot read properties of undefined",
+  "stackTrace": "sanitized stack trace",
+  "extra": {
+    "browser": "Chrome",
+    "route": "/student/profile"
+  }
+}
+```
+
+约束：
+
+- 前端不得上传密码、token、身份证号、完整手机号等敏感原文。
+- 后端应补充当前登录用户、IP、发生时间。
+- 未登录状态也允许上报，但只能记录匿名用户信息。
+
+### 16.4 需要自动写系统日志的场景
+
+- 未捕获异常
+- 接口 5xx
+- 登录异常和账号锁定
+- 权限异常
+- 文件上传、解析、下载失败
+- 批量导入任务失败
+- 定时任务失败
+- 邮件、微信、短信模拟发送失败
+- 前端运行时错误上报
+
+## 17. 枚举字典接口
+
+### 17.1 字典批量获取
 
 `GET /dicts`
 
