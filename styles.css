@@ -238,6 +238,10 @@ textarea {
   grid-template-columns: repeat(2, minmax(0, 1fr));
 }
 
+.grid--three {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
 .grid--metrics {
   grid-template-columns: repeat(4, minmax(0, 1fr));
   margin-bottom: 20px;
@@ -279,6 +283,11 @@ textarea {
   font-family: var(--font-display);
 }
 
+.metric-card .metric-text {
+  font-size: 1.35rem;
+  line-height: 1.3;
+}
+
 .button,
 .shortcut {
   display: inline-flex;
@@ -312,6 +321,13 @@ textarea {
 .text-link {
   color: var(--primary);
   font-weight: 600;
+}
+
+.role-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 220px;
 }
 
 .feature-list,
@@ -352,6 +368,46 @@ textarea {
 
 .notice-card.is-unread {
   border-left: 5px solid var(--accent);
+}
+
+.record.is-current,
+.log-item.is-current {
+  border-left: 5px solid var(--primary);
+}
+
+.record.is-done,
+.log-item.is-done {
+  border-left: 5px solid var(--success);
+}
+
+.record.is-warn,
+.log-item.is-warn {
+  border-left: 5px solid var(--warn);
+}
+
+.knowledge-item h3,
+.notice-card h3,
+.record h3,
+.log-item h3,
+.honor-card h3 {
+  margin: 8px 0;
+}
+
+.knowledge-item p,
+.notice-card p,
+.record p,
+.log-item p,
+.card p,
+.callout p,
+.answer-box p {
+  color: var(--muted);
+  line-height: 1.65;
+}
+
+.source-line {
+  margin-top: 10px;
+  color: var(--muted);
+  font-size: 0.9rem;
 }
 
 .tag-group {
@@ -435,6 +491,18 @@ textarea {
   border: 1px solid rgba(143, 45, 31, 0.14);
 }
 
+.compact-callout {
+  padding: 14px;
+}
+
+.answer-box {
+  margin-top: 16px;
+  padding: 18px;
+  border: 1px solid rgba(50, 107, 72, 0.18);
+  border-radius: 16px;
+  background: rgba(50, 107, 72, 0.08);
+}
+
 .input {
   width: 100%;
   padding: 12px 14px;
@@ -457,9 +525,58 @@ textarea {
   gap: 8px;
 }
 
+.inline-form {
+  margin-top: 16px;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) auto;
+  align-items: end;
+}
+
 .feedback {
   color: var(--success);
   font-size: 0.95rem;
+}
+
+.endpoint-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.endpoint-grid span {
+  padding: 12px 14px;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  background: var(--surface-strong);
+  color: var(--primary-dark);
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: 0.9rem;
+  overflow-wrap: anywhere;
+}
+
+.table-like {
+  display: grid;
+  gap: 8px;
+}
+
+.table-row {
+  display: grid;
+  grid-template-columns: 1fr 0.8fr 1.4fr 0.8fr 1.6fr;
+  gap: 12px;
+  align-items: center;
+  padding: 14px 16px;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  background: var(--surface-strong);
+}
+
+.table-head {
+  background: rgba(143, 45, 31, 0.08);
+  color: var(--primary-dark);
+  font-weight: 700;
+}
+
+.honor-card {
+  min-height: 230px;
 }
 
 @media (max-width: 980px) {
@@ -475,7 +592,9 @@ textarea {
   }
 
   .grid--metrics,
-  .grid--two {
+  .grid--two,
+  .grid--three,
+  .endpoint-grid {
     grid-template-columns: 1fr;
   }
 
@@ -485,6 +604,11 @@ textarea {
 
   .topbar {
     padding: 20px;
+  }
+
+  .inline-form,
+  .table-row {
+    grid-template-columns: 1fr;
   }
 }
 

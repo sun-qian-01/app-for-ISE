@@ -15,9 +15,12 @@
       </a>
       <nav class="nav">
         <button class="nav__item is-active" data-target="overview">概览</button>
-        <button class="nav__item" data-target="approvals">审批处理</button>
-        <button class="nav__item" data-target="knowledge">知识库管理</button>
         <button class="nav__item" data-target="students">学生画像</button>
+        <button class="nav__item" data-target="knowledge">知识库</button>
+        <button class="nav__item" data-target="party">党团流程</button>
+        <button class="nav__item" data-target="notices">精准通知</button>
+        <button class="nav__item" data-target="approvals">审批处理</button>
+        <button class="nav__item" data-target="honors">荣誉展示</button>
         <button class="nav__item" data-target="logs">审计日志</button>
       </nav>
     </aside>
@@ -25,11 +28,12 @@
     <main class="content">
       <header class="topbar">
         <div>
-          <div class="eyebrow">管理端</div>
+          <div class="eyebrow">管理端 · department 数据范围</div>
           <h1>学生工作与党团事务管理台</h1>
         </div>
         <div class="topbar__actions">
-          <span class="pill pill--success">角色：辅导员 / 审批人</span>
+          <span class="pill pill--success">角色：管理老师</span>
+          <span class="pill">辅导员 / 审批人</span>
           <a class="button" href="./student.html">切换学生端</a>
         </div>
       </header>
@@ -38,23 +42,23 @@
         <div class="grid grid--metrics">
           <article class="metric-card">
             <span>学生总数</span>
-            <strong>1036</strong>
-            <small>含本科与研究生</small>
+            <strong>1200</strong>
+            <small>本科生与研究生</small>
           </article>
           <article class="metric-card">
             <span>待审批</span>
             <strong id="pendingApprovalCount">0</strong>
-            <small>证明与流程节点待处理</small>
+            <small>证明、盖章、党团节点</small>
           </article>
           <article class="metric-card">
             <span>今日推送</span>
-            <strong>6</strong>
-            <small>覆盖 328 名目标学生</small>
+            <strong id="todayPushCount">0</strong>
+            <small>站内、邮件、微信</small>
           </article>
           <article class="metric-card">
             <span>风险预警</span>
             <strong>12</strong>
-            <small>学业与材料缺失提醒</small>
+            <small>P2 扩展演示数据</small>
           </article>
         </div>
 
@@ -62,20 +66,122 @@
           <section class="panel">
             <div class="section-head">
               <h2>业务看板</h2>
+              <span class="pill">GET /dashboard/admin</span>
             </div>
             <div class="info-list">
-              <div><span>知识库条目</span><strong>86</strong></div>
-              <div><span>本周热门问题</span><strong>奖助学金评定</strong></div>
+              <div><span>知识库条目</span><strong>96</strong></div>
+              <div><span>政策附件</span><strong>34 个文件</strong></div>
               <div><span>党团流程进行中</span><strong>71 人</strong></div>
-              <div><span>证明申请处理中</span><strong>18 单</strong></div>
+              <div><span>通知平均已读率</span><strong>82%</strong></div>
             </div>
           </section>
 
           <section class="panel">
             <div class="section-head">
               <h2>待处理提醒</h2>
+              <span class="pill pill--warn">按优先级</span>
             </div>
             <div id="adminTodoList" class="stack"></div>
+          </section>
+        </div>
+      </section>
+
+      <section class="view" id="view-students">
+        <section class="panel">
+          <div class="section-head">
+            <h2>学生画像与数据范围</h2>
+            <div class="search-row">
+              <input id="studentSearch" class="input" type="search" placeholder="搜索姓名、学号、班级">
+              <select id="studentStatusFilter" class="input input--select">
+                <option value="all">全部状态</option>
+                <option value="active">在读</option>
+                <option value="graduating">毕业年级</option>
+                <option value="warning">重点关注</option>
+              </select>
+              <button class="button">导入 Excel</button>
+              <button class="button">导出统计</button>
+            </div>
+          </div>
+          <div id="studentTable" class="table-like"></div>
+        </section>
+      </section>
+
+      <section class="view" id="view-knowledge">
+        <div class="grid grid--two">
+          <section class="panel">
+            <div class="section-head">
+              <h2>知识库维护</h2>
+              <button class="button button--primary">新增条目</button>
+            </div>
+            <div id="knowledgeAdminList" class="stack"></div>
+          </section>
+
+          <section class="panel">
+            <div class="section-head">
+              <h2>模板与文件</h2>
+              <button class="button">上传政策文件</button>
+            </div>
+            <div id="templateAdminList" class="stack"></div>
+          </section>
+        </div>
+      </section>
+
+      <section class="view" id="view-party">
+        <div class="grid grid--two">
+          <section class="panel">
+            <div class="section-head">
+              <h2>流程节点审核</h2>
+              <span class="pill">POST /party/stage-records/review</span>
+            </div>
+            <div id="partyReviewList" class="stack"></div>
+          </section>
+
+          <section class="panel">
+            <div class="section-head">
+              <h2>班团骨干协同</h2>
+              <span class="pill">branch / class scope</span>
+            </div>
+            <div id="cadreTodoList" class="stack"></div>
+          </section>
+        </div>
+      </section>
+
+      <section class="view" id="view-notices">
+        <div class="grid grid--two">
+          <section class="panel">
+            <div class="section-head">
+              <h2>发布精准通知</h2>
+              <span class="pill">POST /notices</span>
+            </div>
+            <form id="noticeForm" class="form">
+              <label>
+                <span>标题</span>
+                <input name="title" class="input" type="text" placeholder="通知标题">
+              </label>
+              <label>
+                <span>目标对象</span>
+                <select name="scope" class="input input--select">
+                  <option value="2022级 奖学金关注">2022级 + 奖学金关注</option>
+                  <option value="党员发展对象">党员发展对象</option>
+                  <option value="毕业年级">毕业年级</option>
+                  <option value="软件工程2班">软件工程2班</option>
+                </select>
+              </label>
+              <label>
+                <span>渠道</span>
+                <input name="channels" class="input" type="text" value="站内, 邮件, 微信">
+              </label>
+              <button class="button button--primary" type="submit">模拟发布</button>
+            </form>
+            <p id="noticeFeedback" class="feedback" hidden></p>
+          </section>
+
+          <section class="panel">
+            <div class="section-head">
+              <h2>通知统计</h2>
+              <span class="pill">GET /notices/{id}/stats</span>
+            </div>
+            <div id="noticeStatsList" class="stack"></div>
           </section>
         </div>
       </section>
@@ -83,29 +189,20 @@
       <section class="view" id="view-approvals">
         <section class="panel">
           <div class="section-head">
-            <h2>审批处理</h2>
-            <span class="pill pill--warn">按优先级排序</span>
+            <h2>院内申请审批</h2>
+            <span class="pill pill--warn">状态流转只能由接口完成</span>
           </div>
           <div id="approvalList" class="stack"></div>
         </section>
       </section>
 
-      <section class="view" id="view-knowledge">
+      <section class="view" id="view-honors">
         <section class="panel">
           <div class="section-head">
-            <h2>知识库管理</h2>
-            <button class="button">新增条目</button>
+            <h2>奖励荣誉管理</h2>
+            <button class="button button--primary">新增荣誉</button>
           </div>
-          <div id="knowledgeAdminList" class="stack"></div>
-        </section>
-      </section>
-
-      <section class="view" id="view-students">
-        <section class="panel">
-          <div class="section-head">
-            <h2>学生画像与标签</h2>
-          </div>
-          <div id="studentSegmentList" class="stack"></div>
+          <div id="honorAdminList" class="grid grid--three"></div>
         </section>
       </section>
 
@@ -113,6 +210,16 @@
         <section class="panel">
           <div class="section-head">
             <h2>审计日志</h2>
+            <div class="search-row">
+              <select class="input input--select">
+                <option>全部模块</option>
+                <option>学生敏感字段</option>
+                <option>审批</option>
+                <option>知识库</option>
+                <option>通知</option>
+              </select>
+              <button class="button">导出日志</button>
+            </div>
           </div>
           <div id="auditLogList" class="stack"></div>
         </section>

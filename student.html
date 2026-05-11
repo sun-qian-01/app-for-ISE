@@ -15,21 +15,24 @@
       </a>
       <nav class="nav">
         <button class="nav__item is-active" data-target="home">首页</button>
-        <button class="nav__item" data-target="knowledge">常用模板</button>
-        <button class="nav__item" data-target="process">党团进度</button>
-        <button class="nav__item" data-target="notice">通知中心</button>
-        <button class="nav__item" data-target="certificate">证明申请</button>
+        <button class="nav__item" data-target="knowledge">智能问答</button>
+        <button class="nav__item" data-target="party">党团流程</button>
+        <button class="nav__item" data-target="notices">通知中心</button>
+        <button class="nav__item" data-target="applications">院内申请</button>
+        <button class="nav__item" data-target="profile">个人画像</button>
+        <button class="nav__item" data-target="honors">奖励荣誉</button>
       </nav>
     </aside>
 
     <main class="content">
       <header class="topbar">
         <div>
-          <div class="eyebrow">学生端</div>
+          <div class="eyebrow">学生端 · self 数据范围</div>
           <h1>你好，2022级 软件工程 赵晨曦</h1>
         </div>
         <div class="topbar__actions">
           <span class="pill pill--success">实名已绑定</span>
+          <span class="pill">普通学生</span>
           <a class="button" href="./admin.html">切换管理端</a>
         </div>
       </header>
@@ -39,39 +42,49 @@
           <article class="metric-card">
             <span>待办事项</span>
             <strong id="todoCount">0</strong>
-            <small>含审批进度与材料补交</small>
+            <small>材料、申请和通知催办</small>
           </article>
           <article class="metric-card">
             <span>未读通知</span>
             <strong id="unreadCount">0</strong>
-            <small>定向推送与公告提醒</small>
+            <small>站内消息与微信提醒</small>
           </article>
           <article class="metric-card">
-            <span>知识库命中</span>
-            <strong>128</strong>
-            <small>本周热门检索结果</small>
+            <span>当前阶段</span>
+            <strong class="metric-text">预备党员</strong>
+            <small>入党流程办理中</small>
+          </article>
+          <article class="metric-card">
+            <span>成长记录</span>
+            <strong id="growthCount">0</strong>
+            <small>竞赛、实践、志愿服务</small>
           </article>
         </div>
 
         <div class="grid grid--two">
           <section class="panel">
             <div class="section-head">
-              <h2>快捷入口</h2>
+              <h2>快捷办理</h2>
+              <span class="pill">dashboard/student</span>
             </div>
             <div class="shortcut-grid">
-              <button class="shortcut" data-jump="knowledge">奖助政策查询</button>
-              <button class="shortcut" data-jump="process">查看党团进度</button>
-              <button class="shortcut" data-jump="certificate">申请在读证明</button>
-              <button class="shortcut" data-jump="notice">查看定向通知</button>
+              <button class="shortcut" data-jump="knowledge">政策问答</button>
+              <button class="shortcut" data-jump="party">提交党团材料</button>
+              <button class="shortcut" data-jump="applications">申请在读证明</button>
+              <button class="shortcut" data-jump="notices">查看定向通知</button>
             </div>
           </section>
 
           <section class="panel">
             <div class="section-head">
-              <h2>当前进度</h2>
-              <span class="pill">预备党员阶段</span>
+              <h2>党团进度</h2>
+              <span class="pill pill--warn">本周需补交材料</span>
             </div>
             <div class="progress-mini" id="progressMini"></div>
+            <div class="callout compact-callout">
+              <strong>待办</strong>
+              <p>请于 2026-04-25 前补交《季度思想汇报》和《志愿服务记录表》。</p>
+            </div>
           </section>
         </div>
 
@@ -79,6 +92,7 @@
           <section class="panel">
             <div class="section-head">
               <h2>近期通知</h2>
+              <button class="button" data-jump="notices">全部通知</button>
             </div>
             <div id="noticePreview" class="stack"></div>
           </section>
@@ -86,79 +100,108 @@
           <section class="panel">
             <div class="section-head">
               <h2>我的画像</h2>
+              <button class="button" data-jump="profile">查看档案</button>
             </div>
-            <div class="tag-group">
-              <span class="tag">2022级</span>
-              <span class="tag">软件工程</span>
-              <span class="tag">党员发展对象</span>
-              <span class="tag">奖学金关注</span>
-              <span class="tag">就业意向</span>
-            </div>
-            <div class="info-list">
-              <div><span>班级</span><strong>软件工程 2 班</strong></div>
-              <div><span>辅导员</span><strong>李老师</strong></div>
-              <div><span>培养状态</span><strong>正常在读</strong></div>
-            </div>
+            <div id="studentTags" class="tag-group"></div>
+            <div class="info-list" id="profileSummary"></div>
           </section>
         </div>
       </section>
 
       <section class="view" id="view-knowledge">
-        <section class="panel">
-          <div class="section-head">
-            <h2>常用模板</h2>
-            <div class="search-row">
-              <input id="knowledgeSearch" class="input" type="search" placeholder="搜索奖学金、复学、党员发展、证明模板">
-              <select id="knowledgeCategory" class="input input--select">
-                <option value="all">全部分类</option>
-                <option value="奖助">奖助</option>
-                <option value="学籍">学籍</option>
-                <option value="党团">党团</option>
-                <option value="证明">证明</option>
-              </select>
+        <div class="grid grid--two">
+          <section class="panel">
+            <div class="section-head">
+              <h2>智能问答</h2>
+              <span class="pill">POST /kb/qa</span>
             </div>
-          </div>
-          <div id="knowledgeList" class="stack"></div>
-        </section>
+            <form id="qaForm" class="form">
+              <label>
+                <span>问题描述</span>
+                <textarea name="question" class="input textarea" rows="4" placeholder="例如：国家奖学金需要提交哪些材料？"></textarea>
+              </label>
+              <button class="button button--primary" type="submit">检索依据并生成回答</button>
+            </form>
+            <div id="qaResult" class="answer-box" hidden></div>
+          </section>
+
+          <section class="panel">
+            <div class="section-head">
+              <h2>政策与模板</h2>
+              <div class="search-row">
+                <input id="knowledgeSearch" class="input" type="search" placeholder="搜索奖学金、复学、证明模板">
+                <select id="knowledgeCategory" class="input input--select">
+                  <option value="all">全部分类</option>
+                  <option value="奖助">奖助</option>
+                  <option value="学籍">学籍</option>
+                  <option value="党团">党团</option>
+                  <option value="证明">证明</option>
+                  <option value="就业">就业</option>
+                </select>
+              </div>
+            </div>
+            <div id="knowledgeList" class="stack"></div>
+          </section>
+        </div>
       </section>
 
-      <section class="view" id="view-process">
-        <section class="panel">
-          <div class="section-head">
-            <h2>党团事务进度</h2>
-            <span class="pill pill--warn">当前节点：预备党员考察</span>
-          </div>
-          <div id="timeline" class="timeline timeline--flow"></div>
-          <div class="callout">
-            <strong>待补材料</strong>
-            <p>请于 4 月 25 日前补交《季度思想汇报》与《志愿服务记录表》。</p>
-          </div>
-        </section>
+      <section class="view" id="view-party">
+        <div class="grid grid--two">
+          <section class="panel">
+            <div class="section-head">
+              <h2>入党流程</h2>
+              <span class="pill">GET /party/instances/me</span>
+            </div>
+            <div id="timeline" class="timeline timeline--flow"></div>
+          </section>
+
+          <section class="panel">
+            <div class="section-head">
+              <h2>阶段材料</h2>
+              <span class="pill pill--warn">仅当前阶段可提交</span>
+            </div>
+            <div id="materialList" class="stack"></div>
+            <form id="materialForm" class="form inline-form">
+              <input name="materialName" class="input" type="text" placeholder="材料名称">
+              <input name="fileName" class="input" type="text" placeholder="模拟上传文件名">
+              <button class="button button--primary" type="submit">提交材料</button>
+            </form>
+          </section>
+        </div>
       </section>
 
-      <section class="view" id="view-notice">
+      <section class="view" id="view-notices">
         <section class="panel">
           <div class="section-head">
             <h2>通知中心</h2>
-            <button id="markAllRead" class="button">全部标记为已读</button>
+            <div class="search-row">
+              <select id="noticeFilter" class="input input--select">
+                <option value="all">全部通知</option>
+                <option value="unread">未读</option>
+                <option value="read">已读</option>
+              </select>
+              <button id="markAllRead" class="button">全部标记已读</button>
+            </div>
           </div>
           <div id="noticeList" class="stack"></div>
         </section>
       </section>
 
-      <section class="view" id="view-certificate">
+      <section class="view" id="view-applications">
         <div class="grid grid--two">
           <section class="panel">
             <div class="section-head">
-              <h2>发起证明申请</h2>
+              <h2>发起院内申请</h2>
+              <span class="pill">POST /applications</span>
             </div>
-            <form id="certificateForm" class="form">
+            <form id="applicationForm" class="form">
               <label>
-                <span>证明类型</span>
-                <select name="type" class="input input--select">
+                <span>申请类型</span>
+                <select name="applicationType" class="input input--select">
                   <option value="在读证明">在读证明</option>
                   <option value="成绩证明">成绩证明</option>
-                  <option value="党员材料证明">党员材料证明</option>
+                  <option value="盖章申请">盖章申请</option>
+                  <option value="请假申请">请假申请</option>
                 </select>
               </label>
               <label>
@@ -167,20 +210,50 @@
               </label>
               <label>
                 <span>补充说明</span>
-                <textarea name="remark" class="input textarea" rows="4" placeholder="填写具体用途或收件要求"></textarea>
+                <textarea name="remark" class="input textarea" rows="4" placeholder="填写具体用途、收件单位或请假时间"></textarea>
               </label>
               <button type="submit" class="button button--primary">提交申请</button>
             </form>
-            <p id="certificateFeedback" class="feedback" hidden></p>
+            <p id="applicationFeedback" class="feedback" hidden></p>
           </section>
 
           <section class="panel">
             <div class="section-head">
               <h2>我的申请记录</h2>
+              <span class="pill">GET /applications/my</span>
             </div>
-            <div id="certificateList" class="stack"></div>
+            <div id="applicationList" class="stack"></div>
           </section>
         </div>
+      </section>
+
+      <section class="view" id="view-profile">
+        <div class="grid grid--two">
+          <section class="panel">
+            <div class="section-head">
+              <h2>基础档案</h2>
+              <span class="pill pill--success">敏感字段脱敏</span>
+            </div>
+            <div id="profileDetail" class="info-list"></div>
+          </section>
+          <section class="panel">
+            <div class="section-head">
+              <h2>成长记录</h2>
+              <span class="pill">GET /growth-records</span>
+            </div>
+            <div id="growthList" class="stack"></div>
+          </section>
+        </div>
+      </section>
+
+      <section class="view" id="view-honors">
+        <section class="panel">
+          <div class="section-head">
+            <h2>奖励荣誉展示</h2>
+            <span class="pill">GET /honors/public</span>
+          </div>
+          <div id="honorList" class="grid grid--three"></div>
+        </section>
       </section>
     </main>
   </div>
