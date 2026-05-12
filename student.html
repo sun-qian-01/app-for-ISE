@@ -33,9 +33,31 @@
         <div class="topbar__actions">
           <span class="pill pill--success">实名已绑定</span>
           <span class="pill">普通学生</span>
+          <a class="button" href="./login.html">返回登录页</a>
           <a class="button" href="./admin.html">切换管理端</a>
         </div>
       </header>
+
+      <section class="panel panel--banner">
+        <div class="section-head">
+          <h2>当前访问上下文</h2>
+          <span class="pill">GET /api/v1/auth/me</span>
+        </div>
+        <div class="scope-grid">
+          <div class="scope-card">
+            <span>角色代码</span>
+            <strong id="studentRoleCode">student</strong>
+          </div>
+          <div class="scope-card">
+            <span>数据范围</span>
+            <strong>self</strong>
+          </div>
+          <div class="scope-card">
+            <span>当前首页接口</span>
+            <strong>/dashboard/student</strong>
+          </div>
+        </div>
+      </section>
 
       <section class="view is-visible" id="view-home">
         <div class="grid grid--metrics">
@@ -123,6 +145,7 @@
               <button class="button button--primary" type="submit">检索依据并生成回答</button>
             </form>
             <div id="qaResult" class="answer-box" hidden></div>
+            <p class="subtle-note">没有可靠来源时，回答应明确提示“未检索到可靠依据”。</p>
           </section>
 
           <section class="panel">
@@ -235,6 +258,10 @@
               <span class="pill pill--success">敏感字段脱敏</span>
             </div>
             <div id="profileDetail" class="info-list"></div>
+            <div class="callout compact-callout">
+              <strong>权限说明</strong>
+              <p>普通学生仅可查看本人档案，联系方式等字段按脱敏规则展示。</p>
+            </div>
           </section>
           <section class="panel">
             <div class="section-head">

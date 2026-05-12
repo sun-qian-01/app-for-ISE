@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>登录 - 学院学生综合服务与党团管理平台</title>
+  <link rel="stylesheet" href="./styles.css">
+</head>
+<body data-page="login">
+  <div class="shell shell--centered">
+    <div class="auth-layout">
+      <section class="hero hero--compact">
+        <div class="hero__badge">/auth/login · /auth/me</div>
+        <h1>学院学生综合服务与党团管理平台</h1>
+        <p class="hero__text">
+          当前为前后端联调原型登录页。正式开发阶段将通过 token、当前用户信息和权限码恢复页面状态。
+        </p>
+        <div class="tag-group">
+          <span class="tag">student</span>
+          <span class="tag">class_cadre</span>
+          <span class="tag">teacher_admin</span>
+          <span class="tag">college_leader</span>
+        </div>
+      </section>
+
+      <section class="panel auth-panel">
+        <div class="section-head">
+          <h2>账号登录</h2>
+          <span class="pill">POST /api/v1/auth/login</span>
+        </div>
+        <form id="loginForm" class="form">
+          <label>
+            <span>用户名</span>
+            <input name="username" class="input" type="text" placeholder="学号或工号">
+          </label>
+          <label>
+            <span>密码</span>
+            <input name="password" class="input" type="password" placeholder="请输入密码">
+          </label>
+          <label>
+            <span>模拟角色</span>
+            <select name="roleCode" class="input input--select">
+              <option value="student">普通学生</option>
+              <option value="class_cadre">班团骨干</option>
+              <option value="teacher_admin">管理老师</option>
+              <option value="college_leader">学院领导</option>
+            </select>
+          </label>
+          <button type="submit" class="button button--primary">登录并进入工作台</button>
+        </form>
+        <p id="loginFeedback" class="feedback" hidden></p>
+      </section>
+    </div>
+  </div>
+
+  <script src="./scripts/app.js"></script>
+</body>
+</html>

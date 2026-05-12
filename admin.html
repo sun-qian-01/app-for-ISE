@@ -22,6 +22,7 @@
         <button class="nav__item" data-target="approvals">审批处理</button>
         <button class="nav__item" data-target="honors">荣誉展示</button>
         <button class="nav__item" data-target="logs">审计日志</button>
+        <button class="nav__item" data-target="system-logs">系统日志</button>
       </nav>
     </aside>
 
@@ -34,9 +35,31 @@
         <div class="topbar__actions">
           <span class="pill pill--success">角色：管理老师</span>
           <span class="pill">辅导员 / 审批人</span>
+          <a class="button" href="./login.html">返回登录页</a>
           <a class="button" href="./student.html">切换学生端</a>
         </div>
       </header>
+
+      <section class="panel panel--banner">
+        <div class="section-head">
+          <h2>当前访问上下文</h2>
+          <span class="pill">GET /api/v1/auth/me</span>
+        </div>
+        <div class="scope-grid">
+          <div class="scope-card">
+            <span>角色代码</span>
+            <strong>teacher_admin</strong>
+          </div>
+          <div class="scope-card">
+            <span>默认数据范围</span>
+            <strong>department</strong>
+          </div>
+          <div class="scope-card">
+            <span>当前首页接口</span>
+            <strong>/dashboard/admin</strong>
+          </div>
+        </div>
+      </section>
 
       <section class="view is-visible" id="view-overview">
         <div class="grid grid--metrics">
@@ -101,6 +124,10 @@
               <button class="button">导入 Excel</button>
               <button class="button">导出统计</button>
             </div>
+          </div>
+          <div class="callout compact-callout">
+            <strong>敏感字段查看约束</strong>
+            <p>查看完整联系方式等敏感字段时，前端应显式触发操作，并提示“本次访问已记录”。</p>
           </div>
           <div id="studentTable" class="table-like"></div>
         </section>
@@ -222,6 +249,24 @@
             </div>
           </div>
           <div id="auditLogList" class="stack"></div>
+        </section>
+      </section>
+
+      <section class="view" id="view-system-logs">
+        <section class="panel">
+          <div class="section-head">
+            <h2>系统日志</h2>
+            <div class="search-row">
+              <select id="systemLogLevelFilter" class="input input--select">
+                <option value="all">全部级别</option>
+                <option value="error">错误</option>
+                <option value="warn">警告</option>
+                <option value="info">信息</option>
+              </select>
+              <button class="button">复制 requestId</button>
+            </div>
+          </div>
+          <div id="systemLogList" class="stack"></div>
         </section>
       </section>
     </main>

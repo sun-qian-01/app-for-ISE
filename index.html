@@ -16,6 +16,7 @@
         当前前端原型按接口文档设计页面边界，后续可直接替换为真实 `/api/v1` 数据。
       </p>
       <div class="hero__actions">
+        <a class="button" href="./login.html">进入登录页</a>
         <a class="button button--primary" href="./student.html">进入学生端</a>
         <a class="button" href="./admin.html">进入管理端</a>
       </div>
@@ -100,6 +101,23 @@
           <span>/applications</span>
           <span>/honors/public</span>
           <span>/audit-logs</span>
+        </div>
+      </section>
+
+      <section class="panel">
+        <div class="section-head">
+          <h2>正式开发提醒</h2>
+          <span class="pill">frontend-spec.md</span>
+        </div>
+        <div class="grid grid--two">
+          <article class="card">
+            <h3>当前原型用途</h3>
+            <p>用于验证页面信息架构、权限入口、状态命名和接口边界，不直接作为正式业务代码。</p>
+          </article>
+          <article class="card">
+            <h3>下一步接入方式</h3>
+            <p>建议用 Vue 3 或 React 重建工程，保留现有视觉风格，并将 `scripts/app.js` 中的模拟数据替换为真实 API 调用。</p>
+          </article>
         </div>
       </section>
     </main>

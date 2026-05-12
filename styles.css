@@ -57,6 +57,11 @@ textarea {
   padding: 48px 24px 72px;
 }
 
+.shell--centered {
+  display: grid;
+  place-items: center;
+}
+
 .hero,
 .panel,
 .sidebar,
@@ -75,6 +80,10 @@ textarea {
   box-shadow: var(--shadow);
 }
 
+.hero--compact {
+  margin-bottom: 0;
+}
+
 .hero h1,
 .topbar h1,
 .panel h2,
@@ -87,6 +96,10 @@ textarea {
   margin-top: 12px;
   font-size: clamp(2rem, 4vw, 3.6rem);
   line-height: 1.05;
+}
+
+.hero--compact h1 {
+  font-size: clamp(1.8rem, 3vw, 3rem);
 }
 
 .hero__text {
@@ -134,6 +147,13 @@ textarea {
 .layout {
   display: grid;
   gap: 24px;
+}
+
+.auth-layout {
+  display: grid;
+  grid-template-columns: 1.15fr 0.85fr;
+  gap: 24px;
+  width: min(1120px, 100%);
 }
 
 .app-shell {
@@ -260,6 +280,10 @@ textarea {
   padding: 24px;
 }
 
+.panel--banner {
+  margin-bottom: 20px;
+}
+
 .card {
   padding: 24px;
 }
@@ -286,6 +310,10 @@ textarea {
 .metric-card .metric-text {
   font-size: 1.35rem;
   line-height: 1.3;
+}
+
+.auth-panel {
+  align-self: center;
 }
 
 .button,
@@ -359,11 +387,31 @@ textarea {
 .notice-card,
 .knowledge-item,
 .record,
-.log-item {
+.log-item,
+.scope-card {
   padding: 16px 18px;
   border: 1px solid var(--border);
   border-radius: 14px;
   background: var(--surface-strong);
+}
+
+.scope-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.scope-card span {
+  display: block;
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+
+.scope-card strong {
+  display: block;
+  margin-top: 8px;
+  font-size: 1.05rem;
+  color: var(--primary-dark);
 }
 
 .notice-card.is-unread {
@@ -408,6 +456,12 @@ textarea {
   margin-top: 10px;
   color: var(--muted);
   font-size: 0.9rem;
+}
+
+.subtle-note {
+  margin: 12px 0 0;
+  color: var(--muted);
+  font-size: 0.92rem;
 }
 
 .tag-group {
@@ -579,6 +633,14 @@ textarea {
   min-height: 230px;
 }
 
+.log-detail {
+  margin-top: 10px;
+  padding-top: 10px;
+  border-top: 1px dashed rgba(96, 72, 45, 0.12);
+  color: var(--muted);
+  font-size: 0.92rem;
+}
+
 @media (max-width: 980px) {
   .app-shell {
     grid-template-columns: 1fr;
@@ -594,7 +656,9 @@ textarea {
   .grid--metrics,
   .grid--two,
   .grid--three,
-  .endpoint-grid {
+  .endpoint-grid,
+  .auth-layout,
+  .scope-grid {
     grid-template-columns: 1fr;
   }
 
