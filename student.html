@@ -21,6 +21,7 @@
         <button class="nav__item" data-target="applications">院内申请</button>
         <button class="nav__item" data-target="profile">个人画像</button>
         <button class="nav__item" data-target="honors">奖励荣誉</button>
+        <button id="cadreNav" class="nav__item is-hidden" data-target="cadre">班团协同</button>
       </nav>
     </aside>
 
@@ -32,7 +33,7 @@
         </div>
         <div class="topbar__actions">
           <span class="pill pill--success">实名已绑定</span>
-          <span class="pill">普通学生</span>
+          <span id="studentRoleLabel" class="pill">普通学生</span>
           <a class="button" href="./login.html">返回登录页</a>
           <a class="button" href="./admin.html">切换管理端</a>
         </div>
@@ -155,11 +156,11 @@
                 <input id="knowledgeSearch" class="input" type="search" placeholder="搜索奖学金、复学、证明模板">
                 <select id="knowledgeCategory" class="input input--select">
                   <option value="all">全部分类</option>
-                  <option value="奖助">奖助</option>
-                  <option value="学籍">学籍</option>
-                  <option value="党团">党团</option>
-                  <option value="证明">证明</option>
-                  <option value="就业">就业</option>
+                  <option value="scholarship">奖助</option>
+                  <option value="student_status">学籍</option>
+                  <option value="party_league">党团</option>
+                  <option value="certificate">证明</option>
+                  <option value="employment">就业</option>
                 </select>
               </div>
             </div>
@@ -184,9 +185,19 @@
               <span class="pill pill--warn">仅当前阶段可提交</span>
             </div>
             <div id="materialList" class="stack"></div>
+            <div class="file-uploader" data-file-uploader data-biz-type="party_material">
+              <div>
+                <strong>统一文件上传</strong>
+                <p>先模拟调用 POST /files/upload 获取 fileId，再提交党团材料。</p>
+              </div>
+              <input class="input" data-file-name type="text" placeholder="选择 PDF / Word / Excel 文件名">
+              <button class="button" data-upload-trigger type="button">模拟上传</button>
+              <div class="upload-progress"><span data-upload-progress></span></div>
+              <p class="feedback" data-upload-result hidden></p>
+            </div>
             <form id="materialForm" class="form inline-form">
               <input name="materialName" class="input" type="text" placeholder="材料名称">
-              <input name="fileName" class="input" type="text" placeholder="模拟上传文件名">
+              <input name="fileId" class="input" type="text" placeholder="上传后的 fileId">
               <button class="button button--primary" type="submit">提交材料</button>
             </form>
           </section>
@@ -219,14 +230,11 @@
             </div>
             <form id="applicationForm" class="form">
               <label>
-                <span>申请类型</span>
-                <select name="applicationType" class="input input--select">
-                  <option value="在读证明">在读证明</option>
-                  <option value="成绩证明">成绩证明</option>
-                  <option value="盖章申请">盖章申请</option>
-                  <option value="请假申请">请假申请</option>
+                <span>证明模板</span>
+                <select id="applicationTemplate" name="templateId" class="input input--select">
                 </select>
               </label>
+              <div id="applicationDynamicFields" class="dynamic-fields"></div>
               <label>
                 <span>用途说明</span>
                 <input name="purpose" class="input" type="text" placeholder="如：实习单位提交材料">
@@ -235,6 +243,16 @@
                 <span>补充说明</span>
                 <textarea name="remark" class="input textarea" rows="4" placeholder="填写具体用途、收件单位或请假时间"></textarea>
               </label>
+              <div class="file-uploader" data-file-uploader data-biz-type="application_attachment">
+                <div>
+                  <strong>附件上传</strong>
+                  <p>业务接口只保存 fileId，失败时保留 requestId。</p>
+                </div>
+                <input class="input" data-file-name type="text" placeholder="选择附件文件名">
+                <button class="button" data-upload-trigger type="button">模拟上传</button>
+                <div class="upload-progress"><span data-upload-progress></span></div>
+                <p class="feedback" data-upload-result hidden></p>
+              </div>
               <button type="submit" class="button button--primary">提交申请</button>
             </form>
             <p id="applicationFeedback" class="feedback" hidden></p>
@@ -243,9 +261,24 @@
           <section class="panel">
             <div class="section-head">
               <h2>我的申请记录</h2>
-              <span class="pill">GET /applications/my</span>
+              <div class="search-row">
+                <select id="applicationTypeFilter" class="input input--select">
+                  <option value="all">全部类型</option>
+                  <option value="certificate">证明</option>
+                  <option value="seal">盖章</option>
+                  <option value="leave">请假</option>
+                </select>
+                <select id="applicationStatusFilter" class="input input--select">
+                  <option value="all">全部状态</option>
+                  <option value="reviewing">审核中</option>
+                  <option value="approved">已通过</option>
+                  <option value="rejected">已退回</option>
+                  <option value="revoked">已撤回</option>
+                </select>
+              </div>
             </div>
             <div id="applicationList" class="stack"></div>
+            <div id="applicationDetail" class="detail-pane" hidden></div>
           </section>
         </div>
       </section>
@@ -277,10 +310,51 @@
         <section class="panel">
           <div class="section-head">
             <h2>奖励荣誉展示</h2>
-            <span class="pill">GET /honors/public</span>
+            <div class="search-row">
+              <select id="honorYearFilter" class="input input--select">
+                <option value="all">全部年份</option>
+                <option value="2026">2026</option>
+                <option value="2025">2025</option>
+              </select>
+              <select id="honorCategoryFilter" class="input input--select">
+                <option value="all">全部类别</option>
+                <option value="scholarship">奖学金</option>
+                <option value="advanced_collective">先进集体</option>
+                <option value="party_league_honor">党团荣誉</option>
+              </select>
+              <select id="honorOwnerTypeFilter" class="input input--select">
+                <option value="all">个人/集体</option>
+                <option value="student">个人</option>
+                <option value="class">集体</option>
+              </select>
+            </div>
           </div>
           <div id="honorList" class="grid grid--three"></div>
+          <div id="honorDetail" class="detail-pane" hidden></div>
         </section>
+      </section>
+
+      <section class="view" id="view-cadre">
+        <div class="grid grid--two">
+          <section class="panel">
+            <div class="section-head">
+              <h2>授权范围</h2>
+              <span class="pill">GET /party/todos</span>
+            </div>
+            <div id="cadreScopeList" class="stack"></div>
+            <div class="callout compact-callout">
+              <strong>权限边界</strong>
+              <p>班团骨干只具备查看与催办权限，不展示审批按钮。</p>
+            </div>
+          </section>
+          <section class="panel">
+            <div class="section-head">
+              <h2>成员进展与催办</h2>
+              <span class="pill">party:todo:remind</span>
+            </div>
+            <div id="cadreTodoStudentList" class="stack"></div>
+          </section>
+        </div>
       </section>
     </main>
   </div>

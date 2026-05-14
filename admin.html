@@ -115,14 +115,32 @@
             <h2>学生画像与数据范围</h2>
             <div class="search-row">
               <input id="studentSearch" class="input" type="search" placeholder="搜索姓名、学号、班级">
+              <select id="studentGradeFilter" class="input input--select">
+                <option value="all">全部年级</option>
+                <option value="2022">2022级</option>
+                <option value="2023">2023级</option>
+                <option value="2026">2026级</option>
+              </select>
+              <select id="studentMajorFilter" class="input input--select">
+                <option value="all">全部专业</option>
+                <option value="软件工程">软件工程</option>
+                <option value="数据科学">数据科学</option>
+              </select>
+              <select id="studentPoliticalFilter" class="input input--select">
+                <option value="all">全部政治面貌</option>
+                <option value="party_member">党员</option>
+                <option value="probationary_party_member">预备党员</option>
+                <option value="development_candidate">发展对象</option>
+                <option value="league_member">共青团员</option>
+              </select>
               <select id="studentStatusFilter" class="input input--select">
                 <option value="all">全部状态</option>
                 <option value="active">在读</option>
                 <option value="graduating">毕业年级</option>
                 <option value="warning">重点关注</option>
               </select>
-              <button class="button">导入 Excel</button>
-              <button class="button">导出统计</button>
+              <button id="studentImportButton" class="button">导入 Excel</button>
+              <button id="studentExportButton" class="button">导出统计</button>
             </div>
           </div>
           <div class="callout compact-callout">
@@ -130,6 +148,9 @@
             <p>查看完整联系方式等敏感字段时，前端应显式触发操作，并提示“本次访问已记录”。</p>
           </div>
           <div id="studentTable" class="table-like"></div>
+          <div id="studentPager" class="pager"></div>
+          <div id="studentDetailPanel" class="detail-pane" hidden></div>
+          <div id="studentImportPanel" class="detail-pane" hidden></div>
         </section>
       </section>
 
@@ -147,6 +168,16 @@
             <div class="section-head">
               <h2>模板与文件</h2>
               <button class="button">上传政策文件</button>
+            </div>
+            <div class="file-uploader" data-file-uploader data-biz-type="policy_file">
+              <div>
+                <strong>文件接口模型</strong>
+                <p>支持 PDF、Word、Excel，上传成功后返回 fileId、fileName、fileUrl、fileSize。</p>
+              </div>
+              <input class="input" data-file-name type="text" placeholder="政策文件或模板文件名">
+              <button class="button" data-upload-trigger type="button">模拟上传</button>
+              <div class="upload-progress"><span data-upload-progress></span></div>
+              <p class="feedback" data-upload-result hidden></p>
             </div>
             <div id="templateAdminList" class="stack"></div>
           </section>
@@ -217,9 +248,25 @@
         <section class="panel">
           <div class="section-head">
             <h2>院内申请审批</h2>
-            <span class="pill pill--warn">状态流转只能由接口完成</span>
+            <div class="search-row">
+              <select id="approvalTypeFilter" class="input input--select">
+                <option value="all">全部类型</option>
+                <option value="certificate">证明</option>
+                <option value="seal">盖章</option>
+                <option value="party_material">党团材料</option>
+              </select>
+              <select id="approvalStatusFilter" class="input input--select">
+                <option value="all">全部状态</option>
+                <option value="reviewing">待审核</option>
+                <option value="rejected">已退回</option>
+              </select>
+              <select id="approvalTemplateFilter" class="input input--select">
+                <option value="all">全部模板</option>
+              </select>
+            </div>
           </div>
           <div id="approvalList" class="stack"></div>
+          <div id="approvalDetailPanel" class="detail-pane" hidden></div>
         </section>
       </section>
 
@@ -229,7 +276,31 @@
             <h2>奖励荣誉管理</h2>
             <button class="button button--primary">新增荣誉</button>
           </div>
+          <div class="search-row filter-bar">
+            <select id="honorAdminYearFilter" class="input input--select">
+              <option value="all">全部年份</option>
+              <option value="2026">2026</option>
+              <option value="2025">2025</option>
+            </select>
+            <select id="honorAdminStatusFilter" class="input input--select">
+              <option value="all">全部公开状态</option>
+              <option value="published">已发布</option>
+              <option value="draft">草稿</option>
+              <option value="offline">已下线</option>
+            </select>
+          </div>
+          <div class="file-uploader" data-file-uploader data-biz-type="honor_cover">
+            <div>
+              <strong>荣誉图片上传</strong>
+              <p>上传图片后保存 coverFileId，用于公开展示图。</p>
+            </div>
+            <input class="input" data-file-name type="text" placeholder="荣誉图片文件名">
+            <button class="button" data-upload-trigger type="button">模拟上传</button>
+            <div class="upload-progress"><span data-upload-progress></span></div>
+            <p class="feedback" data-upload-result hidden></p>
+          </div>
           <div id="honorAdminList" class="grid grid--three"></div>
+          <div id="honorAdminEditor" class="detail-pane" hidden></div>
         </section>
       </section>
 
