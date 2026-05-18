@@ -168,3 +168,37 @@ P2 功能依赖数据完整性和业务规则稳定性，不作为一期主线�
 前后端开发请以 `docs/architecture.md` 作为总体架构边界，以 `docs/api.md` 作为接口联调契约，以 `database/schema.sql` 和 `docs/database.md` 作为数据库设计依据，并参考 `docs/frontend-spec.md`、`docs/role-permission.md`、`docs/dictionary.md` 完成页面路由、权限控制、枚举状态和交互细节实现。
 
 开发过程中请重点保证登录鉴权、角色权限、数据范围隔离、敏感字段脱敏、审计日志、系统异常日志、文件上传下载、党团流程留痕、通知精准推送和院内申请审批状态流转的一致性。前端不得绕过接口直接假定权限或状态，后端需对所有接口做权限校验、归属校验和日志记录。
+
+## 12. 后端开发启动说明（MVP）
+
+仓库已新增后端工程骨架（Spring Boot, Java 17, Maven）：
+
+- `pom.xml`
+- `src/main/java/com/ise/platform/**`
+- `src/test/java/com/ise/platform/**`
+
+本地运行：
+
+```bash
+mvn spring-boot:run
+```
+
+测试运行：
+
+```bash
+mvn test
+```
+
+默认地址：
+
+- `http://localhost:8080`
+- API 前缀：`/api/v1`
+
+当前已实现首批可联调接口（内存版实现，后续可替换数据库）：
+
+- 认证：`POST /api/v1/auth/login`、`GET /api/v1/auth/me`、`POST /api/v1/auth/logout`
+- 首页：`GET /api/v1/dashboard/student`、`GET /api/v1/dashboard/admin`、`GET /api/v1/dashboard/leader`
+- 通知：`GET /api/v1/notices/my`、`POST /api/v1/notices/{noticeId}/read`、`POST /api/v1/notices/read-all`
+- 党团：`GET /api/v1/party/instances/me`、`POST /api/v1/party/stage-records/{stageRecordId}/materials`
+- 知识库：`GET /api/v1/kb/articles`、`POST /api/v1/kb/qa`
+- 申请：`GET /api/v1/applications/my`、`POST /api/v1/applications`
