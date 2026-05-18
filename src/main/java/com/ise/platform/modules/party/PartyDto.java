@@ -153,4 +153,58 @@ public final class PartyDto {
             return submittedAt;
         }
     }
+
+    public static class FlowDefinitionView {
+        private Long flowId;
+        private String flowCode;
+        private String flowName;
+        private List<StageDefinitionView> stages;
+
+        public FlowDefinitionView(Long flowId, String flowCode, String flowName, List<StageDefinitionView> stages) {
+            this.flowId = flowId;
+            this.flowCode = flowCode;
+            this.flowName = flowName;
+            this.stages = stages;
+        }
+
+        public Long getFlowId() {
+            return flowId;
+        }
+
+        public String getFlowCode() {
+            return flowCode;
+        }
+
+        public String getFlowName() {
+            return flowName;
+        }
+
+        public List<StageDefinitionView> getStages() {
+            return stages;
+        }
+    }
+
+    public static class StageDefinitionView {
+        private String stageCode;
+        private String stageName;
+        private int stageOrder;
+
+        public StageDefinitionView(String stageCode, String stageName, int stageOrder) {
+            this.stageCode = stageCode;
+            this.stageName = stageName;
+            this.stageOrder = stageOrder;
+        }
+
+        public String getStageCode() {
+            return stageCode;
+        }
+
+        public String getStageName() {
+            return stageName;
+        }
+
+        public int getStageOrder() {
+            return stageOrder;
+        }
+    }
 }

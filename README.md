@@ -180,13 +180,15 @@ P2 功能依赖数据完整性和业务规则稳定性，不作为一期主线�
 本地运行：
 
 ```bash
-mvn spring-boot:run
+. "$HOME/.local/bin/java-maven-env.sh"
+mvn -Dmaven.repo.local=/tmp/.m2/repository spring-boot:run
 ```
 
 测试运行：
 
 ```bash
-mvn test
+. "$HOME/.local/bin/java-maven-env.sh"
+mvn -Dmaven.repo.local=/tmp/.m2/repository test -q
 ```
 
 默认地址：
@@ -194,11 +196,58 @@ mvn test
 - `http://localhost:8080`
 - API 前缀：`/api/v1`
 
-当前已实现首批可联调接口（内存版实现，后续可替换数据库）：
+当前已实现首批可联调接口。开发阶段先不使用人大金仓，默认使用 H2 本地数据库；其中“院内申请与审批”模块已接入 JDBC + H2 持久化，其他模块仍是内存演示实现，后续逐步替换数据库：
 
 - 认证：`POST /api/v1/auth/login`、`GET /api/v1/auth/me`、`POST /api/v1/auth/logout`
 - 首页：`GET /api/v1/dashboard/student`、`GET /api/v1/dashboard/admin`、`GET /api/v1/dashboard/leader`
+- 文件：`POST /api/v1/files/upload`、`GET /api/v1/files/{fileId}/download`
 - 通知：`GET /api/v1/notices/my`、`POST /api/v1/notices/{noticeId}/read`、`POST /api/v1/notices/read-all`
-- 党团：`GET /api/v1/party/instances/me`、`POST /api/v1/party/stage-records/{stageRecordId}/materials`
+- 党团：`GET /api/v1/party/flows`、`GET /api/v1/party/instances/me`、`POST /api/v1/party/stage-records/{stageRecordId}/materials`
 - 知识库：`GET /api/v1/kb/articles`、`POST /api/v1/kb/qa`
-- 申请：`GET /api/v1/applications/my`、`POST /api/v1/applications`
+- 申请：`GET /api/v1/applications/my`、`POST /api/v1/applications`、`GET /api/v1/applications/{applicationId}`、`POST /api/v1/applications/{applicationId}/revoke`、`GET /api/v1/applications/approvals/pending`、`POST /api/v1/applications/{applicationId}/approve`、`POST /api/v1/applications/{applicationId}/reject`
+- 学生画像：`GET /api/v1/students/me/profile`、`GET /api/v1/students`、`GET /api/v1/students/{studentId}`、`PUT /api/v1/students/{studentId}`、`GET /api/v1/students/{studentId}/growth-records`、`POST /api/v1/students/{studentId}/growth-records`、`PUT /api/v1/students/{studentId}/tags`、`POST /api/v1/students/import-tasks`、`GET /api/v1/students/import-tasks/{taskNo}`
+- 字典：`GET /api/v1/dicts`
+
+## 13. 后端协作文档
+
+为保证多人协作时环境一致与信息留存，新增以下文档：
+
+- `docs/backend-environment.md`：当前开发环境信息与运行前提
+- `docs/backend-change-log.md`：后端迭代改动记录
+- `docs/api-mvp-alignment.md`：当前可联调 API 与差异说明
+
+建议每次新增功能后同步更新变更记录，避免“代码变了但文档没变”。
+
+## 14. 当前本地数据库说明
+
+当前开发默认使用 H2，配置位于 `src/main/resources/application.yml`：
+
+- 开发库：`./data/app-for-ise-dev.mv.db`
+- 建表脚本：`src/main/resources/db/schema-h2.sql`
+- 演示数据：`src/main/resources/db/data-h2.sql`
+- 测试库：H2 内存库，配置位于 `src/test/resources/application.yml`
+
+重置本地开发库：
+
+```bash
+rm -rf data/
+```
+
+说明：H2 仅用于本地开发和测试。正式接入 Kingbase 时，应保留 `/api/v1` API 契约和业务状态机语义，替换数据源配置并引入正式数据库迁移脚本。
+
+如需在本机加载用户级 Java/Maven 环境，可执行：
+
+```bash
+. "$HOME/.local/bin/java-maven-env.sh"
+```
+
+快速前端交互测试页面（后端内置）：
+
+- `http://localhost:8080/interaction-test.html`
+
+交互页当前支持：
+
+- 登录与 token 管理
+- 党团流程定义、实例、材料提交流程
+- 申请创建、详情、撤回、待审批、审批通过/驳回
+- 学生写接口（成长记录新增、标签更新、导入任务查询）

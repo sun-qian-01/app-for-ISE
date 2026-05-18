@@ -88,8 +88,30 @@ public class AuthService {
             user.getUserType(),
             user.getRoles(),
             user.getPermissions(),
+            buildMenus(user.getRoles()),
             user.getDataScopes(),
             summary
+        );
+    }
+
+    private List<AuthDto.MenuView> buildMenus(List<String> roles) {
+        if (roles.contains("teacher_admin")) {
+            return List.of(
+                new AuthDto.MenuView("admin_dashboard", "管理首页", "/admin/dashboard"),
+                new AuthDto.MenuView("admin_students", "学生画像", "/admin/students"),
+                new AuthDto.MenuView("admin_notices", "精准通知", "/admin/notices"),
+                new AuthDto.MenuView("admin_applications", "审批处理", "/admin/applications")
+            );
+        }
+        if (roles.contains("college_leader")) {
+            return List.of(
+                new AuthDto.MenuView("leader_dashboard", "领导看板", "/leader/dashboard")
+            );
+        }
+        return List.of(
+            new AuthDto.MenuView("student_dashboard", "学生首页", "/student/dashboard"),
+            new AuthDto.MenuView("student_notices", "通知中心", "/student/notices"),
+            new AuthDto.MenuView("student_profile", "个人画像", "/student/profile")
         );
     }
 

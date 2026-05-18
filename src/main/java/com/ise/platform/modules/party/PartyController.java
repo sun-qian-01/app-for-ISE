@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/api/v1/party")
 public class PartyController {
@@ -19,6 +21,12 @@ public class PartyController {
 
     public PartyController(PartyService partyService) {
         this.partyService = partyService;
+    }
+
+    @GetMapping("/flows")
+    public ApiResponse<List<PartyDto.FlowDefinitionView>> flows() {
+        AuthContext.requireUser();
+        return ApiResponse.success(partyService.flows());
     }
 
     @GetMapping("/instances/me")

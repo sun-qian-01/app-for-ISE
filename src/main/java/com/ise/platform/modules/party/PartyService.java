@@ -21,8 +21,24 @@ public class PartyService {
     private final AtomicLong materialIdGenerator = new AtomicLong(5000);
 
     private final Map<Long, PartyInstanceState> instanceByStudentId = new HashMap<>();
+    private final List<PartyDto.FlowDefinitionView> flowDefinitions;
 
     public PartyService() {
+        this.flowDefinitions = List.of(
+            new PartyDto.FlowDefinitionView(
+                1L,
+                "party_join",
+                "入党流程",
+                List.of(
+                    new PartyDto.StageDefinitionView("applicant", "入党申请人", 1),
+                    new PartyDto.StageDefinitionView("activist", "积极分子", 2),
+                    new PartyDto.StageDefinitionView("development_candidate", "发展对象", 3),
+                    new PartyDto.StageDefinitionView("probationary_party_member", "预备党员", 4),
+                    new PartyDto.StageDefinitionView("party_member", "正式党员", 5)
+                )
+            )
+        );
+
         List<StageState> stageStates = new ArrayList<>();
         stageStates.add(new StageState(1000L, "applicant", "入党申请人", 1, "approved", "2025-09-30 23:59:59"));
         stageStates.add(new StageState(1001L, "activist", "积极分子", 2, "approved", "2025-12-20 23:59:59"));
@@ -31,6 +47,10 @@ public class PartyService {
         stageStates.add(new StageState(1004L, "party_member", "正式党员", 5, "pending", "2027-04-25 23:59:59"));
         stageStates.get(3).materials.add(new MaterialState(4001L, "季度思想汇报", 31L, "pending", "2026-04-18 14:30:00"));
         instanceByStudentId.put(1L, new PartyInstanceState("入党流程", "processing", "probationary_party_member", 1003L, stageStates));
+    }
+
+    public List<PartyDto.FlowDefinitionView> flows() {
+        return flowDefinitions;
     }
 
     public PartyDto.PartyInstanceView myInstance(CurrentUser user) {

@@ -59,6 +59,7 @@ public final class AuthDto {
         private String userType;
         private List<String> roles;
         private List<String> permissions;
+        private List<MenuView> menus;
         private List<DataScope> dataScopes;
         private StudentSummary studentSummary;
 
@@ -68,6 +69,7 @@ public final class AuthDto {
                         String userType,
                         List<String> roles,
                         List<String> permissions,
+                        List<MenuView> menus,
                         List<DataScope> dataScopes,
                         StudentSummary studentSummary) {
             this.id = id;
@@ -76,6 +78,7 @@ public final class AuthDto {
             this.userType = userType;
             this.roles = roles;
             this.permissions = permissions;
+            this.menus = menus;
             this.dataScopes = dataScopes;
             this.studentSummary = studentSummary;
         }
@@ -102,6 +105,10 @@ public final class AuthDto {
 
         public List<String> getPermissions() {
             return permissions;
+        }
+
+        public List<MenuView> getMenus() {
+            return menus;
         }
 
         public List<DataScope> getDataScopes() {
@@ -152,6 +159,30 @@ public final class AuthDto {
 
         public String getClassName() {
             return className;
+        }
+    }
+
+    public static class MenuView {
+        private String code;
+        private String name;
+        private String path;
+
+        public MenuView(String code, String name, String path) {
+            this.code = code;
+            this.name = name;
+            this.path = path;
+        }
+
+        public String getCode() {
+            return code;
+        }
+
+        public String getName() {
+            return name;
+        }
+
+        public String getPath() {
+            return path;
         }
     }
 }
