@@ -94,3 +94,7 @@ mvn -Dmaven.repo.local=/tmp/.m2/repository spring-boot:run
 ```bash
 curl --noproxy "*" http://127.0.0.1:8080/interaction-test.html
 ```
+
+Windows、Linux 的完整运行、预览、调试步骤见：
+
+- `docs/run-preview-debug.md`

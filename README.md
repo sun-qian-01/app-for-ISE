@@ -251,3 +251,18 @@ rm -rf data/
 - 党团流程定义、实例、材料提交流程
 - 申请创建、详情、撤回、待审批、审批通过/驳回
 - 学生写接口（成长记录新增、标签更新、导入任务查询）
+
+## 15. Windows / Linux 运行、预览、调试
+
+跨平台运行指南见：
+
+- `docs/run-preview-debug.md`
+
+其中包含：
+
+- Windows PowerShell / CMD 启动方式
+- Linux 启动、测试和打包命令
+- 浏览器预览入口
+- curl、Postman / Apifox 调试方式
+- H2 本地数据库重置
+- IntelliJ IDEA、VS Code 和远程调试配置
