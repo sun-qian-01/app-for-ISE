@@ -4,6 +4,7 @@ import {
   applications,
   auditLogs,
   honors,
+  kbTemplates,
   notices,
   partyStages,
   profile,
@@ -119,16 +120,20 @@ export async function fetchKnowledgeList() {
   return delay(qaArticles);
 }
 
+export async function fetchKnowledgeTemplates() {
+  return delay(kbTemplates);
+}
+
 export async function fetchPartyStages() {
   return delay(partyStages);
 }
 
 export async function fetchNotices() {
-  return delay(notices);
+  return delay(notices.map((item) => ({ ...item })));
 }
 
 export async function fetchApplications() {
-  return delay(applications);
+  return delay(applications.map((item) => ({ ...item })));
 }
 
 export async function fetchHonors() {

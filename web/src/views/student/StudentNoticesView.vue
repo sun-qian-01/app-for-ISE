@@ -1,29 +1,122 @@
 <template>
   <section class="panel">
-    <div class="section-head">
-      <h2>通知中心</h2>
-      <span class="pill">GET /notices/my</span>
-    </div>
-    <div class="stack">
-      <article v-for="item in items" :key="item.title" class="notice-card" :class="{ 'is-unread': !item.read }">
-        <div class="notice-card__meta">{{ item.date }} · {{ item.audience }}</div>
-        <h3>{{ item.title }}</h3>
-        <p>{{ item.content }}</p>
-        <div class="tag-group">
+    <PageHeader
+      title="通知中心"
+      api="GET /notices/my"
+      description="集中查看定向通知、已读状态和触达渠道。"
+    >
+      <template #actions>
+        <button class="button" type="button" @click="markAllRead">全部标记已读</button>
+      </template>
+    </PageHeader>
+
+    <SearchBar>
+      <select v-model="readFilter" class="input input--select">
+        <option value="all">全部状态</option>
+        <option value="unread">仅看未读</option>
+        <option value="read">仅看已读</option>
+      </select>
+      <input v-model="keyword" class="input" type="search" placeholder="搜索通知标题、内容、标签" />
+    </SearchBar>
+
+    <LoadingState v-if="loading" text="通知列表加载中..." />
+    <ErrorState v-else-if="error" description="通知列表加载失败，请稍后重试。" @retry="loadData" />
+    <div v-else class="stack">
+      <EmptyState
+        v-if="!filteredItems.length"
+        title="暂无匹配通知"
+        description="可以调整筛选条件，或稍后查看新的触达记录。"
+      />
+      <RecordCard
+        v-for="item in filteredItems"
+        :key="item.id"
+        :meta="`${item.date} · ${item.audience}`"
+        :title="item.title"
+        :description="item.content"
+        :tone="item.read ? '' : 'current'"
+      >
+        <template #tags>
+          <StatusTag :label="item.statusLabel" :tone="item.read ? 'success' : 'warn'" />
+          <span v-for="tag in item.tags" :key="tag" class="tag">{{ tag }}</span>
           <span v-for="channel in item.channelLabels" :key="channel" class="tag">{{ channel }}</span>
-        </div>
-      </article>
+        </template>
+        <template #actions>
+          <button v-if="!item.read" class="button button--primary" type="button" @click="markRead(item.id)">
+            标记已读
+          </button>
+        </template>
+        <template #extra>
+          触达 {{ item.stats.delivered }} 人，已读 {{ item.stats.read }} 人
+        </template>
+      </RecordCard>
     </div>
   </section>
 </template>
 
 <script setup>
-import { onMounted, ref } from "vue";
-import { fetchNotices } from "../../mocks/server";
+import { computed, onMounted, ref } from "vue";
+import EmptyState from "../../components/common/EmptyState.vue";
+import ErrorState from "../../components/common/ErrorState.vue";
+import LoadingState from "../../components/common/LoadingState.vue";
+import PageHeader from "../../components/common/PageHeader.vue";
+import RecordCard from "../../components/common/RecordCard.vue";
+import SearchBar from "../../components/common/SearchBar.vue";
+import StatusTag from "../../components/common/StatusTag.vue";
+import { getMyNotices } from "../../api/modules/noticeApi";
 
 const items = ref([]);
+const loading = ref(false);
+const error = ref(false);
+const keyword = ref("");
+const readFilter = ref("all");
 
-onMounted(async () => {
-  items.value = await fetchNotices();
+const filteredItems = computed(() =>
+  items.value.filter((item) => {
+    const matchRead =
+      readFilter.value === "all" ||
+      (readFilter.value === "read" && item.read) ||
+      (readFilter.value === "unread" && !item.read);
+
+    const text = `${item.title} ${item.content} ${item.tags.join(" ")}`.toLowerCase();
+    const matchKeyword = !keyword.value || text.includes(keyword.value.toLowerCase());
+    return matchRead && matchKeyword;
+  }),
+);
+
+onMounted(() => {
+  loadData();
 });
+
+async function loadData() {
+  loading.value = true;
+  error.value = false;
+  try {
+    items.value = await getMyNotices();
+  } catch (err) {
+    console.error(err);
+    error.value = true;
+  } finally {
+    loading.value = false;
+  }
+}
+
+function markRead(id) {
+  items.value = items.value.map((item) =>
+    item.id === id
+      ? {
+          ...item,
+          read: true,
+          statusLabel: "已读",
+        }
+      : item,
+  );
+}
+
+function markAllRead() {
+  items.value = items.value.map((item) => ({
+    ...item,
+    read: true,
+    statusLabel: "已读",
+  }));
+}
 </script>

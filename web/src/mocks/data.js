@@ -25,9 +25,66 @@ export const profile = {
 };
 
 export const qaArticles = [
-  { title: "国家奖学金评定流程说明", categoryLabel: "奖助", version: "v3", publishStatus: "published", summary: "包含申请资格、名额分配、材料清单和公示流程。", source: "国家奖学金评定办法.pdf", keywords: ["奖学金", "国家奖学金"] },
-  { title: "休学与复学办理指南", categoryLabel: "学籍", version: "v2", publishStatus: "published", summary: "说明休学申请条件、复学材料和学院审核路径。", source: "学籍异动办理指南.docx", keywords: ["休学", "复学"] },
-  { title: "党员发展阶段材料清单", categoryLabel: "党团", version: "v4", publishStatus: "published", summary: "汇总积极分子、发展对象、预备党员各阶段所需材料。", source: "党员发展材料清单.xlsx", keywords: ["党员", "思想汇报"] },
+  {
+    title: "国家奖学金评定流程说明",
+    categoryLabel: "奖助",
+    version: "v3",
+    publishStatus: "published",
+    summary: "包含申请资格、名额分配、材料清单和公示流程。",
+    source: "国家奖学金评定办法.pdf",
+    keywords: ["奖学金", "国家奖学金"],
+  },
+  {
+    title: "休学与复学办理指引",
+    categoryLabel: "学籍",
+    version: "v2",
+    publishStatus: "published",
+    summary: "说明休学申请条件、复学材料和学院审核路径。",
+    source: "学籍异动办理指南.docx",
+    keywords: ["休学", "复学"],
+  },
+  {
+    title: "党员发展阶段材料清单",
+    categoryLabel: "党团",
+    version: "v4",
+    publishStatus: "published",
+    summary: "汇总积极分子、发展对象、预备党员各阶段所需材料。",
+    source: "党员发展材料清单.xlsx",
+    keywords: ["党员", "思想汇报"],
+  },
+  {
+    title: "在读证明与成绩证明办理说明",
+    categoryLabel: "证明",
+    version: "v2",
+    publishStatus: "published",
+    summary: "说明在读证明、成绩证明的申请场景、用途填写要求、附件上传和生成文件领取方式。",
+    source: "学生证明办理指南.pdf",
+    keywords: ["证明", "在读证明", "成绩证明"],
+  },
+];
+
+export const kbTemplates = [
+  {
+    name: "在读证明申请模板",
+    categoryLabel: "证明",
+    fileType: "docx",
+    updatedAt: "2026-04-18",
+    description: "用于校外实习、报名或签证材料准备。",
+  },
+  {
+    name: "国家奖学金材料清单模板",
+    categoryLabel: "奖助",
+    fileType: "xlsx",
+    updatedAt: "2026-04-16",
+    description: "包含成绩、综测、获奖和附件核对项。",
+  },
+  {
+    name: "思想汇报撰写模板",
+    categoryLabel: "党团",
+    fileType: "docx",
+    updatedAt: "2026-04-12",
+    description: "适用于积极分子、发展对象和预备党员阶段。",
+  },
 ];
 
 export const partyStages = [
@@ -39,14 +96,78 @@ export const partyStages = [
 ];
 
 export const notices = [
-  { title: "2026 年春季学期奖学金材料提交通知", audience: "2022级 + 奖学金关注", date: "2026-04-18", channelLabels: ["站内", "邮件", "微信"], read: false, content: "请于 4 月 24 日前完成材料提交，逾期系统将自动关闭入口。" },
-  { title: "预备党员季度思想汇报提醒", audience: "党员发展对象", date: "2026-04-17", channelLabels: ["站内", "微信"], read: false, content: "你所在支部需于本周内补齐季度思想汇报，请及时上传。" },
-  { title: "毕业生就业信息登记更新说明", audience: "2026届 毕业生", date: "2026-04-15", channelLabels: ["站内", "邮件"], read: true, content: "就业去向信息已开放二次更新，请在学院平台完成信息核验。" },
+  {
+    id: 101,
+    title: "2026 年春季学期奖学金材料提交通知",
+    audience: "2022级 + 奖学金关注",
+    date: "2026-04-18",
+    channelLabels: ["站内", "邮件", "微信"],
+    read: false,
+    statusLabel: "未读",
+    tags: ["奖助", "材料提交"],
+    stats: { delivered: 268, read: 201 },
+    content: "请于 4 月 24 日前完成材料提交，逾期系统将自动关闭入口。",
+  },
+  {
+    id: 102,
+    title: "预备党员季度思想汇报提醒",
+    audience: "党员发展对象",
+    date: "2026-04-17",
+    channelLabels: ["站内", "微信"],
+    read: false,
+    statusLabel: "未读",
+    tags: ["党团", "材料提醒"],
+    stats: { delivered: 71, read: 46 },
+    content: "你所在支部需于本周内补齐季度思想汇报，请及时上传。",
+  },
+  {
+    id: 103,
+    title: "毕业生就业信息登记更新说明",
+    audience: "2026届毕业生",
+    date: "2026-04-15",
+    channelLabels: ["站内", "邮件"],
+    read: true,
+    statusLabel: "已读",
+    tags: ["就业", "信息校验"],
+    stats: { delivered: 312, read: 287 },
+    content: "就业去向信息已开放二次更新，请在学院平台完成信息校验。",
+  },
 ];
 
 export const applications = [
-  { no: "APP20260418001", typeLabel: "在读证明", statusLabel: "审核中", approver: "辅导员 李老师", purpose: "实习单位提交材料", createdAt: "2026-04-18 14:30" },
-  { no: "APP20260410002", typeLabel: "成绩证明", statusLabel: "已通过", approver: "教学秘书 王老师", purpose: "交换项目报名", createdAt: "2026-04-10 09:12" },
+  {
+    no: "APP20260418001",
+    typeLabel: "在读证明",
+    statusLabel: "审核中",
+    approver: "辅导员 李老师",
+    applicant: "赵晨曦",
+    purpose: "实习单位提交材料",
+    createdAt: "2026-04-18 14:30",
+    attachmentCount: 2,
+    generatedFileName: "",
+  },
+  {
+    no: "APP20260410002",
+    typeLabel: "成绩证明",
+    statusLabel: "已通过",
+    approver: "教学秘书 王老师",
+    applicant: "赵晨曦",
+    purpose: "交换项目报名",
+    createdAt: "2026-04-10 09:12",
+    attachmentCount: 1,
+    generatedFileName: "成绩证明_APP20260410002.pdf",
+  },
+  {
+    no: "APP20260405003",
+    typeLabel: "党团材料盖章",
+    statusLabel: "已驳回",
+    approver: "学工办老师 张老师",
+    applicant: "陈一诺",
+    purpose: "支部季度材料归档",
+    createdAt: "2026-04-05 16:08",
+    attachmentCount: 3,
+    generatedFileName: "",
+  },
 ];
 
 export const honors = [

@@ -1,105 +1,215 @@
 # 学院学生综合服务与党团管理平台
 
-## 1. 项目定位
+## 项目概览
 
-本项目面向学院内部学生事务与党团事务管理场景，目标是建设一个前后端分离的 Web 网站平台。平台服务对象包括学院全体在校本科生、研究生、班团骨干、管理老师和学院领导，覆盖政策咨询、党团流程、学生画像、通知触达、奖励荣誉、院内申请审批、日志审计等核心业务。
+本项目面向学院内部学生事务与党团管理场景，目标是建设一个前后端分离的 Web 平台，覆盖学生服务、党团流程、精准通知、院内申请、学生画像、知识库与审计日志等核心业务。
 
-当前仓库包含静态 Web 原型、需求与设计文档、接口文档、权限文档、枚举字典和 Kingbase 数据库设计基线，可作为前端、后端、数据库和测试人员的开发交接资料。
+当前仓库已经不再只是需求文档或静态原型，而是进入了“文档齐备 + 正式前端工程推进中 + 后端 MVP 工程已启动”的阶段。
 
-## 2. 需求来源
+## 仓库架构
 
-需求依据：
+### 根目录
 
-- `学院学生综合服务与党团管理平台-需求描述完善版.docx`
-- `docs/architecture.md`
-- `docs/api.md`
-- `docs/database.md`
-- `docs/frontend-spec.md`
-- `docs/role-permission.md`
-- `docs/dictionary.md`
-- `database/schema.sql`
-
-甲方需求中明确：一期平台面向学院内部使用，不直接对接校级“微人大”等外部系统；产品形态采用前后端分离 Web 网站，同时兼顾手机端与电脑端访问；数据库采用人大金仓 Kingbase；学生、政策、模板、通知等数据通过后台维护、文件上传、Excel/Word/PDF 导入导出等方式进入系统。
-
-## 3. 目标用户
-
-| 用户类型 | 说明 | 核心诉求 |
-| --- | --- | --- |
-| 普通学生 | 学院全体在校本科生及研究生 | 查询政策、查看通知、提交党团材料、发起院内申请、查看个人档案 |
-| 班团骨干 | 班长、团支书等 | 在授权班级或支部范围内查看进展、协助催办和信息收集 |
-| 管理老师 | 辅导员、班主任、教学秘书、团委老师等 | 维护知识库、管理学生画像、发布通知、审核材料和申请 |
-| 学院领导 | 学院管理人员 | 查看学院维度运行情况、统计结果和重点问题 |
-| 系统管理员 | 平台维护人员 | 管理账号、角色、权限、字典、日志和系统配置 |
-
-## 4. 核心建设目标
-
-- 建设“一站式”学院学生服务窗口。
-- 实现学生事务办理线上化。
-- 实现政策咨询和模板查询智能化。
-- 实现党团流程可视化和过程留痕。
-- 实现通知精准推送和阅读追踪。
-- 实现学生数据统一管理和标签画像。
-- 通过角色权限、数据范围、敏感字段脱敏、审计日志和系统日志保障安全与可追溯。
-
-## 5. 功能需求范围
-
-### 5.1 P0：一期核心功能
-
-| 模块 | 主要需求 |
+| 路径 | 说明 |
 | --- | --- |
-| 登录与权限 | 支持学号/工号登录，登录后根据角色展示不同菜单；后端按权限码和数据范围做强校验。 |
-| 智能问答与知识库 | 管理员维护政策文件、标准答案、知识条目、模板文件；学生可检索政策并查看问答来源。 |
-| 党团事务流程 | 展示入党、入团等固定线性流程；学生提交阶段材料；老师审核、退回、补充说明；过程全量留痕。 |
-| 通知与消息触达 | 管理老师创建通知，按年级、班级、标签、政治面貌等精准投放；记录已读、未读、发送失败。 |
-| 审计与系统日志 | 管理端关键操作写审计日志；系统异常、接口错误、任务失败、前端报错写系统事件日志。 |
+| `README.md` | 项目总览、目录说明、开发进度与后续建议 |
+| `index.html` | 早期静态原型入口 |
+| `login.html` | 早期静态登录原型 |
+| `student.html` | 早期学生端静态原型 |
+| `admin.html` | 早期管理端静态原型 |
+| `styles.css` | 早期静态原型样式 |
+| `add.md` | 早期补充需求与待办记录 |
+| `pom.xml` | 后端 Spring Boot Maven 工程配置 |
 
-### 5.2 P1：一期重要功能
+### `docs/`
 
-| 模块 | 主要需求 |
+这是当前最重要的文档目录，已经形成了比较完整的项目约束边界。
+
+| 路径 | 说明 |
 | --- | --- |
-| 学生画像与信息管理 | 维护学生基础信息、敏感扩展信息、标签、成长记录；支持 Excel 导入导出和多维检索。 |
-| 奖励荣誉展示 | 管理个人或集体荣誉，支持年份、类别、公开状态、展示顺序和展示时效。 |
-| 院内申请与审批 | 支持证明、请假、盖章等院内申请流转；证明可由模板自动生成；审批记录可追溯。 |
-| 文件上传与模板下载 | 支持 PDF、Word、Excel 上传、下载和归档；政策文件建议单文件不超过 30MB。 |
+| `docs/architecture.md` | 总体架构与业务边界 |
+| `docs/api.md` | 接口统一命名与 REST 契约 |
+| `docs/api-mvp-alignment.md` | 当前后端 MVP 与目标接口的对齐说明 |
+| `docs/database.md` | 数据库设计说明 |
+| `docs/frontend-spec.md` | 前端页面结构与交互说明 |
+| `docs/role-permission.md` | 角色与权限矩阵 |
+| `docs/dictionary.md` | 状态、类型、字典统一命名 |
+| `docs/developer-diary.md` | 开发者日记，记录阶段工作与决策 |
+| `docs/backend/*` | 后端环境、运行、设计和变更记录 |
 
-### 5.3 P2：后续扩展功能
+### `database/`
 
-| 模块 | 主要需求 |
+| 路径 | 说明 |
 | --- | --- |
-| 学业分析与预警 | 录入培养方案，解析成绩单，识别课程或学分缺口，生成预警和选课建议。 |
-| 理论自测 | 导入党建/团建题库，供学生学习和自测。 |
+| `database/schema.sql` | Kingbase/PostgreSQL 兼容建表脚本 |
 
-P2 功能依赖数据完整性和业务规则稳定性，不作为一期主线交付重点。
+### `web/`
 
-## 6. 非功能需求
+这是当前正式前端工程目录，后续前端开发应以这里为主，不再继续在根目录静态原型上叠加业务代码。
 
-| 类别 | 要求 |
+主要结构：
+
+| 路径 | 说明 |
 | --- | --- |
-| 安全性 | 密码不可明文存储；身份证号、联系方式、户籍地、导师、修学/延毕记录等敏感字段需加密或脱敏展示。 |
-| 权限控制 | 平台按普通学生、班团骨干、管理老师、学院领导、系统管理员进行角色划分；后端必须做权限和数据范围校验。 |
-| 日志追踪 | 管理操作写 `audit_log`；系统事件和异常写 `system_event_log`，用于定位问题发生时间、操作人员和请求链路。 |
-| 并发与规模 | 支持学院约 1200 人使用，在通知发布、材料集中提交等高峰时段保持稳定。 |
-| 可维护性 | 模块化设计，避免补丁式开发；状态、权限、字典和接口需统一维护。 |
-| 可靠性 | 关键业务状态变更必须具备事务控制、明确反馈和失败日志。 |
-| 易用性 | 学生端适配手机端高频操作；管理端适配 PC 端批量维护、筛选、审批和统计。 |
+| `web/src/layouts/` | 学生端、管理端布局 |
+| `web/src/router/` | 路由与权限守卫 |
+| `web/src/stores/` | Pinia 状态管理 |
+| `web/src/api/` | API client 与模块化接口封装 |
+| `web/src/mocks/` | mock 数据与 mock 服务 |
+| `web/src/components/common/` | 通用组件 |
+| `web/src/views/student/` | 学生端页面 |
+| `web/src/views/admin/` | 管理端页面 |
+| `web/src/views/` | 登录、403、404、根路由等公共页 |
+| `web/src/composables/` | 字典与权限组合式工具 |
+| `web/src/constants/` | 统一字典常量 |
+| `web/src/styles/` | 正式前端样式 |
 
-## 7. 正式 Web 前端建议
+### `src/`
 
-本项目目标是 Web 网站，不是小程序。正式开发建议新建前端工程，当前静态页面作为原型参考。
+这是当前后端 Java 工程目录，已经有可运行的 Spring Boot MVP 骨架。
 
-当前仓库已新增正式前端工程目录：
+主要结构：
 
-- `web/`
+| 路径 | 说明 |
+| --- | --- |
+| `src/main/java/com/ise/platform/common/` | 通用响应、异常、鉴权、请求上下文等基础设施 |
+| `src/main/java/com/ise/platform/modules/auth/` | 认证模块 |
+| `src/main/java/com/ise/platform/modules/dashboard/` | 首页聚合模块 |
+| `src/main/java/com/ise/platform/modules/student/` | 学生画像模块 |
+| `src/main/java/com/ise/platform/modules/kb/` | 知识库模块 |
+| `src/main/java/com/ise/platform/modules/party/` | 党团流程模块 |
+| `src/main/java/com/ise/platform/modules/notice/` | 通知模块 |
+| `src/main/java/com/ise/platform/modules/application/` | 院内申请与审批模块 |
+| `src/main/java/com/ise/platform/modules/file/` | 文件上传下载模块 |
+| `src/main/java/com/ise/platform/modules/dict/` | 字典模块 |
+| `src/main/resources/` | 配置、H2 初始化脚本、静态测试页 |
+| `src/test/java/` | 模块测试与集成测试 |
 
-工程技术栈：
+### `mini_app/`
 
-- Vue 3
-- Vite
-- Vue Router
-- Pinia
-- Axios
+这是早期小程序演示版目录，当前仍保留作为移动端结构参考，但不是当前主开发线。
 
-本地启动方式：
+### `scripts/`
+
+这里保留了早期静态原型的模拟逻辑脚本，仅作为参考，不应继续作为正式业务代码扩展。
+
+## 当前开发进度
+
+### 1. 文档体系
+
+目前文档侧已经比较完整，以下几份文档已经形成开发约束基础：
+
+- 总体边界：`docs/architecture.md`
+- 接口契约：`docs/api.md`
+- 数据库设计：`database/schema.sql` 与 `docs/database.md`
+- 前端开发说明：`docs/frontend-spec.md`
+- 角色权限说明：`docs/role-permission.md`
+- 字典命名统一：`docs/dictionary.md`
+
+这意味着前后端后续开发已经不需要再从零讨论命名和边界，应该直接按现有文档推进。
+
+### 2. 前端进度
+
+正式前端工程已经启动，并且完成了第一轮和第二轮基础建设。
+
+已完成内容：
+
+- 基于 `Vue 3 + Vite + Vue Router + Pinia + Axios` 初始化正式前端工程
+- 完成登录页、路由、受保护路由、角色路由分发
+- 完成学生端与管理端基础布局
+- 完成 mock 数据层与模块化 API 封装
+- 完成字典工具、权限工具、公共组件体系
+- 完成加载态、错误态、空状态、分页栏等基础组件
+- 管理端菜单已支持基于权限码过滤
+
+当前已具备正式页面骨架的页面包括：
+
+- 学生端：
+  - 仪表盘
+  - 知识库 / 智能问答
+  - 党团流程
+  - 通知中心
+  - 院内申请
+  - 个人画像
+  - 荣誉展示
+- 管理端：
+  - 仪表盘
+  - 学生画像管理
+  - 知识库管理
+  - 精准通知
+  - 审批处理
+  - 荣誉管理
+  - 审计日志
+  - 系统日志
+
+本轮前端刚刚完成的重点是：
+
+- 补强知识库、通知、申请三组页面的数据结构
+- 把学生端知识库、通知、申请页迁成统一业务页结构
+- 把管理端知识库、通知、审批三页从占位页升级为正式页面骨架
+
+当前前端状态可以概括为：
+
+- 已脱离单纯静态原型
+- 已具备持续开发的组件化基础
+- 已具备 mock 驱动的联调前置结构
+- 距离“可接真实后端”的状态已经不远
+
+### 3. 后端进度
+
+后端 Spring Boot 工程已经启动，具备 MVP 骨架和部分可运行接口。
+
+已具备：
+
+- 统一响应结构
+- 全局异常处理
+- 请求 ID 上下文
+- 鉴权上下文与认证过滤器
+- 认证模块骨架
+- 首页聚合模块骨架
+- 学生模块骨架
+- 知识库模块骨架
+- 党团模块骨架
+- 通知模块骨架
+- 院内申请模块骨架
+- 文件模块骨架
+- 字典模块骨架
+- H2 本地开发数据库初始化脚本
+- 基础测试类与模块测试
+
+当前后端更接近“可运行的 MVP 后端骨架”，还没有进入完整业务实现阶段。
+
+### 4. 静态原型状态
+
+根目录下的：
+
+- `index.html`
+- `login.html`
+- `student.html`
+- `admin.html`
+- `styles.css`
+- `scripts/app.js`
+
+仍然保留，主要用途是：
+
+- 回看最初视觉与交互方向
+- 为正式前端迁移提供参考
+
+不建议后续继续在这些文件上叠加开发。
+
+## 当前推荐开发主线
+
+建议当前仓库按以下主线理解：
+
+1. 文档边界已经基本稳定，以 `docs/` 和 `database/` 为准。
+2. 正式前端以 `web/` 为唯一主战场。
+3. 正式后端以 `src/` 为唯一主战场。
+4. 根目录静态原型只保留参考价值，不再继续扩展。
+5. `mini_app/` 暂不作为当前主开发线。
+
+## 本地运行
+
+### 前端
 
 ```bash
 cd web
@@ -107,194 +217,67 @@ npm install
 npm run dev
 ```
 
-当前 `web/` 工程已完成：
-
-- 登录页
-- 路由与路由守卫
-- Pinia 登录态管理
-- 学生端与管理端基础布局
-- 学生首页、知识库、党团流程、通知、申请、个人画像、荣誉等首批页面迁移
-- 管理首页、学生画像、审计日志、系统日志等首批页面迁移
-- mock 数据层与模拟登录
-
-当前仓库根目录下的静态原型文件继续保留，用于视觉和交互参考，不再作为正式业务代码扩展。
-
-推荐路由：
-
-```text
-/login
-/student/dashboard
-/student/kb
-/student/party
-/student/notices
-/student/applications
-/student/profile
-/student/honors
-
-/admin/dashboard
-/admin/students
-/admin/kb
-/admin/party
-/admin/notices
-/admin/applications
-/admin/honors
-/admin/audit-logs
-/admin/system-logs
-
-/leader/dashboard
-```
-
-前端详细要求见 `docs/frontend-spec.md`。
-
-## 8. 后端与数据库建议
-
-后端以 RESTful JSON API 提供能力，统一路径前缀为 `/api/v1`。认证采用登录获取 token、后续请求携带 `Authorization: Bearer <token>` 的方式。接口响应统一包含 `code`、`message`、`data`、`requestId`。
-
-数据库采用 Kingbase，核心设计见：
-
-- `database/schema.sql`
-- `docs/database.md`
-- `docs/dictionary.md`
-
-后端必须重点保证：
-
-- 登录鉴权。
-- RBAC 权限校验。
-- 数据范围过滤。
-- 对象归属校验。
-- 敏感字段脱敏。
-- 审计日志。
-- 系统事件与异常日志。
-- 文件上传下载权限控制。
-- 申请和流程状态机约束。
-
-## 9. 仓库文件说明
-
-| 路径 | 说明 |
-| --- | --- |
-| `index.html` | 静态 Web 原型入口页。 |
-| `student.html` | 学生端静态原型。 |
-| `admin.html` | 管理端静态原型。 |
-| `styles.css` | 静态原型样式。 |
-| `scripts/app.js` | 静态原型模拟数据和交互逻辑。正式开发时不应作为业务代码直接使用。 |
-| `docs/architecture.md` | 总体架构、业务域、权限和技术边界。 |
-| `docs/api.md` | REST API 接口契约。 |
-| `docs/database.md` | 数据库设计说明。 |
-| `docs/frontend-spec.md` | Web 前端开发说明。 |
-| `docs/role-permission.md` | 角色权限矩阵。 |
-| `docs/dictionary.md` | 枚举字典和错误码。 |
-| `database/schema.sql` | Kingbase/PostgreSQL 兼容数据库建表脚本。 |
-
-## 10. 静态原型运行方式
-
-直接在浏览器中打开：
-
-- `index.html`
-- `student.html`
-- `admin.html`
-
-推荐从 `index.html` 进入。静态原型使用本地 mock 数据，不连接真实后端，不具备真实登录、持久化和权限校验能力。
-
-## 11. 前后端交接说明
-
-前后端开发请以 `docs/architecture.md` 作为总体架构边界，以 `docs/api.md` 作为接口联调契约，以 `database/schema.sql` 和 `docs/database.md` 作为数据库设计依据，并参考 `docs/frontend-spec.md`、`docs/role-permission.md`、`docs/dictionary.md` 完成页面路由、权限控制、枚举状态和交互细节实现。
-
-开发过程中请重点保证登录鉴权、角色权限、数据范围隔离、敏感字段脱敏、审计日志、系统异常日志、文件上传下载、党团流程留痕、通知精准推送和院内申请审批状态流转的一致性。前端不得绕过接口直接假定权限或状态，后端需对所有接口做权限校验、归属校验和日志记录。
-
-## 12. 后端开发启动说明（MVP）
-
-仓库已新增后端工程骨架（Spring Boot, Java 17, Maven）：
-
-- `pom.xml`
-- `src/main/java/com/ise/platform/**`
-- `src/test/java/com/ise/platform/**`
-
-本地运行：
+构建验证：
 
 ```bash
-. "$HOME/.local/bin/java-maven-env.sh"
-mvn -Dmaven.repo.local=/tmp/.m2/repository spring-boot:run
+cd web
+npm run build
 ```
 
-测试运行：
+### 后端
 
 ```bash
-. "$HOME/.local/bin/java-maven-env.sh"
-mvn -Dmaven.repo.local=/tmp/.m2/repository test -q
+mvn spring-boot:run
 ```
 
-默认地址：
-
-- `http://localhost:8080`
-- API 前缀：`/api/v1`
-
-当前已实现首批可联调接口。开发阶段先不使用人大金仓，默认使用 H2 本地数据库；其中“院内申请与审批”模块已接入 JDBC + H2 持久化，其他模块仍是内存演示实现，后续逐步替换数据库：
-
-- 认证：`POST /api/v1/auth/login`、`GET /api/v1/auth/me`、`POST /api/v1/auth/logout`
-- 首页：`GET /api/v1/dashboard/student`、`GET /api/v1/dashboard/admin`、`GET /api/v1/dashboard/leader`
-- 文件：`POST /api/v1/files/upload`、`GET /api/v1/files/{fileId}/download`
-- 通知：`GET /api/v1/notices/my`、`POST /api/v1/notices/{noticeId}/read`、`POST /api/v1/notices/read-all`
-- 党团：`GET /api/v1/party/flows`、`GET /api/v1/party/instances/me`、`POST /api/v1/party/stage-records/{stageRecordId}/materials`
-- 知识库：`GET /api/v1/kb/articles`、`POST /api/v1/kb/qa`
-- 申请：`GET /api/v1/applications/my`、`POST /api/v1/applications`、`GET /api/v1/applications/{applicationId}`、`POST /api/v1/applications/{applicationId}/revoke`、`GET /api/v1/applications/approvals/pending`、`POST /api/v1/applications/{applicationId}/approve`、`POST /api/v1/applications/{applicationId}/reject`
-- 学生画像：`GET /api/v1/students/me/profile`、`GET /api/v1/students`、`GET /api/v1/students/{studentId}`、`PUT /api/v1/students/{studentId}`、`GET /api/v1/students/{studentId}/growth-records`、`POST /api/v1/students/{studentId}/growth-records`、`PUT /api/v1/students/{studentId}/tags`、`POST /api/v1/students/import-tasks`、`GET /api/v1/students/import-tasks/{taskNo}`
-- 字典：`GET /api/v1/dicts`
-
-## 13. 后端协作文档
-
-为保证多人协作时环境一致与信息留存，新增以下文档：
-
-- `docs/backend-environment.md`：当前开发环境信息与运行前提
-- `docs/backend-change-log.md`：后端迭代改动记录
-- `docs/api-mvp-alignment.md`：当前可联调 API 与差异说明
-
-建议每次新增功能后同步更新变更记录，避免“代码变了但文档没变”。
-
-## 14. 当前本地数据库说明
-
-当前开发默认使用 H2，配置位于 `src/main/resources/application.yml`：
-
-- 开发库：`./data/app-for-ise-dev.mv.db`
-- 建表脚本：`src/main/resources/db/schema-h2.sql`
-- 演示数据：`src/main/resources/db/data-h2.sql`
-- 测试库：H2 内存库，配置位于 `src/test/resources/application.yml`
-
-重置本地开发库：
+测试：
 
 ```bash
-rm -rf data/
+mvn test
 ```
 
-说明：H2 仅用于本地开发和测试。正式接入 Kingbase 时，应保留 `/api/v1` API 契约和业务状态机语义，替换数据源配置并引入正式数据库迁移脚本。
+如需更具体的运行、联调、调试说明，优先查看：
 
-如需在本机加载用户级 Java/Maven 环境，可执行：
+- `docs/backend/run-preview-debug.md`
+- `docs/backend/backend-environment.md`
 
-```bash
-. "$HOME/.local/bin/java-maven-env.sh"
-```
+## 后续建议
 
-快速前端交互测试页面（后端内置）：
+### 前端建议
 
-- `http://localhost:8080/interaction-test.html`
+前端下一步建议按这个顺序推进：
 
-交互页当前支持：
+1. 为管理端通知页补“创建 / 编辑通知”表单区。
+2. 为管理端知识库页补“新建 / 编辑文章”和“模板上传替换”交互。
+3. 为管理端审批页补“审批意见抽屉 / 详情侧栏”。
+4. 将当前列表页逐步统一接入真实分页，而不是只做前端筛选。
+5. 开始让 `web/src/api/modules/*` 分批替换 mock server，接真实后端接口。
 
-- 登录与 token 管理
-- 党团流程定义、实例、材料提交流程
-- 申请创建、详情、撤回、待审批、审批通过/驳回
-- 学生写接口（成长记录新增、标签更新、导入任务查询）
+### 后端建议
 
-## 15. Windows / Linux 运行、预览、调试
+后端下一步建议按这个顺序推进：
 
-跨平台运行指南见：
+1. 先把认证、字典、知识库、通知、申请这几条高频链路补成可联调接口。
+2. 优先保证权限码校验、数据范围校验、对象归属校验。
+3. 尽快把申请模块之外的核心模块从内存实现迁到数据库实现。
+4. 补请求日志、审计日志、系统异常日志的完整落库或可追踪机制。
+5. 对齐 `docs/api.md` 与当前 MVP 差异，持续维护 `docs/api-mvp-alignment.md`。
 
-- `docs/run-preview-debug.md`
+### 协作建议
 
-其中包含：
+为了避免后面仓库再次出现“代码走到哪里、文档还停在旧阶段”的问题，建议保持这三个习惯：
 
-- Windows PowerShell / CMD 启动方式
-- Linux 启动、测试和打包命令
-- 浏览器预览入口
-- curl、Postman / Apifox 调试方式
-- H2 本地数据库重置
-- IntelliJ IDEA、VS Code 和远程调试配置
+1. 每做完一轮前端或后端功能，就同步更新 `docs/developer-diary.md`。
+2. 接口字段、状态枚举、权限命名只以 `docs/api.md`、`docs/dictionary.md`、`docs/role-permission.md` 为准。
+3. 如果目录职责发生变化，优先回写 `README.md`，不要只在对话里说明。
+
+## 当前结论
+
+当前仓库已经具备继续正式开发的条件，最重要的是开发重心已经明确：
+
+- 文档边界在 `docs/`
+- 数据结构边界在 `database/`
+- 正式前端在 `web/`
+- 正式后端在 `src/`
+
+接下来最值得继续投入的是“把正式前端从页面骨架推进到真实表单和联调态”，以及“把后端 MVP 从骨架推进到可供前端接入的稳定接口层”。
