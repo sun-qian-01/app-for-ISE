@@ -1,10 +1,7 @@
 <template>
   <div class="grid grid--two">
     <section class="panel">
-      <div class="section-head">
-        <h2>智能问答</h2>
-        <span class="pill">POST /kb/qa</span>
-      </div>
+      <PageHeader title="智能问答" api="POST /kb/qa" />
       <form class="form" @submit.prevent="submitQuestion">
         <label>
           <span>问题描述</span>
@@ -21,29 +18,49 @@
     </section>
 
     <section class="panel">
-      <div class="section-head">
-        <h2>政策与模板</h2>
-      </div>
+      <PageHeader title="政策与模板" />
+      <SearchBar>
+        <input v-model="keyword" class="input" type="search" placeholder="搜索标题、摘要、来源" />
+      </SearchBar>
       <div class="stack">
-        <article v-for="item in articles" :key="item.title" class="knowledge-item">
-          <div class="notice-card__meta">{{ item.categoryLabel }} · {{ item.version }} · {{ item.publishStatus }}</div>
-          <h3>{{ item.title }}</h3>
-          <p>{{ item.summary }}</p>
-          <div class="source-line">来源：{{ item.source }}</div>
-        </article>
+        <EmptyState v-if="!filteredArticles.length" />
+        <RecordCard
+          v-for="item in filteredArticles"
+          :key="item.title"
+          :meta="`${item.categoryLabel} · ${item.version} · ${item.publishStatus}`"
+          :title="item.title"
+          :description="item.summary"
+        >
+          <template #extra>
+            来源：{{ item.source }}
+          </template>
+        </RecordCard>
       </div>
     </section>
   </div>
 </template>
 
 <script setup>
-import { onMounted, ref } from "vue";
+import { computed, onMounted, ref } from "vue";
+import EmptyState from "../../components/common/EmptyState.vue";
+import PageHeader from "../../components/common/PageHeader.vue";
+import RecordCard from "../../components/common/RecordCard.vue";
+import SearchBar from "../../components/common/SearchBar.vue";
 import { fetchKnowledgeList } from "../../mocks/server";
 
 const question = ref("");
 const answer = ref("");
 const answerSource = ref("");
 const articles = ref([]);
+const keyword = ref("");
+
+const filteredArticles = computed(() =>
+  articles.value.filter((item) => {
+    if (!keyword.value) return true;
+    const source = `${item.title} ${item.summary} ${item.source}`.toLowerCase();
+    return source.includes(keyword.value.toLowerCase());
+  }),
+);
 
 onMounted(async () => {
   articles.value = await fetchKnowledgeList();

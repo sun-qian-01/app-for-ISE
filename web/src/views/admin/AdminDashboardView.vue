@@ -1,28 +1,13 @@
 <template>
   <section>
     <div class="grid grid--metrics">
-      <article class="metric-card">
-        <span>学生总数</span>
-        <strong>{{ data.studentCount }}</strong>
-      </article>
-      <article class="metric-card">
-        <span>待审批</span>
-        <strong>{{ data.pendingApprovalCount }}</strong>
-      </article>
-      <article class="metric-card">
-        <span>今日推送</span>
-        <strong>{{ data.todayPushCount }}</strong>
-      </article>
-      <article class="metric-card">
-        <span>风险预警</span>
-        <strong>{{ data.riskCount }}</strong>
-      </article>
+      <MetricCard label="学生总数" :value="data.studentCount" />
+      <MetricCard label="待审批" :value="data.pendingApprovalCount" />
+      <MetricCard label="今日推送" :value="data.todayPushCount" />
+      <MetricCard label="风险预警" :value="data.riskCount" />
     </div>
     <section class="panel">
-      <div class="section-head">
-        <h2>业务看板</h2>
-        <span class="pill">GET /dashboard/admin</span>
-      </div>
+      <PageHeader title="业务看板" api="GET /dashboard/admin" />
       <div class="info-list">
         <div v-for="[label, value] in data.board" :key="label">
           <span>{{ label }}</span>
@@ -35,6 +20,8 @@
 
 <script setup>
 import { onMounted, reactive } from "vue";
+import MetricCard from "../../components/common/MetricCard.vue";
+import PageHeader from "../../components/common/PageHeader.vue";
 import { fetchAdminDashboard } from "../../mocks/server";
 
 const data = reactive({

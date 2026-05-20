@@ -1,0 +1,48 @@
+export const dictionaries = {
+  role_code: [
+    { value: "student", label: "普通学生" },
+    { value: "class_cadre", label: "班团骨干" },
+    { value: "teacher_admin", label: "管理老师" },
+    { value: "college_leader", label: "学院领导" },
+    { value: "system_admin", label: "系统管理员" },
+  ],
+  student_status: [
+    { value: "active", label: "在读" },
+    { value: "graduated", label: "毕业" },
+    { value: "suspended", label: "休学" },
+    { value: "withdrawn", label: "退学" },
+    { value: "transferred", label: "转专业" },
+    { value: "delayed", label: "延毕" },
+  ],
+  notice_status: [
+    { value: "draft", label: "草稿" },
+    { value: "scheduled", label: "定时发布" },
+    { value: "published", label: "已发布" },
+    { value: "archived", label: "已归档" },
+    { value: "expired", label: "已过期" },
+  ],
+  application_status: [
+    { value: "draft", label: "草稿" },
+    { value: "submitted", label: "已提交" },
+    { value: "reviewing", label: "审核中" },
+    { value: "approved", label: "已通过" },
+    { value: "rejected", label: "已驳回" },
+    { value: "revoked", label: "已撤回" },
+    { value: "archived", label: "已归档" },
+  ],
+  flow_stage_status: [
+    { value: "pending", label: "未开始" },
+    { value: "submitted", label: "已提交" },
+    { value: "reviewing", label: "审核中" },
+    { value: "approved", label: "已通过" },
+    { value: "returned", label: "已退回" },
+    { value: "revoked", label: "已撤回" },
+  ],
+  system_event_level: [
+    { value: "debug", label: "调试" },
+    { value: "info", label: "信息" },
+    { value: "warn", label: "警告" },
+    { value: "error", label: "错误" },
+    { value: "fatal", label: "严重错误" },
+  ],
+};

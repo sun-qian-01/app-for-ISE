@@ -18,7 +18,7 @@
           <h1>学生工作与党团事务管理台</h1>
         </div>
         <div class="topbar__actions">
-          <span class="pill pill--success">角色：{{ authStore.roleCode }}</span>
+          <StatusTag :label="`角色：${roleLabel}`" tone="success" />
           <RouterLink class="button" to="/login">返回登录页</RouterLink>
         </div>
       </header>
@@ -50,9 +50,12 @@
 <script setup>
 import { computed } from "vue";
 import { RouterLink, RouterView } from "vue-router";
+import StatusTag from "../components/common/StatusTag.vue";
+import { useDictionary } from "../composables/useDictionary";
 import { useAuthStore } from "../stores/auth";
 
 const authStore = useAuthStore();
+const { getLabel } = useDictionary("role_code");
 
 const navItems = computed(() => [
   { label: "概览", to: "/admin/dashboard" },
@@ -65,4 +68,6 @@ const navItems = computed(() => [
   { label: "审计日志", to: "/admin/audit-logs" },
   { label: "系统日志", to: "/admin/system-logs" },
 ]);
+
+const roleLabel = computed(() => getLabel(authStore.roleCode, authStore.roleCode));
 </script>

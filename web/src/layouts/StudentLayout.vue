@@ -18,8 +18,8 @@
           <h1>你好，{{ authStore.user?.realName || "同学" }}</h1>
         </div>
         <div class="topbar__actions">
-          <span class="pill pill--success">实名已绑定</span>
-          <span class="pill">{{ authStore.roleCode }}</span>
+          <StatusTag label="实名已绑定" tone="success" />
+          <StatusTag :label="roleLabel" />
           <RouterLink class="button" to="/login">返回登录页</RouterLink>
         </div>
       </header>
@@ -51,9 +51,12 @@
 <script setup>
 import { computed } from "vue";
 import { RouterLink, RouterView } from "vue-router";
+import StatusTag from "../components/common/StatusTag.vue";
+import { useDictionary } from "../composables/useDictionary";
 import { useAuthStore } from "../stores/auth";
 
 const authStore = useAuthStore();
+const { getLabel } = useDictionary("role_code");
 
 const navItems = computed(() => [
   { label: "首页", to: "/student/dashboard" },
@@ -64,4 +67,6 @@ const navItems = computed(() => [
   { label: "个人画像", to: "/student/profile" },
   { label: "奖励荣誉", to: "/student/honors" },
 ]);
+
+const roleLabel = computed(() => getLabel(authStore.roleCode, authStore.roleCode));
 </script>

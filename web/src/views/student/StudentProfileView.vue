@@ -1,10 +1,11 @@
 <template>
   <div class="grid grid--two">
     <section class="panel">
-      <div class="section-head">
-        <h2>基础档案</h2>
-        <span class="pill pill--success">敏感字段脱敏</span>
-      </div>
+      <PageHeader title="基础档案">
+        <template #meta>
+          <StatusTag label="敏感字段脱敏" tone="success" />
+        </template>
+      </PageHeader>
       <div class="info-list">
         <div><span>学号</span><strong>{{ data.studentNo }}</strong></div>
         <div><span>姓名</span><strong>{{ data.name }}</strong></div>
@@ -16,11 +17,9 @@
       </div>
     </section>
     <section class="panel">
-      <div class="section-head">
-        <h2>成长记录</h2>
-        <span class="pill">GET /students/{id}/growth-records</span>
-      </div>
+      <PageHeader title="成长记录" api="GET /students/{id}/growth-records" />
       <div class="stack">
+        <EmptyState v-if="!data.growthRecords.length" />
         <article v-for="item in data.growthRecords" :key="item.title" class="record">
           <div class="record__meta">{{ item.typeLabel }} · {{ item.date }}</div>
           <h3>{{ item.title }}</h3>
@@ -33,6 +32,9 @@
 
 <script setup>
 import { onMounted, reactive } from "vue";
+import EmptyState from "../../components/common/EmptyState.vue";
+import PageHeader from "../../components/common/PageHeader.vue";
+import StatusTag from "../../components/common/StatusTag.vue";
 import { fetchProfile } from "../../mocks/server";
 
 const data = reactive({
