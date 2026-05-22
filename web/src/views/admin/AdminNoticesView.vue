@@ -4,10 +4,10 @@
       <PageHeader
         title="精准通知"
         api="GET /notices"
-        description="查看通知列表、触达统计和已读情况，作为后续创建通知表单的承载页。"
+        description="查看通知列表、触达统计和已读情况，并从右侧创建新的定向通知。"
       >
         <template #actions>
-          <button class="button button--primary" type="button">创建通知</button>
+          <button class="button button--primary" type="button" @click="fillDemoForm">填充示例</button>
         </template>
       </PageHeader>
 
@@ -58,24 +58,63 @@
 
     <section class="panel">
       <PageHeader
-        title="投放说明"
-        description="这里保留通知范围和渠道配置的原型说明，后续可直接替换成真实表单。"
+        title="创建通知"
+        api="POST /notices"
+        description="按目标范围、标签和渠道配置通知，当前以本地 mock 方式演示提交结果。"
       />
-      <div class="stack">
+      <form class="form" @submit.prevent="createNotice">
+        <label>
+          <span>通知标题</span>
+          <input v-model="form.title" class="input" type="text" placeholder="例如：2026 届就业信息补录提醒" />
+        </label>
+        <label>
+          <span>通知内容</span>
+          <textarea
+            v-model="form.content"
+            class="input textarea"
+            rows="5"
+            placeholder="请输入通知正文、截止时间和办理说明"
+          />
+        </label>
+        <label>
+          <span>目标范围</span>
+          <input v-model="form.audience" class="input" type="text" placeholder="例如：2026届毕业生 / 2022级 + 奖学金关注" />
+        </label>
+        <label>
+          <span>标签</span>
+          <input v-model="form.tagsText" class="input" type="text" placeholder="多个标签用中文顿号分隔，例如：就业、补录、信息校验" />
+        </label>
+        <div class="stack">
+          <span>触达渠道</span>
+          <div class="tag-group">
+            <button
+              v-for="channel in channelOptions"
+              :key="channel"
+              class="button"
+              :class="{ 'button--primary': form.channels.includes(channel) }"
+              type="button"
+              @click="toggleChannel(channel)"
+            >
+              {{ channel }}
+            </button>
+          </div>
+        </div>
+        <div class="topbar__actions">
+          <button class="button" type="button" @click="resetForm">重置</button>
+          <button class="button button--primary" type="submit">立即创建</button>
+        </div>
+      </form>
+
+      <div class="stack create-panel__notes">
         <RecordCard
           meta="目标范围"
           title="支持按年级、班级、标签和党团阶段定向"
-          description="前端表单建议与 docs/api.md 中的 targetRulesJson 保持一致，避免后端接入时重复改字段。"
+          description="当前先以 audience 文本模拟，后续建议替换成结构化 scopes 表单。"
         />
         <RecordCard
           meta="触达渠道"
-          title="站内、邮件、微信三类渠道统一勾选"
-          description="通知创建页应显示默认渠道和失败重试策略，管理页则以统计和状态回看为主。"
-        />
-        <RecordCard
-          meta="后续扩展"
-          title="预留附件、撤回和草稿态"
-          description="当前静态原型已改成正式页面骨架，后续可以在这里继续补充表单抽屉和详情弹层。"
+          title="站内、邮件、微信三类渠道统一配置"
+          description="后续接真实接口时可直接映射为 channels 数组。"
         />
       </div>
     </section>
@@ -83,7 +122,7 @@
 </template>
 
 <script setup>
-import { computed, onMounted, ref } from "vue";
+import { computed, onMounted, reactive, ref } from "vue";
 import EmptyState from "../../components/common/EmptyState.vue";
 import ErrorState from "../../components/common/ErrorState.vue";
 import LoadingState from "../../components/common/LoadingState.vue";
@@ -92,13 +131,21 @@ import PageHeader from "../../components/common/PageHeader.vue";
 import RecordCard from "../../components/common/RecordCard.vue";
 import SearchBar from "../../components/common/SearchBar.vue";
 import StatusTag from "../../components/common/StatusTag.vue";
+import { useAsyncPage } from "../../composables/useAsyncPage";
 import { getNoticeList } from "../../api/modules/noticeApi";
 
 const items = ref([]);
-const loading = ref(false);
-const error = ref(false);
 const keyword = ref("");
 const readFilter = ref("all");
+const channelOptions = ["站内", "邮件", "微信"];
+const form = reactive({
+  title: "",
+  content: "",
+  audience: "",
+  tagsText: "",
+  channels: ["站内"],
+});
+const { loading, error, run } = useAsyncPage(getNoticeList);
 
 const unreadCount = computed(() => items.value.filter((item) => !item.read).length);
 
@@ -127,15 +174,67 @@ onMounted(() => {
 });
 
 async function loadData() {
-  loading.value = true;
-  error.value = false;
   try {
-    items.value = await getNoticeList();
-  } catch (err) {
-    console.error(err);
-    error.value = true;
-  } finally {
-    loading.value = false;
+    items.value = await run();
+  } catch {}
+}
+
+function toggleChannel(channel) {
+  if (form.channels.includes(channel)) {
+    form.channels = form.channels.filter((item) => item !== channel);
+    return;
   }
+  form.channels = [...form.channels, channel];
+}
+
+function resetForm() {
+  form.title = "";
+  form.content = "";
+  form.audience = "";
+  form.tagsText = "";
+  form.channels = ["站内"];
+}
+
+function fillDemoForm() {
+  form.title = "2026 届毕业生就业信息补录提醒";
+  form.content = "请于本周五 18:00 前完成就业去向信息补录，并再次核对个人联系方式。";
+  form.audience = "2026届毕业生";
+  form.tagsText = "就业、补录、信息校验";
+  form.channels = ["站内", "邮件", "微信"];
+}
+
+function createNotice() {
+  const title = form.title.trim();
+  const content = form.content.trim();
+  const audience = form.audience.trim();
+  const tags = form.tagsText
+    .split("、")
+    .map((item) => item.trim())
+    .filter(Boolean);
+
+  if (!title || !content || !audience || !form.channels.length) {
+    return;
+  }
+
+  items.value = [
+    {
+      id: Date.now(),
+      title,
+      content,
+      audience,
+      date: new Date().toISOString().slice(0, 10),
+      channelLabels: [...form.channels],
+      read: false,
+      statusLabel: "未读",
+      tags,
+      stats: {
+        delivered: 0,
+        read: 0,
+      },
+    },
+    ...items.value,
+  ];
+
+  resetForm();
 }
 </script>

@@ -110,6 +110,7 @@ import PageHeader from "../../components/common/PageHeader.vue";
 import RecordCard from "../../components/common/RecordCard.vue";
 import SearchBar from "../../components/common/SearchBar.vue";
 import StatusTag from "../../components/common/StatusTag.vue";
+import { useAsyncPage } from "../../composables/useAsyncPage";
 import { getKnowledgeList, getKnowledgeTemplates } from "../../api/modules/kbApi";
 
 const question = ref("");
@@ -119,8 +120,10 @@ const articles = ref([]);
 const templates = ref([]);
 const keyword = ref("");
 const categoryFilter = ref("all");
-const loading = ref(false);
-const error = ref(false);
+const { loading, error, run } = useAsyncPage(async () => {
+  const [articleList, templateList] = await Promise.all([getKnowledgeList(), getKnowledgeTemplates()]);
+  return { articleList, templateList };
+});
 
 const categoryOptions = computed(() =>
   [...new Set(articles.value.map((item) => item.categoryLabel))],
@@ -140,18 +143,11 @@ onMounted(() => {
 });
 
 async function loadData() {
-  loading.value = true;
-  error.value = false;
   try {
-    const [articleList, templateList] = await Promise.all([getKnowledgeList(), getKnowledgeTemplates()]);
+    const { articleList, templateList } = await run();
     articles.value = articleList;
     templates.value = templateList;
-  } catch (err) {
-    console.error(err);
-    error.value = true;
-  } finally {
-    loading.value = false;
-  }
+  } catch {}
 }
 
 function submitQuestion() {

@@ -1,56 +1,28 @@
 <template>
-  <div class="app-shell">
-    <aside class="sidebar">
-      <RouterLink class="brand" to="/student/dashboard">
-        <span class="brand__mark">ISE</span>
-        <span class="brand__text">学院综合服务平台</span>
-      </RouterLink>
-      <nav class="nav">
-        <RouterLink v-for="item in navItems" :key="item.to" class="nav__item" :to="item.to">
-          {{ item.label }}
-        </RouterLink>
-      </nav>
-    </aside>
-    <main class="content">
-      <header class="topbar">
-        <div>
-          <div class="eyebrow">学生端 · self 数据范围</div>
-          <h1>你好，{{ authStore.user?.realName || "同学" }}</h1>
-        </div>
-        <div class="topbar__actions">
-          <StatusTag label="实名已绑定" tone="success" />
-          <StatusTag :label="roleLabel" />
-          <RouterLink class="button" to="/login">返回登录页</RouterLink>
-        </div>
-      </header>
-      <section class="panel panel--banner">
-        <div class="section-head">
-          <h2>当前访问上下文</h2>
-          <span class="pill">GET /api/v1/auth/me</span>
-        </div>
-        <div class="scope-grid">
-          <div class="scope-card">
-            <span>角色代码</span>
-            <strong>{{ authStore.roleCode }}</strong>
-          </div>
-          <div class="scope-card">
-            <span>数据范围</span>
-            <strong>self</strong>
-          </div>
-          <div class="scope-card">
-            <span>当前首页接口</span>
-            <strong>/dashboard/student</strong>
-          </div>
-        </div>
-      </section>
-      <RouterView />
-    </main>
-  </div>
+  <AppShell
+    brand-to="/student/dashboard"
+    brand-mark="ISE"
+    brand-text="学院综合服务平台"
+    :nav-items="navItems"
+    eyebrow="学生端 · self 数据范围"
+    :title="`你好，${authStore.user?.realName || '同学'}`"
+    role-value="authStore.roleCode"
+    scope-value="self"
+    home-api-value="/dashboard/student"
+  >
+    <template #topbar-actions>
+      <StatusTag label="实名已绑定" tone="success" />
+      <StatusTag :label="roleLabel" />
+      <RouterLink class="button" to="/login">返回登录页</RouterLink>
+    </template>
+    <RouterView />
+  </AppShell>
 </template>
 
 <script setup>
 import { computed } from "vue";
 import { RouterLink, RouterView } from "vue-router";
+import AppShell from "../components/AppShell.vue";
 import StatusTag from "../components/common/StatusTag.vue";
 import { useDictionary } from "../composables/useDictionary";
 import { useAuthStore } from "../stores/auth";

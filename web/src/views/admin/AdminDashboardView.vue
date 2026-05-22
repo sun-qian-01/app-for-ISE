@@ -22,7 +22,7 @@
 import { onMounted, reactive } from "vue";
 import MetricCard from "../../components/common/MetricCard.vue";
 import PageHeader from "../../components/common/PageHeader.vue";
-import { fetchAdminDashboard } from "../../mocks/server";
+import { getAdminDashboard } from "../../api/modules/dashboardApi";
 
 const data = reactive({
   studentCount: 0,
@@ -33,6 +33,6 @@ const data = reactive({
 });
 
 onMounted(async () => {
-  Object.assign(data, await fetchAdminDashboard());
+  Object.assign(data, await getAdminDashboard());
 });
 </script>

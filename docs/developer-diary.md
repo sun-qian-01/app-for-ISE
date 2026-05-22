@@ -1003,3 +1003,170 @@
 2. 开始把 mock 查询筛选升级为分页结构，优先接入统一分页组件
 3. 逐步把 `web/src/api/modules/*` 从 mock server 替换为真实后端接口
 4. 为管理端知识库、通知、审批页补详情抽屉或侧边面板，避免列表页承载过多信息
+
+## 2026-05-22  Codex
+
+### 1. 前端结构继续收敛
+
+本轮没有继续简单增加页面数量，而是优先把正式前端工程中已经出现重复趋势的结构收紧，重点处理了 API 入口统一、异步页面状态抽象和布局壳复用三个方向。
+
+本轮处理目标是：
+
+- 降低页面直接依赖 mock server 的程度
+- 统一页面级 loading / error / retry 模式
+- 避免学生端和管理端布局继续各自复制演化
+- 在基础设施稳定后，继续推进管理端业务页可操作性
+
+### 2. API 入口统一与旧封装清理
+
+本轮继续清理正式前端工程中残留的重复 API 入口和页面直接访问 mock 的情况。
+
+完成内容：
+
+- 将 `web/src/stores/auth.js` 统一改为依赖 `web/src/api/modules/authApi.js`
+- 删除旧的 `web/src/api/auth.js`
+- 将以下页面改为通过模块 API 获取数据，而不是直接访问 `mocks/server.js`
+  - `web/src/views/student/StudentDashboardView.vue`
+  - `web/src/views/admin/AdminDashboardView.vue`
+  - `web/src/views/student/StudentProfileView.vue`
+  - `web/src/views/admin/AdminStudentsView.vue`
+  - `web/src/views/admin/AdminAuditLogsView.vue`
+  - `web/src/views/admin/AdminSystemLogsView.vue`
+
+这样做的意义是：
+
+- 页面层只关心模块 API，不再直接感知 mock 数据来源
+- 后续替换真实后端接口时，不需要在多个页面里重复改引用
+- API 分层开始形成稳定边界
+
+### 3. 页面异步状态抽象
+
+随着更多页面接入加载态和错误态，原先每个页面都各写一份 `loading / error / try / finally` 已经开始重复。本轮新增了轻量级异步页面 composable：
+
+- `web/src/composables/useAsyncPage.js`
+
+该 composable 负责统一：
+
+- `loading`
+- `error`
+- `run()`
+- 失败时的错误记录和重试基础能力
+
+本轮已接入页面：
+
+- `web/src/views/student/StudentProfileView.vue`
+- `web/src/views/student/StudentKnowledgeView.vue`
+- `web/src/views/student/StudentNoticesView.vue`
+- `web/src/views/student/StudentApplicationsView.vue`
+- `web/src/views/admin/AdminStudentsView.vue`
+- `web/src/views/admin/AdminAuditLogsView.vue`
+- `web/src/views/admin/AdminSystemLogsView.vue`
+
+这意味着正式前端工程已经开始形成统一的页面数据加载模式，而不再只是“某些页面单独优化”。
+
+### 4. 布局壳组件抽取
+
+学生端布局和管理端布局此前结构高度相似，只是品牌、导航、顶部文案和上下文内容不同。继续分别维护会带来重复修改成本。
+
+本轮新增通用布局壳组件：
+
+- `web/src/components/AppShell.vue`
+
+并将以下布局迁移到该公共壳组件：
+
+- `web/src/layouts/StudentLayout.vue`
+- `web/src/layouts/AdminLayout.vue`
+
+本次抽取后的效果：
+
+- 侧边导航结构统一
+- 顶部标题区统一
+- 当前访问上下文卡片统一
+- 不同角色端只保留各自配置和文案
+
+这样做为后续继续补充以下能力打下基础：
+
+- 统一退出登录逻辑
+- 顶部用户菜单
+- 侧边栏折叠
+- 更细粒度的上下文提示组件
+
+### 5. 管理端通知页从说明页进入可操作页
+
+本轮继续推进管理端业务完成度，把精准通知页从“列表 + 说明”升级为“列表 + 创建表单”。
+
+涉及文件：
+
+- `web/src/views/admin/AdminNoticesView.vue`
+
+新增能力：
+
+- 创建通知表单
+- 标题录入
+- 正文录入
+- 目标范围录入
+- 标签录入
+- 触达渠道选择
+- 一键填充示例
+- 重置表单
+- 提交后本地插入通知列表，作为 mock 驱动演示
+
+保留的设计原则：
+
+- 仍通过正式前端工程页面实现，不回退到静态原型
+- 不提前伪装为真实持久化接口
+- 先把业务页交互结构搭起来，再等待后端接口接入
+
+### 6. 管理端知识库页从管理列表进入编辑页
+
+延续通知页的推进方式，本轮还将知识库管理页从“列表 + 资源展示”升级为“列表 + 条目编辑表单 + 模板资源区”。
+
+涉及文件：
+
+- `web/src/views/admin/AdminKnowledgeView.vue`
+
+新增能力：
+
+- 新建知识条目表单
+- 编辑已有条目
+- 填写标题、分类、版本、摘要、来源文件、关键词
+- 一键填充示例数据
+- 提交后本地更新左侧条目列表
+- 保留右下方模板资源区，不丢失资源管理入口
+
+这使得知识库管理页和通知管理页已经达到相近的“可操作业务页”完成度，而不再只是原型占位页。
+
+### 7. 本轮验证
+
+本轮每个阶段完成后都重复执行了正式前端工程构建验证：
+
+- `cd web`
+- `npm run build`
+
+验证结果：
+
+- 构建持续通过
+- 新增的 `AppShell` 与 `useAsyncPage` 未引入构建问题
+- 通知创建表单与知识库编辑表单已成功纳入现有工程结构
+
+### 8. 当前前端推进状态
+
+截至本轮，`web/` 正式前端工程已经进入“基础设施开始稳定、业务管理页开始成型”的阶段：
+
+- API 入口更统一
+- 页面异步状态开始复用
+- 布局结构开始复用
+- 学生端高频业务页已具备较完整交互骨架
+- 管理端通知页和知识库页已经从展示态进入可操作态
+
+这说明当前前端不再只是“把静态原型搬进 Vue”，而是已经具备继续往真实联调工程推进的条件。
+
+### 9. 下一步建议
+
+后续建议按以下顺序继续推进：
+
+1. 为通知创建表单和知识库编辑表单补字段校验、提交反馈和更明确的表单状态提示
+2. 推进 `web/src/views/admin/AdminApplicationsView.vue`，补审批意见输入区或审批抽屉
+3. 为列表管理页补真实分页结构，而不是只停留在前端筛选
+4. 逐步将 `web/src/api/modules/*` 背后的 mock server 替换为真实后端接口
+5. 在表单页稳定后，再考虑抽取更细的通用表单块，例如渠道选择器、范围配置块、文件资源块

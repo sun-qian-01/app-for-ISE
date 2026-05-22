@@ -1,5 +1,5 @@
 import { defineStore } from "pinia";
-import { loginApi, meApi } from "../api/auth";
+import { loginApi, meApi } from "../api/modules/authApi";
 
 const TOKEN_KEY = "ise_token";
 const PROFILE_KEY = "ise_profile";

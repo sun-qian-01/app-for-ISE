@@ -54,13 +54,13 @@ import PageHeader from "../../components/common/PageHeader.vue";
 import RecordCard from "../../components/common/RecordCard.vue";
 import SearchBar from "../../components/common/SearchBar.vue";
 import StatusTag from "../../components/common/StatusTag.vue";
+import { useAsyncPage } from "../../composables/useAsyncPage";
 import { getMyApplications } from "../../api/modules/applicationApi";
 
 const items = ref([]);
-const loading = ref(false);
-const error = ref(false);
 const keyword = ref("");
 const statusFilter = ref("all");
+const { loading, error, run } = useAsyncPage(getMyApplications);
 
 const filteredItems = computed(() =>
   items.value.filter((item) => {
@@ -76,16 +76,9 @@ onMounted(() => {
 });
 
 async function loadData() {
-  loading.value = true;
-  error.value = false;
   try {
-    items.value = await getMyApplications();
-  } catch (err) {
-    console.error(err);
-    error.value = true;
-  } finally {
-    loading.value = false;
-  }
+    items.value = await run();
+  } catch {}
 }
 
 function getStatusTone(status) {

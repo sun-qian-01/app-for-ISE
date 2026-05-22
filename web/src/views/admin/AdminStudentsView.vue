@@ -15,7 +15,10 @@
         <option value="重点关注">重点关注</option>
       </select>
     </SearchBar>
+    <LoadingState v-if="loading" text="学生列表加载中..." />
+    <ErrorState v-else-if="error" description="学生列表加载失败，请稍后重试。" @retry="loadData" />
     <DataTable
+      v-else
       :columns="columns"
       :rows="filteredItems"
       row-key="studentNo"
@@ -36,16 +39,20 @@
 <script setup>
 import { computed, onMounted, ref } from "vue";
 import DataTable from "../../components/common/DataTable.vue";
+import ErrorState from "../../components/common/ErrorState.vue";
+import LoadingState from "../../components/common/LoadingState.vue";
 import PageHeader from "../../components/common/PageHeader.vue";
 import SearchBar from "../../components/common/SearchBar.vue";
 import StatusTag from "../../components/common/StatusTag.vue";
+import { useAsyncPage } from "../../composables/useAsyncPage";
 import { usePermission } from "../../composables/usePermission";
-import { fetchAdminStudents } from "../../mocks/server";
+import { getStudentList } from "../../api/modules/studentApi";
 
 const items = ref([]);
 const keyword = ref("");
 const statusFilter = ref("all");
 const { hasPermission } = usePermission();
+const { loading, error, run } = useAsyncPage(getStudentList);
 
 const columns = [
   { key: "studentNo", label: "学号" },
@@ -66,6 +73,12 @@ const filteredItems = computed(() =>
 );
 
 onMounted(async () => {
-  items.value = await fetchAdminStudents();
+  loadData();
 });
+
+async function loadData() {
+  try {
+    items.value = await run();
+  } catch {}
+}
 </script>

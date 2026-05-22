@@ -34,7 +34,7 @@ import { RouterLink } from "vue-router";
 import MetricCard from "../../components/common/MetricCard.vue";
 import PageHeader from "../../components/common/PageHeader.vue";
 import StatusTag from "../../components/common/StatusTag.vue";
-import { fetchStudentDashboard } from "../../mocks/server";
+import { getStudentDashboard } from "../../api/modules/dashboardApi";
 
 const data = reactive({
   todoCount: 0,
@@ -44,6 +44,6 @@ const data = reactive({
 });
 
 onMounted(async () => {
-  Object.assign(data, await fetchStudentDashboard());
+  Object.assign(data, await getStudentDashboard());
 });
 </script>
