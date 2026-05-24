@@ -52,7 +52,7 @@ const items = ref([]);
 const keyword = ref("");
 const statusFilter = ref("all");
 const { hasPermission } = usePermission();
-const { loading, error, run } = useAsyncPage(getStudentList);
+const { loading, error, run } = useAsyncPage(() => getStudentList({ pageNo: 1, pageSize: 100 }));
 
 const columns = [
   { key: "studentNo", label: "学号" },
@@ -78,7 +78,14 @@ onMounted(async () => {
 
 async function loadData() {
   try {
-    items.value = await run();
+    const page = await run();
+    items.value = (page.records || []).map((item) => ({
+      studentNo: item.studentNo,
+      name: item.name,
+      className: item.className,
+      statusText: item.status,
+      tags: item.tags || [],
+    }));
   } catch {}
 }
 </script>

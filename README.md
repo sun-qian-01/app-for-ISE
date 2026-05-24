@@ -236,6 +236,11 @@ mvn spring-boot:run
 mvn test
 ```
 
+说明：
+
+- 仓库已内置 `.mvn/maven.config`，默认将本地 Maven 仓库写入 `/tmp/m2repo`，避免部分环境下 `~/.m2` 不可写导致启动失败。
+- 当前后端以 `JDK 17` 为运行与编译目标。
+
 如需更具体的运行、联调、调试说明，优先查看：
 
 - `docs/backend/run-preview-debug.md`

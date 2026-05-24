@@ -97,6 +97,47 @@ class ApiIntegrationTest {
     }
 
     @Test
+    void kbArticleDetailShouldReturnPublishedArticle() throws Exception {
+        String token = loginAndGetToken("20220001", "123456");
+        mockMvc.perform(get("/api/v1/kb/articles/1")
+                .header(HttpHeaders.AUTHORIZATION, "Bearer " + token))
+            .andExpect(status().isOk())
+            .andExpect(jsonPath("$.code").value(0))
+            .andExpect(jsonPath("$.data.articleId").value(1))
+            .andExpect(jsonPath("$.data.content").isNotEmpty());
+    }
+
+    @Test
+    void kbArticleDetailFiveShouldReturnPublishedArticle() throws Exception {
+        String token = loginAndGetToken("20220001", "123456");
+        mockMvc.perform(get("/api/v1/kb/articles/5")
+                .header(HttpHeaders.AUTHORIZATION, "Bearer " + token))
+            .andExpect(status().isOk())
+            .andExpect(jsonPath("$.code").value(0))
+            .andExpect(jsonPath("$.data.articleId").value(5))
+            .andExpect(jsonPath("$.data.publishStatus").value("published"));
+    }
+
+    @Test
+    void demoTemplateFileShouldBeDownloadableWithToken() throws Exception {
+        String token = loginAndGetToken("20220001", "123456");
+        MvcResult result = mockMvc.perform(get("/api/v1/files/13004/download")
+                .header(HttpHeaders.AUTHORIZATION, "Bearer " + token))
+            .andExpect(status().isOk())
+            .andReturn();
+
+        assertThat(result.getResponse().getContentAsByteArray()).isNotEmpty();
+        assertThat(result.getResponse().getHeader(HttpHeaders.CONTENT_DISPOSITION)).contains("attachment");
+    }
+
+    @Test
+    void demoTemplateFileShouldRejectAnonymousDownload() throws Exception {
+        mockMvc.perform(get("/api/v1/files/13004/download"))
+            .andExpect(status().isOk())
+            .andExpect(jsonPath("$.code").value(40100));
+    }
+
+    @Test
     void partyFlowsShouldReturnStageDefinitions() throws Exception {
         String token = loginAndGetToken("20220001", "123456");
         mockMvc.perform(get("/api/v1/party/flows")
@@ -121,6 +162,17 @@ class ApiIntegrationTest {
             .andExpect(status().isOk())
             .andExpect(jsonPath("$.code").value(0))
             .andExpect(jsonPath("$.data.records[*].id").isArray());
+    }
+
+    @Test
+    void noticeDetailShouldReturnByIdForStudent() throws Exception {
+        String token = loginAndGetToken("20220001", "123456");
+        mockMvc.perform(get("/api/v1/notices/my/1")
+                .header(HttpHeaders.AUTHORIZATION, "Bearer " + token))
+            .andExpect(status().isOk())
+            .andExpect(jsonPath("$.code").value(0))
+            .andExpect(jsonPath("$.data.id").value(1))
+            .andExpect(jsonPath("$.data.title").isNotEmpty());
     }
 
     @Test

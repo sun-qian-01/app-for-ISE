@@ -1,9 +1,13 @@
-import { fetchAdminDashboard, fetchStudentDashboard } from "../../mocks/server";
+import client from "../client";
 
 export async function getStudentDashboard() {
-  return fetchStudentDashboard();
+  return client.get("/dashboard/student");
 }
 
 export async function getAdminDashboard() {
-  return fetchAdminDashboard();
+  return client.get("/dashboard/admin");
+}
+
+export async function getLeaderDashboard() {
+  return client.get("/dashboard/leader");
 }

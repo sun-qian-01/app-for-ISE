@@ -3,7 +3,6 @@
     <section class="panel">
       <PageHeader
         title="智能问答"
-        api="POST /kb/qa"
         description="按学院已发布知识条目生成问答，若无可靠依据则明确提示未检索到依据。"
       />
       <form class="form" @submit.prevent="submitQuestion">
@@ -34,7 +33,6 @@
     <section class="panel">
       <PageHeader
         title="政策与模板"
-        api="GET /kb/articles"
         description="支持按分类和关键字筛选文章，并查看可下载模板。"
       />
       <SearchBar>
@@ -57,17 +55,19 @@
             <EmptyState
               v-if="!templates.length"
               title="暂无模板"
-              description="后续接入真实文件服务后，这里会提供统一下载入口。"
+              description="当前暂无可下载模板。"
             />
             <RecordCard
               v-for="item in templates"
-              :key="item.name"
+              :key="item.templateId"
               :meta="`${item.categoryLabel} · ${item.fileType.toUpperCase()} · ${item.updatedAt}`"
               :title="item.name"
               :description="item.description"
             >
               <template #actions>
-                <button class="button" type="button">下载模板</button>
+                <button class="button" type="button" :disabled="!item.fileUrl" @click="downloadTemplate(item)">
+                  下载模板
+                </button>
               </template>
             </RecordCard>
           </div>
@@ -85,7 +85,8 @@
           />
           <RecordCard
             v-for="item in filteredArticles"
-            :key="item.title"
+            :key="item.articleId"
+            :to="{ name: 'student-kb-article', params: { articleId: item.articleId } }"
             :meta="`${item.categoryLabel} · ${item.version}`"
             :title="item.title"
             :description="item.summary"
@@ -93,7 +94,7 @@
             <template #tags>
               <StatusTag :label="item.publishStatus" tone="success" />
             </template>
-            <template #extra>来源：{{ item.source }}</template>
+            <template #extra>来源：{{ item.source || "无" }}</template>
           </RecordCard>
         </section>
       </div>
@@ -111,7 +112,8 @@ import RecordCard from "../../components/common/RecordCard.vue";
 import SearchBar from "../../components/common/SearchBar.vue";
 import StatusTag from "../../components/common/StatusTag.vue";
 import { useAsyncPage } from "../../composables/useAsyncPage";
-import { getKnowledgeList, getKnowledgeTemplates } from "../../api/modules/kbApi";
+import { askKnowledgeQuestion, getKnowledgeList, getKnowledgeTemplates } from "../../api/modules/kbApi";
+import { downloadWithAuth } from "../../utils/downloadFile";
 
 const question = ref("");
 const answer = ref("");
@@ -121,8 +123,11 @@ const templates = ref([]);
 const keyword = ref("");
 const categoryFilter = ref("all");
 const { loading, error, run } = useAsyncPage(async () => {
-  const [articleList, templateList] = await Promise.all([getKnowledgeList(), getKnowledgeTemplates()]);
-  return { articleList, templateList };
+  const [articlePage, templateList] = await Promise.all([
+    getKnowledgeList({ pageNo: 1, pageSize: 100 }),
+    getKnowledgeTemplates(),
+  ]);
+  return { articleList: articlePage.records || [], templateList };
 });
 
 const categoryOptions = computed(() =>
@@ -132,7 +137,7 @@ const categoryOptions = computed(() =>
 const filteredArticles = computed(() =>
   articles.value.filter((item) => {
     const matchCategory = categoryFilter.value === "all" || item.categoryLabel === categoryFilter.value;
-    const text = `${item.title} ${item.summary} ${item.source}`.toLowerCase();
+    const text = `${item.title} ${item.summary} ${item.source || ""}`.toLowerCase();
     const matchKeyword = !keyword.value || text.includes(keyword.value.toLowerCase());
     return matchCategory && matchKeyword;
   }),
@@ -150,17 +155,34 @@ async function loadData() {
   } catch {}
 }
 
-function submitQuestion() {
+async function submitQuestion() {
   const text = question.value.trim();
-  const matched = articles.value.find((item) => item.keywords.some((keywordItem) => text.includes(keywordItem)));
-
-  if (!matched) {
-    answer.value = "未检索到可靠依据。";
+  if (!text) {
+    answer.value = "请输入问题后再检索。";
     answerSources.value = [];
     return;
   }
 
-  answer.value = `${matched.summary} 具体办理以学院当年通知为准。`;
-  answerSources.value = [`${matched.title} · ${matched.source}`, `版本：${matched.version}`];
+  try {
+    const result = await askKnowledgeQuestion(text);
+    answer.value = result.answer;
+    answerSources.value = (result.sources || []).map((item) =>
+      `${item.title}${item.fileName ? ` · ${item.fileName}` : ""}`,
+    );
+  } catch (error) {
+    answer.value = error?.message || "问答请求失败";
+    answerSources.value = [];
+  }
+}
+
+async function downloadTemplate(item) {
+  if (!item.fileUrl) {
+    return;
+  }
+  try {
+    await downloadWithAuth(item.fileUrl, `${item.name || "template"}.${item.fileType || "txt"}`);
+  } catch (error) {
+    window.alert(error?.message || "模板下载失败，请稍后重试。");
+  }
 }
 </script>

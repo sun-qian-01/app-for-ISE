@@ -12,7 +12,7 @@
       </PageHeader>
 
       <div class="grid grid--three">
-        <MetricCard label="通知总数" :value="items.length" hint="当前 mock 列表规模" />
+        <MetricCard label="通知总数" :value="items.length" hint="已发布通知" />
         <MetricCard label="未读通知" :value="unreadCount" hint="面向学生仍未读的记录" />
         <MetricCard label="平均已读率" :value="`${averageReadRate}%`" hint="基于当前触达统计估算" text-mode />
       </div>
@@ -45,10 +45,6 @@
             <StatusTag :label="item.statusLabel" :tone="item.read ? 'success' : 'warn'" />
             <span v-for="tag in item.tags" :key="tag" class="tag">{{ tag }}</span>
           </template>
-          <template #actions>
-            <button class="button" type="button">编辑</button>
-            <button class="button" type="button">查看统计</button>
-          </template>
           <template #extra>
             触达 {{ item.stats.delivered }} 人，已读 {{ item.stats.read }} 人，通过 {{ item.channelLabels.join(" / ") }} 发送
           </template>
@@ -60,9 +56,9 @@
       <PageHeader
         title="创建通知"
         api="POST /notices"
-        description="按目标范围、标签和渠道配置通知，当前以本地 mock 方式演示提交结果。"
+        description="按目标范围、标签和渠道配置通知，并直接提交后端。"
       />
-      <form class="form" @submit.prevent="createNotice">
+      <form class="form" @submit.prevent="createNoticeRecord">
         <label>
           <span>通知标题</span>
           <input v-model="form.title" class="input" type="text" placeholder="例如：2026 届就业信息补录提醒" />
@@ -104,19 +100,6 @@
           <button class="button button--primary" type="submit">立即创建</button>
         </div>
       </form>
-
-      <div class="stack create-panel__notes">
-        <RecordCard
-          meta="目标范围"
-          title="支持按年级、班级、标签和党团阶段定向"
-          description="当前先以 audience 文本模拟，后续建议替换成结构化 scopes 表单。"
-        />
-        <RecordCard
-          meta="触达渠道"
-          title="站内、邮件、微信三类渠道统一配置"
-          description="后续接真实接口时可直接映射为 channels 数组。"
-        />
-      </div>
     </section>
   </div>
 </template>
@@ -132,7 +115,7 @@ import RecordCard from "../../components/common/RecordCard.vue";
 import SearchBar from "../../components/common/SearchBar.vue";
 import StatusTag from "../../components/common/StatusTag.vue";
 import { useAsyncPage } from "../../composables/useAsyncPage";
-import { getNoticeList } from "../../api/modules/noticeApi";
+import { createNotice, getNoticeList } from "../../api/modules/noticeApi";
 
 const items = ref([]);
 const keyword = ref("");
@@ -145,7 +128,7 @@ const form = reactive({
   tagsText: "",
   channels: ["站内"],
 });
-const { loading, error, run } = useAsyncPage(getNoticeList);
+const { loading, error, run } = useAsyncPage(() => getNoticeList({ pageNo: 1, pageSize: 100 }));
 
 const unreadCount = computed(() => items.value.filter((item) => !item.read).length);
 
@@ -175,7 +158,22 @@ onMounted(() => {
 
 async function loadData() {
   try {
-    items.value = await run();
+    const page = await run();
+    items.value = (page.records || []).map((item) => ({
+      id: item.id,
+      title: item.title,
+      content: item.content,
+      audience: item.audience,
+      date: item.publishAt,
+      channelLabels: item.channelLabels || [],
+      read: item.readStatus === "read",
+      statusLabel: item.readStatus === "read" ? "已读" : "未读",
+      tags: item.tags || [],
+      stats: {
+        delivered: item.deliveredCount || 0,
+        read: item.readCount || 0,
+      },
+    }));
   } catch {}
 }
 
@@ -203,12 +201,12 @@ function fillDemoForm() {
   form.channels = ["站内", "邮件", "微信"];
 }
 
-function createNotice() {
+async function createNoticeRecord() {
   const title = form.title.trim();
   const content = form.content.trim();
   const audience = form.audience.trim();
   const tags = form.tagsText
-    .split("、")
+    .split(/[、,，]/)
     .map((item) => item.trim())
     .filter(Boolean);
 
@@ -216,25 +214,16 @@ function createNotice() {
     return;
   }
 
-  items.value = [
-    {
-      id: Date.now(),
+  try {
+    await createNotice({
       title,
       content,
       audience,
-      date: new Date().toISOString().slice(0, 10),
       channelLabels: [...form.channels],
-      read: false,
-      statusLabel: "未读",
       tags,
-      stats: {
-        delivered: 0,
-        read: 0,
-      },
-    },
-    ...items.value,
-  ];
-
-  resetForm();
+    });
+    resetForm();
+    await loadData();
+  } catch {}
 }
 </script>

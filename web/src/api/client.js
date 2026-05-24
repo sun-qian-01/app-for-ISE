@@ -18,12 +18,29 @@ client.interceptors.response.use(
     const payload = response.data;
     if (payload?.code !== 0) {
       const error = new Error(payload?.message || "请求失败");
+      error.businessCode = payload?.code;
+      error.status = response.status;
       error.requestId = payload?.requestId;
       throw error;
     }
     return payload.data;
   },
   (error) => {
+    if (error?.response?.data) {
+      const payload = error.response.data;
+      const normalizedError = new Error(payload?.message || error.message || "请求失败");
+      normalizedError.businessCode = payload?.code;
+      normalizedError.status = error.response.status;
+      normalizedError.requestId = payload?.requestId;
+      normalizedError.raw = error;
+      throw normalizedError;
+    }
+    if (error?.response?.status) {
+      const normalizedError = new Error(error.message || "请求失败");
+      normalizedError.status = error.response.status;
+      normalizedError.raw = error;
+      throw normalizedError;
+    }
     throw error;
   },
 );

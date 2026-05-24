@@ -35,6 +35,11 @@ const routes = [
         component: () => import("../views/student/StudentKnowledgeView.vue"),
       },
       {
+        path: "kb/articles/:articleId",
+        name: "student-kb-article",
+        component: () => import("../views/shared/KnowledgeArticleDetailView.vue"),
+      },
+      {
         path: "party",
         name: "student-party",
         component: () => import("../views/student/StudentPartyView.vue"),
@@ -43,6 +48,11 @@ const routes = [
         path: "notices",
         name: "student-notices",
         component: () => import("../views/student/StudentNoticesView.vue"),
+      },
+      {
+        path: "notices/:noticeId",
+        name: "student-notice-detail",
+        component: () => import("../views/shared/NoticeDetailView.vue"),
       },
       {
         path: "applications",
@@ -83,6 +93,11 @@ const routes = [
         path: "kb",
         name: "admin-kb",
         component: () => import("../views/admin/AdminKnowledgeView.vue"),
+      },
+      {
+        path: "kb/articles/:articleId",
+        name: "admin-kb-article",
+        component: () => import("../views/shared/KnowledgeArticleDetailView.vue"),
       },
       {
         path: "party",

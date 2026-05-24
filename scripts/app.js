@@ -32,6 +32,7 @@ const appData = {
       categoryLabel: "奖助",
       summary: "包含申请资格、名额分配、材料清单和公示流程。",
       source: "国家奖学金评定办法.pdf",
+      downloadFile: "./downloads/student/scholarship-policy.pdf",
       version: "v3",
       publishStatus: "published",
       keywords: ["奖学金", "国家奖学金", "评定", "材料"]
@@ -42,6 +43,7 @@ const appData = {
       categoryLabel: "学籍",
       summary: "说明休学申请条件、复学材料和学院审核路径。",
       source: "学籍异动办理指南.docx",
+      downloadFile: "./downloads/student/student-status-guide.docx",
       version: "v2",
       publishStatus: "published",
       keywords: ["休学", "复学", "学籍"]
@@ -52,6 +54,7 @@ const appData = {
       categoryLabel: "党团",
       summary: "汇总积极分子、发展对象、预备党员各阶段所需材料。",
       source: "党员发展材料清单.xlsx",
+      downloadFile: "./downloads/student/party-materials-checklist.xlsx",
       version: "v4",
       publishStatus: "published",
       keywords: ["党员", "党团", "思想汇报", "材料"]
@@ -62,6 +65,7 @@ const appData = {
       categoryLabel: "证明",
       summary: "提供常用证明模板、用途示例和线上审批说明。",
       source: "证明模板包.zip",
+      downloadFile: "./downloads/student/certificate-templates.zip",
       version: "v1",
       publishStatus: "published",
       keywords: ["证明", "模板", "在读证明", "成绩证明"]
@@ -72,6 +76,7 @@ const appData = {
       categoryLabel: "就业",
       summary: "说明就业去向填报、协议材料上传和二次核验规则。",
       source: "就业信息登记说明.pdf",
+      downloadFile: "./downloads/student/employment-registration-guide.pdf",
       version: "v1",
       publishStatus: "published",
       keywords: ["就业", "毕业", "登记"]
@@ -479,7 +484,10 @@ function bindKnowledgeSearch() {
           `<div class="notice-card__meta">${item.categoryLabel} · ${item.version} · ${item.publishStatus}</div>
            <h3>${item.title}</h3>
            <p>${item.summary}</p>
-           <div class="source-line">来源：${item.source}</div>`
+           <div class="source-line">来源：${item.source}</div>
+           <div class="topbar__actions">
+             <a class="button" href="${item.downloadFile}" download="${item.source}">下载附件</a>
+           </div>`
         )
       );
     });
@@ -503,7 +511,7 @@ function bindQaForm() {
       <strong>回答</strong>
       <p>${matched.summary} 具体办理以学院当年通知为准。</p>
       <div class="source-line">依据：${matched.title} · ${matched.source}</div>
-      <div class="source-line">模拟接口：POST /api/v1/kb/qa</div>
+      <div class="topbar__actions"><a class="button" href="${matched.downloadFile}" download="${matched.source}">下载依据附件</a></div>
     `;
   });
 }
@@ -1050,7 +1058,16 @@ function renderAdminKnowledge() {
   if (templates) {
     templates.innerHTML = "";
     appData.knowledge.filter((item) => item.category === "certificate" || item.source.endsWith(".xlsx")).forEach((item) => {
-      templates.appendChild(createElement("article", "record", `<div class="record__meta">file_resource</div><h3>${item.source}</h3><p>${item.title}</p><span class="pill">可下载</span>`));
+      templates.appendChild(
+        createElement(
+          "article",
+          "record",
+          `<div class="record__meta">file_resource</div>
+           <h3>${item.source}</h3>
+           <p>${item.title}</p>
+           <div class="topbar__actions"><a class="button" href="${item.downloadFile}" download="${item.source}">下载</a></div>`
+        )
+      );
     });
   }
 }

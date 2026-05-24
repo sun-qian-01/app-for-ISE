@@ -207,4 +207,120 @@ public final class PartyDto {
             return stageOrder;
         }
     }
+
+    public static class PartyTodoItem {
+        private Long stageRecordId;
+        private String studentName;
+        private String studentNo;
+        private String className;
+        private String stageName;
+        private String stageStatus;
+        private String dueAt;
+        private int materialCount;
+        private int pendingMaterialCount;
+
+        public PartyTodoItem(Long stageRecordId,
+                             String studentName,
+                             String studentNo,
+                             String className,
+                             String stageName,
+                             String stageStatus,
+                             String dueAt,
+                             int materialCount,
+                             int pendingMaterialCount) {
+            this.stageRecordId = stageRecordId;
+            this.studentName = studentName;
+            this.studentNo = studentNo;
+            this.className = className;
+            this.stageName = stageName;
+            this.stageStatus = stageStatus;
+            this.dueAt = dueAt;
+            this.materialCount = materialCount;
+            this.pendingMaterialCount = pendingMaterialCount;
+        }
+
+        public Long getStageRecordId() {
+            return stageRecordId;
+        }
+
+        public String getStudentName() {
+            return studentName;
+        }
+
+        public String getStudentNo() {
+            return studentNo;
+        }
+
+        public String getClassName() {
+            return className;
+        }
+
+        public String getStageName() {
+            return stageName;
+        }
+
+        public String getStageStatus() {
+            return stageStatus;
+        }
+
+        public String getDueAt() {
+            return dueAt;
+        }
+
+        public int getMaterialCount() {
+            return materialCount;
+        }
+
+        public int getPendingMaterialCount() {
+            return pendingMaterialCount;
+        }
+    }
+
+    public static class PartyReviewRequest {
+        @NotBlank(message = "action is required")
+        private String action;
+
+        @NotBlank(message = "comment is required")
+        private String comment;
+
+        public String getAction() {
+            return action;
+        }
+
+        public void setAction(String action) {
+            this.action = action;
+        }
+
+        public String getComment() {
+            return comment;
+        }
+
+        public void setComment(String comment) {
+            this.comment = comment;
+        }
+    }
+
+    public static class PartyReviewResult {
+        private Long stageRecordId;
+        private String stageStatus;
+        private String comment;
+
+        public PartyReviewResult(Long stageRecordId, String stageStatus, String comment) {
+            this.stageRecordId = stageRecordId;
+            this.stageStatus = stageStatus;
+            this.comment = comment;
+        }
+
+        public Long getStageRecordId() {
+            return stageRecordId;
+        }
+
+        public String getStageStatus() {
+            return stageStatus;
+        }
+
+        public String getComment() {
+            return comment;
+        }
+    }
 }

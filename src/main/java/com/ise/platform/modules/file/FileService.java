@@ -8,6 +8,8 @@ import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicLong;
@@ -16,6 +18,18 @@ import java.util.concurrent.atomic.AtomicLong;
 public class FileService {
 
     private static final long MAX_FILE_SIZE = 30L * 1024 * 1024;
+    private static final Map<Long, SeededFileRef> SEEDED_FILE_REFS = Map.of(
+        12001L, new SeededFileRef("国家奖学金评定办法.pdf", "downloads/student/scholarship-policy.pdf", "application/pdf"),
+        12002L, new SeededFileRef("学籍异动办理指南.docx", "downloads/student/student-status-guide.docx", "application/vnd.openxmlformats-officedocument.wordprocessingml.document"),
+        12003L, new SeededFileRef("党员发展材料清单.xlsx", "downloads/student/party-materials-checklist.xlsx", "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"),
+        12004L, new SeededFileRef("学生证明办理指南.pdf", "downloads/student/student-certificate-guide.pdf", "application/pdf"),
+        12005L, new SeededFileRef("毕业生就业信息补录通知.docx", "downloads/student/employment-registration-guide.docx", "application/vnd.openxmlformats-officedocument.wordprocessingml.document"),
+        13001L, new SeededFileRef("在读证明申请模板.docx", "downloads/student/student-certificate-application-template.docx", "application/vnd.openxmlformats-officedocument.wordprocessingml.document"),
+        13002L, new SeededFileRef("国家奖学金材料清单模板.xlsx", "downloads/student/scholarship-materials-checklist.xlsx", "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"),
+        13003L, new SeededFileRef("思想汇报撰写模板.docx", "downloads/student/party-report-template.docx", "application/vnd.openxmlformats-officedocument.wordprocessingml.document"),
+        13004L, new SeededFileRef("就业信息补录说明模板.docx", "downloads/student/employment-registration-guide.docx", "application/vnd.openxmlformats-officedocument.wordprocessingml.document")
+    );
+
     private final AtomicLong fileIdGenerator = new AtomicLong(1000);
     private final Map<Long, FileEntity> fileStore = new ConcurrentHashMap<>();
 
@@ -48,19 +62,56 @@ public class FileService {
 
     public FileEntity requireFile(CurrentUser user, Long fileId) {
         FileEntity file = fileStore.get(fileId);
-        if (file == null) {
-            throw new BusinessException(ErrorCode.NOT_FOUND, "file not found");
+        if (file != null) {
+            // Demo rule: uploader and admins can download uploaded attachments.
+            boolean isOwner = file.uploadedBy().equals(user.getId());
+            boolean isManager = user.getRoles().stream().anyMatch(role ->
+                "teacher_admin".equals(role) || "college_leader".equals(role) || "system_admin".equals(role));
+            if (!isOwner && !isManager) {
+                throw new BusinessException(ErrorCode.FORBIDDEN, "no permission to download this file");
+            }
+            return file;
         }
-        // Demo rule: uploader and admins can download.
-        boolean isOwner = file.uploadedBy().equals(user.getId());
-        boolean isManager = user.getRoles().stream().anyMatch(role ->
-            "teacher_admin".equals(role) || "college_leader".equals(role) || "system_admin".equals(role));
-        if (!isOwner && !isManager) {
-            throw new BusinessException(ErrorCode.FORBIDDEN, "no permission to download this file");
+
+        FileEntity seededFile = loadSeededFile(fileId, user);
+        if (seededFile != null) {
+            return seededFile;
         }
-        return file;
+
+        // Last-resort fallback so unknown demo IDs still remain downloadable in preview.
+        String placeholderName = "demo-file-" + fileId + ".txt";
+        byte[] content = ("该文件为演示占位内容，fileId=" + fileId).getBytes();
+        return new FileEntity(fileId, placeholderName, "text/plain;charset=UTF-8", content, "demo_seeded", user.getId());
+    }
+
+    private FileEntity loadSeededFile(Long fileId, CurrentUser user) {
+        SeededFileRef ref = SEEDED_FILE_REFS.get(fileId);
+        if (ref == null) {
+            return null;
+        }
+
+        Path path = Path.of(ref.relativePath());
+        try {
+            if (!Files.exists(path)) {
+                return null;
+            }
+            byte[] content = Files.readAllBytes(path);
+            String contentType = ref.contentType();
+            if (!StringUtils.hasText(contentType)) {
+                contentType = Files.probeContentType(path);
+            }
+            if (!StringUtils.hasText(contentType)) {
+                contentType = "application/octet-stream";
+            }
+            return new FileEntity(fileId, ref.fileName(), contentType, content, "demo_seeded", user.getId());
+        } catch (IOException exception) {
+            throw new BusinessException(ErrorCode.INTERNAL_ERROR, "read demo file failed");
+        }
     }
 
     public record FileEntity(Long fileId, String fileName, String contentType, byte[] content, String bizType, Long uploadedBy) {
+    }
+
+    private record SeededFileRef(String fileName, String relativePath, String contentType) {
     }
 }

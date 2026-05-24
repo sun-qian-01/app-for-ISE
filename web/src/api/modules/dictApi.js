@@ -1,6 +1,9 @@
-import { dictionaries } from "../../constants/dictionaries";
+import client from "../client";
 
 export async function getDicts(types = []) {
-  if (!types.length) return dictionaries;
-  return Object.fromEntries(types.map((type) => [type, dictionaries[type] ?? []]));
+  const params = {};
+  if (types.length) {
+    params.types = types.join(",");
+  }
+  return client.get("/dicts", { params });
 }
