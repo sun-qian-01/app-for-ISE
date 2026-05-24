@@ -1,0 +1,10 @@
+{
+  "session_id": "019e3872-6323-73b0-a668-10c65ab033a7",
+  "native_session_id": "019e3872-6323-73b0-a668-10c65ab033a7",
+  "started_at": "2026-05-18T01:08:44.133Z",
+  "cwd": "/home/tianjiaming/learn/SWE/app-for-ISE",
+  "pid": 1139169,
+  "platform": "linux",
+  "pid_start_ticks": 1054601404,
+  "pid_cmdline": "/home/tianjiaming/.vscode-server/extensions/openai.chatgpt-26.513.21555-linux-x64/bin/linux-x86_64/codex app-server --analytics-default-enabled"
+}

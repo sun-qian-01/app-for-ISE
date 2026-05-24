@@ -1,0 +1,330 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ISE API 交互测试页</title>
+  <style>
+    body { font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, "PingFang SC", "Noto Sans CJK SC", sans-serif; margin: 0; background: #f6f3ee; color: #2f2924; }
+    .wrap { max-width: 1120px; margin: 24px auto; padding: 0 16px 32px; }
+    .card { background: #fffaf4; border: 1px solid #eadfce; border-radius: 12px; padding: 14px; margin-bottom: 12px; }
+    h1 { margin: 0 0 12px; font-size: 22px; color: #6b1021; }
+    h2 { margin: 0 0 8px; font-size: 16px; color: #6b1021; }
+    .row { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 8px; }
+    input, select, textarea { border: 1px solid #d9c7ae; border-radius: 8px; padding: 8px; font-size: 14px; background: #fff; }
+    button { border: 0; border-radius: 8px; background: #7c2032; color: white; padding: 8px 12px; cursor: pointer; }
+    button:hover { filter: brightness(1.05); }
+    .muted { color: #7a6e64; font-size: 13px; }
+    pre { background: #1f2430; color: #e8e8e8; border-radius: 10px; padding: 12px; overflow: auto; max-height: 420px; }
+    .ok { color: #0a6d3f; }
+    .err { color: #b62a2a; }
+  </style>
+</head>
+<body>
+<div class="wrap">
+  <h1>ISE 后端 API 交互测试页</h1>
+  <div class="muted">同源地址：<code>http://localhost:8080</code>。先登录获取 token，再点击按钮执行接口。</div>
+
+  <div class="card">
+    <h2>1) 登录</h2>
+    <div class="row">
+      <select id="presetUser">
+        <option value="20220001">20220001（学生）</option>
+        <option value="20220018">20220018（班团骨干）</option>
+        <option value="teacher001">teacher001（管理老师）</option>
+        <option value="leader001">leader001（学院领导）</option>
+      </select>
+      <input id="password" type="text" value="123456" placeholder="password">
+      <button onclick="login()">登录</button>
+      <button onclick="logout()">退出</button>
+    </div>
+    <div>Token：<code id="tokenText">(未登录)</code></div>
+  </div>
+
+  <div class="card">
+    <h2>2) 常用接口快速测试</h2>
+    <div class="row">
+      <button onclick="callApi('GET', '/api/v1/auth/me')">GET /auth/me</button>
+      <button onclick="callApi('GET', '/api/v1/dashboard/student')">GET /dashboard/student</button>
+      <button onclick="callApi('GET', '/api/v1/dashboard/admin')">GET /dashboard/admin</button>
+      <button onclick="callApi('GET', '/api/v1/notices/my?pageNo=1&pageSize=10')">GET /notices/my</button>
+      <button onclick="callApi('GET', '/api/v1/students/me/profile')">GET /students/me/profile</button>
+      <button onclick="callApi('GET', '/api/v1/students?pageNo=1&pageSize=10&grade=2022')">GET /students</button>
+      <button onclick="callApi('GET', '/api/v1/students/1?includeSensitive=true')">GET /students/1?sensitive</button>
+      <button onclick="callApi('GET', '/api/v1/dicts?types=student_status,application_status')">GET /dicts</button>
+      <button onclick="callApi('GET', '/api/v1/party/flows')">GET /party/flows</button>
+      <button onclick="callApi('GET', '/api/v1/applications/approvals/pending?pageNo=1&pageSize=10')">GET /applications/approvals/pending</button>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>3) 知识库问答</h2>
+    <div class="row">
+      <input id="qaQuestion" style="min-width: 480px;" value="国家奖学金需要提交哪些材料？">
+      <button onclick="qa()">POST /kb/qa</button>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>4) 文件上传 + 党团材料提交</h2>
+    <div class="row">
+      <input id="bizType" value="party_material">
+      <input id="uploadFile" type="file">
+      <button onclick="uploadFile()">POST /files/upload</button>
+    </div>
+    <div class="row">
+      <input id="stageRecordId" value="1003">
+      <input id="materialName" value="季度思想汇报">
+      <input id="uploadedFileId" placeholder="上传后自动填充 fileId">
+      <button onclick="submitMaterial()">POST /party/stage-records/{id}/materials</button>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>5) 申请创建与详情</h2>
+    <div class="row">
+      <input id="appTitle" value="在读证明申请">
+      <button onclick="createApplication()">POST /applications</button>
+      <input id="appDetailId" value="1" style="width: 100px;">
+      <button onclick="loadApplicationDetail()">GET /applications/{id}</button>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>6) 学生写操作</h2>
+    <div class="row">
+      <input id="growthStudentId" value="1" style="width: 100px;">
+      <input id="growthRecordType" value="practice">
+      <input id="growthTitle" value="企业实习">
+      <button onclick="createGrowthRecord()">POST /students/{id}/growth-records</button>
+    </div>
+    <div class="row">
+      <input id="tagStudentId" value="1" style="width: 100px;">
+      <input id="tagIds" value="1,4" style="min-width: 180px;">
+      <button onclick="updateStudentTags()">PUT /students/{id}/tags</button>
+    </div>
+    <div class="row">
+      <input id="importFileId" value="101" style="width: 120px;">
+      <button onclick="createImportTask()">POST /students/import-tasks</button>
+      <input id="importTaskNo" placeholder="taskNo">
+      <button onclick="loadImportTask()">GET /students/import-tasks/{taskNo}</button>
+    </div>
+    <div class="muted">提示：标签更新与导入任务建议使用 teacher001 登录。</div>
+  </div>
+
+  <div class="card">
+    <h2>7) 申请撤回与审批</h2>
+    <div class="row">
+      <input id="opApplicationId" value="1" style="width: 100px;">
+      <input id="opComment" value="材料齐全，同意通过" style="min-width: 260px;">
+      <button onclick="loadPendingApprovals()">GET /applications/approvals/pending</button>
+      <button onclick="approveApplication()">POST /applications/{id}/approve</button>
+      <button onclick="rejectApplication()">POST /applications/{id}/reject</button>
+    </div>
+    <div class="row">
+      <input id="revokeReason" value="用途变更">
+      <button onclick="revokeApplication()">POST /applications/{id}/revoke</button>
+    </div>
+    <div class="muted">提示：撤回请用学生账号；审批请用 teacher001。</div>
+  </div>
+
+  <div class="card">
+    <h2>输出</h2>
+    <div id="status" class="muted"></div>
+    <pre id="output">{}</pre>
+  </div>
+</div>
+
+<script>
+  let token = "";
+
+  function setStatus(msg, ok = true) {
+    const node = document.getElementById("status");
+    node.className = ok ? "ok" : "err";
+    node.textContent = msg;
+  }
+
+  function setOutput(data) {
+    document.getElementById("output").textContent = typeof data === "string"
+      ? data
+      : JSON.stringify(data, null, 2);
+  }
+
+  function updateTokenText() {
+    document.getElementById("tokenText").textContent = token || "(未登录)";
+  }
+
+  async function api(method, path, body) {
+    const headers = {};
+    if (token) headers["Authorization"] = "Bearer " + token;
+    if (body && !(body instanceof FormData)) headers["Content-Type"] = "application/json";
+    const res = await fetch(path, { method, headers, body: body instanceof FormData ? body : (body ? JSON.stringify(body) : undefined) });
+    const ct = res.headers.get("content-type") || "";
+    if (ct.includes("application/json")) {
+      const json = await res.json();
+      return { status: res.status, data: json };
+    }
+    const text = await res.text();
+    return { status: res.status, data: text };
+  }
+
+  async function login() {
+    const username = document.getElementById("presetUser").value;
+    const password = document.getElementById("password").value;
+    const r = await api("POST", "/api/v1/auth/login", { username, password });
+    setOutput(r.data);
+    if (r.data && r.data.code === 0) {
+      token = r.data.data.token;
+      updateTokenText();
+      setStatus("登录成功", true);
+    } else {
+      setStatus("登录失败", false);
+    }
+  }
+
+  async function logout() {
+    if (!token) return;
+    const r = await api("POST", "/api/v1/auth/logout");
+    setOutput(r.data);
+    token = "";
+    updateTokenText();
+    setStatus("已退出", true);
+  }
+
+  async function callApi(method, path) {
+    const r = await api(method, path);
+    setOutput(r.data);
+    setStatus(`${method} ${path} -> HTTP ${r.status}`, r.status < 400);
+  }
+
+  async function qa() {
+    const question = document.getElementById("qaQuestion").value;
+    const r = await api("POST", "/api/v1/kb/qa", { question });
+    setOutput(r.data);
+    setStatus("问答请求完成", r.status < 400);
+  }
+
+  async function uploadFile() {
+    const fileInput = document.getElementById("uploadFile");
+    if (!fileInput.files.length) {
+      setStatus("请选择文件", false);
+      return;
+    }
+    const form = new FormData();
+    form.append("file", fileInput.files[0]);
+    form.append("bizType", document.getElementById("bizType").value);
+    const r = await api("POST", "/api/v1/files/upload", form);
+    setOutput(r.data);
+    if (r.data && r.data.code === 0) {
+      document.getElementById("uploadedFileId").value = r.data.data.fileId;
+      setStatus("上传成功", true);
+    } else {
+      setStatus("上传失败", false);
+    }
+  }
+
+  async function submitMaterial() {
+    const stageRecordId = document.getElementById("stageRecordId").value;
+    const materialName = document.getElementById("materialName").value;
+    const fileId = Number(document.getElementById("uploadedFileId").value);
+    const r = await api("POST", `/api/v1/party/stage-records/${stageRecordId}/materials`, { materialName, fileId });
+    setOutput(r.data);
+    setStatus("材料提交请求完成", r.status < 400);
+  }
+
+  async function createApplication() {
+    const r = await api("POST", "/api/v1/applications", {
+      applicationType: "certificate",
+      templateId: 1,
+      title: document.getElementById("appTitle").value,
+      purpose: "实习材料",
+      formData: { receiveOrg: "某科技公司" }
+    });
+    setOutput(r.data);
+    setStatus("申请创建完成", r.status < 400);
+  }
+
+  async function loadApplicationDetail() {
+    const id = document.getElementById("appDetailId").value;
+    const r = await api("GET", `/api/v1/applications/${id}`);
+    setOutput(r.data);
+    setStatus("申请详情加载完成", r.status < 400);
+  }
+
+  async function createGrowthRecord() {
+    const studentId = document.getElementById("growthStudentId").value;
+    const payload = {
+      recordType: document.getElementById("growthRecordType").value,
+      title: document.getElementById("growthTitle").value,
+      startDate: "2026-06-01",
+      endDate: "2026-07-01",
+      description: "联调测试创建"
+    };
+    const r = await api("POST", `/api/v1/students/${studentId}/growth-records`, payload);
+    setOutput(r.data);
+    setStatus("成长记录创建完成", r.status < 400);
+  }
+
+  async function updateStudentTags() {
+    const studentId = document.getElementById("tagStudentId").value;
+    const tagIds = document.getElementById("tagIds").value
+      .split(",")
+      .map(item => Number(item.trim()))
+      .filter(item => !Number.isNaN(item));
+    const r = await api("PUT", `/api/v1/students/${studentId}/tags`, { tagIds });
+    setOutput(r.data);
+    setStatus("标签更新完成", r.status < 400);
+  }
+
+  async function createImportTask() {
+    const fileId = Number(document.getElementById("importFileId").value);
+    const r = await api("POST", "/api/v1/students/import-tasks", {
+      importType: "student_base",
+      fileId
+    });
+    setOutput(r.data);
+    if (r.data && r.data.code === 0) {
+      document.getElementById("importTaskNo").value = r.data.data.taskNo;
+    }
+    setStatus("导入任务创建完成", r.status < 400);
+  }
+
+  async function loadImportTask() {
+    const taskNo = document.getElementById("importTaskNo").value;
+    const r = await api("GET", `/api/v1/students/import-tasks/${taskNo}`);
+    setOutput(r.data);
+    setStatus("导入任务详情加载完成", r.status < 400);
+  }
+
+  async function loadPendingApprovals() {
+    const r = await api("GET", "/api/v1/applications/approvals/pending?pageNo=1&pageSize=10");
+    setOutput(r.data);
+    setStatus("待审批列表加载完成", r.status < 400);
+  }
+
+  async function approveApplication() {
+    const applicationId = document.getElementById("opApplicationId").value;
+    const comment = document.getElementById("opComment").value;
+    const r = await api("POST", `/api/v1/applications/${applicationId}/approve`, { comment });
+    setOutput(r.data);
+    setStatus("审批通过请求完成", r.status < 400);
+  }
+
+  async function rejectApplication() {
+    const applicationId = document.getElementById("opApplicationId").value;
+    const comment = document.getElementById("opComment").value;
+    const r = await api("POST", `/api/v1/applications/${applicationId}/reject`, { comment });
+    setOutput(r.data);
+    setStatus("审批驳回请求完成", r.status < 400);
+  }
+
+  async function revokeApplication() {
+    const applicationId = document.getElementById("opApplicationId").value;
+    const reason = document.getElementById("revokeReason").value;
+    const r = await api("POST", `/api/v1/applications/${applicationId}/revoke`, { reason });
+    setOutput(r.data);
+    setStatus("申请撤回请求完成", r.status < 400);
+  }
+</script>
+</body>
+</html>
