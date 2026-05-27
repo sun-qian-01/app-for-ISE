@@ -1,0 +1,1 @@
+import{n as e}from"./index-BwuBm236.js";async function t(){return e.get(`/honors/my`)}async function n(){return e.get(`/honors`)}export{t as n,n as t};

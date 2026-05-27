@@ -246,6 +246,55 @@ mvn test
 - `docs/backend/run-preview-debug.md`
 - `docs/backend/backend-environment.md`
 
+## 校园网服务器一键部署
+
+仓库内已提供脚本：
+
+- `scripts/campus-one-click.sh`：首次部署（构建前后端、配置 systemd + Nginx、健康检查）
+- `scripts/campus-start.sh`：后续快速一键启动（重启后端和 Nginx）
+
+首次部署示例（让校园网用户通过 `10.77.110.167` 访问）：
+
+```bash
+./scripts/campus-one-click.sh --public-ip 10.77.110.167
+```
+
+后续仅启动服务：
+
+```bash
+./scripts/campus-start.sh
+```
+
+## 部署机（非开发机）发布
+
+如果目标机器只负责运行，推荐使用“开发机构建 -> 发布包部署”模式。
+
+1. 在开发机生成发布包：
+
+```bash
+./scripts/make-runtime-release.sh
+```
+
+2. 将 `release/app-for-ise-runtime-<version>.tar.gz` 上传到部署机。
+
+3. 在部署机解压并安装：
+
+```bash
+tar -xzf app-for-ise-runtime-<version>.tar.gz
+cd app-for-ise-runtime-<version>
+./scripts/runtime-install.sh --public-ip <部署机IP>
+```
+
+4. 部署机日常运维：
+
+```bash
+./scripts/runtime-start.sh
+./scripts/runtime-stop.sh
+./scripts/runtime-status.sh
+```
+
+详细说明见：`docs/backend/runtime-deploy.md`。
+
 ## 后续建议
 
 ### 前端建议

@@ -1,0 +1,1 @@
+import{n as e}from"./index-BwuBm236.js";async function t(){return e.get(`/dashboard/student`)}async function n(){return e.get(`/dashboard/admin`)}async function r(){return e.get(`/dashboard/leader`)}export{r as n,t as r,n as t};

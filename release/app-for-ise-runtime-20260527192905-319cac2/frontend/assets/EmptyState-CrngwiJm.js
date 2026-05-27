@@ -1,0 +1,1 @@
+import{b as e,g as t,j as n,p as r}from"./index-BwuBm236.js";var i={class:`empty-state`},a={__name:`EmptyState`,props:{title:{type:String,default:`暂无数据`},description:{type:String,default:`当前筛选条件下没有可展示内容。`}},setup(a){return(o,s)=>(e(),t(`div`,i,[r(`strong`,null,n(a.title),1),r(`p`,null,n(a.description),1)]))}};export{a as t};

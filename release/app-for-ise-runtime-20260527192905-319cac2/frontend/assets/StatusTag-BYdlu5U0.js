@@ -1,0 +1,1 @@
+import{b as e,f as t,g as n,j as r,k as i}from"./index-BwuBm236.js";var a={__name:`StatusTag`,props:{label:{type:String,required:!0},tone:{type:String,default:`default`}},setup(a){let o=a,s=t(()=>o.tone===`success`?`pill pill--success`:o.tone===`warn`?`pill pill--warn`:`pill`);return(t,o)=>(e(),n(`span`,{class:i(s.value)},r(a.label),3))}};export{a as t};
