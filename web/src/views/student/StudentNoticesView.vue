@@ -2,7 +2,6 @@
   <section class="panel">
     <PageHeader
       title="通知中心"
-      api="GET /notices/my"
       description="集中查看定向通知、已读状态和触达渠道。"
     >
       <template #actions>
@@ -30,6 +29,7 @@
       <RecordCard
         v-for="item in filteredItems"
         :key="item.id"
+        :to="{ name: 'student-notice-detail', params: { noticeId: item.id } }"
         :meta="`${item.date} · ${item.audience}`"
         :title="item.title"
         :description="item.content"
@@ -63,12 +63,12 @@ import RecordCard from "../../components/common/RecordCard.vue";
 import SearchBar from "../../components/common/SearchBar.vue";
 import StatusTag from "../../components/common/StatusTag.vue";
 import { useAsyncPage } from "../../composables/useAsyncPage";
-import { getMyNotices } from "../../api/modules/noticeApi";
+import { getMyNotices, markAllNoticesRead, markNoticeRead } from "../../api/modules/noticeApi";
 
 const items = ref([]);
 const keyword = ref("");
 const readFilter = ref("all");
-const { loading, error, run } = useAsyncPage(getMyNotices);
+const { loading, error, run } = useAsyncPage(() => getMyNotices({ pageNo: 1, pageSize: 50 }));
 
 const filteredItems = computed(() =>
   items.value.filter((item) => {
@@ -89,27 +89,36 @@ onMounted(() => {
 
 async function loadData() {
   try {
-    items.value = await run();
+    const page = await run();
+    items.value = (page.records || []).map((item) => ({
+      id: item.id,
+      date: item.publishAt,
+      audience: item.audience,
+      title: item.title,
+      content: item.content,
+      tags: item.tags || [],
+      channelLabels: item.channelLabels || [],
+      read: item.readStatus === "read",
+      statusLabel: item.readStatus === "read" ? "已读" : "未读",
+      stats: {
+        delivered: item.deliveredCount || 0,
+        read: item.readCount || 0,
+      },
+    }));
   } catch {}
 }
 
-function markRead(id) {
-  items.value = items.value.map((item) =>
-    item.id === id
-      ? {
-          ...item,
-          read: true,
-          statusLabel: "已读",
-        }
-      : item,
-  );
+async function markRead(id) {
+  try {
+    await markNoticeRead(id);
+    await loadData();
+  } catch {}
 }
 
-function markAllRead() {
-  items.value = items.value.map((item) => ({
-    ...item,
-    read: true,
-    statusLabel: "已读",
-  }));
+async function markAllRead() {
+  try {
+    await markAllNoticesRead();
+    await loadData();
+  } catch {}
 }
 </script>

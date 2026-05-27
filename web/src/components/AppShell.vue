@@ -21,26 +21,6 @@
           <slot name="topbar-actions" />
         </div>
       </header>
-      <section class="panel panel--banner">
-        <div class="section-head">
-          <h2>当前访问上下文</h2>
-          <span class="pill">{{ contextApi }}</span>
-        </div>
-        <div class="scope-grid">
-          <div class="scope-card">
-            <span>{{ roleLabelText }}</span>
-            <strong>{{ roleValue }}</strong>
-          </div>
-          <div class="scope-card">
-            <span>{{ scopeLabelText }}</span>
-            <strong>{{ scopeValue }}</strong>
-          </div>
-          <div class="scope-card">
-            <span>{{ homeApiLabelText }}</span>
-            <strong>{{ homeApiValue }}</strong>
-          </div>
-        </div>
-      </section>
       <slot />
     </main>
   </div>
@@ -72,34 +52,6 @@ const props = defineProps({
     required: true,
   },
   title: {
-    type: String,
-    required: true,
-  },
-  contextApi: {
-    type: String,
-    default: "GET /api/v1/auth/me",
-  },
-  roleLabelText: {
-    type: String,
-    default: "角色代码",
-  },
-  roleValue: {
-    type: String,
-    required: true,
-  },
-  scopeLabelText: {
-    type: String,
-    default: "数据范围",
-  },
-  scopeValue: {
-    type: String,
-    required: true,
-  },
-  homeApiLabelText: {
-    type: String,
-    default: "当前首页接口",
-  },
-  homeApiValue: {
     type: String,
     required: true,
   },

@@ -15,16 +15,15 @@
         <div><span>班级</span><strong>{{ data.className }}</strong></div>
         <div><span>政治面貌</span><strong>{{ data.politicalStatusLabel }}</strong></div>
         <div><span>联系方式</span><strong>{{ data.phoneMasked }}</strong></div>
-        <div><span>邮箱</span><strong>{{ data.email }}</strong></div>
       </div>
     </section>
     <section class="panel">
-      <PageHeader title="成长记录" api="GET /students/{id}/growth-records" />
+      <PageHeader title="成长记录" description="展示近期竞赛、实践与志愿服务记录。" />
       <LoadingState v-if="loading" text="成长记录加载中..." />
       <ErrorState v-else-if="error" description="成长记录加载失败，请稍后重试。" @retry="loadData" />
       <div v-else class="stack">
         <EmptyState v-if="!data.growthRecords.length" />
-        <article v-for="item in data.growthRecords" :key="item.title" class="record">
+        <article v-for="item in data.growthRecords" :key="item.id" class="record">
           <div class="record__meta">{{ item.typeLabel }} · {{ item.date }}</div>
           <h3>{{ item.title }}</h3>
           <p>{{ item.summary }}</p>
@@ -42,7 +41,7 @@ import LoadingState from "../../components/common/LoadingState.vue";
 import PageHeader from "../../components/common/PageHeader.vue";
 import StatusTag from "../../components/common/StatusTag.vue";
 import { useAsyncPage } from "../../composables/useAsyncPage";
-import { getMyProfile } from "../../api/modules/studentApi";
+import { getMyGrowthRecords, getMyProfile } from "../../api/modules/studentApi";
 
 const data = reactive({
   studentNo: "",
@@ -52,10 +51,13 @@ const data = reactive({
   className: "",
   politicalStatusLabel: "",
   phoneMasked: "",
-  email: "",
   growthRecords: [],
 });
-const { loading, error, run } = useAsyncPage(getMyProfile);
+
+const { loading, error, run } = useAsyncPage(async () => {
+  const [profile, growthRecords] = await Promise.all([getMyProfile(), getMyGrowthRecords()]);
+  return { profile, growthRecords };
+});
 
 onMounted(() => {
   loadData();
@@ -63,7 +65,32 @@ onMounted(() => {
 
 async function loadData() {
   try {
-    Object.assign(data, await run());
+    const { profile, growthRecords } = await run();
+    data.studentNo = profile.student?.studentNo || "";
+    data.name = profile.student?.name || "";
+    data.grade = profile.student?.grade || "";
+    data.major = profile.student?.major || "";
+    data.className = profile.student?.className || "";
+    data.politicalStatusLabel = profile.student?.politicalStatus || "";
+    data.phoneMasked = profile.student?.phoneMasked || "";
+    data.growthRecords = (growthRecords || []).map((item) => ({
+      id: item.id,
+      typeLabel: recordTypeLabel(item.recordType),
+      date: item.endDate ? `${item.startDate} 至 ${item.endDate}` : item.startDate,
+      title: item.title,
+      summary: item.description,
+    }));
   } catch {}
+}
+
+function recordTypeLabel(type) {
+  const map = {
+    competition: "科研竞赛",
+    practice: "社会实践",
+    volunteer: "志愿服务",
+    cadre: "干部任职",
+    reward_punishment: "奖惩记录",
+  };
+  return map[type] || type;
 }
 </script>

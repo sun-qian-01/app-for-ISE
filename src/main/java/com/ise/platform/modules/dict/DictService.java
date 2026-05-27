@@ -32,6 +32,21 @@ public class DictService {
             entry("published", "已发布"),
             entry("archived", "已归档")
         ));
+        dict.put("role_code", List.of(
+            entry("student", "普通学生"),
+            entry("class_cadre", "班团骨干"),
+            entry("teacher_admin", "管理老师"),
+            entry("college_leader", "学院领导"),
+            entry("system_admin", "系统管理员")
+        ));
+        dict.put("flow_stage_status", List.of(
+            entry("pending", "未开始"),
+            entry("submitted", "已提交"),
+            entry("reviewing", "审核中"),
+            entry("approved", "已通过"),
+            entry("returned", "已退回"),
+            entry("revoked", "已撤回")
+        ));
         dict.put("political_status", List.of(
             entry("league_member", "共青团员"),
             entry("development_candidate", "发展对象"),

@@ -14,7 +14,7 @@
           <option value="已通过">已通过</option>
           <option value="已驳回">已驳回</option>
         </select>
-        <input v-model="keyword" class="input" type="search" placeholder="搜索申请编号、申请人、类型" />
+        <input v-model="keyword" class="input" type="search" placeholder="搜索申请编号、申请标题、类型" />
       </SearchBar>
 
       <LoadingState v-if="loading" text="审批列表加载中..." />
@@ -27,23 +27,21 @@
         />
         <RecordCard
           v-for="item in filteredItems"
-          :key="item.no"
+          :key="item.id"
           :meta="`${item.no} · ${item.createdAt}`"
           :title="item.typeLabel"
-          :description="`用途：${item.purpose}`"
+          :description="`用途：${item.purpose || '-'}`"
         >
           <template #tags>
             <StatusTag :label="item.statusLabel" :tone="getStatusTone(item.statusLabel)" />
-            <span class="tag">申请人：{{ item.applicant }}</span>
-            <span class="tag">附件 {{ item.attachmentCount }} 份</span>
+            <span class="tag">申请标题：{{ item.title }}</span>
           </template>
           <template #actions>
-            <button class="button button--primary" type="button">通过</button>
-            <button class="button" type="button">驳回</button>
+            <button class="button button--primary" type="button" @click="approve(item.id)">通过</button>
+            <button class="button" type="button" @click="reject(item.id)">驳回</button>
           </template>
           <template #extra>
-            <div>当前审批人：{{ item.approver }}</div>
-            <div>生成文件：{{ item.generatedFileName || "尚未生成" }}</div>
+            <div>当前审批人：{{ item.approver || '-' }}</div>
           </template>
         </RecordCard>
       </div>
@@ -52,23 +50,18 @@
     <section class="panel">
       <PageHeader
         title="审批规则"
-        description="保留审核意见、驳回原因和模板联动的前端说明，便于后续继续补单据详情。"
+        description="审批动作会写入记录，并更新申请状态。"
       />
       <div class="stack">
         <RecordCard
           meta="审批动作"
           title="通过 / 驳回必须带审核意见"
-          description="后续正式接入接口时，建议表单字段统一对齐 approvalComment、approvalResult。"
+          description="当前演示动作使用固定审核意见，后续可扩展为输入框。"
         />
         <RecordCard
-          meta="文件联动"
-          title="通过后自动生成证明文件"
-          description="申请详情页和审批页应复用 generatedFileName 展示逻辑，并预留下载按钮。"
-        />
-        <RecordCard
-          meta="附件校验"
-          title="驳回时需指出缺失或错误附件"
-          description="当前先以说明面板承载规则，后续可以扩展为审批抽屉和附件预览区。"
+          meta="状态控制"
+          title="仅 submitted/reviewing 状态可审批"
+          description="后端会校验状态流转，重复审批会返回状态冲突。"
         />
       </div>
     </section>
@@ -84,7 +77,7 @@ import PageHeader from "../../components/common/PageHeader.vue";
 import RecordCard from "../../components/common/RecordCard.vue";
 import SearchBar from "../../components/common/SearchBar.vue";
 import StatusTag from "../../components/common/StatusTag.vue";
-import { getPendingApplications } from "../../api/modules/applicationApi";
+import { approveApplication, getPendingApplications, rejectApplication } from "../../api/modules/applicationApi";
 
 const items = ref([]);
 const loading = ref(false);
@@ -95,7 +88,7 @@ const statusFilter = ref("all");
 const filteredItems = computed(() =>
   items.value.filter((item) => {
     const matchStatus = statusFilter.value === "all" || item.statusLabel === statusFilter.value;
-    const text = `${item.no} ${item.applicant} ${item.typeLabel}`.toLowerCase();
+    const text = `${item.no} ${item.title} ${item.typeLabel}`.toLowerCase();
     const matchKeyword = !keyword.value || text.includes(keyword.value.toLowerCase());
     return matchStatus && matchKeyword;
   }),
@@ -109,13 +102,54 @@ async function loadData() {
   loading.value = true;
   error.value = false;
   try {
-    items.value = await getPendingApplications();
+    const page = await getPendingApplications({ pageNo: 1, pageSize: 50 });
+    items.value = (page.records || []).map((item) => ({
+      id: item.id,
+      no: item.applicationNo,
+      typeLabel: applicationTypeLabel(item.applicationType),
+      title: item.title,
+      statusLabel: statusLabel(item.status),
+      approver: item.currentApprover,
+      purpose: item.purpose,
+      createdAt: item.submittedAt,
+    }));
   } catch (err) {
     console.error(err);
     error.value = true;
   } finally {
     loading.value = false;
   }
+}
+
+async function approve(applicationId) {
+  try {
+    await approveApplication(applicationId, "材料齐全，同意通过");
+    await loadData();
+  } catch (err) {
+    console.error(err);
+  }
+}
+
+async function reject(applicationId) {
+  try {
+    await rejectApplication(applicationId, "材料不完整，请补充后重新提交");
+    await loadData();
+  } catch (err) {
+    console.error(err);
+  }
+}
+
+function applicationTypeLabel(type) {
+  if (type === "certificate") return "证明申请";
+  return type || "申请";
+}
+
+function statusLabel(status) {
+  if (status === "approved") return "已通过";
+  if (status === "rejected") return "已驳回";
+  if (status === "revoked") return "已撤回";
+  if (status === "submitted" || status === "reviewing") return "审核中";
+  return status || "-";
 }
 
 function getStatusTone(status) {

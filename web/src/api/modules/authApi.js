@@ -1,9 +1,16 @@
-import { mockLogin, mockMe } from "../../mocks/server";
+import client from "../client";
 
 export async function loginApi(payload) {
-  return mockLogin(payload);
+  return client.post("/auth/login", {
+    username: payload.username,
+    password: payload.password,
+  });
 }
 
 export async function meApi() {
-  return mockMe();
+  return client.get("/auth/me");
+}
+
+export async function logoutApi() {
+  return client.post("/auth/logout");
 }

@@ -1,10 +1,17 @@
 package com.ise.platform.modules.kb;
 
 import com.ise.platform.common.api.PagedData;
+import com.ise.platform.common.error.BusinessException;
+import com.ise.platform.common.error.ErrorCode;
 import com.ise.platform.common.security.CurrentUser;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Timestamp;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
@@ -13,11 +20,13 @@ import java.util.Locale;
 @Service
 public class KbService {
 
-    private final List<ArticleEntity> articles = List.of(
-        new ArticleEntity(1L, "国家奖学金评定流程说明", "包含申请资格、材料清单和公示流程", "scholarship", "published", "v3", "国家奖学金通常需要提交申请表、成绩证明和相关获奖材料。", "国家奖学金评定办法.pdf", 12L),
-        new ArticleEntity(2L, "休学与复学办理指南", "说明休学申请条件、复学材料和学院审核路径", "student_status", "published", "v2", "休学需提供申请书和相关证明材料，复学时按学院通知提交材料。", "学籍异动办理指南.docx", 13L),
-        new ArticleEntity(3L, "党员发展阶段材料清单", "汇总积极分子、发展对象、预备党员所需材料", "party_league", "published", "v4", "阶段材料包括思想汇报、谈话记录和志愿服务记录。", "党员发展材料清单.xlsx", 14L)
-    );
+    private static final DateTimeFormatter DATETIME_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+
+    private final JdbcTemplate jdbcTemplate;
+
+    public KbService(JdbcTemplate jdbcTemplate) {
+        this.jdbcTemplate = jdbcTemplate;
+    }
 
     public PagedData<KbDto.ArticleView> listArticles(CurrentUser user,
                                                      int pageNo,
@@ -26,59 +35,247 @@ public class KbService {
                                                      Long categoryId,
                                                      String publishStatus,
                                                      String tag) {
-        List<KbDto.ArticleView> filtered = articles.stream()
-            .sorted(Comparator.comparing(ArticleEntity::id))
-            .filter(item -> !StringUtils.hasText(keyword) || containsIgnoreCase(item.title(), keyword) || containsIgnoreCase(item.summary(), keyword))
-            .filter(item -> !StringUtils.hasText(publishStatus) || item.publishStatus().equalsIgnoreCase(publishStatus))
-            .map(item -> new KbDto.ArticleView(item.id(), item.title(), item.summary(), item.category(), item.publishStatus(), item.versionNo()))
-            .toList();
-        return paginate(filtered, pageNo, pageSize);
+        int safePageNo = Math.max(pageNo, 1);
+        int safePageSize = Math.max(1, Math.min(pageSize, 100));
+        String keywordLike = StringUtils.hasText(keyword) ? "%" + keyword.trim().toLowerCase(Locale.ROOT) + "%" : null;
+        String statusFilter = normalizeFilter(publishStatus);
+        String tagFilter = normalizeFilter(tag);
+        boolean managerLike = isManagerLike(user);
+
+        Long total = jdbcTemplate.queryForObject(
+            """
+                select count(*)
+                  from kb_article
+                 where is_deleted = 0
+                   and (? = true or publish_status = 'published')
+                   and (? is null or lower(title) like ? or lower(summary) like ? or lower(coalesce(source_file_name, '')) like ?)
+                   and (? is null or lower(publish_status) = ?)
+                   and (? is null or lower(category_label) = ?)
+                """,
+            Long.class,
+            managerLike,
+            keywordLike, keywordLike, keywordLike, keywordLike,
+            statusFilter, statusFilter,
+            tagFilter, tagFilter
+        );
+
+        List<KbDto.ArticleView> records = jdbcTemplate.query(
+            """
+                select id, title, summary, category_label, publish_status, version_no,
+                       source_file_name, source_file_id, keywords_text
+                  from kb_article
+                 where is_deleted = 0
+                   and (? = true or publish_status = 'published')
+                   and (? is null or lower(title) like ? or lower(summary) like ? or lower(coalesce(source_file_name, '')) like ?)
+                   and (? is null or lower(publish_status) = ?)
+                   and (? is null or lower(category_label) = ?)
+                 order by updated_at desc, id desc
+                 limit ? offset ?
+                """,
+            this::mapArticle,
+            managerLike,
+            keywordLike, keywordLike, keywordLike, keywordLike,
+            statusFilter, statusFilter,
+            tagFilter, tagFilter,
+            safePageSize,
+            (safePageNo - 1) * safePageSize
+        );
+
+        return new PagedData<>(records, safePageNo, safePageSize, total == null ? 0 : total);
+    }
+
+    public List<KbDto.TemplateView> templates(CurrentUser user) {
+        return jdbcTemplate.query(
+            """
+                select id, template_name, category_label, file_type, description, file_id, updated_at
+                  from kb_template
+                 where is_deleted = 0
+                 order by updated_at desc, id desc
+                """,
+            (rs, rowNum) -> {
+                Long fileId = rs.getObject("file_id", Long.class);
+                return new KbDto.TemplateView(
+                    rs.getLong("id"),
+                    rs.getString("template_name"),
+                    rs.getString("category_label"),
+                    rs.getString("file_type"),
+                    format(rs.getTimestamp("updated_at")),
+                    rs.getString("description"),
+                    fileId,
+                    buildSourceUrl(fileId)
+                );
+            }
+        );
+    }
+
+    public KbDto.ArticleDetailView articleDetail(CurrentUser user, Long articleId) {
+        List<KbDto.ArticleDetailView> rows = jdbcTemplate.query(
+            """
+                select id, title, summary, category_label, publish_status, version_no,
+                       standard_answer, source_file_name, source_file_id, keywords_text, view_count
+                  from kb_article
+                 where id = ?
+                   and is_deleted = 0
+                """,
+            (rs, rowNum) -> {
+                Long sourceFileId = rs.getObject("source_file_id", Long.class);
+                return new KbDto.ArticleDetailView(
+                    rs.getLong("id"),
+                    rs.getString("title"),
+                    rs.getString("summary"),
+                    rs.getString("category_label"),
+                    rs.getString("publish_status"),
+                    rs.getString("version_no"),
+                    rs.getString("standard_answer"),
+                    rs.getString("source_file_name"),
+                    sourceFileId,
+                    buildSourceUrl(sourceFileId),
+                    parseKeywords(rs.getString("keywords_text")),
+                    rs.getInt("view_count")
+                );
+            },
+            articleId
+        );
+
+        if (rows.isEmpty()) {
+            throw new BusinessException(ErrorCode.NOT_FOUND, "article not found");
+        }
+
+        KbDto.ArticleDetailView detail = rows.get(0);
+        if (!isManagerLike(user) && !"published".equalsIgnoreCase(detail.getPublishStatus())) {
+            throw new BusinessException(ErrorCode.NOT_FOUND, "article not found");
+        }
+
+        jdbcTemplate.update("update kb_article set view_count = coalesce(view_count, 0) + 1 where id = ?", articleId);
+
+        return new KbDto.ArticleDetailView(
+            detail.getArticleId(),
+            detail.getTitle(),
+            detail.getSummary(),
+            detail.getCategoryLabel(),
+            detail.getPublishStatus(),
+            detail.getVersion(),
+            detail.getContent(),
+            detail.getSource(),
+            detail.getSourceFileId(),
+            detail.getSourceUrl(),
+            detail.getKeywords(),
+            detail.getViewCount() == null ? 1 : detail.getViewCount() + 1
+        );
     }
 
     public KbDto.QaResponse qa(KbDto.QaRequest request) {
         String question = request.getQuestion().toLowerCase(Locale.ROOT);
-        if (question.contains("奖学金")) {
-            ArticleEntity article = articles.get(0);
-            return new KbDto.QaResponse(
-                "国家奖学金通常需要提交申请表、成绩证明和相关获奖材料，具体以学院当年通知为准。",
-                List.of(new KbDto.QaSource(article.id(), article.title(), article.fileName(), "/api/v1/files/" + article.fileId() + "/download")),
-                0.86
-            );
+        List<ArticleQaView> candidates = jdbcTemplate.query(
+            """
+                select id, title, standard_answer, source_file_name, source_file_id, keywords_text
+                  from kb_article
+                 where is_deleted = 0 and publish_status = 'published'
+                """,
+            this::mapQaArticle
+        );
+
+        ArticleQaView best = candidates.stream()
+            .max(Comparator.comparingInt(item -> score(item, question)))
+            .orElse(null);
+
+        if (best == null || score(best, question) <= 0) {
+            return new KbDto.QaResponse("未检索到可靠依据", List.of(), 0.0);
         }
-        if (question.contains("党员") || question.contains("思想汇报")) {
-            ArticleEntity article = articles.get(2);
-            return new KbDto.QaResponse(
-                "请按当前阶段提交思想汇报和相关证明，并关注支部审核意见。",
-                List.of(new KbDto.QaSource(article.id(), article.title(), article.fileName(), "/api/v1/files/" + article.fileId() + "/download")),
-                0.82
-            );
-        }
-        return new KbDto.QaResponse("未检索到可靠依据", List.of(), 0.0);
+
+        double confidence = Math.min(0.95, 0.55 + score(best, question) * 0.12);
+        KbDto.QaSource source = new KbDto.QaSource(
+            best.articleId(),
+            best.title(),
+            best.sourceFileName(),
+            buildSourceUrl(best.sourceFileId())
+        );
+        return new KbDto.QaResponse(best.standardAnswer(), List.of(source), confidence);
     }
 
-    private PagedData<KbDto.ArticleView> paginate(List<KbDto.ArticleView> source, int pageNo, int pageSize) {
-        int safePageNo = Math.max(pageNo, 1);
-        int safePageSize = Math.max(1, Math.min(pageSize, 100));
-        int from = (safePageNo - 1) * safePageSize;
-        if (from >= source.size()) {
-            return new PagedData<>(List.of(), safePageNo, safePageSize, source.size());
+    private KbDto.ArticleView mapArticle(ResultSet rs, int rowNum) throws SQLException {
+        Long sourceFileId = rs.getObject("source_file_id", Long.class);
+        return new KbDto.ArticleView(
+            rs.getLong("id"),
+            rs.getString("title"),
+            rs.getString("summary"),
+            rs.getString("category_label"),
+            rs.getString("publish_status"),
+            rs.getString("version_no"),
+            rs.getString("source_file_name"),
+            sourceFileId,
+            buildSourceUrl(sourceFileId),
+            parseKeywords(rs.getString("keywords_text"))
+        );
+    }
+
+    private ArticleQaView mapQaArticle(ResultSet rs, int rowNum) throws SQLException {
+        return new ArticleQaView(
+            rs.getLong("id"),
+            rs.getString("title"),
+            rs.getString("standard_answer"),
+            rs.getString("source_file_name"),
+            rs.getObject("source_file_id", Long.class),
+            parseKeywords(rs.getString("keywords_text"))
+        );
+    }
+
+    private String buildSourceUrl(Long fileId) {
+        if (fileId == null) {
+            return "";
         }
-        int to = Math.min(from + safePageSize, source.size());
-        return new PagedData<>(new ArrayList<>(source.subList(from, to)), safePageNo, safePageSize, source.size());
+        return "/api/v1/files/" + fileId + "/download";
     }
 
-    private boolean containsIgnoreCase(String source, String target) {
-        return source != null && source.toLowerCase(Locale.ROOT).contains(target.toLowerCase(Locale.ROOT));
+    private List<String> parseKeywords(String raw) {
+        if (!StringUtils.hasText(raw)) {
+            return List.of();
+        }
+        String[] values = raw.split("[,，、\\s]+");
+        List<String> result = new ArrayList<>();
+        for (String value : values) {
+            String trimmed = value.trim();
+            if (!trimmed.isEmpty()) {
+                result.add(trimmed);
+            }
+        }
+        return result;
     }
 
-    private record ArticleEntity(Long id,
+    private int score(ArticleQaView article, String question) {
+        int score = 0;
+        for (String keyword : article.keywords()) {
+            if (question.contains(keyword.toLowerCase(Locale.ROOT))) {
+                score += 2;
+            }
+        }
+        if (question.contains(article.title().toLowerCase(Locale.ROOT))) {
+            score += 2;
+        }
+        return score;
+    }
+
+    private boolean isManagerLike(CurrentUser user) {
+        return user.getRoles().stream().anyMatch(role ->
+            "teacher_admin".equals(role) || "college_leader".equals(role) || "system_admin".equals(role) || "class_cadre".equals(role));
+    }
+
+    private String normalizeFilter(String value) {
+        if (!StringUtils.hasText(value) || "all".equalsIgnoreCase(value)) {
+            return null;
+        }
+        return value.toLowerCase(Locale.ROOT);
+    }
+
+    private String format(Timestamp timestamp) {
+        return timestamp == null ? "-" : DATETIME_FORMATTER.format(timestamp.toLocalDateTime());
+    }
+
+    private record ArticleQaView(Long articleId,
                                  String title,
-                                 String summary,
-                                 String category,
-                                 String publishStatus,
-                                 String versionNo,
                                  String standardAnswer,
-                                 String fileName,
-                                 Long fileId) {
+                                 String sourceFileName,
+                                 Long sourceFileId,
+                                 List<String> keywords) {
     }
 }

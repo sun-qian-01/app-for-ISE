@@ -507,6 +507,10 @@ textarea {
   background: rgba(50, 107, 72, 0.08);
 }
 
+.article-content {
+  white-space: pre-line;
+}
+
 .input {
   width: 100%;
   padding: 12px 14px;
@@ -569,6 +573,18 @@ textarea {
 
 .record-card__actions {
   margin-top: 10px;
+}
+
+.record-card--link {
+  cursor: pointer;
+  transition: transform 160ms ease, box-shadow 160ms ease, border-color 160ms ease;
+}
+
+.record-card--link:hover,
+.record-card--link:focus-visible {
+  border-color: rgba(143, 45, 31, 0.32);
+  box-shadow: 0 10px 24px rgba(96, 72, 45, 0.16);
+  transform: translateY(-1px);
 }
 
 .empty-state {

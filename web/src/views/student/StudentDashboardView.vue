@@ -8,7 +8,7 @@
     </div>
     <div class="grid grid--two">
       <section class="panel">
-        <PageHeader title="快捷办理" api="GET /dashboard/student" />
+        <PageHeader title="快捷办理" description="常用事项入口，可直接跳转办理。" />
         <div class="shortcut-grid">
           <RouterLink class="shortcut" to="/student/kb">政策问答</RouterLink>
           <RouterLink class="shortcut" to="/student/party">提交党团材料</RouterLink>
@@ -17,12 +17,8 @@
         </div>
       </section>
       <section class="panel">
-        <PageHeader title="页面状态">
-          <template #meta>
-            <StatusTag label="Vue 版已接管" tone="success" />
-          </template>
-        </PageHeader>
-        <p class="hero__text">这是从静态原型迁移出来的首个正式页面，后续会逐步替换为真实 API 数据。</p>
+        <PageHeader title="使用提示" />
+        <p class="hero__text">当前页面数据已接入后端接口，若状态变化可刷新查看最新结果。</p>
       </section>
     </div>
   </section>
@@ -33,7 +29,6 @@ import { onMounted, reactive } from "vue";
 import { RouterLink } from "vue-router";
 import MetricCard from "../../components/common/MetricCard.vue";
 import PageHeader from "../../components/common/PageHeader.vue";
-import StatusTag from "../../components/common/StatusTag.vue";
 import { getStudentDashboard } from "../../api/modules/dashboardApi";
 
 const data = reactive({

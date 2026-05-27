@@ -4,13 +4,8 @@
     brand-mark="ADM"
     brand-text="业务管理台"
     :nav-items="navItems"
-    eyebrow="管理端 · department 数据范围"
+    eyebrow="管理端"
     title="学生工作与党团事务管理台"
-    role-label-text="角色代码"
-    role-value="authStore.roleCode"
-    scope-label-text="默认数据范围"
-    scope-value="department"
-    home-api-value="/dashboard/admin"
     admin
   >
     <template #topbar-actions>

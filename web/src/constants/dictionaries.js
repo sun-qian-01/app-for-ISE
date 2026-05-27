@@ -13,6 +13,8 @@ export const dictionaries = {
     { value: "withdrawn", label: "退学" },
     { value: "transferred", label: "转专业" },
     { value: "delayed", label: "延毕" },
+    { value: "graduating", label: "毕业年级" },
+    { value: "warning", label: "重点关注" },
   ],
   notice_status: [
     { value: "draft", label: "草稿" },

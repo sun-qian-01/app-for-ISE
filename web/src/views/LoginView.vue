@@ -2,23 +2,15 @@
   <div class="shell shell--centered">
     <div class="auth-layout">
       <section class="hero hero--compact">
-        <div class="hero__badge">/auth/login · /auth/me</div>
         <h1>学院学生综合服务与党团管理平台</h1>
         <p class="hero__text">
-          当前为正式前端工程的首版登录页，已经接入路由、Pinia 和登录态恢复骨架。
+          使用学号或工号登录，进入对应角色工作台。
         </p>
-        <div class="tag-group">
-          <span class="tag">student</span>
-          <span class="tag">class_cadre</span>
-          <span class="tag">teacher_admin</span>
-          <span class="tag">college_leader</span>
-        </div>
       </section>
 
       <section class="panel auth-panel">
         <div class="section-head">
           <h2>账号登录</h2>
-          <span class="pill">POST /api/v1/auth/login</span>
         </div>
         <form class="form" @submit.prevent="handleLogin">
           <label>
@@ -28,15 +20,6 @@
           <label>
             <span>密码</span>
             <input v-model="form.password" class="input" type="password" placeholder="请输入密码" />
-          </label>
-          <label>
-            <span>模拟角色</span>
-            <select v-model="form.roleCode" class="input input--select">
-              <option value="student">普通学生</option>
-              <option value="class_cadre">班团骨干</option>
-              <option value="teacher_admin">管理老师</option>
-              <option value="college_leader">学院领导</option>
-            </select>
           </label>
           <button class="button button--primary" type="submit">登录并进入工作台</button>
         </form>
@@ -59,27 +42,35 @@ const feedback = ref("");
 const form = reactive({
   username: "20220001",
   password: "123456",
-  roleCode: "student",
 });
 
 async function handleLogin() {
-  await authStore.login(form);
-  feedback.value = "登录成功，正在进入工作台。";
+  feedback.value = "";
+  try {
+    const result = await authStore.login(form);
+    feedback.value = "登录成功，正在进入工作台。";
 
-  const redirectPath = route.query.redirect;
-  if (typeof redirectPath === "string" && redirectPath) {
-    router.push(redirectPath);
-    return;
-  }
+    const redirectPath = route.query.redirect;
+    if (typeof redirectPath === "string" && redirectPath) {
+      router.push(redirectPath);
+      return;
+    }
 
-  if (form.roleCode === "teacher_admin") {
-    router.push("/admin/dashboard");
-    return;
+    if (result.user?.roles?.includes("teacher_admin") || result.user?.roles?.includes("system_admin")) {
+      router.push("/admin/dashboard");
+      return;
+    }
+    if (result.user?.roles?.includes("college_leader")) {
+      router.push("/leader/dashboard");
+      return;
+    }
+    router.push("/student/dashboard");
+  } catch (error) {
+    if (error?.code === "ERR_NETWORK") {
+      feedback.value = "后端服务未连接（http://127.0.0.1:8080），请先启动后端再登录。";
+      return;
+    }
+    feedback.value = error?.message || "登录失败，请检查用户名和密码";
   }
-  if (form.roleCode === "college_leader") {
-    router.push("/leader/dashboard");
-    return;
-  }
-  router.push("/student/dashboard");
 }
 </script>

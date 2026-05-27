@@ -1,0 +1,4 @@
+-------------------------------------------------------------------------------
+Test set: com.ise.platform.modules.ApiIntegrationTest
+-------------------------------------------------------------------------------
+Tests run: 25, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.578 s -- in com.ise.platform.modules.ApiIntegrationTest

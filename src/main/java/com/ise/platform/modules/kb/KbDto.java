@@ -13,17 +13,34 @@ public final class KbDto {
         private Long articleId;
         private String title;
         private String summary;
-        private String category;
+        private String categoryLabel;
         private String publishStatus;
-        private String versionNo;
+        private String version;
+        private String source;
+        private Long sourceFileId;
+        private String sourceUrl;
+        private List<String> keywords;
 
-        public ArticleView(Long articleId, String title, String summary, String category, String publishStatus, String versionNo) {
+        public ArticleView(Long articleId,
+                           String title,
+                           String summary,
+                           String categoryLabel,
+                           String publishStatus,
+                           String version,
+                           String source,
+                           Long sourceFileId,
+                           String sourceUrl,
+                           List<String> keywords) {
             this.articleId = articleId;
             this.title = title;
             this.summary = summary;
-            this.category = category;
+            this.categoryLabel = categoryLabel;
             this.publishStatus = publishStatus;
-            this.versionNo = versionNo;
+            this.version = version;
+            this.source = source;
+            this.sourceFileId = sourceFileId;
+            this.sourceUrl = sourceUrl;
+            this.keywords = keywords;
         }
 
         public Long getArticleId() {
@@ -38,16 +55,182 @@ public final class KbDto {
             return summary;
         }
 
-        public String getCategory() {
-            return category;
+        public String getCategoryLabel() {
+            return categoryLabel;
         }
 
         public String getPublishStatus() {
             return publishStatus;
         }
 
-        public String getVersionNo() {
-            return versionNo;
+        public String getVersion() {
+            return version;
+        }
+
+        public String getSource() {
+            return source;
+        }
+
+        public Long getSourceFileId() {
+            return sourceFileId;
+        }
+
+        public String getSourceUrl() {
+            return sourceUrl;
+        }
+
+        public List<String> getKeywords() {
+            return keywords;
+        }
+    }
+
+    public static class ArticleDetailView {
+        private Long articleId;
+        private String title;
+        private String summary;
+        private String categoryLabel;
+        private String publishStatus;
+        private String version;
+        private String content;
+        private String source;
+        private Long sourceFileId;
+        private String sourceUrl;
+        private List<String> keywords;
+        private Integer viewCount;
+
+        public ArticleDetailView(Long articleId,
+                                 String title,
+                                 String summary,
+                                 String categoryLabel,
+                                 String publishStatus,
+                                 String version,
+                                 String content,
+                                 String source,
+                                 Long sourceFileId,
+                                 String sourceUrl,
+                                 List<String> keywords,
+                                 Integer viewCount) {
+            this.articleId = articleId;
+            this.title = title;
+            this.summary = summary;
+            this.categoryLabel = categoryLabel;
+            this.publishStatus = publishStatus;
+            this.version = version;
+            this.content = content;
+            this.source = source;
+            this.sourceFileId = sourceFileId;
+            this.sourceUrl = sourceUrl;
+            this.keywords = keywords;
+            this.viewCount = viewCount;
+        }
+
+        public Long getArticleId() {
+            return articleId;
+        }
+
+        public String getTitle() {
+            return title;
+        }
+
+        public String getSummary() {
+            return summary;
+        }
+
+        public String getCategoryLabel() {
+            return categoryLabel;
+        }
+
+        public String getPublishStatus() {
+            return publishStatus;
+        }
+
+        public String getVersion() {
+            return version;
+        }
+
+        public String getContent() {
+            return content;
+        }
+
+        public String getSource() {
+            return source;
+        }
+
+        public Long getSourceFileId() {
+            return sourceFileId;
+        }
+
+        public String getSourceUrl() {
+            return sourceUrl;
+        }
+
+        public List<String> getKeywords() {
+            return keywords;
+        }
+
+        public Integer getViewCount() {
+            return viewCount;
+        }
+    }
+
+    public static class TemplateView {
+        private Long templateId;
+        private String name;
+        private String categoryLabel;
+        private String fileType;
+        private String updatedAt;
+        private String description;
+        private Long fileId;
+        private String fileUrl;
+
+        public TemplateView(Long templateId,
+                            String name,
+                            String categoryLabel,
+                            String fileType,
+                            String updatedAt,
+                            String description,
+                            Long fileId,
+                            String fileUrl) {
+            this.templateId = templateId;
+            this.name = name;
+            this.categoryLabel = categoryLabel;
+            this.fileType = fileType;
+            this.updatedAt = updatedAt;
+            this.description = description;
+            this.fileId = fileId;
+            this.fileUrl = fileUrl;
+        }
+
+        public Long getTemplateId() {
+            return templateId;
+        }
+
+        public String getName() {
+            return name;
+        }
+
+        public String getCategoryLabel() {
+            return categoryLabel;
+        }
+
+        public String getFileType() {
+            return fileType;
+        }
+
+        public String getUpdatedAt() {
+            return updatedAt;
+        }
+
+        public String getDescription() {
+            return description;
+        }
+
+        public Long getFileId() {
+            return fileId;
+        }
+
+        public String getFileUrl() {
+            return fileUrl;
         }
     }
 

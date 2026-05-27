@@ -1,9 +1,9 @@
-import { fetchHonors } from "../../mocks/server";
+import client from "../client";
 
 export async function getPublicHonors() {
-  return fetchHonors();
+  return client.get("/honors/my");
 }
 
 export async function getHonorList() {
-  return fetchHonors();
+  return client.get("/honors");
 }

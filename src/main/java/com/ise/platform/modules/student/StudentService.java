@@ -37,6 +37,13 @@ public class StudentService {
         5L, "科研潜力"
     );
 
+    private static final Map<String, String> STATUS_LABEL = Map.of(
+        "active", "在读",
+        "graduating", "毕业年级",
+        "warning", "重点关注",
+        "graduated", "已毕业"
+    );
+
     private final AtomicLong growthRecordIdGenerator = new AtomicLong(1000);
     private final AtomicLong importTaskSequence = new AtomicLong(1);
 
@@ -58,6 +65,9 @@ public class StudentService {
         tagsByStudentId.put(2L, new CopyOnWriteArrayList<>(List.of(
             new StudentDto.TagView(2L, "奖学金关注"),
             new StudentDto.TagView(3L, "班团骨干")
+        )));
+        tagsByStudentId.put(3L, new CopyOnWriteArrayList<>(List.of(
+            new StudentDto.TagView(1L, "就业意向")
         )));
 
         growthRecordsByStudentId.put(1L, new CopyOnWriteArrayList<>(List.of(
@@ -127,7 +137,7 @@ public class StudentService {
             .filter(item -> !StringUtils.hasText(major) || Objects.equals(item.major(), major))
             .filter(item -> !StringUtils.hasText(className) || Objects.equals(item.className(), className))
             .filter(item -> !StringUtils.hasText(politicalStatus) || Objects.equals(item.politicalStatus(), politicalStatus))
-            .filter(item -> !StringUtils.hasText(status) || Objects.equals(item.status(), status))
+            .filter(item -> !StringUtils.hasText(status) || Objects.equals(statusLabel(item.status()), status))
             .filter(item -> isGraduating == null || item.isGraduating() == isGraduating)
             .map(item -> item.toListItem(tagsByStudentId.getOrDefault(item.id(), List.of()).stream()
                 .map(StudentDto.TagView::getTagName)
@@ -325,6 +335,10 @@ public class StudentService {
         return phone.substring(0, 3) + "****" + phone.substring(phone.length() - 4);
     }
 
+    private String statusLabel(String status) {
+        return STATUS_LABEL.getOrDefault(status, status);
+    }
+
     private PagedData<StudentDto.StudentListItemView> paginate(List<StudentDto.StudentListItemView> source,
                                                                int pageNo,
                                                                int pageSize) {
@@ -349,13 +363,23 @@ public class StudentService {
                                  String phoneMasked,
                                  String phone,
                                  String email) {
+
         StudentDto.StudentView toView() {
             return new StudentDto.StudentView(id, studentNo, name, grade, major, className, politicalStatus, phoneMasked);
         }
 
         StudentDto.StudentListItemView toListItem(List<String> tags) {
             return new StudentDto.StudentListItemView(
-                id, studentNo, name, grade, major, className, politicalStatus, status, phoneMasked, tags
+                id,
+                studentNo,
+                name,
+                grade,
+                major,
+                className,
+                politicalStatus,
+                STATUS_LABEL.getOrDefault(status, status),
+                phoneMasked,
+                tags
             );
         }
 
@@ -381,10 +405,10 @@ public class StudentService {
                                     Long fileId,
                                     String status,
                                     String createdAt,
-                                    String finishedAt,
+                                    String updatedAt,
                                     String message) {
         StudentDto.ImportTaskView toView() {
-            return new StudentDto.ImportTaskView(taskNo, importType, fileId, status, createdAt, finishedAt, message);
+            return new StudentDto.ImportTaskView(taskNo, importType, fileId, status, createdAt, updatedAt, message);
         }
     }
 }
