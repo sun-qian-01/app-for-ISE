@@ -1,0 +1,1 @@
+import{n as e}from"./index-BwuBm236.js";async function t(t={}){return e.get(`/applications/my`,{params:t})}async function n(t={}){return e.get(`/applications/approvals/pending`,{params:t})}async function r(t,n){return e.post(`/applications/${t}/approve`,{comment:n})}async function i(t,n){return e.post(`/applications/${t}/reject`,{comment:n})}export{i,t as n,n as r,r as t};

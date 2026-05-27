@@ -1,0 +1,1 @@
+import{D as e}from"./index-BwuBm236.js";function t(t){let n=e(!1),r=e(!1),i=e(null);async function a(...e){n.value=!0,r.value=!1,i.value=null;try{return await t(...e)}catch(e){throw console.error(e),r.value=!0,i.value=e,e}finally{n.value=!1}}return{loading:n,error:r,errorDetail:i,run:a}}export{t};
