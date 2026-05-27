@@ -190,9 +190,9 @@ export const adminDashboard = {
 };
 
 export const adminStudents = [
-  { studentNo: "20220001", name: "赵晨曦", className: "软件工程2班", statusText: "在读", tags: ["奖学金关注", "党员发展对象"] },
-  { studentNo: "20220018", name: "陈一诺", className: "软件工程2班", statusText: "在读", tags: ["党员发展对象"] },
-  { studentNo: "20260031", name: "林嘉禾", className: "数据科学1班", statusText: "毕业年级", tags: ["就业意向"] },
+  { studentNo: "20220001", name: "赵晨曦", grade: "2022", major: "软件工程", className: "软件工程2班", phone: "13800181234", email: "zhaochenxi@example.edu.cn", politicalStatusLabel: "预备党员", statusText: "在读", tags: ["奖学金关注", "党员发展对象"] },
+  { studentNo: "20220018", name: "陈一诺", grade: "2022", major: "软件工程", className: "软件工程2班", phone: "13900188818", email: "chenyinuo@example.edu.cn", politicalStatusLabel: "发展对象", statusText: "在读", tags: ["党员发展对象"] },
+  { studentNo: "20260031", name: "林嘉禾", grade: "2026", major: "数据科学", className: "数据科学1班", phone: "13700180031", email: "linjiahe@example.edu.cn", politicalStatusLabel: "共青团员", statusText: "毕业年级", tags: ["就业意向"] },
 ];
 
 export const auditLogs = [

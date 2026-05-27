@@ -15,6 +15,17 @@
         <option value="重点关注">重点关注</option>
       </select>
     </SearchBar>
+    <div class="import-box">
+      <div>
+        <strong>批量注册学生账号</strong>
+        <p class="subtle-note">支持 CSV/TSV 表格，表头包含学号、姓名、年级、班级、专业。导入后账号为学号，初始密码统一为 info666。</p>
+      </div>
+      <div class="import-box__actions">
+        <input class="input" type="file" accept=".csv,.tsv,text/csv,text/tab-separated-values" @change="handleImportFile" />
+        <button class="button" type="button" @click="downloadTemplate">下载模板</button>
+      </div>
+    </div>
+    <p v-if="importFeedback" class="feedback">{{ importFeedback }}</p>
     <LoadingState v-if="loading" text="学生列表加载中..." />
     <ErrorState v-else-if="error" description="学生列表加载失败，请稍后重试。" @retry="loadData" />
     <DataTable
@@ -22,7 +33,7 @@
       :columns="columns"
       :rows="filteredItems"
       row-key="studentNo"
-      template-columns="1fr 0.8fr 1.4fr 0.8fr 1.6fr"
+      template-columns="1fr 0.8fr 0.7fr 1fr 1.2fr 0.8fr 1.4fr"
       empty-title="没有匹配学生"
       empty-description="请调整搜索词或筛选条件。"
     >
@@ -46,17 +57,20 @@ import SearchBar from "../../components/common/SearchBar.vue";
 import StatusTag from "../../components/common/StatusTag.vue";
 import { useAsyncPage } from "../../composables/useAsyncPage";
 import { usePermission } from "../../composables/usePermission";
-import { getStudentList } from "../../api/modules/studentApi";
+import { batchRegisterStudentsApi, getStudentList } from "../../api/modules/studentApi";
 
 const items = ref([]);
 const keyword = ref("");
 const statusFilter = ref("all");
+const importFeedback = ref("");
 const { hasPermission } = usePermission();
 const { loading, error, run } = useAsyncPage(() => getStudentList({ pageNo: 1, pageSize: 100 }));
 
 const columns = [
   { key: "studentNo", label: "学号" },
   { key: "name", label: "姓名" },
+  { key: "grade", label: "年级" },
+  { key: "major", label: "专业" },
   { key: "className", label: "班级" },
   { key: "statusText", label: "状态" },
   { key: "tags", label: "标签" },
@@ -87,5 +101,112 @@ async function loadData() {
       tags: item.tags || [],
     }));
   } catch {}
+}
+
+async function handleImportFile(event) {
+  const file = event.target.files?.[0];
+  importFeedback.value = "";
+  if (!file) return;
+
+  try {
+    const text = await file.text();
+    const rows = parseCsv(text);
+    if (!rows.length) {
+      importFeedback.value = "没有识别到可导入的学生数据。";
+      return;
+    }
+    const result = await batchRegisterStudentsApi(rows);
+    await loadData();
+    importFeedback.value = `导入完成：成功 ${result.successCount} 人，跳过 ${result.skippedCount} 人，失败 ${result.failedCount} 人。${result.messages.slice(0, 3).join("；")}`;
+  } catch (error) {
+    importFeedback.value = error.message || "文件解析失败，请检查 CSV 格式。";
+  } finally {
+    event.target.value = "";
+  }
+}
+
+function parseCsv(text) {
+  const lines = text
+    .replace(/^\uFEFF/, "")
+    .split(/\r?\n/)
+    .map((line) => line.trim())
+    .filter(Boolean);
+  if (lines.length < 2) return [];
+
+  const delimiter = detectDelimiter(lines[0]);
+  const headers = splitDelimitedLine(lines[0], delimiter).map(normalizeHeader);
+  return lines.slice(1).map((line) => {
+    const cells = splitDelimitedLine(line, delimiter);
+    const row = {};
+    headers.forEach((header, index) => {
+      row[header] = cells[index]?.trim() ?? "";
+    });
+    return {
+      studentNo: row.studentNo,
+      name: row.name,
+      grade: row.grade,
+      className: row.className,
+      major: row.major,
+    };
+  });
+}
+
+function detectDelimiter(headerLine) {
+  return headerLine.includes("\t") ? "\t" : ",";
+}
+
+function splitDelimitedLine(line, delimiter) {
+  const cells = [];
+  let current = "";
+  let inQuotes = false;
+
+  for (let index = 0; index < line.length; index += 1) {
+    const char = line[index];
+    const next = line[index + 1];
+    if (char === '"' && next === '"') {
+      current += '"';
+      index += 1;
+    } else if (char === '"') {
+      inQuotes = !inQuotes;
+    } else if (char === delimiter && !inQuotes) {
+      cells.push(current);
+      current = "";
+    } else {
+      current += char;
+    }
+  }
+  cells.push(current);
+  return cells;
+}
+
+function normalizeHeader(header) {
+  const normalized = header.trim().toLowerCase();
+  const map = {
+    学号: "studentNo",
+    账号: "studentNo",
+    studentno: "studentNo",
+    student_no: "studentNo",
+    姓名: "name",
+    name: "name",
+    年级: "grade",
+    grade: "grade",
+    班级: "className",
+    classname: "className",
+    class_name: "className",
+    专业: "major",
+    major: "major",
+  };
+  return map[normalized] ?? normalized;
+}
+
+function downloadTemplate() {
+  const content = "学号,姓名,年级,班级,专业\n20260001,张三,2026,软件工程1班,软件工程\n";
+  const blob = new Blob(["\uFEFF", content], { type: "text/csv;charset=utf-8" });
+  const url = URL.createObjectURL(blob);
+  const link = document.createElement("a");
+  link.href = url;
+  link.download = "学生批量注册模板.csv";
+  link.click();
+  URL.revokeObjectURL(url);
 }
 </script>

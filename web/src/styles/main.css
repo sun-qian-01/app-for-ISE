@@ -339,6 +339,31 @@ textarea {
   background: var(--primary-dark);
 }
 
+.segmented {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px;
+  margin: 14px 0;
+  padding: 6px;
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  background: rgba(255, 250, 240, 0.62);
+}
+
+.segmented button {
+  min-height: 38px;
+  border: 0;
+  border-radius: 10px;
+  background: transparent;
+  color: var(--muted);
+  cursor: pointer;
+}
+
+.segmented button.is-active {
+  background: var(--primary);
+  color: #fff7f0;
+}
+
 .feature-list,
 .stack,
 .form,
@@ -359,6 +384,35 @@ textarea {
   gap: 12px;
   flex-wrap: wrap;
   margin-bottom: 16px;
+}
+
+.import-box {
+  display: flex;
+  gap: 16px;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+  padding: 16px 18px;
+  border: 1px dashed rgba(143, 45, 31, 0.22);
+  border-radius: 14px;
+  background: rgba(255, 250, 240, 0.68);
+}
+
+.import-box__actions {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.import-box__actions .input {
+  max-width: 300px;
+}
+
+.feedback {
+  margin: 12px 0 0;
+  color: var(--primary-dark);
+  line-height: 1.6;
 }
 
 .shortcut {
@@ -533,6 +587,12 @@ textarea {
   gap: 8px;
 }
 
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+
 .table-like {
   display: grid;
   gap: 8px;
@@ -626,6 +686,11 @@ textarea {
     grid-template-columns: 1fr;
   }
 
+  .import-box {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
   .content {
     padding: 18px 16px 28px;
   }
@@ -635,6 +700,10 @@ textarea {
   }
 
   .table-row {
+    grid-template-columns: 1fr;
+  }
+
+  .form-grid {
     grid-template-columns: 1fr;
   }
 }
