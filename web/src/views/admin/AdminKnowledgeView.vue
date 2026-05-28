@@ -44,8 +44,46 @@
     <section class="panel">
       <PageHeader
         title="模板与资源"
-        description="模板列表已接入后端，支持直接下载。"
+        description="模板列表已接入后端，支持上传和直接下载。"
       />
+
+      <form class="form upload-form" @submit.prevent="handleUpload">
+        <label>
+          <span>资源名称</span>
+          <input v-model="uploadForm.name" class="input" type="text" placeholder="例如 奖学金材料模板" />
+        </label>
+        <div class="form-grid">
+          <label>
+            <span>资源分类</span>
+            <select v-model="uploadForm.categoryLabel" class="input input--select">
+              <option value="证明">证明</option>
+              <option value="奖助">奖助</option>
+              <option value="党团">党团</option>
+              <option value="学籍">学籍</option>
+              <option value="就业">就业</option>
+            </select>
+          </label>
+          <label>
+            <span>资源类型</span>
+            <select v-model="uploadForm.bizType" class="input input--select">
+              <option value="kb_template">模板资源</option>
+              <option value="kb_policy">政策文件</option>
+            </select>
+          </label>
+        </div>
+        <label>
+          <span>资源说明</span>
+          <textarea v-model="uploadForm.description" class="input textarea" rows="3" placeholder="填写资源用途、适用范围或版本说明"></textarea>
+        </label>
+        <label>
+          <span>选择文件</span>
+          <input class="input" type="file" accept=".pdf,.doc,.docx,.xls,.xlsx,.txt" @change="handleFileChange" />
+        </label>
+        <button class="button button--primary" type="submit" :disabled="uploading">
+          {{ uploading ? "上传中..." : "上传资源" }}
+        </button>
+      </form>
+      <p v-if="uploadFeedback" class="feedback">{{ uploadFeedback }}</p>
 
       <LoadingState v-if="loading" text="模板资源加载中..." />
       <ErrorState v-else-if="error" description="模板资源加载失败，请稍后重试。" @retry="loadData" />
@@ -86,12 +124,22 @@ import SearchBar from "../../components/common/SearchBar.vue";
 import StatusTag from "../../components/common/StatusTag.vue";
 import { useAsyncPage } from "../../composables/useAsyncPage";
 import { getKnowledgeList, getKnowledgeTemplates } from "../../api/modules/kbApi";
+import { uploadFile } from "../../api/modules/fileApi";
 import { downloadWithAuth } from "../../utils/downloadFile";
 
 const articles = ref([]);
 const templates = ref([]);
 const keyword = ref("");
 const categoryFilter = ref("all");
+const uploading = ref(false);
+const uploadFeedback = ref("");
+const selectedFile = ref(null);
+const uploadForm = ref({
+  name: "",
+  categoryLabel: "证明",
+  bizType: "kb_template",
+  description: "",
+});
 const { loading, error, run } = useAsyncPage(async () => {
   const [articlePage, templateList] = await Promise.all([
     getKnowledgeList({ pageNo: 1, pageSize: 100 }),
@@ -145,5 +193,56 @@ async function downloadTemplate(item) {
   } catch (error) {
     window.alert(error?.message || "模板下载失败，请稍后重试。");
   }
+}
+
+function handleFileChange(event) {
+  selectedFile.value = event.target.files?.[0] ?? null;
+  if (selectedFile.value && !uploadForm.value.name.trim()) {
+    uploadForm.value.name = selectedFile.value.name.replace(/\.[^.]+$/, "");
+  }
+}
+
+async function handleUpload() {
+  uploadFeedback.value = "";
+  if (!selectedFile.value) {
+    uploadFeedback.value = "请先选择要上传的文件。";
+    return;
+  }
+  if (!uploadForm.value.name.trim()) {
+    uploadFeedback.value = "请填写资源名称。";
+    return;
+  }
+
+  uploading.value = true;
+  try {
+    const uploaded = await uploadFile(selectedFile.value, uploadForm.value.bizType);
+    const fileType = inferFileType(uploaded.fileName || selectedFile.value.name);
+    templates.value.unshift({
+      templateId: uploaded.fileId,
+      name: uploadForm.value.name,
+      categoryLabel: uploadForm.value.categoryLabel,
+      fileType,
+      updatedAt: new Date().toISOString().slice(0, 10),
+      description: uploadForm.value.description || "教师上传资源",
+      fileUrl: uploaded.fileUrl,
+    });
+    uploadFeedback.value = `文件已上传：${uploaded.fileName}`;
+    selectedFile.value = null;
+    uploadForm.value = {
+      name: "",
+      categoryLabel: "证明",
+      bizType: "kb_template",
+      description: "",
+    };
+  } catch (error) {
+    uploadFeedback.value = error?.message || "文件上传失败，请稍后重试。";
+  } finally {
+    uploading.value = false;
+  }
+}
+
+function inferFileType(fileName) {
+  const extension = fileName.split(".").pop()?.toLowerCase();
+  return extension || "file";
 }
 </script>

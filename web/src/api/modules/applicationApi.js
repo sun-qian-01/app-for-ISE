@@ -4,6 +4,10 @@ export async function getMyApplications(params = {}) {
   return client.get("/applications/my", { params });
 }
 
+export async function createApplication(payload) {
+  return client.post("/applications", payload);
+}
+
 export async function getPendingApplications(params = {}) {
   return client.get("/applications/approvals/pending", { params });
 }

@@ -22,12 +22,8 @@ onMounted(() => {
     router.replace("/login");
     return;
   }
-  if (authStore.roles.includes("teacher_admin")) {
+  if (authStore.roles.includes("teacher_admin") || authStore.roles.includes("college_leader") || authStore.roles.includes("system_admin")) {
     router.replace("/admin/dashboard");
-    return;
-  }
-  if (authStore.roles.includes("college_leader")) {
-    router.replace("/leader/dashboard");
     return;
   }
   router.replace("/student/dashboard");

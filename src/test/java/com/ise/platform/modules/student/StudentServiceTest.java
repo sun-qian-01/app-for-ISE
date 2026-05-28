@@ -51,6 +51,26 @@ class StudentServiceTest {
     }
 
     @Test
+    void teacherAdminCanOnlyListManagedClassStudents() {
+        CurrentUser user = teacherUser();
+        var page = studentService.listStudents(user, 1, 20, null, null, null, null,
+            null, null, null, null, null);
+
+        assertThat(page.getRecords()).isNotEmpty();
+        assertThat(page.getRecords()).allMatch(item -> "软件工程2班".equals(item.getClassName()));
+    }
+
+    @Test
+    void teacherAdminCannotViewStudentOutsideManagedClass() {
+        CurrentUser user = teacherUser();
+
+        assertThatThrownBy(() -> studentService.studentDetail(user, 3L, false))
+            .isInstanceOf(BusinessException.class)
+            .extracting(ex -> ((BusinessException) ex).getErrorCode())
+            .isEqualTo(ErrorCode.FORBIDDEN);
+    }
+
+    @Test
     void includeSensitiveRequiresManagerRole() {
         CurrentUser user = studentUser(1L, "20220001");
         assertThatThrownBy(() -> studentService.studentDetail(user, 1L, true))
@@ -158,7 +178,7 @@ class StudentServiceTest {
             "teacher",
             List.of("teacher_admin"),
             List.of("student:detail:view"),
-            List.of(new DataScope("department", "信息科学与工程学院")),
+            List.of(new DataScope("class", "软件工程2班")),
             null
         );
     }

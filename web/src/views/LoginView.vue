@@ -153,7 +153,7 @@ async function handleLogin() {
       return;
     }
     if (result.user?.roles?.includes("college_leader")) {
-      router.push("/leader/dashboard");
+      router.push("/admin/dashboard");
       return;
     }
     router.push("/student/dashboard");
