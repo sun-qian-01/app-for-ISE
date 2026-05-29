@@ -4,6 +4,7 @@ import com.ise.platform.common.api.PagedData;
 import com.ise.platform.common.error.BusinessException;
 import com.ise.platform.common.error.ErrorCode;
 import com.ise.platform.common.security.CurrentUser;
+import com.ise.platform.modules.kb.rag.KbRagService;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
@@ -23,9 +24,11 @@ public class KbService {
     private static final DateTimeFormatter DATETIME_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 
     private final JdbcTemplate jdbcTemplate;
+    private final KbRagService kbRagService;
 
-    public KbService(JdbcTemplate jdbcTemplate) {
+    public KbService(JdbcTemplate jdbcTemplate, KbRagService kbRagService) {
         this.jdbcTemplate = jdbcTemplate;
+        this.kbRagService = kbRagService;
     }
 
     public PagedData<KbDto.ArticleView> listArticles(CurrentUser user,
@@ -165,7 +168,21 @@ public class KbService {
     }
 
     public KbDto.QaResponse qa(KbDto.QaRequest request) {
-        String question = request.getQuestion().toLowerCase(Locale.ROOT);
+        String normalizedQuestion = request.getQuestion().trim();
+        String generalReply = generalReply(normalizedQuestion);
+        if (generalReply != null) {
+            return new KbDto.QaResponse(generalReply, List.of(), 0.98);
+        }
+
+        if (kbRagService.enabled()) {
+            try {
+                return kbRagService.qa(normalizedQuestion, request.getHistory());
+            } catch (RuntimeException ignored) {
+                // Fail-open to legacy QA to keep demo available when vector/LLM upstream is unstable.
+            }
+        }
+
+        String question = buildSearchText(normalizedQuestion, request.getHistory()).toLowerCase(Locale.ROOT);
         List<ArticleQaView> candidates = jdbcTemplate.query(
             """
                 select id, title, standard_answer, source_file_name, source_file_id, keywords_text
@@ -255,9 +272,63 @@ public class KbService {
         return score;
     }
 
+    private String buildSearchText(String question, List<KbDto.QaHistoryMessage> history) {
+        if (!looksLikeFollowUp(question) || history == null || history.isEmpty()) {
+            return question;
+        }
+
+        StringBuilder searchText = new StringBuilder(question);
+        int start = Math.max(0, history.size() - 4);
+        for (int i = start; i < history.size(); i++) {
+            KbDto.QaHistoryMessage item = history.get(i);
+            if (item == null || !StringUtils.hasText(item.getContent())) {
+                continue;
+            }
+            searchText.append(' ').append(item.getContent().trim());
+        }
+        return searchText.toString();
+    }
+
+    private boolean looksLikeFollowUp(String question) {
+        if (!StringUtils.hasText(question)) {
+            return false;
+        }
+        String text = question.trim().toLowerCase(Locale.ROOT);
+        return text.startsWith("那")
+            || text.startsWith("那么")
+            || text.startsWith("这个")
+            || text.startsWith("这")
+            || text.startsWith("它")
+            || text.startsWith("该")
+            || text.startsWith("上述")
+            || text.startsWith("前面")
+            || text.contains("刚才")
+            || text.contains("上一")
+            || text.contains("截止时间")
+            || text.contains("材料呢")
+            || text.contains("流程呢")
+            || text.contains("怎么办")
+            || text.contains("怎么做")
+            || text.contains("还有");
+    }
+
     private boolean isManagerLike(CurrentUser user) {
         return user.getRoles().stream().anyMatch(role ->
             "teacher_admin".equals(role) || "college_leader".equals(role) || "system_admin".equals(role) || "class_cadre".equals(role));
+    }
+
+    private String generalReply(String question) {
+        String text = question.toLowerCase(Locale.ROOT);
+        if (text.contains("你是谁") || text.contains("你叫什么")) {
+            return "我是学院知识库助手，可以基于平台已发布条目帮你检索政策、模板和办理说明。";
+        }
+        if (text.contains("你好") || text.contains("hello") || text.equals("hi")) {
+            return "你好，我是学院知识库助手。你可以直接问我奖助、证明、党团、培养方案等问题。";
+        }
+        if (text.contains("你能做什么") || text.contains("你会什么") || text.contains("怎么用")) {
+            return "我可以回答院内政策问题、给出相关来源条目，并支持你连续追问同一主题。";
+        }
+        return null;
     }
 
     private String normalizeFilter(String value) {

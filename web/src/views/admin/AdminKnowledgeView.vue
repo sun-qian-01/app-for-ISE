@@ -44,8 +44,27 @@
     <section class="panel">
       <PageHeader
         title="模板与资源"
-        description="模板列表已接入后端，支持直接下载。"
+        description="模板列表已接入后端，支持直接下载与上传。"
       />
+
+      <div class="import-box">
+        <div>
+          <strong>上传文件（老师可用）</strong>
+          <p class="subtle-note">上传后可获得文件 ID，用于申请或知识条目关联。</p>
+        </div>
+        <div class="import-box__actions">
+          <input class="input" type="file" @change="handleUploadFileChange" />
+          <select v-model="uploadBizType" class="input input--select">
+            <option value="knowledge_attachment">知识库附件</option>
+            <option value="application_attachment">申请附件</option>
+            <option value="notice_attachment">通知附件</option>
+          </select>
+          <button class="button button--primary" type="button" :disabled="uploading" @click="submitUpload">
+            {{ uploading ? "上传中..." : "上传文件" }}
+          </button>
+        </div>
+      </div>
+      <p v-if="uploadFeedback" class="feedback">{{ uploadFeedback }}</p>
 
       <LoadingState v-if="loading" text="模板资源加载中..." />
       <ErrorState v-else-if="error" description="模板资源加载失败，请稍后重试。" @retry="loadData" />
@@ -85,6 +104,7 @@ import RecordCard from "../../components/common/RecordCard.vue";
 import SearchBar from "../../components/common/SearchBar.vue";
 import StatusTag from "../../components/common/StatusTag.vue";
 import { useAsyncPage } from "../../composables/useAsyncPage";
+import { uploadFile } from "../../api/modules/fileApi";
 import { getKnowledgeList, getKnowledgeTemplates } from "../../api/modules/kbApi";
 import { downloadWithAuth } from "../../utils/downloadFile";
 
@@ -92,6 +112,10 @@ const articles = ref([]);
 const templates = ref([]);
 const keyword = ref("");
 const categoryFilter = ref("all");
+const uploadBizType = ref("knowledge_attachment");
+const pendingUploadFile = ref(null);
+const uploadFeedback = ref("");
+const uploading = ref(false);
 const { loading, error, run } = useAsyncPage(async () => {
   const [articlePage, templateList] = await Promise.all([
     getKnowledgeList({ pageNo: 1, pageSize: 100 }),
@@ -144,6 +168,28 @@ async function downloadTemplate(item) {
     await downloadWithAuth(item.fileUrl, `${item.name || "template"}.${item.fileType || "txt"}`);
   } catch (error) {
     window.alert(error?.message || "模板下载失败，请稍后重试。");
+  }
+}
+
+function handleUploadFileChange(event) {
+  pendingUploadFile.value = event.target.files?.[0] || null;
+}
+
+async function submitUpload() {
+  uploadFeedback.value = "";
+  if (!pendingUploadFile.value) {
+    uploadFeedback.value = "请先选择文件。";
+    return;
+  }
+  uploading.value = true;
+  try {
+    const result = await uploadFile(pendingUploadFile.value, uploadBizType.value);
+    uploadFeedback.value = `上传成功：fileId=${result.fileId}，文件名=${result.fileName}`;
+    pendingUploadFile.value = null;
+  } catch (error) {
+    uploadFeedback.value = error?.message || "上传失败，请稍后重试。";
+  } finally {
+    uploading.value = false;
   }
 }
 </script>

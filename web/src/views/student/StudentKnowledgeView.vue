@@ -3,30 +3,66 @@
     <section class="panel">
       <PageHeader
         title="智能问答"
-        description="按学院已发布知识条目生成问答，若无可靠依据则明确提示未检索到依据。"
+        description="支持连续追问；会优先基于已发布知识条目回答。"
       />
-      <form class="form" @submit.prevent="submitQuestion">
-        <label>
-          <span>问题描述</span>
-          <textarea
-            v-model="question"
-            class="input textarea"
-            rows="4"
-            placeholder="例如：国家奖学金需要提交哪些材料？"
-          />
-        </label>
-        <button class="button button--primary" type="submit">检索依据并生成回答</button>
-      </form>
 
-      <div v-if="answer" class="answer-box">
-        <strong>回答</strong>
-        <p>{{ answer }}</p>
-        <div v-if="answerSources.length" class="stack answer-box__sources">
-          <strong>依据来源</strong>
-          <div class="tag-group">
-            <StatusTag v-for="source in answerSources" :key="source" :label="source" />
+      <div class="chat-box">
+        <div ref="chatListRef" class="chat-list">
+          <div
+            v-for="msg in messages"
+            :key="msg.id"
+            class="chat-item"
+            :class="[
+              msg.role === 'user' ? 'chat-item--user' : 'chat-item--assistant',
+              msg.error ? 'chat-item--error' : '',
+            ]"
+          >
+            <div class="chat-role">{{ msg.role === "user" ? "我" : "助手" }}</div>
+            <div class="chat-bubble">
+              <div v-if="msg.role === 'assistant'" class="chat-bubble__meta">
+                <StatusTag :label="msg.reliability.label" :tone="msg.reliability.tone" />
+                <span v-if="typeof msg.confidence === 'number'" class="subtle-note">
+                  置信度 {{ Math.round(msg.confidence * 100) }}%
+                </span>
+              </div>
+              <p class="chat-bubble__content">{{ msg.content }}</p>
+              <p v-if="msg.thinking" class="subtle-note">正在检索知识库并整理答案...</p>
+              <p v-else-if="msg.role === 'assistant'" class="subtle-note">
+                {{ msg.reliability.description }}
+              </p>
+              <div v-if="msg.sources?.length" class="qa-sources">
+                <strong>依据来源</strong>
+                <button
+                  v-for="source in msg.sources"
+                  :key="`${source.articleId || 'file'}-${source.sourceUrl || source.title}`"
+                  class="source-chip"
+                  type="button"
+                  @click="openQaSource(source)"
+                >
+                  {{ formatQaSourceLabel(source) }}
+                </button>
+              </div>
+            </div>
           </div>
         </div>
+
+        <form class="form" @submit.prevent="submitQuestion">
+          <label>
+            <span>问题描述</span>
+            <textarea
+              v-model="question"
+              class="input textarea"
+              rows="3"
+              placeholder="例如：国家奖学金需要提交哪些材料？可继续追问：那截止时间呢？"
+            />
+          </label>
+          <div class="topbar__actions">
+            <button class="button button--primary" type="submit" :disabled="asking">
+              {{ asking ? "思考中..." : "发送问题" }}
+            </button>
+            <button class="button" type="button" :disabled="asking" @click="clearConversation">清空对话</button>
+          </div>
+        </form>
       </div>
     </section>
 
@@ -103,7 +139,8 @@
 </template>
 
 <script setup>
-import { computed, onMounted, ref } from "vue";
+import { computed, nextTick, onMounted, ref } from "vue";
+import { useRouter } from "vue-router";
 import EmptyState from "../../components/common/EmptyState.vue";
 import ErrorState from "../../components/common/ErrorState.vue";
 import LoadingState from "../../components/common/LoadingState.vue";
@@ -114,10 +151,30 @@ import StatusTag from "../../components/common/StatusTag.vue";
 import { useAsyncPage } from "../../composables/useAsyncPage";
 import { askKnowledgeQuestion, getKnowledgeList, getKnowledgeTemplates } from "../../api/modules/kbApi";
 import { downloadWithAuth } from "../../utils/downloadFile";
+import { formatQaSourceLabel, getQaReliability, normalizeQaSources } from "../../utils/kbQa";
 
+const router = useRouter();
 const question = ref("");
-const answer = ref("");
-const answerSources = ref([]);
+const asking = ref(false);
+const chatListRef = ref(null);
+const messageSeq = ref(1);
+const idleReliability = {
+  label: "可继续提问",
+  tone: "default",
+  description: "我会优先引用已发布知识条目；如果没有可靠来源，会明确提示。",
+};
+const messages = ref([
+  {
+    id: 1,
+    role: "assistant",
+    content: "你好，我是学院知识库助手。你可以直接问我政策流程，也可以连续追问。",
+    sources: [],
+    confidence: null,
+    reliability: idleReliability,
+    thinking: false,
+    error: false,
+  },
+]);
 const articles = ref([]);
 const templates = ref([]);
 const keyword = ref("");
@@ -156,22 +213,65 @@ async function loadData() {
 }
 
 async function submitQuestion() {
+  if (asking.value) {
+    return;
+  }
   const text = question.value.trim();
   if (!text) {
-    answer.value = "请输入问题后再检索。";
-    answerSources.value = [];
     return;
   }
 
+  const history = buildHistory();
+  const userMessageId = nextMessageId();
+  messages.value.push({
+    id: userMessageId,
+    role: "user",
+    content: text,
+    sources: [],
+    confidence: null,
+    reliability: null,
+    thinking: false,
+    error: false,
+  });
+  scrollChatToBottom();
+  question.value = "";
+
+  const thinkingId = nextMessageId();
+  messages.value.push({
+    id: thinkingId,
+    role: "assistant",
+    content: "正在整理答案...",
+    sources: [],
+    confidence: null,
+    reliability: {
+      label: "检索中",
+      tone: "default",
+      description: "正在检索知识库并生成回答。",
+    },
+    thinking: true,
+    error: false,
+  });
+  scrollChatToBottom();
+
+  asking.value = true;
   try {
-    const result = await askKnowledgeQuestion(text);
-    answer.value = result.answer;
-    answerSources.value = (result.sources || []).map((item) =>
-      `${item.title}${item.fileName ? ` · ${item.fileName}` : ""}`,
-    );
+    const result = await askKnowledgeQuestion(text, { history });
+    const sources = normalizeQaSources(result.sources);
+    replaceThinkingMessage(thinkingId, {
+      content: result.answer || "未返回有效回答",
+      sources,
+      confidence: typeof result.confidence === "number" ? result.confidence : 0,
+      error: false,
+    });
   } catch (error) {
-    answer.value = error?.message || "问答请求失败";
-    answerSources.value = [];
+    replaceThinkingMessage(thinkingId, {
+      content: error?.message || "问答请求失败",
+      sources: [],
+      confidence: 0,
+      error: true,
+    });
+  } finally {
+    asking.value = false;
   }
 }
 
@@ -183,6 +283,71 @@ async function downloadTemplate(item) {
     await downloadWithAuth(item.fileUrl, `${item.name || "template"}.${item.fileType || "txt"}`);
   } catch (error) {
     window.alert(error?.message || "模板下载失败，请稍后重试。");
+  }
+}
+
+function clearConversation() {
+  messages.value = [
+    {
+      id: nextMessageId(),
+      role: "assistant",
+      content: "对话已清空。你可以开始新的问题。",
+      sources: [],
+      confidence: null,
+      reliability: idleReliability,
+      thinking: false,
+      error: false,
+    },
+  ];
+  scrollChatToBottom();
+}
+
+function buildHistory() {
+  return messages.value
+    .filter((item) => !item.thinking && (item.role === "user" || item.role === "assistant"))
+    .slice(-10)
+    .map((item) => ({ role: item.role, content: item.content }));
+}
+
+function replaceThinkingMessage(messageId, payload) {
+  const index = messages.value.findIndex((item) => item.id === messageId);
+  if (index < 0) {
+    return;
+  }
+  const reliability = getQaReliability(payload.confidence, payload.sources);
+  messages.value[index] = {
+    id: messageId,
+    role: "assistant",
+    content: payload.content,
+    sources: payload.sources,
+    confidence: payload.confidence,
+    reliability,
+    thinking: false,
+    error: payload.error,
+  };
+  scrollChatToBottom();
+}
+
+function nextMessageId() {
+  messageSeq.value += 1;
+  return messageSeq.value;
+}
+
+function scrollChatToBottom() {
+  nextTick(() => {
+    if (chatListRef.value) {
+      chatListRef.value.scrollTop = chatListRef.value.scrollHeight;
+    }
+  });
+}
+
+async function openQaSource(source) {
+  if (source.articleId) {
+    router.push({ name: "student-kb-article", params: { articleId: source.articleId } });
+    return;
+  }
+  if (source.sourceUrl) {
+    await downloadWithAuth(source.sourceUrl, source.fileName || source.title || "knowledge-source");
   }
 }
 </script>

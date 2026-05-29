@@ -18,16 +18,23 @@ import java.util.concurrent.atomic.AtomicLong;
 public class FileService {
 
     private static final long MAX_FILE_SIZE = 30L * 1024 * 1024;
-    private static final Map<Long, SeededFileRef> SEEDED_FILE_REFS = Map.of(
-        12001L, new SeededFileRef("国家奖学金评定办法.pdf", "downloads/student/scholarship-policy.pdf", "application/pdf"),
-        12002L, new SeededFileRef("学籍异动办理指南.docx", "downloads/student/student-status-guide.docx", "application/vnd.openxmlformats-officedocument.wordprocessingml.document"),
-        12003L, new SeededFileRef("党员发展材料清单.xlsx", "downloads/student/party-materials-checklist.xlsx", "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"),
-        12004L, new SeededFileRef("学生证明办理指南.pdf", "downloads/student/student-certificate-guide.pdf", "application/pdf"),
-        12005L, new SeededFileRef("毕业生就业信息补录通知.docx", "downloads/student/employment-registration-guide.docx", "application/vnd.openxmlformats-officedocument.wordprocessingml.document"),
-        13001L, new SeededFileRef("在读证明申请模板.docx", "downloads/student/student-certificate-application-template.docx", "application/vnd.openxmlformats-officedocument.wordprocessingml.document"),
-        13002L, new SeededFileRef("国家奖学金材料清单模板.xlsx", "downloads/student/scholarship-materials-checklist.xlsx", "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"),
-        13003L, new SeededFileRef("思想汇报撰写模板.docx", "downloads/student/party-report-template.docx", "application/vnd.openxmlformats-officedocument.wordprocessingml.document"),
-        13004L, new SeededFileRef("就业信息补录说明模板.docx", "downloads/student/employment-registration-guide.docx", "application/vnd.openxmlformats-officedocument.wordprocessingml.document")
+    private static final Map<Long, SeededFileRef> SEEDED_FILE_REFS = Map.ofEntries(
+        Map.entry(12001L, new SeededFileRef("国家奖学金评定办法.pdf", "downloads/student/scholarship-policy.pdf", "application/pdf")),
+        Map.entry(12002L, new SeededFileRef("学籍异动办理指南.docx", "downloads/student/student-status-guide.docx", "application/vnd.openxmlformats-officedocument.wordprocessingml.document")),
+        Map.entry(12003L, new SeededFileRef("党员发展材料清单.xlsx", "downloads/student/party-materials-checklist.xlsx", "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet")),
+        Map.entry(12004L, new SeededFileRef("学生证明办理指南.pdf", "downloads/student/student-certificate-guide.pdf", "application/pdf")),
+        Map.entry(12005L, new SeededFileRef("毕业生就业信息补录通知.docx", "downloads/student/employment-registration-guide.docx", "application/vnd.openxmlformats-officedocument.wordprocessingml.document")),
+        Map.entry(12006L, new SeededFileRef("2024级大类培养方案（含辅修）.pdf", "downloads/student/2024级大类培养方案（含辅修）.pdf", "application/pdf")),
+        Map.entry(12007L, new SeededFileRef("2025级大类培养方案.pdf", "downloads/student/2025级大类培养方案.pdf", "application/pdf")),
+        Map.entry(12008L, new SeededFileRef("中国人民大学信息学院2025年综合类.pdf", "downloads/student/中国人民大学信息学院2025年综合类.pdf", "application/pdf")),
+        Map.entry(12009L, new SeededFileRef("党员证明模板.docx", "downloads/student/党员证明模板.docx", "application/vnd.openxmlformats-officedocument.wordprocessingml.document")),
+        Map.entry(12010L, new SeededFileRef("团员证明模板.docx", "downloads/student/团员证明模板.docx", "application/vnd.openxmlformats-officedocument.wordprocessingml.document")),
+        Map.entry(13001L, new SeededFileRef("在读证明申请模板.docx", "downloads/student/student-certificate-application-template.docx", "application/vnd.openxmlformats-officedocument.wordprocessingml.document")),
+        Map.entry(13002L, new SeededFileRef("国家奖学金材料清单模板.xlsx", "downloads/student/scholarship-materials-checklist.xlsx", "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet")),
+        Map.entry(13003L, new SeededFileRef("思想汇报撰写模板.docx", "downloads/student/party-report-template.docx", "application/vnd.openxmlformats-officedocument.wordprocessingml.document")),
+        Map.entry(13004L, new SeededFileRef("就业信息补录说明模板.docx", "downloads/student/employment-registration-guide.docx", "application/vnd.openxmlformats-officedocument.wordprocessingml.document")),
+        Map.entry(13005L, new SeededFileRef("党员证明模板.docx", "downloads/student/党员证明模板.docx", "application/vnd.openxmlformats-officedocument.wordprocessingml.document")),
+        Map.entry(13006L, new SeededFileRef("团员证明模板.docx", "downloads/student/团员证明模板.docx", "application/vnd.openxmlformats-officedocument.wordprocessingml.document"))
     );
 
     private final AtomicLong fileIdGenerator = new AtomicLong(1000);

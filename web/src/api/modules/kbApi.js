@@ -12,6 +12,9 @@ export async function getKnowledgeTemplates() {
   return client.get("/kb/templates");
 }
 
-export async function askKnowledgeQuestion(question) {
-  return client.post("/kb/qa", { question });
+export async function askKnowledgeQuestion(question, options = {}) {
+  return client.post("/kb/qa", {
+    question,
+    history: options.history || [],
+  });
 }

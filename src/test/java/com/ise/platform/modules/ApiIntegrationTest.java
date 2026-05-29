@@ -97,6 +97,22 @@ class ApiIntegrationTest {
     }
 
     @Test
+    void kbQaShouldReplyIdentityQuestion() throws Exception {
+        String token = loginAndGetToken("20220001", "123456");
+        mockMvc.perform(post("/api/v1/kb/qa")
+                .header(HttpHeaders.AUTHORIZATION, "Bearer " + token)
+                .contentType(MediaType.APPLICATION_JSON)
+                .content("""
+                    {
+                      "question": "你是谁"
+                    }
+                    """))
+            .andExpect(status().isOk())
+            .andExpect(jsonPath("$.code").value(0))
+            .andExpect(jsonPath("$.data.answer").value(org.hamcrest.Matchers.containsString("学院知识库助手")));
+    }
+
+    @Test
     void kbArticleDetailShouldReturnPublishedArticle() throws Exception {
         String token = loginAndGetToken("20220001", "123456");
         mockMvc.perform(get("/api/v1/kb/articles/1")
@@ -135,6 +151,25 @@ class ApiIntegrationTest {
         mockMvc.perform(get("/api/v1/files/13004/download"))
             .andExpect(status().isOk())
             .andExpect(jsonPath("$.code").value(40100));
+    }
+
+    @Test
+    void teacherCanUploadFile() throws Exception {
+        String token = loginAndGetToken("teacher001", "123456");
+        MockMultipartFile file = new MockMultipartFile(
+            "file",
+            "teacher-upload.txt",
+            MediaType.TEXT_PLAIN_VALUE,
+            "hello".getBytes()
+        );
+
+        mockMvc.perform(multipart("/api/v1/files/upload")
+                .file(file)
+                .param("bizType", "knowledge_attachment")
+                .header(HttpHeaders.AUTHORIZATION, "Bearer " + token))
+            .andExpect(status().isOk())
+            .andExpect(jsonPath("$.code").value(0))
+            .andExpect(jsonPath("$.data.fileId").isNumber());
     }
 
     @Test

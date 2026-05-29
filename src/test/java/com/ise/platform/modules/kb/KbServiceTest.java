@@ -1,10 +1,15 @@
 package com.ise.platform.modules.kb;
 
+import com.ise.platform.modules.kb.rag.KbRagService;
 import org.junit.jupiter.api.Test;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 
+import java.util.List;
+
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 class KbServiceTest {
 
@@ -42,7 +47,9 @@ class KbServiceTest {
             values
             (1, '国家奖学金评定流程说明', '摘要', '奖助', 'published', 'v1', '标准答案', 'source.pdf', null, '奖学金,评定', 1, current_timestamp(), current_timestamp(), 0)
             """);
-        this.kbService = new KbService(jdbcTemplate);
+        KbRagService kbRagService = mock(KbRagService.class);
+        when(kbRagService.enabled()).thenReturn(false);
+        this.kbService = new KbService(jdbcTemplate, kbRagService);
     }
 
     @Test
@@ -50,6 +57,66 @@ class KbServiceTest {
         KbDto.QaRequest request = new KbDto.QaRequest();
         request.setQuestion("一个完全不相关的问题");
         KbDto.QaResponse response = kbService.qa(request);
+        assertThat(response.getAnswer()).isEqualTo("未检索到可靠依据");
+        assertThat(response.getSources()).isEmpty();
+        assertThat(response.getConfidence()).isEqualTo(0.0d);
+    }
+
+    @Test
+    void qaShouldReplyForAssistantIdentityQuestion() {
+        KbDto.QaRequest request = new KbDto.QaRequest();
+        request.setQuestion("你是谁");
+        KbDto.QaResponse response = kbService.qa(request);
+        assertThat(response.getAnswer()).contains("学院知识库助手");
+        assertThat(response.getConfidence()).isGreaterThan(0.9d);
+    }
+
+    @Test
+    void qaShouldUseRecentHistoryForFollowUpQuestion() {
+        KbDto.QaHistoryMessage previousQuestion = new KbDto.QaHistoryMessage();
+        previousQuestion.setRole("user");
+        previousQuestion.setContent("国家奖学金评定流程是什么？");
+
+        KbDto.QaRequest request = new KbDto.QaRequest();
+        request.setQuestion("那截止时间呢？");
+        request.setHistory(List.of(previousQuestion));
+
+        KbDto.QaResponse response = kbService.qa(request);
+
+        assertThat(response.getAnswer()).isEqualTo("标准答案");
+        assertThat(response.getSources()).extracting(KbDto.QaSource::getArticleId).containsExactly(1L);
+        assertThat(response.getConfidence()).isGreaterThan(0.5d);
+    }
+
+    @Test
+    void qaShouldNotUseHistoryForIndependentNewQuestion() {
+        KbDto.QaHistoryMessage previousQuestion = new KbDto.QaHistoryMessage();
+        previousQuestion.setRole("user");
+        previousQuestion.setContent("国家奖学金评定流程是什么？");
+
+        KbDto.QaRequest request = new KbDto.QaRequest();
+        request.setQuestion("团员");
+        request.setHistory(List.of(previousQuestion));
+
+        KbDto.QaResponse response = kbService.qa(request);
+
+        assertThat(response.getAnswer()).isEqualTo("未检索到可靠依据");
+        assertThat(response.getSources()).isEmpty();
+        assertThat(response.getConfidence()).isEqualTo(0.0d);
+    }
+
+    @Test
+    void qaShouldNotUseHistoryForModelQuestion() {
+        KbDto.QaHistoryMessage previousQuestion = new KbDto.QaHistoryMessage();
+        previousQuestion.setRole("user");
+        previousQuestion.setContent("国家奖学金评定流程是什么？");
+
+        KbDto.QaRequest request = new KbDto.QaRequest();
+        request.setQuestion("你是什么模型");
+        request.setHistory(List.of(previousQuestion));
+
+        KbDto.QaResponse response = kbService.qa(request);
+
         assertThat(response.getAnswer()).isEqualTo("未检索到可靠依据");
         assertThat(response.getSources()).isEmpty();
         assertThat(response.getConfidence()).isEqualTo(0.0d);

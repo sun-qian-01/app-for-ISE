@@ -173,12 +173,14 @@ public class AuthService {
                 "application:approve",
                 "application:reject",
                 "audit:list:view",
-                "student:sensitive:view"
+                "student:sensitive:view",
+                "file:upload"
             );
             case "college_leader" -> List.of(
                 "admin:dashboard:view",
                 "audit:list:view",
-                "system-log:list:view"
+                "system-log:list:view",
+                "file:upload"
             );
             case "system_admin" -> List.of(
                 "admin:dashboard:view",
@@ -187,7 +189,8 @@ public class AuthService {
                 "application:reject",
                 "audit:list:view",
                 "system-log:list:view",
-                "student:sensitive:view"
+                "student:sensitive:view",
+                "file:upload"
             );
             case "class_cadre" -> List.of(
                 "student:profile:view",
@@ -196,6 +199,7 @@ public class AuthService {
                 "notice:my:view",
                 "kb:qa:ask",
                 "application:create",
+                "file:upload",
                 "cadre:party:todo:view",
                 "party:instance:scope:view",
                 "party:todo:remind"
@@ -205,7 +209,8 @@ public class AuthService {
                 "student:dashboard:view",
                 "notice:my:view",
                 "kb:qa:ask",
-                "application:create"
+                "application:create",
+                "file:upload"
             );
         };
     }

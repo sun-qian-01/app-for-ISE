@@ -238,6 +238,7 @@ public final class KbDto {
         @NotBlank(message = "question is required")
         private String question;
         private Long categoryId;
+        private List<QaHistoryMessage> history;
 
         public String getQuestion() {
             return question;
@@ -253,6 +254,35 @@ public final class KbDto {
 
         public void setCategoryId(Long categoryId) {
             this.categoryId = categoryId;
+        }
+
+        public List<QaHistoryMessage> getHistory() {
+            return history;
+        }
+
+        public void setHistory(List<QaHistoryMessage> history) {
+            this.history = history;
+        }
+    }
+
+    public static class QaHistoryMessage {
+        private String role;
+        private String content;
+
+        public String getRole() {
+            return role;
+        }
+
+        public void setRole(String role) {
+            this.role = role;
+        }
+
+        public String getContent() {
+            return content;
+        }
+
+        public void setContent(String content) {
+            this.content = content;
         }
     }
 
@@ -307,6 +337,18 @@ public final class KbDto {
 
         public String getSourceUrl() {
             return sourceUrl;
+        }
+    }
+
+    public static class RagReindexResponse {
+        private int indexedChunks;
+
+        public RagReindexResponse(int indexedChunks) {
+            this.indexedChunks = indexedChunks;
+        }
+
+        public int getIndexedChunks() {
+            return indexedChunks;
         }
     }
 }
