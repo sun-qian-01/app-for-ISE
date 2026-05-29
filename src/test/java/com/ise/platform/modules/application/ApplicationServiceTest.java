@@ -79,6 +79,37 @@ class ApplicationServiceTest {
     }
 
     @Test
+    void managerCanOnlySeePendingApplicationsFromManagedClass() {
+        Long otherClassApplicationId = createOtherClassPendingApplication();
+        CurrentUser manager = managerUser();
+        PagedData<ApplicationDto.ApplicationView> pending = applicationService.pendingApprovals(manager, 1, 20, null, null, null);
+
+        assertThat(pending.getRecords()).isNotEmpty();
+        assertThat(pending.getRecords()).noneMatch(item -> item.getId().equals(otherClassApplicationId));
+    }
+
+    @Test
+    void managerCannotApproveApplicationOutsideManagedClass() {
+        Long otherClassApplicationId = createOtherClassPendingApplication();
+        ApplicationDto.ApprovalActionRequest approve = new ApplicationDto.ApprovalActionRequest();
+        approve.setComment("越权审批");
+
+        assertThatThrownBy(() -> applicationService.approve(managerUser(), otherClassApplicationId, approve))
+            .isInstanceOf(BusinessException.class)
+            .extracting(ex -> ((BusinessException) ex).getErrorCode())
+            .isEqualTo(ErrorCode.FORBIDDEN);
+    }
+
+    @Test
+    void collegeLeaderCanSeePendingApplicationsAcrossClasses() {
+        Long otherClassApplicationId = createOtherClassPendingApplication();
+
+        PagedData<ApplicationDto.ApplicationView> pending = applicationService.pendingApprovals(leaderUser(), 1, 20, null, null, null);
+
+        assertThat(pending.getRecords()).anyMatch(item -> item.getId().equals(otherClassApplicationId));
+    }
+
+    @Test
     void createdApplicationShouldSurviveServiceReadBackFromDatabase() {
         CurrentUser student = studentUser();
         ApplicationDto.CreateResponse created = applicationService.create(student, createRequest());
@@ -167,8 +198,38 @@ class ApplicationServiceTest {
             "teacher",
             List.of("teacher_admin"),
             List.of("application:approve", "application:reject"),
+            List.of(new DataScope("class", "软件工程2班")),
+            null
+        );
+    }
+
+    private CurrentUser leaderUser() {
+        return new CurrentUser(
+            18L,
+            "leader001",
+            "王院长",
+            "leader",
+            List.of("college_leader"),
+            List.of("application:approve", "application:reject"),
             List.of(new DataScope("department", "信息科学与工程学院")),
             null
         );
+    }
+
+    private Long createOtherClassPendingApplication() {
+        Long id = jdbcTemplate.queryForObject("select coalesce(max(id), 0) + 1 from biz_application", Long.class);
+        String applicationNo = "APP_SCOPE_" + id;
+        jdbcTemplate.update("""
+                insert into biz_application (
+                    id, application_no, application_type, template_id, applicant_user_id, student_id,
+                    title, purpose, form_data_json, status, current_approver_id, submitted_at,
+                    created_at, updated_at, is_deleted
+                ) values (?, ?, 'certificate', 1, 1, 3, '跨班级申请', '测试数据范围', '{}', 'submitted', 8,
+                    current_timestamp, current_timestamp, current_timestamp, 0)
+                """,
+            id,
+            applicationNo
+        );
+        return id;
     }
 }

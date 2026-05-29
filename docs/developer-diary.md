@@ -1269,3 +1269,94 @@
 
 - Vite 生产构建通过。
 - 登录、注册、改密、画像维护、批量注册相关页面均通过构建检查。
+
+
+## 2026-05-28 CRUEL - 申请提交、知识库上传与管理数据范围修正
+
+本轮围绕近期本地联调反馈，补齐学生端申请提交、教师端知识库上传，并修正管理老师与学院领导的管理入口和数据范围。
+
+### 1. 学生端院内申请提交
+
+涉及文件：
+
+- `web/src/views/student/StudentApplicationsView.vue`
+- `web/src/api/modules/applicationApi.js`
+
+完成内容：
+
+- 在学生端“院内申请”页面新增“提交院内申请”表单。
+- 支持选择申请类型：证明申请、请假申请、盖章申请。
+- 支持填写申请标题、申请用途和补充说明。
+- 提交时调用真实后端接口 `POST /api/v1/applications`。
+- 提交成功后刷新当前学生的申请列表。
+
+### 2. 管理端知识库文件上传
+
+涉及文件：
+
+- `web/src/views/admin/AdminKnowledgeView.vue`
+- `web/src/api/modules/fileApi.js`
+
+完成内容：
+
+- 在管理端知识库“模板与资源”区域新增上传表单。
+- 支持填写资源名称、资源分类、资源类型和资源说明。
+- 支持上传 PDF、Word、Excel、TXT 等常见资源文件。
+- 上传时调用真实后端接口 `POST /api/v1/files/upload`。
+- 上传成功后将资源临时插入模板资源列表，并复用现有授权下载逻辑。
+
+### 3. 管理老师数据范围收窄到本班
+
+涉及文件：
+
+- `src/main/java/com/ise/platform/modules/auth/AuthService.java`
+- `src/main/java/com/ise/platform/modules/student/StudentService.java`
+- `src/main/java/com/ise/platform/modules/application/ApplicationService.java`
+- `src/test/java/com/ise/platform/modules/student/StudentServiceTest.java`
+- `src/test/java/com/ise/platform/modules/application/ApplicationServiceTest.java`
+
+完成内容：
+
+- 将演示管理老师 `teacher_admin` 的数据范围从学院级调整为班级级：`class: 软件工程2班`。
+- 学生画像列表按班级范围过滤，管理老师只能看到本班学生。
+- 学生详情、成长记录、标签维护等学生画像相关操作增加班级范围校验。
+- 审批处理列表按申请学生所属班级过滤，管理老师只看到本班学生申请。
+- 审批通过 / 驳回动作增加后端数据范围校验，防止越权审批非本班学生申请。
+- 学院领导和系统管理员仍保留跨班级查看与审批能力，知识库、通知、荣誉、日志等其他管理内容不受本次班级范围限制影响。
+
+### 4. 学院领导入口修正
+
+涉及文件：
+
+- `web/src/views/LoginView.vue`
+- `web/src/views/RootRedirectView.vue`
+
+完成内容：
+
+- 学院领导登录后默认进入 `/admin/dashboard`，可使用完整管理端导航。
+- 根路由自动跳转时，`college_leader` 与 `teacher_admin`、`system_admin` 一样进入管理台。
+- 原 `/leader/dashboard` 路由继续保留，但不再作为学院领导默认入口。
+
+### 5. 审批列表加载失败修复
+
+问题表现：
+
+- 管理老师进入“审批处理”页面后出现“审批列表加载失败，请稍后重试”。
+
+修复内容：
+
+- 审批列表 SQL 增加 `stu_student` 关联后，统一为审批表字段补齐 `a.` 表别名，避免字段歧义。
+- 将班级范围过滤从 `? = true or class_name in (...)` 改为按角色动态拼接条件：
+  - 学院领导 / 系统管理员：不拼接班级条件。
+  - 管理老师有班级范围：拼接 `and s.class_name in (...)`。
+  - 管理老师没有班级范围：拼接 `and 1 = 0`，避免错误放大权限。
+
+### 6. 验证情况
+
+已完成验证：
+
+- `cd web && npm run build` 通过。
+
+未完成验证：
+
+- `mvn test` 当前仍受本机 Java 编译环境影响，报错为 `release version 17 not supported`。需要切换到可用 JDK 17 后再执行后端测试。

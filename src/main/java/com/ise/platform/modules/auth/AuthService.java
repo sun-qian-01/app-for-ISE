@@ -228,7 +228,11 @@ public class AuthService {
             scopes.add(new DataScope("self", String.valueOf(account.studentId())));
             return scopes;
         }
-        if ("teacher_admin".equals(roleCode) || "college_leader".equals(roleCode)) {
+        if ("teacher_admin".equals(roleCode)) {
+            scopes.add(new DataScope("class", "软件工程2班"));
+            return scopes;
+        }
+        if ("college_leader".equals(roleCode)) {
             scopes.add(new DataScope("department", "信息科学与工程学院"));
             return scopes;
         }

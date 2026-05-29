@@ -6,6 +6,7 @@ import com.ise.platform.common.api.PagedData;
 import com.ise.platform.common.error.BusinessException;
 import com.ise.platform.common.error.ErrorCode;
 import com.ise.platform.common.security.CurrentUser;
+import com.ise.platform.common.security.DataScope;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -19,6 +20,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.ArrayList;
 
 @Service
 public class ApplicationService {
@@ -166,28 +168,36 @@ public class ApplicationService {
         int safePageSize = Math.max(1, Math.min(pageSize, 100));
         String typeFilter = normalizeFilter(applicationType);
         String statusFilter = normalizeFilter(status);
-        long total = countPendingApprovals(typeFilter, statusFilter, templateId);
+        List<String> classScopes = classScopes(user);
+        boolean viewAll = canViewAllApplications(user);
+        long total = countPendingApprovals(typeFilter, statusFilter, templateId, viewAll, classScopes);
+        List<Object> queryParams = approvalQueryParams(
+            typeFilter,
+            statusFilter,
+            templateId,
+            viewAll,
+            classScopes,
+            safePageSize,
+            (safePageNo - 1) * safePageSize
+        );
 
         List<ApplicationDto.ApplicationView> records = jdbcTemplate.query("""
                 select a.id, a.application_no, a.application_type, a.title, a.purpose, a.status,
                        coalesce(u.real_name, '-') as current_approver, a.submitted_at
                   from biz_application a
                   left join sys_user u on u.id = a.current_approver_id
+                  left join stu_student s on s.id = a.student_id
                  where a.is_deleted = 0
                    and (? is null or lower(a.application_type) = ?)
                    and (? is null or a.template_id = ?)
                    and ((? is not null and lower(a.status) = ?)
                         or (? is null and a.status in ('submitted', 'reviewing')))
+                   %s
                  order by a.submitted_at desc, a.id desc
                  limit ? offset ?
-                """,
+                """.formatted(classScopeSql(viewAll, classScopes)),
             this::mapApplicationView,
-            typeFilter, typeFilter,
-            templateId, templateId,
-            statusFilter, statusFilter,
-            statusFilter,
-            safePageSize,
-            (safePageNo - 1) * safePageSize
+            queryParams.toArray()
         );
 
         return new PagedData<>(records, safePageNo, safePageSize, total);
@@ -214,6 +224,7 @@ public class ApplicationService {
                                                  String comment) {
         ensureManager(user);
         ApplicationEntity entity = findById(applicationId);
+        ensureCanReviewApplication(user, entity);
         if (!isReviewingStatus(entity.status())) {
             throw new BusinessException(ErrorCode.STATUS_CONFLICT, "application is not in reviewable status");
         }
@@ -253,23 +264,54 @@ public class ApplicationService {
         return count == null ? 0 : count;
     }
 
-    private long countPendingApprovals(String typeFilter, String statusFilter, Long templateId) {
+    private long countPendingApprovals(String typeFilter,
+                                       String statusFilter,
+                                       Long templateId,
+                                       boolean viewAll,
+                                       List<String> classScopes) {
+        List<Object> queryParams = approvalQueryParams(
+            typeFilter,
+            statusFilter,
+            templateId,
+            viewAll,
+            classScopes
+        );
         Long count = jdbcTemplate.queryForObject("""
                 select count(*)
-                  from biz_application
-                 where is_deleted = 0
-                   and (? is null or lower(application_type) = ?)
-                   and (? is null or template_id = ?)
-                   and ((? is not null and lower(status) = ?)
-                        or (? is null and status in ('submitted', 'reviewing')))
-                """,
+                  from biz_application a
+                  left join stu_student s on s.id = a.student_id
+                 where a.is_deleted = 0
+                   and (? is null or lower(a.application_type) = ?)
+                   and (? is null or a.template_id = ?)
+                   and ((? is not null and lower(a.status) = ?)
+                        or (? is null and a.status in ('submitted', 'reviewing')))
+                   %s
+                """.formatted(classScopeSql(viewAll, classScopes)),
             Long.class,
-            typeFilter, typeFilter,
-            templateId, templateId,
-            statusFilter, statusFilter,
-            statusFilter
+            queryParams.toArray()
         );
         return count == null ? 0 : count;
+    }
+
+    private List<Object> approvalQueryParams(String typeFilter,
+                                             String statusFilter,
+                                             Long templateId,
+                                             boolean viewAll,
+                                             List<String> classScopes,
+                                             Object... tailParams) {
+        List<Object> params = new ArrayList<>();
+        params.add(typeFilter);
+        params.add(typeFilter);
+        params.add(templateId);
+        params.add(templateId);
+        params.add(statusFilter);
+        params.add(statusFilter);
+        params.add(statusFilter);
+        if (!viewAll) {
+            params.addAll(classScopes);
+        }
+        params.addAll(List.of(tailParams));
+        return params;
     }
 
     private ApplicationEntity findById(Long applicationId) {
@@ -413,6 +455,50 @@ public class ApplicationService {
         if (!isManager(user)) {
             throw new BusinessException(ErrorCode.FORBIDDEN, "manager role required");
         }
+    }
+
+    private void ensureCanReviewApplication(CurrentUser user, ApplicationEntity entity) {
+        if (canViewAllApplications(user)) {
+            return;
+        }
+        List<String> scopes = classScopes(user);
+        if (scopes.isEmpty()) {
+            throw new BusinessException(ErrorCode.FORBIDDEN, "no application data scope");
+        }
+        String className = jdbcTemplate.queryForObject(
+            "select class_name from stu_student where id = ? and is_deleted = 0",
+            String.class,
+            entity.studentId()
+        );
+        if (!scopes.contains(className)) {
+            throw new BusinessException(ErrorCode.FORBIDDEN, "cannot review application outside managed class");
+        }
+    }
+
+    private boolean canViewAllApplications(CurrentUser user) {
+        return user.getRoles().stream().anyMatch(role -> "college_leader".equals(role) || "system_admin".equals(role));
+    }
+
+    private List<String> classScopes(CurrentUser user) {
+        if (canViewAllApplications(user)) {
+            return List.of();
+        }
+        return user.getDataScopes().stream()
+            .filter(scope -> "class".equals(scope.getScopeType()))
+            .map(DataScope::getScopeValue)
+            .toList();
+    }
+
+    private String classScopeSql(boolean viewAll, List<String> values) {
+        if (viewAll) {
+            return "";
+        }
+        if (values.isEmpty()) {
+            return "and 1 = 0";
+        }
+        return "and s.class_name in (" + values.stream()
+            .map(ignored -> "?")
+            .collect(java.util.stream.Collectors.joining(", ")) + ")";
     }
 
     private boolean isReviewingStatus(String status) {

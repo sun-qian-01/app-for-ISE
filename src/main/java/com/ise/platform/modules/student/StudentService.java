@@ -4,6 +4,7 @@ import com.ise.platform.common.api.PagedData;
 import com.ise.platform.common.error.BusinessException;
 import com.ise.platform.common.error.ErrorCode;
 import com.ise.platform.common.security.CurrentUser;
+import com.ise.platform.common.security.DataScope;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
@@ -105,7 +106,7 @@ public class StudentService {
     }
 
     public List<StudentDto.GrowthRecordView> growthRecords(CurrentUser user, Long studentId, String recordType) {
-        if (!isManager(user) && !studentId.equals(user.getStudentId())) {
+        if (!canAccessStudent(user, studentId)) {
             throw new BusinessException(ErrorCode.FORBIDDEN, "cannot access other student's growth records");
         }
         ensureStudentExists(studentId);
@@ -131,6 +132,7 @@ public class StudentService {
             throw new BusinessException(ErrorCode.FORBIDDEN, "only cadre or manager can query student list");
         }
         List<StudentDto.StudentListItemView> filtered = studentById.values().stream()
+            .filter(item -> isInStudentScope(user, item))
             .filter(item -> !StringUtils.hasText(name) || containsIgnoreCase(item.name(), name))
             .filter(item -> !StringUtils.hasText(studentNo) || containsIgnoreCase(item.studentNo(), studentNo))
             .filter(item -> !StringUtils.hasText(grade) || Objects.equals(item.grade(), grade))
@@ -149,7 +151,7 @@ public class StudentService {
     }
 
     public StudentDto.StudentDetailView studentDetail(CurrentUser user, Long studentId, boolean includeSensitive) {
-        if (!isManager(user) && !isCadre(user) && !studentId.equals(user.getStudentId())) {
+        if (!canAccessStudent(user, studentId)) {
             throw new BusinessException(ErrorCode.FORBIDDEN, "no permission to view this student");
         }
         StudentEntity entity = studentById.get(studentId);
@@ -177,12 +179,12 @@ public class StudentService {
     public StudentDto.StudentDetailView updateStudent(CurrentUser user,
                                                       Long studentId,
                                                       StudentDto.UpdateStudentRequest request) {
-        if (!isManager(user) && !isCadre(user) && !studentId.equals(user.getStudentId())) {
-            throw new BusinessException(ErrorCode.FORBIDDEN, "no permission to update this student");
-        }
         StudentEntity current = studentById.get(studentId);
         if (current == null) {
             throw new BusinessException(ErrorCode.NOT_FOUND, "student not found");
+        }
+        if (!canAccessStudent(user, studentId)) {
+            throw new BusinessException(ErrorCode.FORBIDDEN, "no permission to update this student");
         }
 
         String phone = firstNonBlank(request.getPhone(), current.phone());
@@ -210,7 +212,7 @@ public class StudentService {
     public StudentDto.GrowthRecordView createGrowthRecord(CurrentUser user,
                                                            Long studentId,
                                                            StudentDto.CreateGrowthRecordRequest request) {
-        if (!isManager(user) && !isCadre(user) && !studentId.equals(user.getStudentId())) {
+        if (!canAccessStudent(user, studentId)) {
             throw new BusinessException(ErrorCode.FORBIDDEN, "no permission to add growth record");
         }
         if (!ALLOWED_RECORD_TYPES.contains(request.getRecordType())) {
@@ -240,6 +242,9 @@ public class StudentService {
             throw new BusinessException(ErrorCode.FORBIDDEN, "only cadre or manager can update tags");
         }
         ensureStudentExists(studentId);
+        if (!canAccessStudent(user, studentId)) {
+            throw new BusinessException(ErrorCode.FORBIDDEN, "no permission to update this student");
+        }
 
         List<StudentDto.TagView> updatedTags = request.getTagIds().stream()
             .distinct()
@@ -307,6 +312,31 @@ public class StudentService {
 
     private boolean isCadre(CurrentUser user) {
         return user.getRoles().stream().anyMatch("class_cadre"::equals);
+    }
+
+    private boolean canAccessStudent(CurrentUser user, Long studentId) {
+        if (studentId != null && studentId.equals(user.getStudentId())) {
+            return true;
+        }
+        StudentEntity student = studentById.get(studentId);
+        return student != null && isInStudentScope(user, student);
+    }
+
+    private boolean isInStudentScope(CurrentUser user, StudentEntity student) {
+        if (user.getRoles().stream().anyMatch(role -> "college_leader".equals(role) || "system_admin".equals(role))) {
+            return true;
+        }
+        if (user.getRoles().contains("teacher_admin") || user.getRoles().contains("class_cadre")) {
+            List<String> classScopes = user.getDataScopes().stream()
+                .filter(scope -> "class".equals(scope.getScopeType()))
+                .map(DataScope::getScopeValue)
+                .toList();
+            if (!classScopes.isEmpty()) {
+                return classScopes.contains(student.className());
+            }
+            return false;
+        }
+        return student.id().equals(user.getStudentId());
     }
 
     private boolean containsIgnoreCase(String source, String keyword) {
