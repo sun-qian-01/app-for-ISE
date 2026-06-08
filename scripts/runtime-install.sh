@@ -13,6 +13,7 @@
 #   <bundle-root>/
 #     backend/app-for-ise-backend.jar
 #     frontend/index.html
+#     config/app.env              (可选，RAG/AI 运行配置)
 #     scripts/runtime-install.sh   (本脚本)
 #
 # 功能：
@@ -47,6 +48,8 @@ SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 BUNDLE_ROOT="$(cd "${SCRIPT_DIR}/.." && pwd)"
 SOURCE_JAR="${BUNDLE_ROOT}/backend/app-for-ise-backend.jar"
 SOURCE_WEB="${BUNDLE_ROOT}/frontend"
+SOURCE_ENV="${BUNDLE_ROOT}/config/app.env"
+TARGET_ENV="${INSTALL_DIR}/config/app.env"
 
 SYSTEMD_PATH="/etc/systemd/system/${SERVICE_UNIT}"
 
@@ -166,7 +169,7 @@ install_runtime_deps() {
 prepare_user_and_dirs() {
   log "准备服务用户与目录..."
   run_root "if ! id -u '${SERVICE_USER}' >/dev/null 2>&1; then useradd --system --no-create-home --shell /usr/sbin/nologin '${SERVICE_USER}' || useradd -r -s /sbin/nologin '${SERVICE_USER}'; fi"
-  run_root "mkdir -p '${INSTALL_DIR}/backend' '${INSTALL_DIR}/data' '${WEB_ROOT}'"
+  run_root "mkdir -p '${INSTALL_DIR}/backend' '${INSTALL_DIR}/config' '${INSTALL_DIR}/data' '${WEB_ROOT}'"
   run_root "chown -R '${SERVICE_USER}:${SERVICE_USER}' '${INSTALL_DIR}'"
 }
 
@@ -179,6 +182,26 @@ deploy_backend() {
 deploy_frontend() {
   log "部署前端静态资源..."
   run_root "rsync -a --delete '${SOURCE_WEB}/' '${WEB_ROOT}/'"
+}
+
+deploy_env() {
+  log "部署运行环境配置..."
+  if [[ -f "${SOURCE_ENV}" ]]; then
+    run_root "install -m 0600 '${SOURCE_ENV}' '${TARGET_ENV}'"
+  else
+    local tmp
+    tmp="$(mktemp)"
+    cat > "${tmp}" <<'EOF'
+RAG_ENABLED=true
+RAG_LLM_BASE_URL=https://gmn.chuangzuoli.com/v1
+RAG_LLM_API_KEY=
+RAG_LLM_MODEL=gpt-5.4
+CURL_NO_PROXY=*
+EOF
+    run_root "install -m 0600 '${tmp}' '${TARGET_ENV}'"
+    rm -f "${tmp}"
+  fi
+  run_root "chown '${SERVICE_USER}:${SERVICE_USER}' '${TARGET_ENV}'"
 }
 
 write_systemd_unit() {
@@ -194,6 +217,7 @@ After=network.target
 Type=simple
 User=${SERVICE_USER}
 WorkingDirectory=${INSTALL_DIR}
+EnvironmentFile=-${TARGET_ENV}
 ExecStart=/usr/bin/java -jar ${INSTALL_DIR}/backend/app-for-ise-backend.jar --server.port=${BACKEND_PORT} --server.address=${BACKEND_BIND}
 Restart=always
 RestartSec=5
@@ -303,6 +327,7 @@ main() {
   prepare_user_and_dirs
   deploy_backend
   deploy_frontend
+  deploy_env
   write_systemd_unit
   write_nginx_config
   open_firewall

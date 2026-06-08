@@ -28,7 +28,7 @@ public class KbRagProperties {
     @Value("${RAG_LLM_API_KEY:}")
     private String llmApiKey;
 
-    @Value("${RAG_LLM_MODEL:gpt-5.2}")
+    @Value("${RAG_LLM_MODEL:gpt-5.4}")
     private String llmModel;
 
     @Value("${RAG_EMBED_BASE_URL:}")

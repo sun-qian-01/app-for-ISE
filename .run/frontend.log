@@ -12,3 +12,4 @@
   ➜  Network: http://172.20.0.1:5173/
 15:30:18 [vite] (client) hmr update /src/styles/main.css
 15:31:32 [vite] (client) hmr update /src/styles/main.css
+08:31:14 [vite] (client) hmr update /src/views/student/StudentKnowledgeView.vue

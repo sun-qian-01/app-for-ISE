@@ -87,6 +87,23 @@ read_pid() {
   fi
 }
 
+collect_descendants() {
+  local parent="$1"
+  local child
+  for child in $(pgrep -P "${parent}" 2>/dev/null || true); do
+    printf '%s\n' "${child}"
+    collect_descendants "${child}"
+  done
+}
+
+any_pid_in_list_running() {
+  local pid
+  while read -r pid; do
+    [[ -n "${pid}" ]] && is_pid_running "${pid}" && return 0
+  done
+  return 1
+}
+
 remove_pid_file_if_stale() {
   local pid_file="$1"
   local pid
@@ -109,7 +126,7 @@ load_env() {
 
   export RAG_ENABLED="${RAG_ENABLED:-true}"
   export RAG_LLM_BASE_URL="${RAG_LLM_BASE_URL:-https://gmn.chuangzuoli.com/v1}"
-  export RAG_LLM_MODEL="${RAG_LLM_MODEL:-gpt-5.2}"
+  export RAG_LLM_MODEL="${RAG_LLM_MODEL:-gpt-5.4}"
   export RAG_LLM_API_KEY="${RAG_LLM_API_KEY:-${DEMO_KEY}}"
 
   export RAG_EMBED_BASE_URL="${RAG_EMBED_BASE_URL:-${RAG_LLM_BASE_URL}}"
@@ -238,11 +255,22 @@ stop_by_pid_file() {
     return 0
   fi
 
-  log "停止 ${name}（PID=${pid}）..."
+  local descendants
+  descendants="$(collect_descendants "${pid}" | awk 'NF && !seen[$0]++' || true)"
+
+  if [[ -n "${descendants}" ]]; then
+    log "停止 ${name}（PID=${pid}，子进程: ${descendants//$'\n'/ }）..."
+    while read -r child_pid; do
+      [[ -n "${child_pid}" ]] && kill "${child_pid}" >/dev/null 2>&1 || true
+    done <<< "${descendants}"
+  else
+    log "停止 ${name}（PID=${pid}）..."
+  fi
+
   kill "${pid}" >/dev/null 2>&1 || true
   local i
   for i in $(seq 1 20); do
-    if ! is_pid_running "${pid}"; then
+    if ! is_pid_running "${pid}" && ! any_pid_in_list_running <<< "${descendants}"; then
       rm -f "${pid_file}"
       log "${name} 已停止。"
       return 0
@@ -251,17 +279,27 @@ stop_by_pid_file() {
   done
 
   warn "${name} 未在预期时间内退出，执行强制终止。"
+  if [[ -n "${descendants}" ]]; then
+    while read -r child_pid; do
+      [[ -n "${child_pid}" ]] && kill -9 "${child_pid}" >/dev/null 2>&1 || true
+    done <<< "${descendants}"
+  fi
   kill -9 "${pid}" >/dev/null 2>&1 || true
   rm -f "${pid_file}"
 }
 
 print_status() {
-  local bpid fpid
+  local bpid fpid child_pids
   bpid="$(read_pid "${BACKEND_PID_FILE}")"
   fpid="$(read_pid "${FRONTEND_PID_FILE}")"
 
   if [[ -n "${bpid}" ]] && is_pid_running "${bpid}"; then
-    printf '[OK] backend running  PID=%s  URL=http://127.0.0.1:%s (managed)\n' "${bpid}" "${BACKEND_PORT}"
+    child_pids="$(collect_descendants "${bpid}" | awk 'NF && !seen[$0]++' | paste -sd',' - || true)"
+    if [[ -n "${child_pids}" ]]; then
+      printf '[OK] backend running  launcherPID=%s  childPID=%s  URL=http://127.0.0.1:%s (managed)\n' "${bpid}" "${child_pids}" "${BACKEND_PORT}"
+    else
+      printf '[OK] backend running  launcherPID=%s  URL=http://127.0.0.1:%s (managed)\n' "${bpid}" "${BACKEND_PORT}"
+    fi
   elif backend_alive; then
     printf '[OK] backend running  URL=http://127.0.0.1:%s (unmanaged)\n' "${BACKEND_PORT}"
   else

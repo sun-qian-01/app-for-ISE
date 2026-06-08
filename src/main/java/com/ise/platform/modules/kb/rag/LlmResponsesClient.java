@@ -96,7 +96,7 @@ public class LlmResponsesClient {
         if (allowGeneralReply) {
             return "你是学院知识库助手。当前没有可引用的知识库证据时，也要直接回答用户的一般问题或解释性问题；如果用户询问具体学院政策、流程、时间、材料且缺少证据，必须说明未检索到可靠依据，并给出需要补充的关键词或建议咨询学院老师。回答简洁，不要输出思考过程。";
         }
-        return "你是学院知识库问答助手。仅基于证据回答；证据不足时必须回复：未检索到可靠依据。请直接给最终回答，不要输出思考过程。";
+        return "你是学院知识库问答助手。政策、流程、时间、材料等内容必须仅基于证据回答；证据不足时必须说明条目未提供该细节，不要编造。若问题同时询问你的身份，可以说明你是学院知识库助手。请直接给最终回答，不要输出思考过程。";
     }
 
     private String buildUserPrompt(String question, List<RagChunk> evidence, boolean allowGeneralReply) {

@@ -9,7 +9,7 @@ RAG_ENABLED=true
 # LLM（对齐 api-usage.md）
 RAG_LLM_BASE_URL=https://gmn.chuangzuoli.com/v1
 RAG_LLM_API_KEY=sk-xxxxxxxx
-RAG_LLM_MODEL=gpt-5.2
+RAG_LLM_MODEL=gpt-5.4
 
 # 向量库（示例以 Qdrant 为例）
 RAG_VECTOR_PROVIDER=qdrant

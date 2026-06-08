@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report.xsd" version="3.0.2" name="com.ise.platform.modules.kb.KbServiceTest" time="0.189" tests="9" errors="0" skipped="0" failures="0" flakes="0">
+<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report.xsd" version="3.0.2" name="com.ise.platform.modules.kb.rag.EmbeddingClientTest" time="0.032" tests="3" errors="0" skipped="0" failures="0" flakes="0">
   <properties>
     <property name="java.specification.version" value="17"/>
     <property name="sun.jnu.encoding" value="UTF-8"/>
@@ -61,34 +61,7 @@
     <property name="maven.repo.local" value="/tmp/m2repo"/>
     <property name="java.class.version" value="61.0"/>
   </properties>
-  <testcase name="qaShouldNotUseHistoryForIndependentNewQuestion" classname="com.ise.platform.modules.kb.KbServiceTest" time="0.022">
-    <system-out><![CDATA[2026-06-08T09:04:44.231+08:00  INFO 3095239 --- [           main] com.ise.platform.modules.kb.KbService    : kb qa llm completed, evidenceCount=1, allowGeneralReply=false, answerPresent=false
-]]></system-out>
-  </testcase>
-  <testcase name="qaShouldNotShortCircuitMixedPolicyAndIdentityQuestion" classname="com.ise.platform.modules.kb.KbServiceTest" time="0.017">
-    <system-out><![CDATA[2026-06-08T09:04:44.251+08:00  INFO 3095239 --- [           main] com.ise.platform.modules.kb.KbService    : kb qa llm completed, evidenceCount=1, allowGeneralReply=false, answerPresent=true
-]]></system-out>
-  </testcase>
-  <testcase name="qaShouldUseRecentHistoryForFollowUpQuestion" classname="com.ise.platform.modules.kb.KbServiceTest" time="0.007">
-    <system-out><![CDATA[2026-06-08T09:04:44.265+08:00  INFO 3095239 --- [           main] com.ise.platform.modules.kb.KbService    : kb qa llm completed, evidenceCount=1, allowGeneralReply=false, answerPresent=false
-]]></system-out>
-  </testcase>
-  <testcase name="qaShouldFallbackWhenNoReliableSource" classname="com.ise.platform.modules.kb.KbServiceTest" time="0.003">
-    <system-out><![CDATA[2026-06-08T09:04:44.274+08:00  INFO 3095239 --- [           main] com.ise.platform.modules.kb.KbService    : kb qa llm completed, evidenceCount=0, allowGeneralReply=true, answerPresent=false
-]]></system-out>
-  </testcase>
-  <testcase name="qaShouldPreferPartyProofOverPartyDevelopmentForIdentityCertificate" classname="com.ise.platform.modules.kb.KbServiceTest" time="0.007">
-    <system-out><![CDATA[2026-06-08T09:04:44.285+08:00  INFO 3095239 --- [           main] com.ise.platform.modules.kb.KbService    : kb qa llm completed, evidenceCount=1, allowGeneralReply=false, answerPresent=false
-]]></system-out>
-  </testcase>
-  <testcase name="qaShouldReplyForModelQuestionWithoutUsingHistory" classname="com.ise.platform.modules.kb.KbServiceTest" time="0.001"/>
-  <testcase name="qaShouldReplyForAssistantIdentityQuestion" classname="com.ise.platform.modules.kb.KbServiceTest" time="0.0"/>
-  <testcase name="qaShouldPassKeywordEvidenceToAiWhenArticleMatches" classname="com.ise.platform.modules.kb.KbServiceTest" time="0.004">
-    <system-out><![CDATA[2026-06-08T09:04:44.300+08:00  INFO 3095239 --- [           main] com.ise.platform.modules.kb.KbService    : kb qa llm completed, evidenceCount=1, allowGeneralReply=false, answerPresent=true
-]]></system-out>
-  </testcase>
-  <testcase name="qaShouldKeepScholarshipTopicForGenericGradeFollowUp" classname="com.ise.platform.modules.kb.KbServiceTest" time="0.005">
-    <system-out><![CDATA[2026-06-08T09:04:44.309+08:00  INFO 3095239 --- [           main] com.ise.platform.modules.kb.KbService    : kb qa llm completed, evidenceCount=1, allowGeneralReply=false, answerPresent=true
-]]></system-out>
-  </testcase>
+  <testcase name="embedShouldFallBackToLocalVectorWhenUpstreamEmbeddingFails" classname="com.ise.platform.modules.kb.rag.EmbeddingClientTest" time="0.025"/>
+  <testcase name="embedShouldSkipUpstreamAfterFirstEmbeddingFailure" classname="com.ise.platform.modules.kb.rag.EmbeddingClientTest" time="0.002"/>
+  <testcase name="localFallbackVectorShouldBeDeterministicAndNormalized" classname="com.ise.platform.modules.kb.rag.EmbeddingClientTest" time="0.003"/>
 </testsuite>

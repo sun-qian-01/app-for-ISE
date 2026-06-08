@@ -7,7 +7,7 @@
   - Authorization：Bearer sk-xxxx
 - 请求体格式需要注意一下，其中 input 需要使用数组方式，下面给出一个最小可用 demo（以及其他可选参数，这里没有列举出来，可以自己抓包调试一下）
 {
-  "model": "gpt-5.2",
+  "model": "gpt-5.4",
   "input": [
     {
       "type": "message",

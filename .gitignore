@@ -3,3 +3,4 @@
 *.env
 *.local
 scripts/.env.rag.local
+.local-runtime/

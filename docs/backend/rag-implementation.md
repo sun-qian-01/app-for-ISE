@@ -35,7 +35,7 @@
 - `RAG_ENABLED=true`
 - `RAG_LLM_BASE_URL=https://gmn.chuangzuoli.com/v1`
 - `RAG_LLM_API_KEY=...`
-- `RAG_LLM_MODEL=gpt-5.2`
+- `RAG_LLM_MODEL=gpt-5.4`
 - `RAG_EMBED_MODEL=text-embedding-3-small`
 - `RAG_VECTOR_ENDPOINT=http://127.0.0.1:6333`
 - `RAG_VECTOR_COLLECTION=kb_article_chunks_v1`
@@ -58,7 +58,7 @@ docker run -d --name qdrant -p 6333:6333 qdrant/qdrant
 export RAG_ENABLED=true
 export RAG_LLM_BASE_URL=https://gmn.chuangzuoli.com/v1
 export RAG_LLM_API_KEY=<your-key>
-export RAG_LLM_MODEL=gpt-5.2
+export RAG_LLM_MODEL=gpt-5.4
 export RAG_VECTOR_ENDPOINT=http://127.0.0.1:6333
 ./scripts/rag-start-local.sh
 ```

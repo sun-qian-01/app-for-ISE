@@ -20,6 +20,14 @@ set -euo pipefail
 # - CURL_NO_PROXY       默认 *，避免本机 127.0.0.1 请求被 http_proxy/https_proxy 转发
 # -----------------------------------------------------------------------------
 
+ENV_FILE="${RAG_ENV_FILE:-scripts/.env.rag.local}"
+if [[ -f "${ENV_FILE}" ]]; then
+  set -a
+  # shellcheck disable=SC1090
+  source "${ENV_FILE}"
+  set +a
+fi
+
 BASE_URL="${BASE_URL:-http://127.0.0.1:8080}"
 LOGIN_USERNAME="${LOGIN_USERNAME:-teacher001}"
 LOGIN_PASSWORD="${LOGIN_PASSWORD:-123456}"

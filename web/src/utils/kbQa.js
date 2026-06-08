@@ -26,6 +26,14 @@ export function formatQaSourceLabel(source) {
 }
 
 export function getQaReliability(confidence = 0, sources = []) {
+  if (!sources.length && confidence >= 0.7) {
+    return {
+      label: "通用回答",
+      tone: "default",
+      description: "这是助手身份或使用方式等通用回答，不依赖知识库来源。",
+    };
+  }
+
   if (!sources.length || confidence <= 0) {
     return {
       label: "未检索到可靠依据",

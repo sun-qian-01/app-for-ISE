@@ -102,7 +102,7 @@ Collection：`kb_article_chunks_v1`
 
 ```json
 {
-  "model": "gpt-5.2",
+  "model": "gpt-5.4",
   "input": [
     {
       "type": "message",
@@ -134,7 +134,7 @@ Collection：`kb_article_chunks_v1`
 2. 环境变量配置：
    - `RAG_LLM_BASE_URL=https://gmn.chuangzuoli.com/v1`
    - `RAG_LLM_API_KEY=sk-xxx`
-   - `RAG_LLM_MODEL=gpt-5.2`
+   - `RAG_LLM_MODEL=gpt-5.4`
 3. 超时与重试：
    - connect/read timeout 8~15s
    - 429/5xx 指数退避重试 1~2 次
@@ -227,4 +227,3 @@ Collection：`kb_article_chunks_v1`
 2. 第 2 步：实现 `LlmResponsesClient`，将 `/kb/qa` 改成检索增强。
 3. 第 3 步：新增 `kb_index_task/kb_qa_log` 与后台重试。
 4. 第 4 步：灰度给 student 角色，观察日志与命中率后全量。
-

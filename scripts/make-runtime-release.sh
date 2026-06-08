@@ -11,6 +11,7 @@
 # 发布包包含：
 #   - backend/app-for-ise-backend.jar
 #   - frontend/* (Vite build 后静态文件)
+#   - config/app.env（若存在 scripts/.env.rag.local，用于 RAG/AI 运行配置）
 #   - scripts/runtime-install.sh
 #   - scripts/runtime-start.sh / runtime-stop.sh / runtime-status.sh
 #   - DEPLOY.md （部署说明）
@@ -134,10 +135,22 @@ make_bundle() {
 
   echo "[INFO] 组装发布目录: ${bundle_dir}"
   rm -rf "${bundle_dir}"
-  mkdir -p "${bundle_dir}/backend" "${bundle_dir}/frontend" "${bundle_dir}/scripts"
+  mkdir -p "${bundle_dir}/backend" "${bundle_dir}/frontend" "${bundle_dir}/scripts" "${bundle_dir}/config"
 
   cp -f "${REPO_ROOT}/${BACKEND_JAR}" "${bundle_dir}/backend/app-for-ise-backend.jar"
   rsync -a --delete "${WEB_DIR}/dist/" "${bundle_dir}/frontend/"
+
+  if [[ -f "${SCRIPT_DIR}/.env.rag.local" ]]; then
+    cp -f "${SCRIPT_DIR}/.env.rag.local" "${bundle_dir}/config/app.env"
+  else
+    cat > "${bundle_dir}/config/app.env" <<'EOF'
+RAG_ENABLED=true
+RAG_LLM_BASE_URL=https://gmn.chuangzuoli.com/v1
+RAG_LLM_API_KEY=
+RAG_LLM_MODEL=gpt-5.4
+CURL_NO_PROXY=*
+EOF
+  fi
 
   cp -f "${SCRIPT_DIR}/runtime-install.sh" "${bundle_dir}/scripts/runtime-install.sh"
   cp -f "${SCRIPT_DIR}/runtime-start.sh" "${bundle_dir}/scripts/runtime-start.sh"
@@ -149,7 +162,7 @@ make_bundle() {
 # Runtime Deployment Guide
 
 1) 将整个目录上传到部署服务器（例如 `/tmp/app-for-ise-runtime-*`）。
-2) 进入目录后执行：
+2) 检查 `config/app.env`，确认 RAG_LLM_API_KEY 已设置。进入目录后执行：
 
 ```bash
 ./scripts/runtime-install.sh --public-ip <部署机IP>

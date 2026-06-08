@@ -99,6 +99,7 @@ com/ise/platform/modules/student/StudentDto$GrowthSummary.class
 com/ise/platform/modules/application/ApplicationDto$ActionResponse.class
 com/ise/platform/common/api/ApiResponse.class
 com/ise/platform/modules/student/StudentService$ImportTaskEntity.class
+com/ise/platform/modules/kb/KbService$ScoredArticle.class
 com/ise/platform/modules/dict/DictController.class
 com/ise/platform/modules/kb/KbDto.class
 com/ise/platform/modules/kb/KbDto$RagReindexResponse.class

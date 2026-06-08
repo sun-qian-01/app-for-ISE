@@ -9,9 +9,8 @@ set -euo pipefail
 # - 不修改系统配置，不需要 sudo
 #
 # 推荐做法：
-# 1) 复制 docs/backend/rag-env-example.md 里的变量到本机私有 env 文件
-# 2) source 该 env 文件
-# 3) 执行本脚本
+# 1) 将私有变量写入 scripts/.env.rag.local（已被 .gitignore 忽略）
+# 2) 执行本脚本，脚本会自动加载该文件
 #
 # 可覆盖变量：
 # - RAG_ENABLED (默认 true)
@@ -19,6 +18,15 @@ set -euo pipefail
 # - RAG_EMBED_BASE_URL / RAG_EMBED_API_KEY / RAG_EMBED_MODEL
 # - RAG_VECTOR_ENDPOINT / RAG_VECTOR_API_KEY / RAG_VECTOR_COLLECTION / RAG_VECTOR_DIMENSION
 # -----------------------------------------------------------------------------
+
+ENV_FILE="${RAG_ENV_FILE:-scripts/.env.rag.local}"
+if [[ -f "${ENV_FILE}" ]]; then
+  set -a
+  # shellcheck disable=SC1090
+  source "${ENV_FILE}"
+  set +a
+  echo "已加载本地 RAG 环境文件：${ENV_FILE}"
+fi
 
 export RAG_ENABLED="${RAG_ENABLED:-true}"
 
@@ -31,8 +39,8 @@ export RAG_VECTOR_ENDPOINT="${RAG_VECTOR_ENDPOINT:-http://127.0.0.1:6333}"
 export RAG_VECTOR_COLLECTION="${RAG_VECTOR_COLLECTION:-kb_article_chunks_v1}"
 export RAG_VECTOR_DIMENSION="${RAG_VECTOR_DIMENSION:-1536}"
 
-if [[ -z "${RAG_LLM_API_KEY:-}" ]]; then
-  echo "警告：RAG_LLM_API_KEY 未设置，RAG 调用将降级回关键词问答。"
+if [[ -z "${RAG_LLM_API_KEY:-}" || "${RAG_LLM_API_KEY}" == "__REDACTED_SET_LOCALLY__" ]]; then
+  echo "警告：RAG_LLM_API_KEY 未设置或仍为占位符，RAG 调用将降级回关键词问答。"
 fi
 
 echo "启动后端中（RAG_ENABLED=${RAG_ENABLED}）..."
