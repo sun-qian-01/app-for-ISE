@@ -1,0 +1,12 @@
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.5.2",
+  "base_commit_sha": "c67c72478eafd2e3891e092db1c2589171705e22",
+  "prompts": {},
+  "humans": {
+    "h_0c75c136d3f2b6": {
+      "author": "liufanshuo <3049978388@qq.com>"
+    }
+  }
+}
