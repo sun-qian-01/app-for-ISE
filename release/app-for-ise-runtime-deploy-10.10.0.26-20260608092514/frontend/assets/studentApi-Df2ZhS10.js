@@ -1,0 +1,1 @@
+import{a as e,i as t,o as n}from"./index-DlxrupD9.js";async function r(){return n.get(`/students/me/profile`)}async function i(){let e=(await r())?.student?.id;return e?n.get(`/students/${e}/growth-records`):[]}async function a(e={}){return n.get(`/students`,{params:e})}async function o(e){return t(e)}async function s(t){return e(t)}export{s as a,a as i,i as n,r,o as t};

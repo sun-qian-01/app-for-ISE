@@ -1,0 +1,1 @@
+import{g as e,t}from"./index-DlxrupD9.js";function n(){let n=t(),r=e(()=>n.roleCode),i=e(()=>n.permissions),a=e(()=>n.dataScopes);function o(e){return n.hasPermission(e)}function s(e){return e.some(e=>n.hasPermission(e))}function c(e){return n.roles.includes(e)}return{roleCode:r,permissions:i,dataScopes:a,hasPermission:o,hasAnyPermission:s,hasRole:c}}export{n as t};

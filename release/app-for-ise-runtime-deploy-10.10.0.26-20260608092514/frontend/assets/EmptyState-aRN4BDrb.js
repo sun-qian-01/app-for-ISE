@@ -1,0 +1,1 @@
+import{E as e,L as t,_ as n,b as r}from"./index-DlxrupD9.js";var i={class:`empty-state`},a={__name:`EmptyState`,props:{title:{type:String,default:`暂无数据`},description:{type:String,default:`当前筛选条件下没有可展示内容。`}},setup(a){return(o,s)=>(e(),r(`div`,i,[n(`strong`,null,t(a.title),1),n(`p`,null,t(a.description),1)]))}};export{a as t};
