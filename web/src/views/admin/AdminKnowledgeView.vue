@@ -38,6 +38,13 @@
           </template>
           <template #extra>来源文件：{{ item.source || "无" }}</template>
         </RecordCard>
+        <PaginationBar
+          v-if="articleTotal > pageSize"
+          :page-no="pageNo"
+          :page-size="pageSize"
+          :total="articleTotal"
+          @change="changePage"
+        />
       </div>
     </section>
 
@@ -93,15 +100,15 @@
       <div v-else class="stack">
         <div class="section-head">
           <h3>模板与资源</h3>
-          <span class="subtle-note">共 {{ templates.length }} 份</span>
+          <span class="subtle-note">共 {{ filteredTemplates.length }} 份</span>
         </div>
         <EmptyState
-          v-if="!templates.length"
+          v-if="!filteredTemplates.length"
           title="暂无模板资源"
-          description="后续可在这里接入上传、版本和启停用管理。"
+          description="可以调整分类或关键字，重新筛选。"
         />
         <RecordCard
-          v-for="item in templates"
+          v-for="item in filteredTemplates"
           :key="item.templateId"
           :meta="`${item.categoryLabel} · ${item.fileType.toUpperCase()} · ${item.updatedAt}`"
           :title="item.name"
@@ -122,6 +129,7 @@ import EmptyState from "../../components/common/EmptyState.vue";
 import ErrorState from "../../components/common/ErrorState.vue";
 import LoadingState from "../../components/common/LoadingState.vue";
 import PageHeader from "../../components/common/PageHeader.vue";
+import PaginationBar from "../../components/common/PaginationBar.vue";
 import RecordCard from "../../components/common/RecordCard.vue";
 import SearchBar from "../../components/common/SearchBar.vue";
 import StatusTag from "../../components/common/StatusTag.vue";
@@ -132,6 +140,9 @@ import { downloadWithAuth } from "../../utils/downloadFile";
 
 const articles = ref([]);
 const templates = ref([]);
+const articleTotal = ref(0);
+const pageNo = ref(1);
+const pageSize = 20;
 const keyword = ref("");
 const categoryFilter = ref("all");
 const uploading = ref(false);
@@ -145,10 +156,10 @@ const uploadForm = ref({
 });
 const { loading, error, run } = useAsyncPage(async () => {
   const [articlePage, templateList] = await Promise.all([
-    getKnowledgeList({ pageNo: 1, pageSize: 100 }),
+    getKnowledgeList({ pageNo: pageNo.value, pageSize }),
     getKnowledgeTemplates(),
   ]);
-  return { articleList: articlePage.records || [], templateList };
+  return { articleList: articlePage.records || [], articleTotal: Number(articlePage.total) || 0, templateList };
 });
 
 const categoryOptions = computed(() =>
@@ -164,16 +175,31 @@ const filteredArticles = computed(() =>
   }),
 );
 
+const filteredTemplates = computed(() =>
+  templates.value.filter((item) => {
+    const matchCategory = categoryFilter.value === "all" || item.categoryLabel === categoryFilter.value;
+    const text = `${item.name} ${item.description || ""} ${item.categoryLabel || ""} ${item.fileType || ""}`.toLowerCase();
+    const matchKeyword = !keyword.value || text.includes(keyword.value.toLowerCase());
+    return matchCategory && matchKeyword;
+  }),
+);
+
 onMounted(() => {
   loadData();
 });
 
 async function loadData() {
   try {
-    const { articleList, templateList } = await run();
+    const { articleList, articleTotal: total, templateList } = await run();
     articles.value = articleList;
+    articleTotal.value = total;
     templates.value = templateList;
   } catch {}
+}
+
+async function changePage(nextPageNo) {
+  pageNo.value = nextPageNo;
+  await loadData();
 }
 
 async function openSource(item) {

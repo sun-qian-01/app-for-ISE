@@ -5,8 +5,5 @@ export async function uploadFile(file, bizType) {
   form.append("file", file);
   return client.post("/files/upload", form, {
     params: { bizType },
-    headers: {
-      "Content-Type": "multipart/form-data",
-    },
   });
 }

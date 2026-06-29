@@ -5,6 +5,8 @@ import com.ise.platform.common.error.BusinessException;
 import com.ise.platform.common.error.ErrorCode;
 import com.ise.platform.common.security.CurrentUser;
 import com.ise.platform.common.security.DataScope;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
@@ -44,7 +46,9 @@ public class StudentService {
         "warning", "重点关注",
         "graduated", "已毕业"
     );
+    private static final String DEMO_PASSWORD_PREFIX = "{demo}";
 
+    private final JdbcTemplate jdbcTemplate;
     private final AtomicLong growthRecordIdGenerator = new AtomicLong(1000);
     private final AtomicLong importTaskSequence = new AtomicLong(1);
 
@@ -54,6 +58,12 @@ public class StudentService {
     private final Map<String, ImportTaskEntity> importTaskByTaskNo = new ConcurrentHashMap<>();
 
     public StudentService() {
+        this(null);
+    }
+
+    @Autowired
+    public StudentService(JdbcTemplate jdbcTemplate) {
+        this.jdbcTemplate = jdbcTemplate;
         studentById.put(1L, new StudentEntity(1L, "20220001", "赵晨曦", "2022", "软件工程", "软件工程2班", "预备党员", "active", "138****1234", "13800181234", "zhaochenxi@example.edu.cn"));
         studentById.put(2L, new StudentEntity(2L, "20220018", "陈一诺", "2022", "软件工程", "软件工程2班", "发展对象", "active", "139****8818", "13900188818", "chenyinuo@example.edu.cn"));
         studentById.put(3L, new StudentEntity(3L, "20260031", "林嘉禾", "2026", "数据科学", "数据科学1班", "共青团员", "graduating", "137****0631", "13700000631", "linjiahe@example.edu.cn"));
@@ -80,6 +90,33 @@ public class StudentService {
             new GrowthRecordEntity(21L, "cadre", "团支部理论学习组织", "2026-03-01", "2026-03-30", "组织 4 次主题活动。", null),
             new GrowthRecordEntity(22L, "volunteer", "社区志愿服务", "2026-03-10", "2026-03-28", "累计服务 18 小时。", 103L)
         )));
+    }
+
+    public void addRegisteredStudent(Long id,
+                                     String studentNo,
+                                     String name,
+                                     String grade,
+                                     String major,
+                                     String className,
+                                     String politicalStatus,
+                                     String phone,
+                                     String email) {
+        StudentEntity entity = new StudentEntity(
+            id,
+            studentNo,
+            name,
+            grade,
+            major,
+            className,
+            StringUtils.hasText(politicalStatus) ? politicalStatus : "群众",
+            "active",
+            maskPhone(phone),
+            phone,
+            email
+        );
+        studentById.put(id, entity);
+        tagsByStudentId.putIfAbsent(id, new CopyOnWriteArrayList<>());
+        growthRecordsByStudentId.putIfAbsent(id, new CopyOnWriteArrayList<>());
     }
 
     public StudentDto.MeProfileView meProfile(CurrentUser user) {
@@ -127,12 +164,18 @@ public class StudentService {
                                                                   String politicalStatus,
                                                                   String status,
                                                                   Long tagId,
-                                                                  Boolean isGraduating) {
+                                                                  Boolean isGraduating,
+                                                                  String keyword) {
         if (!isManager(user) && !isCadre(user)) {
             throw new BusinessException(ErrorCode.FORBIDDEN, "only cadre or manager can query student list");
         }
+        String keywordText = trim(keyword);
         List<StudentDto.StudentListItemView> filtered = studentById.values().stream()
             .filter(item -> isInStudentScope(user, item))
+            .filter(item -> !StringUtils.hasText(keywordText)
+                || containsIgnoreCase(item.studentNo(), keywordText)
+                || containsIgnoreCase(item.name(), keywordText)
+                || containsIgnoreCase(item.className(), keywordText))
             .filter(item -> !StringUtils.hasText(name) || containsIgnoreCase(item.name(), name))
             .filter(item -> !StringUtils.hasText(studentNo) || containsIgnoreCase(item.studentNo(), studentNo))
             .filter(item -> !StringUtils.hasText(grade) || Objects.equals(item.grade(), grade))
@@ -289,6 +332,87 @@ public class StudentService {
         return task.toView();
     }
 
+    public StudentDto.BatchRegisterStudentResponse batchRegisterStudents(CurrentUser user,
+                                                                          StudentDto.BatchRegisterStudentRequest request) {
+        ensureManager(user);
+        List<StudentDto.BatchRegisterStudentRow> rows = request.getRows() == null ? List.of() : request.getRows();
+        int successCount = 0;
+        int skippedCount = 0;
+        int failedCount = 0;
+        List<String> messages = new ArrayList<>();
+
+        for (int index = 0; index < rows.size(); index += 1) {
+            StudentDto.BatchRegisterStudentRow row = rows.get(index);
+            int lineNo = index + 2;
+            String studentNo = trim(row.getStudentNo());
+            String name = trim(row.getName());
+            String grade = trim(row.getGrade());
+            String major = trim(row.getMajor());
+            String className = trim(row.getClassName());
+            if (!studentNo.matches("\\d{10}")) {
+                failedCount += 1;
+                messages.add("第 " + lineNo + " 行学号必须是10位数字");
+                continue;
+            }
+            if (!StringUtils.hasText(name) || !StringUtils.hasText(grade)
+                || !StringUtils.hasText(major) || !StringUtils.hasText(className)) {
+                failedCount += 1;
+                messages.add("第 " + lineNo + " 行缺少姓名、年级、专业或班级");
+                continue;
+            }
+            if (studentExists(studentNo)) {
+                skippedCount += 1;
+                messages.add("第 " + lineNo + " 行学号 " + studentNo + " 已存在");
+                continue;
+            }
+
+            Long studentId = nextId("stu_student");
+            Long userId = nextId("sys_user");
+            String politicalStatus = firstNonBlank(row.getPoliticalStatusLabel(), "群众");
+            String phone = trim(row.getPhone());
+            String email = trim(row.getEmail());
+            if (jdbcTemplate != null) {
+                jdbcTemplate.update(
+                    """
+                        insert into stu_student (
+                            id, student_no, name, phone, email, grade, major, class_name,
+                            political_status, status, created_at, updated_at, is_deleted
+                        ) values (?, ?, ?, ?, ?, ?, ?, ?, ?, 'active', current_timestamp, current_timestamp, 0)
+                        """,
+                    studentId,
+                    studentNo,
+                    name,
+                    phone,
+                    email,
+                    grade,
+                    major,
+                    className,
+                    politicalStatus
+                );
+                jdbcTemplate.update(
+                    """
+                        insert into sys_user (
+                            id, username, password_hash, real_name, user_type, role_code,
+                            student_id, status, created_at, updated_at, is_deleted
+                        ) values (?, ?, ?, ?, 'student', 'student', ?, 'enabled', current_timestamp, current_timestamp, 0)
+                        """,
+                    userId,
+                    studentNo,
+                    DEMO_PASSWORD_PREFIX + "info666",
+                    name,
+                    studentId
+                );
+            }
+            addRegisteredStudent(studentId, studentNo, name, grade, major, className, politicalStatus, phone, email);
+            successCount += 1;
+        }
+
+        if (messages.isEmpty() && successCount > 0) {
+            messages.add("导入成功");
+        }
+        return new StudentDto.BatchRegisterStudentResponse(successCount, skippedCount, failedCount, messages);
+    }
+
     private void ensureStudentExists(Long studentId) {
         if (!studentById.containsKey(studentId)) {
             throw new BusinessException(ErrorCode.NOT_FOUND, "student not found");
@@ -323,10 +447,11 @@ public class StudentService {
     }
 
     private boolean isInStudentScope(CurrentUser user, StudentEntity student) {
-        if (user.getRoles().stream().anyMatch(role -> "college_leader".equals(role) || "system_admin".equals(role))) {
+        if (user.getRoles().stream().anyMatch(role ->
+            "teacher_admin".equals(role) || "college_leader".equals(role) || "system_admin".equals(role))) {
             return true;
         }
-        if (user.getRoles().contains("teacher_admin") || user.getRoles().contains("class_cadre")) {
+        if (user.getRoles().contains("class_cadre")) {
             List<String> classScopes = user.getDataScopes().stream()
                 .filter(scope -> "class".equals(scope.getScopeType()))
                 .map(DataScope::getScopeValue)
@@ -345,6 +470,31 @@ public class StudentService {
 
     private String firstNonBlank(String incoming, String current) {
         return StringUtils.hasText(incoming) ? incoming : current;
+    }
+
+    private boolean studentExists(String studentNo) {
+        boolean inMemory = studentById.values().stream().anyMatch(student -> student.studentNo().equals(studentNo));
+        if (inMemory || jdbcTemplate == null) {
+            return inMemory;
+        }
+        Integer count = jdbcTemplate.queryForObject(
+            "select count(*) from stu_student where student_no = ? and is_deleted = 0",
+            Integer.class,
+            studentNo
+        );
+        return count != null && count > 0;
+    }
+
+    private Long nextId(String tableName) {
+        if (jdbcTemplate == null) {
+            return studentById.keySet().stream().mapToLong(Long::longValue).max().orElse(0L) + 1;
+        }
+        Long value = jdbcTemplate.queryForObject("select coalesce(max(id), 0) + 1 from " + tableName, Long.class);
+        return value == null ? 1L : value;
+    }
+
+    private String trim(String value) {
+        return value == null ? "" : value.trim();
     }
 
     private String maskEmail(String email) {

@@ -4,8 +4,10 @@ import com.ise.platform.common.error.BusinessException;
 import com.ise.platform.common.error.ErrorCode;
 import com.ise.platform.common.security.CurrentUser;
 import com.ise.platform.common.security.DataScope;
+import com.ise.platform.modules.student.StudentService;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 
 import java.util.ArrayList;
@@ -43,10 +45,12 @@ public class AuthService {
             """;
 
     private final JdbcTemplate jdbcTemplate;
+    private final StudentService studentService;
     private final Map<String, CurrentUser> tokenStore = new ConcurrentHashMap<>();
 
-    public AuthService(JdbcTemplate jdbcTemplate) {
+    public AuthService(JdbcTemplate jdbcTemplate, StudentService studentService) {
         this.jdbcTemplate = jdbcTemplate;
+        this.studentService = studentService;
     }
 
     public AuthDto.LoginData login(String username, String password) {
@@ -75,6 +79,96 @@ public class AuthService {
         String roleCode = resolveRoleCode(account);
         CurrentUser refreshedUser = toCurrentUser(account, roleCode);
         return toUserView(refreshedUser, account.toStudentSummary());
+    }
+
+    @Transactional
+    public AuthDto.RegisterStudentResponse registerStudent(AuthDto.RegisterStudentRequest request) {
+        String studentNo = trim(request.getStudentNo());
+        if (!studentNo.matches("\\d{10}")) {
+            throw new BusinessException(ErrorCode.PARAM_INVALID, "studentNo must be 10 digits");
+        }
+        if (findAccount(studentNo) != null) {
+            throw new BusinessException(ErrorCode.STATUS_CONFLICT, "student account already exists");
+        }
+        Integer existingStudent = jdbcTemplate.queryForObject(
+            "select count(*) from stu_student where student_no = ? and is_deleted = 0",
+            Integer.class,
+            studentNo
+        );
+        if (existingStudent != null && existingStudent > 0) {
+            throw new BusinessException(ErrorCode.STATUS_CONFLICT, "student already exists");
+        }
+
+        Long studentId = nextId("stu_student");
+        Long userId = nextId("sys_user");
+        String politicalStatus = StringUtils.hasText(request.getPoliticalStatusLabel())
+            ? request.getPoliticalStatusLabel().trim()
+            : "群众";
+
+        jdbcTemplate.update(
+            """
+                insert into stu_student (
+                    id, student_no, name, phone, email, grade, major, class_name,
+                    political_status, status, created_at, updated_at, is_deleted
+                ) values (?, ?, ?, ?, ?, ?, ?, ?, ?, 'active', current_timestamp, current_timestamp, 0)
+                """,
+            studentId,
+            studentNo,
+            trim(request.getName()),
+            trim(request.getPhone()),
+            trim(request.getEmail()),
+            trim(request.getGrade()),
+            trim(request.getMajor()),
+            trim(request.getClassName()),
+            politicalStatus
+        );
+        jdbcTemplate.update(
+            """
+                insert into sys_user (
+                    id, username, password_hash, real_name, user_type, role_code,
+                    student_id, status, created_at, updated_at, is_deleted
+                ) values (?, ?, ?, ?, 'student', 'student', ?, 'enabled', current_timestamp, current_timestamp, 0)
+                """,
+            userId,
+            studentNo,
+            encodePassword(request.getPassword()),
+            trim(request.getName()),
+            studentId
+        );
+        studentService.addRegisteredStudent(
+            studentId,
+            studentNo,
+            trim(request.getName()),
+            trim(request.getGrade()),
+            trim(request.getMajor()),
+            trim(request.getClassName()),
+            politicalStatus,
+            trim(request.getPhone()),
+            trim(request.getEmail())
+        );
+        return new AuthDto.RegisterStudentResponse(studentNo, trim(request.getName()));
+    }
+
+    public void changePassword(CurrentUser currentUser, String oldPassword, String newPassword) {
+        AccountRecord account = findAccount(currentUser.getUsername());
+        if (account == null) {
+            throw new BusinessException(ErrorCode.UNAUTHORIZED, "login required");
+        }
+        if (!passwordMatches(oldPassword, account.passwordHash())) {
+            throw new BusinessException(ErrorCode.PARAM_INVALID, "old password is incorrect");
+        }
+        if (!StringUtils.hasText(newPassword)) {
+            throw new BusinessException(ErrorCode.PARAM_INVALID, "new password is required");
+        }
+        if (Objects.equals(oldPassword, newPassword)) {
+            throw new BusinessException(ErrorCode.PARAM_INVALID, "new password must be different");
+        }
+
+        jdbcTemplate.update(
+            "update sys_user set password_hash = ?, updated_at = current_timestamp where id = ? and is_deleted = 0",
+            encodePassword(newPassword),
+            account.id()
+        );
     }
 
     public CurrentUser resolveCurrentUser(String token) {
@@ -124,6 +218,19 @@ public class AuthService {
             return Objects.equals(storedPasswordHash.substring(DEMO_PASSWORD_PREFIX.length()), rawPassword);
         }
         return Objects.equals(storedPasswordHash, rawPassword);
+    }
+
+    private String encodePassword(String rawPassword) {
+        return DEMO_PASSWORD_PREFIX + rawPassword;
+    }
+
+    private Long nextId(String tableName) {
+        Long value = jdbcTemplate.queryForObject("select coalesce(max(id), 0) + 1 from " + tableName, Long.class);
+        return value == null ? 1L : value;
+    }
+
+    private String trim(String value) {
+        return value == null ? "" : value.trim();
     }
 
     private String resolveRoleCode(AccountRecord account) {

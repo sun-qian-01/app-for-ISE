@@ -2,7 +2,7 @@
   <section class="panel">
     <PageHeader
       title="通知中心"
-      description="集中查看定向通知、已读状态和触达渠道。"
+      description="集中查看定向通知、已读状态和未读统计。"
     >
       <template #actions>
         <button class="button" type="button" @click="markAllRead">全部标记已读</button>
@@ -24,7 +24,7 @@
       <EmptyState
         v-if="!filteredItems.length"
         title="暂无匹配通知"
-        description="可以调整筛选条件，或稍后查看新的触达记录。"
+        description="可以调整筛选条件，或稍后查看新的通知记录。"
       />
       <RecordCard
         v-for="item in filteredItems"
@@ -46,9 +46,16 @@
           </button>
         </template>
         <template #extra>
-          触达 {{ item.stats.delivered }} 人，已读 {{ item.stats.read }} 人
+          未读 {{ item.stats.unread }} 人，已读 {{ item.stats.read }} 人，总计 {{ item.stats.total }} 人
         </template>
       </RecordCard>
+      <PaginationBar
+        v-if="noticeTotal > pageSize"
+        :page-no="pageNo"
+        :page-size="pageSize"
+        :total="noticeTotal"
+        @change="changePage"
+      />
     </div>
   </section>
 </template>
@@ -59,6 +66,7 @@ import EmptyState from "../../components/common/EmptyState.vue";
 import ErrorState from "../../components/common/ErrorState.vue";
 import LoadingState from "../../components/common/LoadingState.vue";
 import PageHeader from "../../components/common/PageHeader.vue";
+import PaginationBar from "../../components/common/PaginationBar.vue";
 import RecordCard from "../../components/common/RecordCard.vue";
 import SearchBar from "../../components/common/SearchBar.vue";
 import StatusTag from "../../components/common/StatusTag.vue";
@@ -66,9 +74,12 @@ import { useAsyncPage } from "../../composables/useAsyncPage";
 import { getMyNotices, markAllNoticesRead, markNoticeRead } from "../../api/modules/noticeApi";
 
 const items = ref([]);
+const noticeTotal = ref(0);
+const pageNo = ref(1);
+const pageSize = 20;
 const keyword = ref("");
 const readFilter = ref("all");
-const { loading, error, run } = useAsyncPage(() => getMyNotices({ pageNo: 1, pageSize: 50 }));
+const { loading, error, run } = useAsyncPage(() => getMyNotices({ pageNo: pageNo.value, pageSize }));
 
 const filteredItems = computed(() =>
   items.value.filter((item) => {
@@ -90,6 +101,7 @@ onMounted(() => {
 async function loadData() {
   try {
     const page = await run();
+    noticeTotal.value = Number(page.total) || 0;
     items.value = (page.records || []).map((item) => ({
       id: item.id,
       date: item.publishAt,
@@ -100,12 +112,27 @@ async function loadData() {
       channelLabels: item.channelLabels || [],
       read: item.readStatus === "read",
       statusLabel: item.readStatus === "read" ? "已读" : "未读",
-      stats: {
-        delivered: item.deliveredCount || 0,
-        read: item.readCount || 0,
-      },
+      stats: toNoticeStats(item),
     }));
   } catch {}
+}
+
+async function changePage(nextPageNo) {
+  pageNo.value = nextPageNo;
+  await loadData();
+}
+
+function toNoticeStats(item) {
+  const total = Number(item.deliveredCount) || 0;
+  const read = Number(item.readCount) || 0;
+  const unread = Number.isFinite(Number(item.unreadCount))
+    ? Number(item.unreadCount)
+    : Math.max(total - read, 0);
+  return {
+    total: Math.max(total, read + unread),
+    read,
+    unread,
+  };
 }
 
 async function markRead(id) {
@@ -118,6 +145,7 @@ async function markRead(id) {
 async function markAllRead() {
   try {
     await markAllNoticesRead();
+    pageNo.value = 1;
     await loadData();
   } catch {}
 }

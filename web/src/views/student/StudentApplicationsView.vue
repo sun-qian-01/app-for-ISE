@@ -79,6 +79,13 @@
             <div>申请标题：{{ item.title }}</div>
           </template>
         </RecordCard>
+        <PaginationBar
+          v-if="applicationTotal > pageSize"
+          :page-no="pageNo"
+          :page-size="pageSize"
+          :total="applicationTotal"
+          @change="changePage"
+        />
       </div>
     </section>
   </div>
@@ -90,6 +97,7 @@ import EmptyState from "../../components/common/EmptyState.vue";
 import ErrorState from "../../components/common/ErrorState.vue";
 import LoadingState from "../../components/common/LoadingState.vue";
 import PageHeader from "../../components/common/PageHeader.vue";
+import PaginationBar from "../../components/common/PaginationBar.vue";
 import RecordCard from "../../components/common/RecordCard.vue";
 import SearchBar from "../../components/common/SearchBar.vue";
 import StatusTag from "../../components/common/StatusTag.vue";
@@ -102,6 +110,9 @@ const authStore = useAuthStore();
 const items = ref([]);
 const keyword = ref("");
 const statusFilter = ref("all");
+const applicationTotal = ref(0);
+const pageNo = ref(1);
+const pageSize = 20;
 const submitting = ref(false);
 const formFeedback = ref("");
 const pendingFile = ref(null);
@@ -111,7 +122,7 @@ const createForm = reactive({
   purpose: "",
   description: "",
 });
-const { loading, error, run } = useAsyncPage(() => getMyApplications({ pageNo: 1, pageSize: 50 }));
+const { loading, error, run } = useAsyncPage(() => getMyApplications({ pageNo: pageNo.value, pageSize }));
 
 const filteredItems = computed(() =>
   items.value.filter((item) => {
@@ -129,6 +140,7 @@ onMounted(() => {
 async function loadData() {
   try {
     const page = await run();
+    applicationTotal.value = Number(page.total) || 0;
     items.value = (page.records || []).map((item) => ({
       id: item.id,
       no: item.applicationNo,
@@ -141,6 +153,11 @@ async function loadData() {
       createdAt: item.submittedAt,
     }));
   } catch {}
+}
+
+async function changePage(nextPageNo) {
+  pageNo.value = nextPageNo;
+  await loadData();
 }
 
 async function handleCreate() {
@@ -173,6 +190,7 @@ async function handleCreate() {
       },
     });
     formFeedback.value = `申请已提交，编号：${result.applicationNo || "待生成"}`;
+    pageNo.value = 1;
     createForm.title = "";
     createForm.purpose = "";
     createForm.description = "";

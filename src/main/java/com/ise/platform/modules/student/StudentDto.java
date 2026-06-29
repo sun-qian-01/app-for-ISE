@@ -446,6 +446,123 @@ public final class StudentDto {
         }
     }
 
+    public static class BatchRegisterStudentRequest {
+        private List<BatchRegisterStudentRow> rows;
+
+        public List<BatchRegisterStudentRow> getRows() {
+            return rows;
+        }
+
+        public void setRows(List<BatchRegisterStudentRow> rows) {
+            this.rows = rows;
+        }
+    }
+
+    public static class BatchRegisterStudentRow {
+        private String studentNo;
+        private String name;
+        private String grade;
+        private String major;
+        private String className;
+        private String phone;
+        private String email;
+        private String politicalStatusLabel;
+
+        public String getStudentNo() {
+            return studentNo;
+        }
+
+        public void setStudentNo(String studentNo) {
+            this.studentNo = studentNo;
+        }
+
+        public String getName() {
+            return name;
+        }
+
+        public void setName(String name) {
+            this.name = name;
+        }
+
+        public String getGrade() {
+            return grade;
+        }
+
+        public void setGrade(String grade) {
+            this.grade = grade;
+        }
+
+        public String getMajor() {
+            return major;
+        }
+
+        public void setMajor(String major) {
+            this.major = major;
+        }
+
+        public String getClassName() {
+            return className;
+        }
+
+        public void setClassName(String className) {
+            this.className = className;
+        }
+
+        public String getPhone() {
+            return phone;
+        }
+
+        public void setPhone(String phone) {
+            this.phone = phone;
+        }
+
+        public String getEmail() {
+            return email;
+        }
+
+        public void setEmail(String email) {
+            this.email = email;
+        }
+
+        public String getPoliticalStatusLabel() {
+            return politicalStatusLabel;
+        }
+
+        public void setPoliticalStatusLabel(String politicalStatusLabel) {
+            this.politicalStatusLabel = politicalStatusLabel;
+        }
+    }
+
+    public static class BatchRegisterStudentResponse {
+        private int successCount;
+        private int skippedCount;
+        private int failedCount;
+        private List<String> messages;
+
+        public BatchRegisterStudentResponse(int successCount, int skippedCount, int failedCount, List<String> messages) {
+            this.successCount = successCount;
+            this.skippedCount = skippedCount;
+            this.failedCount = failedCount;
+            this.messages = messages;
+        }
+
+        public int getSuccessCount() {
+            return successCount;
+        }
+
+        public int getSkippedCount() {
+            return skippedCount;
+        }
+
+        public int getFailedCount() {
+            return failedCount;
+        }
+
+        public List<String> getMessages() {
+            return messages;
+        }
+    }
+
     public static class ImportTaskCreateRequest {
         @NotBlank(message = "importType is required")
         private String importType;

@@ -74,6 +74,7 @@ public final class ApplicationDto {
         private String status;
         private String currentApprover;
         private String submittedAt;
+        private AttachmentFile attachment;
 
         public ApplicationView(Long id,
                                String applicationNo,
@@ -82,7 +83,8 @@ public final class ApplicationDto {
                                String purpose,
                                String status,
                                String currentApprover,
-                               String submittedAt) {
+                               String submittedAt,
+                               AttachmentFile attachment) {
             this.id = id;
             this.applicationNo = applicationNo;
             this.applicationType = applicationType;
@@ -91,6 +93,7 @@ public final class ApplicationDto {
             this.status = status;
             this.currentApprover = currentApprover;
             this.submittedAt = submittedAt;
+            this.attachment = attachment;
         }
 
         public Long getId() {
@@ -123,6 +126,10 @@ public final class ApplicationDto {
 
         public String getSubmittedAt() {
             return submittedAt;
+        }
+
+        public AttachmentFile getAttachment() {
+            return attachment;
         }
     }
 
@@ -216,6 +223,7 @@ public final class ApplicationDto {
         private String currentApprover;
         private String submittedAt;
         private Map<String, Object> formData;
+        private AttachmentFile attachment;
         private GeneratedFile generatedFile;
         private List<ApprovalRecord> approvalRecords;
 
@@ -228,6 +236,7 @@ public final class ApplicationDto {
                                      String currentApprover,
                                      String submittedAt,
                                      Map<String, Object> formData,
+                                     AttachmentFile attachment,
                                      GeneratedFile generatedFile,
                                      List<ApprovalRecord> approvalRecords) {
             this.id = id;
@@ -239,6 +248,7 @@ public final class ApplicationDto {
             this.currentApprover = currentApprover;
             this.submittedAt = submittedAt;
             this.formData = formData;
+            this.attachment = attachment;
             this.generatedFile = generatedFile;
             this.approvalRecords = approvalRecords;
         }
@@ -279,12 +289,40 @@ public final class ApplicationDto {
             return formData;
         }
 
+        public AttachmentFile getAttachment() {
+            return attachment;
+        }
+
         public GeneratedFile getGeneratedFile() {
             return generatedFile;
         }
 
         public List<ApprovalRecord> getApprovalRecords() {
             return approvalRecords;
+        }
+    }
+
+    public static class AttachmentFile {
+        private Long fileId;
+        private String fileName;
+        private String fileUrl;
+
+        public AttachmentFile(Long fileId, String fileName) {
+            this.fileId = fileId;
+            this.fileName = fileName;
+            this.fileUrl = fileId == null ? "" : "/api/v1/files/" + fileId + "/download";
+        }
+
+        public Long getFileId() {
+            return fileId;
+        }
+
+        public String getFileName() {
+            return fileName;
+        }
+
+        public String getFileUrl() {
+            return fileUrl;
         }
     }
 

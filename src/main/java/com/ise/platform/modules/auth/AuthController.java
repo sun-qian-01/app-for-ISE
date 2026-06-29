@@ -27,10 +27,22 @@ public class AuthController {
         return ApiResponse.success(authService.login(request.getUsername(), request.getPassword()));
     }
 
+    @PostMapping("/register")
+    public ApiResponse<AuthDto.RegisterStudentResponse> register(@Valid @RequestBody AuthDto.RegisterStudentRequest request) {
+        return ApiResponse.success(authService.registerStudent(request));
+    }
+
     @GetMapping("/me")
     public ApiResponse<AuthDto.UserView> me() {
         CurrentUser user = AuthContext.requireUser();
         return ApiResponse.success(authService.me(user));
+    }
+
+    @PostMapping("/password")
+    public ApiResponse<Void> changePassword(@Valid @RequestBody AuthDto.ChangePasswordRequest request) {
+        CurrentUser user = AuthContext.requireUser();
+        authService.changePassword(user, request.getOldPassword(), request.getNewPassword());
+        return ApiResponse.success(null);
     }
 
     @PostMapping("/logout")

@@ -4,7 +4,7 @@
       <PageHeader
         title="精准通知"
         api="GET /notices"
-        description="查看通知列表、触达统计和已读情况，并从右侧创建新的定向通知。"
+        description="查看通知列表、未读人数和已读情况，并从右侧创建新的定向通知。"
       >
         <template #actions>
           <button class="button button--primary" type="button" @click="fillDemoForm">填充示例</button>
@@ -12,9 +12,9 @@
       </PageHeader>
 
       <div class="grid grid--three">
-        <MetricCard label="通知总数" :value="items.length" hint="已发布通知" />
-        <MetricCard label="未读通知" :value="unreadCount" hint="面向学生仍未读的记录" />
-        <MetricCard label="平均已读率" :value="`${averageReadRate}%`" hint="基于当前触达统计估算" text-mode />
+        <MetricCard label="通知总数" :value="noticeTotal" hint="已发布通知" />
+        <MetricCard label="未读人数" :value="unreadCount" hint="面向学生仍未读的总人数" />
+        <MetricCard label="平均已读率" :value="`${averageReadRate}%`" hint="基于当前总人数估算" text-mode />
       </div>
 
       <SearchBar>
@@ -46,9 +46,16 @@
             <span v-for="tag in item.tags" :key="tag" class="tag">{{ tag }}</span>
           </template>
           <template #extra>
-            触达 {{ item.stats.delivered }} 人，已读 {{ item.stats.read }} 人，通过 {{ item.channelLabels.join(" / ") }} 发送
+            未读 {{ item.stats.unread }} 人，已读 {{ item.stats.read }} 人，总计 {{ item.stats.total }} 人，通过 {{ item.channelLabels.join(" / ") }} 发送
           </template>
         </RecordCard>
+        <PaginationBar
+          v-if="noticeTotal > pageSize"
+          :page-no="pageNo"
+          :page-size="pageSize"
+          :total="noticeTotal"
+          @change="changePage"
+        />
       </div>
     </section>
 
@@ -111,6 +118,7 @@ import ErrorState from "../../components/common/ErrorState.vue";
 import LoadingState from "../../components/common/LoadingState.vue";
 import MetricCard from "../../components/common/MetricCard.vue";
 import PageHeader from "../../components/common/PageHeader.vue";
+import PaginationBar from "../../components/common/PaginationBar.vue";
 import RecordCard from "../../components/common/RecordCard.vue";
 import SearchBar from "../../components/common/SearchBar.vue";
 import StatusTag from "../../components/common/StatusTag.vue";
@@ -118,6 +126,9 @@ import { useAsyncPage } from "../../composables/useAsyncPage";
 import { createNotice, getNoticeList } from "../../api/modules/noticeApi";
 
 const items = ref([]);
+const noticeTotal = ref(0);
+const pageNo = ref(1);
+const pageSize = 20;
 const keyword = ref("");
 const readFilter = ref("all");
 const channelOptions = ["站内", "邮件", "微信"];
@@ -128,13 +139,13 @@ const form = reactive({
   tagsText: "",
   channels: ["站内"],
 });
-const { loading, error, run } = useAsyncPage(() => getNoticeList({ pageNo: 1, pageSize: 100 }));
+const { loading, error, run } = useAsyncPage(() => getNoticeList({ pageNo: pageNo.value, pageSize }));
 
-const unreadCount = computed(() => items.value.filter((item) => !item.read).length);
+const unreadCount = computed(() => items.value.reduce((sum, item) => sum + item.stats.unread, 0));
 
 const averageReadRate = computed(() => {
   if (!items.value.length) return 0;
-  const total = items.value.reduce((sum, item) => sum + item.stats.delivered, 0);
+  const total = items.value.reduce((sum, item) => sum + item.stats.total, 0);
   const read = items.value.reduce((sum, item) => sum + item.stats.read, 0);
   return total ? Math.round((read / total) * 100) : 0;
 });
@@ -143,8 +154,8 @@ const filteredItems = computed(() =>
   items.value.filter((item) => {
     const matchRead =
       readFilter.value === "all" ||
-      (readFilter.value === "read" && item.read) ||
-      (readFilter.value === "unread" && !item.read);
+      (readFilter.value === "read" && item.stats.unread === 0) ||
+      (readFilter.value === "unread" && item.stats.unread > 0);
 
     const text = `${item.title} ${item.audience} ${item.tags.join(" ")}`.toLowerCase();
     const matchKeyword = !keyword.value || text.includes(keyword.value.toLowerCase());
@@ -159,22 +170,41 @@ onMounted(() => {
 async function loadData() {
   try {
     const page = await run();
-    items.value = (page.records || []).map((item) => ({
-      id: item.id,
-      title: item.title,
-      content: item.content,
-      audience: item.audience,
-      date: item.publishAt,
-      channelLabels: item.channelLabels || [],
-      read: item.readStatus === "read",
-      statusLabel: item.readStatus === "read" ? "已读" : "未读",
-      tags: item.tags || [],
-      stats: {
-        delivered: item.deliveredCount || 0,
-        read: item.readCount || 0,
-      },
-    }));
+    noticeTotal.value = Number(page.total) || 0;
+    items.value = (page.records || []).map((item) => {
+      const stats = toNoticeStats(item);
+      return {
+        id: item.id,
+        title: item.title,
+        content: item.content,
+        audience: item.audience,
+        date: item.publishAt,
+        channelLabels: item.channelLabels || [],
+        tags: item.tags || [],
+        stats,
+        read: stats.unread === 0,
+        statusLabel: stats.unread === 0 ? "全部已读" : "有未读",
+      };
+    });
   } catch {}
+}
+
+async function changePage(nextPageNo) {
+  pageNo.value = nextPageNo;
+  await loadData();
+}
+
+function toNoticeStats(item) {
+  const total = Number(item.deliveredCount) || 0;
+  const read = Number(item.readCount) || 0;
+  const unread = Number.isFinite(Number(item.unreadCount))
+    ? Number(item.unreadCount)
+    : Math.max(total - read, 0);
+  return {
+    total: Math.max(total, read + unread),
+    read,
+    unread,
+  };
 }
 
 function toggleChannel(channel) {
@@ -222,6 +252,7 @@ async function createNoticeRecord() {
       channelLabels: [...form.channels],
       tags,
     });
+    pageNo.value = 1;
     resetForm();
     await loadData();
   } catch {}

@@ -139,6 +139,12 @@ merge into biz_notice_read (
     (1, 3, 1, timestamp '2026-04-15 09:20:00'),
     (2, 3, 2, timestamp '2026-04-15 09:30:00');
 
+merge into sys_audit_log (
+    id, actor_user_id, actor_name, module_name, action_text, result_text, created_at
+) key(id) values
+    (1, 8, '李老师', '学生画像', '查看学生敏感字段：联系方式', '成功', timestamp '2026-04-19 09:12:00'),
+    (2, 8, '李老师', '通知', '发布定向通知：奖学金材料提交', '成功', timestamp '2026-04-18 17:43:00');
+
 merge into biz_honor (
     id, title, owner_name, owner_user_id, honor_scope, honor_year, category_label, story, created_at, updated_at, is_deleted
 ) key(id) values

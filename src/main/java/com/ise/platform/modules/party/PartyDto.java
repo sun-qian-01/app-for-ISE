@@ -17,6 +17,8 @@ public final class PartyDto {
         @NotNull(message = "fileId is required")
         private Long fileId;
 
+        private String description;
+
         public String getMaterialName() {
             return materialName;
         }
@@ -31,6 +33,14 @@ public final class PartyDto {
 
         public void setFileId(Long fileId) {
             this.fileId = fileId;
+        }
+
+        public String getDescription() {
+            return description;
+        }
+
+        public void setDescription(String description) {
+            this.description = description;
         }
     }
 
@@ -71,6 +81,11 @@ public final class PartyDto {
         private int stageOrder;
         private String stageStatus;
         private String dueAt;
+        private List<String> requiredMaterials;
+        private String submitInstruction;
+        private boolean submissionAllowed;
+        private String submissionBlockedReason;
+        private String reviewComment;
         private List<MaterialView> materials;
 
         public StageView(Long stageRecordId,
@@ -79,6 +94,11 @@ public final class PartyDto {
                          int stageOrder,
                          String stageStatus,
                          String dueAt,
+                         List<String> requiredMaterials,
+                         String submitInstruction,
+                         boolean submissionAllowed,
+                         String submissionBlockedReason,
+                         String reviewComment,
                          List<MaterialView> materials) {
             this.stageRecordId = stageRecordId;
             this.stageCode = stageCode;
@@ -86,6 +106,11 @@ public final class PartyDto {
             this.stageOrder = stageOrder;
             this.stageStatus = stageStatus;
             this.dueAt = dueAt;
+            this.requiredMaterials = requiredMaterials;
+            this.submitInstruction = submitInstruction;
+            this.submissionAllowed = submissionAllowed;
+            this.submissionBlockedReason = submissionBlockedReason;
+            this.reviewComment = reviewComment;
             this.materials = materials;
         }
 
@@ -113,6 +138,26 @@ public final class PartyDto {
             return dueAt;
         }
 
+        public List<String> getRequiredMaterials() {
+            return requiredMaterials;
+        }
+
+        public String getSubmitInstruction() {
+            return submitInstruction;
+        }
+
+        public boolean isSubmissionAllowed() {
+            return submissionAllowed;
+        }
+
+        public String getSubmissionBlockedReason() {
+            return submissionBlockedReason;
+        }
+
+        public String getReviewComment() {
+            return reviewComment;
+        }
+
         public List<MaterialView> getMaterials() {
             return materials;
         }
@@ -124,13 +169,23 @@ public final class PartyDto {
         private Long fileId;
         private String reviewStatus;
         private String submittedAt;
+        private String description;
+        private String reviewComment;
 
-        public MaterialView(Long materialId, String materialName, Long fileId, String reviewStatus, String submittedAt) {
+        public MaterialView(Long materialId,
+                            String materialName,
+                            Long fileId,
+                            String reviewStatus,
+                            String submittedAt,
+                            String description,
+                            String reviewComment) {
             this.materialId = materialId;
             this.materialName = materialName;
             this.fileId = fileId;
             this.reviewStatus = reviewStatus;
             this.submittedAt = submittedAt;
+            this.description = description;
+            this.reviewComment = reviewComment;
         }
 
         public Long getMaterialId() {
@@ -151,6 +206,14 @@ public final class PartyDto {
 
         public String getSubmittedAt() {
             return submittedAt;
+        }
+
+        public String getDescription() {
+            return description;
+        }
+
+        public String getReviewComment() {
+            return reviewComment;
         }
     }
 

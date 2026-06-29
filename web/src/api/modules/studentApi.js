@@ -1,5 +1,5 @@
 import client from "../client";
-import { batchRegisterStudents, updateProfile } from "../../mocks/server";
+import { updateProfile } from "../../mocks/server";
 
 export async function getMyProfile() {
   return client.get("/students/me/profile");
@@ -19,7 +19,7 @@ export async function getStudentList(params = {}) {
 }
 
 export async function batchRegisterStudentsApi(rows) {
-  return batchRegisterStudents(rows);
+  return client.post("/students/batch-register", { rows });
 }
 
 export async function updateMyProfileApi(payload) {

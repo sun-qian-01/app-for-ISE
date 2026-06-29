@@ -19,6 +19,7 @@ public final class NoticeDto {
         private String audience;
         private int deliveredCount;
         private int readCount;
+        private int unreadCount;
         private String publishAt;
         private String readStatus;
 
@@ -38,8 +39,9 @@ public final class NoticeDto {
             this.tags = tags;
             this.channelLabels = channelLabels;
             this.audience = audience;
-            this.deliveredCount = deliveredCount;
-            this.readCount = readCount;
+            this.readCount = Math.max(readCount, 0);
+            this.deliveredCount = Math.max(deliveredCount, this.readCount);
+            this.unreadCount = this.deliveredCount - this.readCount;
             this.publishAt = publishAt;
             this.readStatus = readStatus;
         }
@@ -74,6 +76,10 @@ public final class NoticeDto {
 
         public int getReadCount() {
             return readCount;
+        }
+
+        public int getUnreadCount() {
+            return unreadCount;
         }
 
         public String getPublishAt() {

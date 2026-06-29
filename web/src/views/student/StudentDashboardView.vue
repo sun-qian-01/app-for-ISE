@@ -11,7 +11,7 @@
         <PageHeader title="快捷办理" description="常用事项入口，可直接跳转办理。" />
         <div class="shortcut-grid">
           <RouterLink class="shortcut" to="/student/kb">政策问答</RouterLink>
-          <RouterLink class="shortcut" to="/student/party">提交党团材料</RouterLink>
+          <RouterLink class="shortcut" to="/student/party">查看党团流程</RouterLink>
           <RouterLink class="shortcut" to="/student/applications">申请在读证明</RouterLink>
           <RouterLink class="shortcut" to="/student/notices">查看定向通知</RouterLink>
         </div>

@@ -44,15 +44,23 @@
         <span>{{ row.tags.join("、") }}</span>
       </template>
     </DataTable>
+    <PaginationBar
+      v-if="!loading && !error && studentTotal > pageSize"
+      :page-no="pageNo"
+      :page-size="pageSize"
+      :total="studentTotal"
+      @change="changePage"
+    />
   </section>
 </template>
 
 <script setup>
-import { computed, onMounted, ref } from "vue";
+import { computed, onMounted, ref, watch } from "vue";
 import DataTable from "../../components/common/DataTable.vue";
 import ErrorState from "../../components/common/ErrorState.vue";
 import LoadingState from "../../components/common/LoadingState.vue";
 import PageHeader from "../../components/common/PageHeader.vue";
+import PaginationBar from "../../components/common/PaginationBar.vue";
 import SearchBar from "../../components/common/SearchBar.vue";
 import StatusTag from "../../components/common/StatusTag.vue";
 import { useAsyncPage } from "../../composables/useAsyncPage";
@@ -60,11 +68,21 @@ import { usePermission } from "../../composables/usePermission";
 import { batchRegisterStudentsApi, getStudentList } from "../../api/modules/studentApi";
 
 const items = ref([]);
+const studentTotal = ref(0);
+const pageNo = ref(1);
+const pageSize = 20;
 const keyword = ref("");
 const statusFilter = ref("all");
 const importFeedback = ref("");
 const { hasPermission } = usePermission();
-const { loading, error, run } = useAsyncPage(() => getStudentList({ pageNo: 1, pageSize: 100 }));
+const { loading, error, run } = useAsyncPage(() =>
+  getStudentList({
+    pageNo: pageNo.value,
+    pageSize,
+    keyword: keyword.value.trim() || undefined,
+    status: statusFilter.value === "all" ? undefined : statusFilter.value,
+  }),
+);
 
 const columns = [
   { key: "studentNo", label: "学号" },
@@ -90,17 +108,30 @@ onMounted(async () => {
   loadData();
 });
 
+watch([keyword, statusFilter], () => {
+  pageNo.value = 1;
+  loadData();
+});
+
 async function loadData() {
   try {
     const page = await run();
+    studentTotal.value = Number(page.total) || 0;
     items.value = (page.records || []).map((item) => ({
       studentNo: item.studentNo,
       name: item.name,
+      grade: item.grade,
+      major: item.major,
       className: item.className,
       statusText: item.status,
       tags: item.tags || [],
     }));
   } catch {}
+}
+
+async function changePage(nextPageNo) {
+  pageNo.value = nextPageNo;
+  await loadData();
 }
 
 async function handleImportFile(event) {
@@ -116,6 +147,7 @@ async function handleImportFile(event) {
       return;
     }
     const result = await batchRegisterStudentsApi(rows);
+    pageNo.value = 1;
     await loadData();
     importFeedback.value = `导入完成：成功 ${result.successCount} 人，跳过 ${result.skippedCount} 人，失败 ${result.failedCount} 人。${result.messages.slice(0, 3).join("；")}`;
   } catch (error) {
@@ -147,6 +179,9 @@ function parseCsv(text) {
       grade: row.grade,
       className: row.className,
       major: row.major,
+      phone: row.phone,
+      email: row.email,
+      politicalStatusLabel: row.politicalStatusLabel,
     };
   });
 }
@@ -195,6 +230,14 @@ function normalizeHeader(header) {
     class_name: "className",
     专业: "major",
     major: "major",
+    手机: "phone",
+    联系方式: "phone",
+    phone: "phone",
+    邮箱: "email",
+    email: "email",
+    政治面貌: "politicalStatusLabel",
+    politicalstatuslabel: "politicalStatusLabel",
+    political_status: "politicalStatusLabel",
   };
   return map[normalized] ?? normalized;
 }
