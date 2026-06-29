@@ -1,0 +1,150 @@
+src/main/java/com/ise/platform/modules/party/PartyDto.java
+  s_18c6c4bddbf47e::t_8636fd35a02396 20-21,37-44,84-88,97-101,109-113,141-160,172-181,187-188,210-217
+src/main/java/com/ise/platform/modules/party/PartyService.java
+  s_18c6c4bddbf47e::t_00baafd039ce5c 64,73-74
+  s_18c6c4bddbf47e::t_e78b51d3df7d10 23-36,111-114,120-122,126-127,213,231-235,237,244-287,349,367-373
+src/main/java/com/ise/platform/modules/file/FileService.java
+  s_18c6c4bddbf47e::t_2c4f0b3b68a070 57-60,63,66,72,121-123,130-132,136,143,150,155,158,161,164,194,237
+  s_18c6c4bddbf47e::t_3d84b8f612e1a9 133-135
+  s_18c6c4bddbf47e::t_3070158d0593de 137-142
+  s_18c6c4bddbf47e::t_aaf32d0dcaa6d6 144-149
+  s_18c6c4bddbf47e::t_8144c04daacfde 151-154
+  s_18c6c4bddbf47e::t_3c7123cbb3dcd9 156-157
+  s_18c6c4bddbf47e::t_7aef2a01d5e54f 159-160
+  s_18c6c4bddbf47e::t_30eec9d177c57c 162-163
+  s_18c6c4bddbf47e::t_0762584d0e2344 165-167,191-193
+  s_18c6c4bddbf47e::t_c749889760332f 195-197,234-236
+  s_18c6c4bddbf47e::t_50c3f79db8a2dd 238-240
+  s_18c6c4bddbf47e::t_a47f3ea5843803 10,12,18-19,168-190,198-233,241-273
+src/test/java/com/ise/platform/modules/dashboard/DashboardServiceTest.java
+  s_18c6c4bddbf47e::t_42e5cd116b168d 3-227
+  s_18c6c4bddbf47e::t_e6e1ff83b54a7f 1-2
+  s_18c6c4bddbf47e::t_89a015ef9bf27d 228
+web/src/views/student/StudentDashboardView.vue
+  s_18c6c4bddbf47e::t_7a72939e76e238 14
+src/main/java/com/ise/platform/modules/dashboard/DashboardService.java
+  s_18c6c4bddbf47e::t_cd9e726277b8ce 6,8-11,13,15-17,22-23,33-34,36,44,46-49,74-87,92,98-100,107,111,115-240,249,253-254
+  s_18c6c4bddbf47e::t_7248bf9c0a3019 241-243,246-248
+  s_18c6c4bddbf47e::t_07e828a2514536 250-252
+  s_18c6c4bddbf47e::t_7fb2fd669c802f 244-245
+src/test/java/com/ise/platform/modules/file/FileServiceTest.java
+  s_18c6c4bddbf47e::t_b7d43580532120 23,33
+  s_18c6c4bddbf47e::t_a8ef148ca13f16 41,48,50,57,59,66,68-87
+  s_18c6c4bddbf47e::t_2ae3c033d3fefd 42-47
+  s_18c6c4bddbf47e::t_14801538b1f7c0 49
+  s_18c6c4bddbf47e::t_6f139b3c9470e0 51-56
+  s_18c6c4bddbf47e::t_229784eb322fdc 58
+  s_18c6c4bddbf47e::t_2caf8ac6b5a12d 60-65
+  s_18c6c4bddbf47e::t_0b7b4bc0fd1004 67
+src/test/java/com/ise/platform/modules/party/PartyServiceTest.java
+  s_18c6c4bddbf47e::t_f89261ebf71e9f 46,52-87,102-112,114
+  s_18c6c4bddbf47e::t_d446a2cefc6f27 113
+web/src/styles/main.css
+  s_18c6c4bddbf47e::t_442bd0d9960781 153,579-590,752,762,801-802,808,814
+  s_18c6c4bddbf47e::t_546197d925f1c1 151-152
+  s_18c6c4bddbf47e::t_5e7ac5aff4eaa9 154
+  s_18c6c4bddbf47e::t_62d30744b9cf34 751
+  s_18c6c4bddbf47e::t_8881a1bfad660b 753-755,759-761
+  s_18c6c4bddbf47e::t_468ac4379423a8 763-765
+  s_18c6c4bddbf47e::t_650ee4c7fb7ee0 798-800
+  s_18c6c4bddbf47e::t_b86fb5d4eb7944 803-807
+  s_18c6c4bddbf47e::t_edf474fedfa4b6 809-813
+  s_18c6c4bddbf47e::t_8aa368aa73a162 815
+  s_18c6c4bddbf47e::t_dce0eb2c74895b 219-220,243,269,756-758,766-768,791-797
+web/src/views/student/StudentPartyView.vue
+  s_18c6c4bddbf47e::t_addd939f3f0f6c 7-18,26-28,33-35,37-38,40-65
+src/test/java/com/ise/platform/modules/ApiIntegrationTest.java
+  s_18c6c4bddbf47e::t_f9b46702239b05 658-660
+  s_18c6c4bddbf47e::t_0562e824cc91ab 14,43-45,48-52,74-172,190-229,361-389,420-495
+docs/api.md
+  s_18c6c4bddbf47e::t_a8898c62c36b66 559-564,597
+src/main/java/com/ise/platform/common/security/AuthFilter.java
+  s_18c6c4bddbf47e::t_c8245ccccfe8ad 35
+src/main/java/com/ise/platform/modules/application/ApplicationDto.java
+  s_18c6c4bddbf47e::t_960ee7b0520dfd 77,86-87,96,130-133,226,239,251,292-295,305-328
+src/main/java/com/ise/platform/modules/application/ApplicationService.java
+  s_18c6c4bddbf47e::t_0da636ecca2775 54,116,126-127,188,388,397-398,449-478
+src/main/java/com/ise/platform/modules/audit/AuditLogController.java
+  s_18c6c4bddbf47e::t_e603a81d098b5d 1-26
+src/main/java/com/ise/platform/modules/audit/AuditLogDto.java
+  s_18c6c4bddbf47e::t_60617bc5cfa262 1-46
+src/main/java/com/ise/platform/modules/audit/AuditLogService.java
+  s_18c6c4bddbf47e::t_626f462062cbe8 1-70
+src/main/java/com/ise/platform/modules/auth/AuthController.java
+  s_18c6c4bddbf47e::t_8ca7ca159df9c3 30-34,41-47
+src/main/java/com/ise/platform/modules/auth/AuthDto.java
+  s_18c6c4bddbf47e::t_b1921d2af0c4b9 5,56-194
+src/main/java/com/ise/platform/modules/auth/AuthService.java
+  s_18c6c4bddbf47e::t_edd2ea9b81c39b 7,10,48,51,53,84-173,223-235
+src/main/java/com/ise/platform/modules/honor/HonorService.java
+  s_18c6c4bddbf47e::t_64cb19fe5f538b 4,7,10,22-47,51-52,54-55,61,64-67,75-103,105
+src/main/java/com/ise/platform/modules/notice/NoticeDto.java
+  s_18c6c4bddbf47e::t_99d67fa202569b 22,42-44,81-84
+src/main/java/com/ise/platform/modules/notice/NoticeService.java
+  s_18c6c4bddbf47e::t_a0b0f21341bd6b 7,12-13,18,21-23,29,32,34,36,48,50,63,66-70,72-74,121,149,156-160,172-173,180,188,195,202,207-208,212-214,217-220,249,252,260,262-265,285-389,429-440
+src/main/java/com/ise/platform/modules/student/StudentController.java
+  s_18c6c4bddbf47e::t_9da61c2a4a9d54 54-55,59,91-96
+src/main/java/com/ise/platform/modules/student/StudentDto.java
+  s_18c6c4bddbf47e::t_3e213af47cac92 449-565
+src/main/java/com/ise/platform/modules/student/StudentService.java
+  s_18c6c4bddbf47e::t_95036aaa36ea88 8-9,49,51,61-66,95-121,167-168,172,175-178,335-415,450-451,454,475-499
+src/main/resources/db/data-h2.sql
+  s_18c6c4bddbf47e::t_ccaa252242d443 142-147
+src/main/resources/db/schema-h2.sql
+  s_18c6c4bddbf47e::t_3094018a8cdb84 136-145,166
+src/test/java/com/ise/platform/modules/honor/HonorServiceTest.java
+  s_18c6c4bddbf47e::t_17c78fca7c2040 1-148
+src/test/java/com/ise/platform/modules/notice/NoticeServiceTest.java
+  s_18c6c4bddbf47e::t_ef49531ebac669 6,18,26,28-40,67-79,82-89,94-95,97,108-237,258-296
+src/test/java/com/ise/platform/modules/student/StudentServiceTest.java
+  s_18c6c4bddbf47e::t_e35de7f7cd8dd1 48,54,57,60-61,65,68-69
+web/src/api/modules/applicationApi.js
+  s_18c6c4bddbf47e::t_7560a38551081c 15-18
+web/src/api/modules/auditApi.js
+  s_18c6c4bddbf47e::t_5414e09133bb7a 1-2,4
+web/src/api/modules/authApi.js
+  s_18c6c4bddbf47e::t_57796342db204b 19-29,33-36
+web/src/api/modules/studentApi.js
+  s_18c6c4bddbf47e::t_079e82129acaff 2,22
+web/src/utils/status.js
+  s_18c6c4bddbf47e::t_d8e87a47fe66e6 3-4,11,14-15
+web/src/views/LoginView.vue
+  s_18c6c4bddbf47e::t_caa656bfaf6141 43-52,191-194,221-224
+web/src/views/admin/AdminApplicationsView.vue
+  s_18c6c4bddbf47e::t_b60fd8827efeb8 38,41-44,50,53-59,65-66,68-107,110,116,132,136-137,144-148,167-168,178,188-214
+web/src/views/admin/AdminKnowledgeView.vue
+  s_18c6c4bddbf47e::t_f6f28cf7bd1b08 41-47,103,106,108,111,132,143-145,159,162,178-186,193,195,200-204
+web/src/views/admin/AdminNoticesView.vue
+  s_18c6c4bddbf47e::t_e335dcb2734d16 7,15-17,49,52-58,121,129-131,142,144,148,157-158,173-188,192-209,255
+web/src/views/admin/AdminStudentsView.vue
+  s_18c6c4bddbf47e::t_e2eb450e5c5e86 47-53,58,63,71-73,78-85,111-115,119,123-124,132-136,150,182-184,233-240
+web/src/views/shared/NoticeDetailView.vue
+  s_18c6c4bddbf47e::t_71cb7bb661e4ef 18-19,69-70,115-118,125-137
+web/src/views/student/StudentApplicationsView.vue
+  s_18c6c4bddbf47e::t_c5bca5f1989403 82-88,100,113-115,125,143,158-162,193
+web/src/views/student/StudentKnowledgeView.vue
+  s_18c6c4bddbf47e::t_b1925323e2065a 88,92,94,97,135-141,155,188-190,195,198,214-222,229,231,236-240
+web/src/views/student/StudentNoticesView.vue
+  s_18c6c4bddbf47e::t_c2ce43d8979ad1 5,27,49,52-58,69,77-79,82,104,115,120-137,148
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.3",
+  "base_commit_sha": "537fb43bc8da2fcbaccd7f9f4e91cd6b8c83cae9",
+  "prompts": {},
+  "humans": {
+    "h_0c75c136d3f2b6": {
+      "author": "liufanshuo <3049978388@qq.com>"
+    }
+  },
+  "sessions": {
+    "s_18c6c4bddbf47e": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "019f11da-602d-78f1-8812-e9209407146f",
+        "model": "gpt-5.5"
+      },
+      "human_author": "liufanshuo <3049978388@qq.com>"
+    }
+  }
+}
