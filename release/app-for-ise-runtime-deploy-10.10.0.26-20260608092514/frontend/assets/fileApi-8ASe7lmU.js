@@ -1,1 +1,0 @@
-import{o as e}from"./index-DlxrupD9.js";async function t(t,n){let r=new FormData;return r.append(`file`,t),e.post(`/files/upload`,r,{params:{bizType:n},headers:{"Content-Type":`multipart/form-data`}})}export{t};

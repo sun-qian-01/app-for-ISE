@@ -11,7 +11,6 @@
       <section class="panel auth-panel">
         <div class="section-head">
           <h2>{{ mode === "login" ? "账号登录" : "学生注册" }}</h2>
-          <span class="pill">{{ mode === "login" ? "POST /api/v1/auth/login" : "POST /api/v1/auth/register" }}</span>
         </div>
         <div class="segmented">
           <button :class="{ 'is-active': mode === 'login' }" type="button" @click="switchMode('login')">登录</button>

@@ -145,6 +145,11 @@ make_bundle() {
   else
     cat > "${bundle_dir}/config/app.env" <<'EOF'
 RAG_ENABLED=true
+CODEX_QA_ENABLED=true
+CODEX_QA_COMMAND=codex
+CODEX_QA_MODEL=gpt-5.4-mini
+CODEX_QA_WORKDIR=/opt/app-for-ise
+CODEX_QA_TIMEOUT_MS=180000
 RAG_LLM_BASE_URL=https://gmn.chuangzuoli.com/v1
 RAG_LLM_API_KEY=
 RAG_LLM_MODEL=gpt-5.4
@@ -162,7 +167,7 @@ EOF
 # Runtime Deployment Guide
 
 1) 将整个目录上传到部署服务器（例如 `/tmp/app-for-ise-runtime-*`）。
-2) 检查 `config/app.env`，确认 RAG_LLM_API_KEY 已设置。进入目录后执行：
+2) 检查 `config/app.env`，确认目标机 Codex 配置可用；若需要保留 API 降级链路，也确认 RAG_LLM_API_KEY 已设置。进入目录后执行：
 
 ```bash
 ./scripts/runtime-install.sh --public-ip <部署机IP>

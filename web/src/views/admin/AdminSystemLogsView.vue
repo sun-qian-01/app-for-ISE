@@ -1,6 +1,6 @@
 <template>
   <section class="panel">
-    <PageHeader title="系统日志" api="GET /system-logs">
+    <PageHeader title="系统日志">
       <template #actions>
         <StatusTag v-if="canViewStack" label="具备查看堆栈权限" tone="success" />
         <StatusTag v-else label="当前仅展示摘要日志" tone="warn" />
@@ -24,7 +24,7 @@
         :key="item.requestId"
         :meta="`${item.levelLabel} · ${item.module} · ${item.requestId}`"
         :title="item.message"
-        :description="item.path"
+        :description="`模块：${item.module}`"
         :tone="item.levelLabel === '错误' ? 'current' : item.levelLabel === '警告' ? 'warn' : 'success'"
       >
         <template #extra>

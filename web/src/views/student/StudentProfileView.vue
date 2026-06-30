@@ -3,7 +3,7 @@
     <section class="panel">
       <PageHeader title="基础档案">
         <template #meta>
-          <StatusTag label="敏感字段脱敏" tone="success" />
+          <StatusTag tone="success" />
         </template>
       </PageHeader>
       <LoadingState v-if="loading" text="基础档案加载中..." />
@@ -31,7 +31,7 @@
       </div>
     </section>
     <section class="panel">
-      <PageHeader title="联系方式维护" api="PUT /students/me/profile" />
+      <PageHeader title="联系方式维护" />
       <form class="form" @submit.prevent="handleProfileSave">
         <label>
           <span>联系方式</span>
@@ -52,7 +52,7 @@
       <p v-if="profileFeedback" class="feedback">{{ profileFeedback }}</p>
     </section>
     <section class="panel">
-      <PageHeader title="修改密码" api="POST /auth/password" />
+      <PageHeader title="修改密码" />
       <form class="form" @submit.prevent="handlePasswordChange">
         <label>
           <span>原密码</span>

@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.Locale;
 
 @Component
-public class LlmResponsesClient {
+public class LlmResponsesClient implements QaAnswerClient {
 
     private final RagHttpClient httpClient;
     private final ObjectMapper objectMapper;
@@ -24,6 +24,7 @@ public class LlmResponsesClient {
         this.properties = properties;
     }
 
+    @Override
     public String answer(String question,
                          List<KbDto.QaHistoryMessage> history,
                          List<RagChunk> evidence,
@@ -93,10 +94,11 @@ public class LlmResponsesClient {
     }
 
     private String buildDeveloperPrompt(boolean allowGeneralReply) {
+        String materialRules = "材料使用规则：知识库证据来自平台已处理的 material/ 原始材料，包括培养方案、综合类政策 PDF、党员证明和团员证明模板等；回答时以证据里的标题、分类、来源文件和内容为依据。不要向用户暴露 Codex、模型名、降级链路、内部路径或工具调用细节，统一以“学院知识库助手”身份回答。若证据没有给出精确时间、学分、课程号、名额等细节，必须说明条目未提供该细节，并建议查看依据来源或咨询学院老师。模板类材料只说明用途、填写要点和下载使用方式，不要把模板字段推断成正式审批结论。";
         if (allowGeneralReply) {
-            return "你是学院知识库助手。当前没有可引用的知识库证据时，也要直接回答用户的一般问题或解释性问题；如果用户询问具体学院政策、流程、时间、材料且缺少证据，必须说明未检索到可靠依据，并给出需要补充的关键词或建议咨询学院老师。回答简洁，不要输出思考过程。";
+            return "你是学院知识库助手。当前没有可引用的知识库证据时，也要直接回答用户的一般问题或解释性问题；如果用户询问具体学院政策、流程、时间、材料且缺少证据，必须说明未检索到可靠依据，并给出需要补充的关键词或建议咨询学院老师。回答简洁，不要输出思考过程。" + materialRules;
         }
-        return "你是学院知识库问答助手。政策、流程、时间、材料等内容必须仅基于证据回答；证据不足时必须说明条目未提供该细节，不要编造。若问题同时询问你的身份，可以说明你是学院知识库助手。请直接给最终回答，不要输出思考过程。";
+        return "你是学院知识库问答助手。政策、流程、时间、材料等内容必须仅基于证据回答；证据不足时必须说明条目未提供该细节，不要编造。若问题同时询问你的身份，可以说明你是学院知识库助手。请直接给最终回答，不要输出思考过程。" + materialRules;
     }
 
     private String buildUserPrompt(String question, List<RagChunk> evidence, boolean allowGeneralReply) {
@@ -112,6 +114,10 @@ public class LlmResponsesClient {
                 .append(String.format("%.3f", chunk.score()))
                 .append("] ")
                 .append(chunk.title())
+                .append("\n分类：")
+                .append(chunk.categoryLabel())
+                .append("\n来源文件：")
+                .append(chunk.sourceFileName())
                 .append("\n")
                 .append(chunk.text())
                 .append("\n\n");

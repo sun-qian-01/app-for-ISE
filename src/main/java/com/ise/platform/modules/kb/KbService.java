@@ -4,7 +4,7 @@ import com.ise.platform.common.api.PagedData;
 import com.ise.platform.common.error.BusinessException;
 import com.ise.platform.common.error.ErrorCode;
 import com.ise.platform.common.security.CurrentUser;
-import com.ise.platform.modules.kb.rag.LlmResponsesClient;
+import com.ise.platform.modules.kb.rag.QaAnswerClient;
 import com.ise.platform.modules.kb.rag.RagChunk;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -33,11 +33,11 @@ public class KbService {
     private static final int MAX_KEYWORD_CONTEXT_ARTICLES = 5;
 
     private final JdbcTemplate jdbcTemplate;
-    private final LlmResponsesClient llmResponsesClient;
+    private final QaAnswerClient qaAnswerClient;
 
-    public KbService(JdbcTemplate jdbcTemplate, LlmResponsesClient llmResponsesClient) {
+    public KbService(JdbcTemplate jdbcTemplate, QaAnswerClient qaAnswerClient) {
         this.jdbcTemplate = jdbcTemplate;
-        this.llmResponsesClient = llmResponsesClient;
+        this.qaAnswerClient = qaAnswerClient;
     }
 
     public PagedData<KbDto.ArticleView> listArticles(CurrentUser user,
@@ -179,9 +179,6 @@ public class KbService {
     public KbDto.QaResponse qa(KbDto.QaRequest request) {
         String normalizedQuestion = request.getQuestion().trim();
         String generalReply = generalReply(normalizedQuestion);
-        if (generalReply != null && isPureGeneralQuestion(normalizedQuestion)) {
-            return new KbDto.QaResponse(generalReply, List.of(), 0.98);
-        }
 
         String question = buildSearchText(normalizedQuestion, request.getHistory()).toLowerCase(Locale.ROOT);
         List<ArticleQaView> candidates = jdbcTemplate.query(
@@ -206,8 +203,12 @@ public class KbService {
             .limit(MAX_KEYWORD_CONTEXT_ARTICLES)
             .toList();
         matchedArticles = narrowCertificateMatches(question, matchedArticles);
+        matchedArticles = narrowMaterialMatches(question, matchedArticles);
 
         if (matchedArticles.isEmpty()) {
+            if (generalReply != null && isPureGeneralQuestion(normalizedQuestion)) {
+                return new KbDto.QaResponse(generalReply, List.of(), 0.98);
+            }
             String answer = safeAiAnswer(normalizedQuestion, request.getHistory(), List.of(), true);
             if (StringUtils.hasText(answer) && !"未检索到可靠依据".equals(answer)) {
                 return new KbDto.QaResponse(answer, List.of(), 0.25);
@@ -366,6 +367,18 @@ public class KbService {
         if (text.contains("团员") || text.contains("入团")) {
             terms.addAll(List.of("团员", "团员证明", "党团"));
         }
+        if (text.contains("培养方案") || text.contains("培养计划") || text.contains("课程") || text.contains("学分") || text.contains("辅修")) {
+            terms.addAll(List.of("培养方案", "培养计划", "课程", "课程地图", "学分", "辅修", "选课"));
+            if (text.contains("2024")) {
+                terms.addAll(List.of("2024级", "2024级大类培养方案"));
+            }
+            if (text.contains("2025")) {
+                terms.addAll(List.of("2025级", "2025级大类培养方案"));
+            }
+        }
+        if (text.contains("综合类") || text.contains("学院政策") || text.contains("办理窗口") || text.contains("信息学院")) {
+            terms.addAll(List.of("综合类", "学院政策", "办理窗口", "通知", "信息学院"));
+        }
         if (text.contains("奖学金") || text.contains("国奖")) {
             terms.addAll(List.of("国家奖学金", "奖学金", "评定", "材料"));
         }
@@ -412,6 +425,68 @@ public class KbService {
         return text.contains("证明") || text.contains("开具") || text.contains("模板");
     }
 
+    private List<ScoredArticle> narrowMaterialMatches(String question, List<ScoredArticle> articles) {
+        if (articles.isEmpty()) {
+            return articles;
+        }
+        String text = normalizeText(question);
+        if (isProgramPlanQuestion(text)) {
+            List<ScoredArticle> narrowed = articles.stream()
+                .filter(item -> articleText(item.article()).contains("培养方案"))
+                .toList();
+            if (text.contains("2024")) {
+                narrowed = narrowed.stream()
+                    .filter(item -> articleText(item.article()).contains("2024"))
+                    .toList();
+            } else if (text.contains("2025")) {
+                narrowed = narrowed.stream()
+                    .filter(item -> articleText(item.article()).contains("2025"))
+                    .toList();
+            }
+            return narrowed.isEmpty() ? articles : narrowed.stream().limit(MAX_KEYWORD_CONTEXT_ARTICLES).toList();
+        }
+        if (isComprehensivePolicyQuestion(text)) {
+            List<ScoredArticle> narrowed = articles.stream()
+                .filter(item -> {
+                    String articleText = articleText(item.article());
+                    return articleText.contains("综合类") || articleText.contains("学院政策");
+                })
+                .toList();
+            return narrowed.isEmpty() ? articles : narrowed.stream().limit(MAX_KEYWORD_CONTEXT_ARTICLES).toList();
+        }
+        return articles;
+    }
+
+    private boolean isProgramPlanQuestion(String text) {
+        return text.contains("培养方案")
+            || text.contains("培养计划")
+            || text.contains("课程")
+            || text.contains("学分")
+            || text.contains("辅修")
+            || text.contains("选课");
+    }
+
+    private boolean isComprehensivePolicyQuestion(String text) {
+        return text.contains("综合类")
+            || text.contains("学院政策")
+            || text.contains("办理窗口")
+            || text.contains("信息学院");
+    }
+
+    private String articleText(ArticleQaView article) {
+        return normalizeText(article.title())
+            + " "
+            + normalizeText(article.summary())
+            + " "
+            + normalizeText(article.categoryLabel())
+            + " "
+            + normalizeText(article.standardAnswer())
+            + " "
+            + normalizeText(article.sourceFileName())
+            + " "
+            + String.join(" ", article.keywords().stream().map(this::normalizeText).toList());
+    }
+
     private void addNgrams(Set<String> terms, String token) {
         int[] codePoints = token.codePoints().toArray();
         if (codePoints.length <= 2) {
@@ -430,13 +505,13 @@ public class KbService {
                                 List<RagChunk> evidence,
                                 boolean allowGeneralReply) {
         try {
-            String answer = llmResponsesClient.answer(question, history, evidence, allowGeneralReply);
+            String answer = qaAnswerClient.answer(question, history, evidence, allowGeneralReply);
             String normalizedAnswer = StringUtils.hasText(answer) ? answer.trim() : "";
-            log.info("kb qa llm completed, evidenceCount={}, allowGeneralReply={}, answerPresent={}",
+            log.info("kb qa ai completed, evidenceCount={}, allowGeneralReply={}, answerPresent={}",
                 evidence.size(), allowGeneralReply, StringUtils.hasText(normalizedAnswer));
             return normalizedAnswer;
         } catch (RuntimeException ex) {
-            log.warn("kb qa llm failed, evidenceCount={}, allowGeneralReply={}, reason={}",
+            log.warn("kb qa ai failed, evidenceCount={}, allowGeneralReply={}, reason={}",
                 evidence.size(), allowGeneralReply, ex.getMessage());
             return "";
         }
@@ -467,12 +542,14 @@ public class KbService {
         return """
             标题：%s
             分类：%s
+            来源文件：%s
             摘要：%s
             内容：%s
             关键词：%s
             """.formatted(
             article.title(),
             article.categoryLabel(),
+            article.sourceFileName(),
             article.summary(),
             article.standardAnswer(),
             String.join("、", article.keywords())

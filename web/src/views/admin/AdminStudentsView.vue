@@ -1,6 +1,6 @@
 <template>
   <section class="panel">
-    <PageHeader title="学生画像管理" api="GET /students">
+    <PageHeader title="学生画像管理">
       <template #actions>
         <StatusTag v-if="canViewSensitive" label="具备敏感字段查看权限" tone="success" />
         <StatusTag v-else label="当前仅展示摘要信息" tone="warn" />

@@ -101,7 +101,9 @@ public class KbIndexerService {
     private String buildIndexText(KbArticleDocument article) {
         StringBuilder builder = new StringBuilder();
         append(builder, "标题", article.title());
+        append(builder, "分类", article.categoryLabel());
         append(builder, "摘要", article.summary());
+        append(builder, "来源文件", article.sourceFileName());
         append(builder, "关键词", article.keywords());
         append(builder, "正文", article.standardAnswer());
         return builder.toString();

@@ -4,7 +4,6 @@
       <PageHeader
         title="提交院内申请"
         description="填写申请类型、用途和补充说明，可上传附件，提交后进入老师审批流程。"
-        api="POST /applications"
       />
 
       <form class="form" @submit.prevent="handleCreate">

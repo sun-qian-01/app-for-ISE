@@ -4,3 +4,7 @@
 *.local
 scripts/.env.rag.local
 .local-runtime/
+docs/*.pptx
+docs/*.docx
+release/
+ICS2-13-Network-复习讲解.html

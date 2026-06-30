@@ -193,6 +193,11 @@ deploy_env() {
     tmp="$(mktemp)"
     cat > "${tmp}" <<'EOF'
 RAG_ENABLED=true
+CODEX_QA_ENABLED=true
+CODEX_QA_COMMAND=codex
+CODEX_QA_MODEL=gpt-5.4-mini
+CODEX_QA_WORKDIR=/opt/app-for-ise
+CODEX_QA_TIMEOUT_MS=180000
 RAG_LLM_BASE_URL=https://gmn.chuangzuoli.com/v1
 RAG_LLM_API_KEY=
 RAG_LLM_MODEL=gpt-5.4

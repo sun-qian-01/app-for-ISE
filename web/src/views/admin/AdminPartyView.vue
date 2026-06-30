@@ -2,7 +2,6 @@
   <section class="panel">
     <PageHeader
       title="党团流程管理"
-      api="GET /party/todos"
       description="展示待审核阶段，并支持通过/驳回处理。"
     />
 

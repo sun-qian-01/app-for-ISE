@@ -7,7 +7,7 @@
       <MetricCard label="风险预警" :value="data.riskCount" />
     </div>
     <section class="panel">
-      <PageHeader title="业务看板" api="GET /dashboard/admin" />
+      <PageHeader title="业务看板" />
       <div class="info-list">
         <div v-for="[label, value] in data.board" :key="label">
           <span>{{ label }}</span>

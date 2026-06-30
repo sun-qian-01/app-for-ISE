@@ -16,16 +16,16 @@ public class KbRagService {
     private final KbRagProperties properties;
     private final EmbeddingClient embeddingClient;
     private final QdrantClient qdrantClient;
-    private final LlmResponsesClient llmResponsesClient;
+    private final QaAnswerClient qaAnswerClient;
 
     public KbRagService(KbRagProperties properties,
                         EmbeddingClient embeddingClient,
                         QdrantClient qdrantClient,
-                        LlmResponsesClient llmResponsesClient) {
+                        QaAnswerClient qaAnswerClient) {
         this.properties = properties;
         this.embeddingClient = embeddingClient;
         this.qdrantClient = qdrantClient;
-        this.llmResponsesClient = llmResponsesClient;
+        this.qaAnswerClient = qaAnswerClient;
     }
 
     public boolean enabled() {
@@ -44,7 +44,7 @@ public class KbRagService {
         }
 
         List<RagChunk> evidence = chunks.subList(0, Math.min(properties.getMaxContextChunks(), chunks.size()));
-        String answer = llmResponsesClient.answer(question, history, evidence, false);
+        String answer = qaAnswerClient.answer(question, history, evidence, false);
         List<KbDto.QaSource> sources = toSources(chunks, properties.getMaxSources());
 
         double confidence = averageScore(evidence);
@@ -56,7 +56,7 @@ public class KbRagService {
     }
 
     private KbDto.QaResponse answerWithoutEvidence(String question, List<KbDto.QaHistoryMessage> history) {
-        String answer = llmResponsesClient.answer(question, history, List.of(), true);
+        String answer = qaAnswerClient.answer(question, history, List.of(), true);
         if (!StringUtils.hasText(answer)) {
             answer = "未检索到可靠依据";
             return new KbDto.QaResponse(answer, List.of(), 0.0);

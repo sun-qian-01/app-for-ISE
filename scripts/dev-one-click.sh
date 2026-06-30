@@ -40,6 +40,7 @@ FRONTEND_LOG="${RUN_DIR}/frontend.log"
 BACKEND_PORT="${BACKEND_PORT:-8080}"
 FRONTEND_PORT="${FRONTEND_PORT:-5173}"
 FRONTEND_HOST="${FRONTEND_HOST:-0.0.0.0}"
+FRONTEND_POLLING="${FRONTEND_POLLING:-true}"
 
 DEMO_KEY="sk-c324e1b52a086c8b595f7ba1f290683b4da37a2b75faaf779d4a674f9012c2c3"
 
@@ -125,6 +126,11 @@ load_env() {
   fi
 
   export RAG_ENABLED="${RAG_ENABLED:-true}"
+  export CODEX_QA_ENABLED="${CODEX_QA_ENABLED:-true}"
+  export CODEX_QA_COMMAND="${CODEX_QA_COMMAND:-codex}"
+  export CODEX_QA_MODEL="${CODEX_QA_MODEL:-gpt-5.4-mini}"
+  export CODEX_QA_WORKDIR="${CODEX_QA_WORKDIR:-${REPO_ROOT}}"
+  export CODEX_QA_TIMEOUT_MS="${CODEX_QA_TIMEOUT_MS:-180000}"
   export RAG_LLM_BASE_URL="${RAG_LLM_BASE_URL:-https://gmn.chuangzuoli.com/v1}"
   export RAG_LLM_MODEL="${RAG_LLM_MODEL:-gpt-5.4}"
   export RAG_LLM_API_KEY="${RAG_LLM_API_KEY:-${DEMO_KEY}}"
@@ -216,10 +222,10 @@ start_frontend() {
     (cd "${WEB_DIR}" && npm install)
   fi
 
-  log "启动前端（后台，host=${FRONTEND_HOST}, port=${FRONTEND_PORT}）..."
+  log "启动前端（后台，host=${FRONTEND_HOST}, port=${FRONTEND_PORT}, polling=${FRONTEND_POLLING}）..."
   (
     cd "${WEB_DIR}"
-    nohup npm run dev -- --host "${FRONTEND_HOST}" --port "${FRONTEND_PORT}" > "${FRONTEND_LOG}" 2>&1 &
+    nohup env CHOKIDAR_USEPOLLING="${FRONTEND_POLLING}" npm run dev -- --host "${FRONTEND_HOST}" --port "${FRONTEND_PORT}" > "${FRONTEND_LOG}" 2>&1 &
     echo $! > "${FRONTEND_PID_FILE}"
   )
   log "前端已启动，日志: ${FRONTEND_LOG}"

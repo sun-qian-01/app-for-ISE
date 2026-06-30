@@ -2,7 +2,6 @@
   <section class="panel">
     <div class="section-head">
       <h2>荣誉管理</h2>
-      <span class="pill">GET /honors</span>
     </div>
     <div class="grid grid--three">
       <article v-for="item in items" :key="item.id" class="card honor-card">
