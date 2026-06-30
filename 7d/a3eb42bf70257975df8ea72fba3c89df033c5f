@@ -1,0 +1,33 @@
+web/src/views/student/StudentPartyView.vue
+  s_18c6c4bddbf47e::t_089e6be5023522 11,15-31,38,42,45,48,58,66-67,70-71,74-75
+web/src/api/modules/partyApi.js
+  s_18c6c4bddbf47e::t_d8f272b1c44522 7-10
+src/main/java/com/ise/platform/modules/party/PartyService.java
+  s_18c6c4bddbf47e::t_e3d425b49bfec3 39,55-65,76-83,93-100,112-115,117,122-132,138,175,223,280,349-375,381,392,402
+src/main/java/com/ise/platform/modules/party/PartyDto.java
+  s_18c6c4bddbf47e::t_ff4df38e192f85 48,55-59,66-68
+  s_18c6c4bddbf47e::t_f1fba952be05d8 69
+src/test/java/com/ise/platform/modules/party/PartyServiceTest.java
+  s_18c6c4bddbf47e::t_486f61f3d82532 21-22,25-39
+web/src/styles/main.css
+  s_18c6c4bddbf47e::t_9184dba72108e6 559-588,596-609
+  s_18c6c4bddbf47e::t_f262c999343759 610
+src/main/java/com/ise/platform/modules/party/PartyController.java
+  s_18c6c4bddbf47e::t_e6102b7f666909 39-44
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.3",
+  "base_commit_sha": "7da3eb42bf70257975df8ea72fba3c89df033c5f",
+  "prompts": {},
+  "sessions": {
+    "s_18c6c4bddbf47e": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "019f11da-602d-78f1-8812-e9209407146f",
+        "model": "gpt-5.5"
+      },
+      "human_author": "liufanshuo <3049978388@qq.com>"
+    }
+  }
+}
