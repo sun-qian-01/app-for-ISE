@@ -43,11 +43,48 @@ class PartyServiceTest {
         PartyDto.MaterialSubmitRequest request = new PartyDto.MaterialSubmitRequest();
         request.setMaterialName("季度思想汇报补交");
         request.setFileId(88L);
+        request.setDescription("补交本季度思想汇报");
 
         PartyDto.MaterialView view = partyService.submitMaterial(user, 1003L, request);
         assertThat(view.getMaterialId()).isNotNull();
         assertThat(view.getMaterialName()).isEqualTo("季度思想汇报补交");
         assertThat(view.getReviewStatus()).isEqualTo("pending");
+        assertThat(view.getDescription()).isEqualTo("补交本季度思想汇报");
+    }
+
+    @Test
+    void myInstanceShouldExposeCurrentStageMaterialSubmissionInfo() {
+        CurrentUser user = studentUser(1L, "20220001");
+
+        PartyDto.PartyInstanceView view = partyService.myInstance(user);
+        PartyDto.StageView currentStage = view.getStages().stream()
+            .filter(stage -> view.getCurrentStageCode().equals(stage.getStageCode()))
+            .findFirst()
+            .orElseThrow();
+
+        assertThat(currentStage.getStageName()).isEqualTo("预备党员");
+        assertThat(currentStage.isSubmissionAllowed()).isTrue();
+        assertThat(currentStage.getRequiredMaterials()).contains("季度思想汇报");
+        assertThat(currentStage.getSubmitInstruction()).contains("思想汇报");
+    }
+
+    @Test
+    void rejectedStageShouldExposeReturnReasonAndAllowResubmit() {
+        CurrentUser teacher = teacherUser();
+        PartyDto.PartyReviewRequest reviewRequest = new PartyDto.PartyReviewRequest();
+        reviewRequest.setAction("reject");
+        reviewRequest.setComment("材料需补充，请按清单补正后重提");
+
+        partyService.reviewStage(teacher, 1003L, reviewRequest);
+        PartyDto.PartyInstanceView view = partyService.myInstance(studentUser(1L, "20220001"));
+        PartyDto.StageView currentStage = view.getStages().stream()
+            .filter(stage -> stage.getStageRecordId().equals(1003L))
+            .findFirst()
+            .orElseThrow();
+
+        assertThat(currentStage.getStageStatus()).isEqualTo("returned");
+        assertThat(currentStage.isSubmissionAllowed()).isTrue();
+        assertThat(currentStage.getReviewComment()).isEqualTo("材料需补充，请按清单补正后重提");
     }
 
     private CurrentUser studentUser(Long studentId, String username) {
@@ -60,6 +97,19 @@ class PartyServiceTest {
             List.of("party:material:self:submit"),
             List.of(new DataScope("self", String.valueOf(studentId))),
             studentId
+        );
+    }
+
+    private CurrentUser teacherUser() {
+        return new CurrentUser(
+            8L,
+            "teacher001",
+            "李老师",
+            "teacher",
+            List.of("teacher_admin"),
+            List.of("party:instance:scope:view", "party:todo:remind"),
+            List.of(new DataScope("class", "软件工程2班")),
+            null
         );
     }
 }

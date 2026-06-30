@@ -32,7 +32,7 @@ public class AuthFilter extends OncePerRequestFilter {
                                     HttpServletResponse response,
                                     FilterChain filterChain) throws ServletException, IOException {
         String path = request.getRequestURI();
-        if (!path.startsWith("/api/v1") || path.equals("/api/v1/auth/login")) {
+        if (!path.startsWith("/api/v1") || path.equals("/api/v1/auth/login") || path.equals("/api/v1/auth/register")) {
             filterChain.doFilter(request, response);
             return;
         }

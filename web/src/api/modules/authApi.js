@@ -1,5 +1,4 @@
 import client from "../client";
-import { changePassword, registerStudent } from "../../mocks/server";
 
 export async function loginApi(payload) {
   return client.post("/auth/login", {
@@ -17,9 +16,22 @@ export async function logoutApi() {
 }
 
 export async function registerStudentApi(payload) {
-  return registerStudent(payload);
+  return client.post("/auth/register", {
+    studentNo: payload.studentNo,
+    name: payload.name,
+    grade: payload.grade,
+    major: payload.major,
+    className: payload.className,
+    phone: payload.phone,
+    email: payload.email,
+    politicalStatusLabel: payload.politicalStatusLabel,
+    password: payload.password,
+  });
 }
 
 export async function changePasswordApi(payload) {
-  return changePassword(payload);
+  return client.post("/auth/password", {
+    oldPassword: payload.oldPassword,
+    newPassword: payload.newPassword,
+  });
 }

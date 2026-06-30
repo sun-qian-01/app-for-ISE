@@ -51,11 +51,12 @@ public class StudentController {
         @RequestParam(required = false) String politicalStatus,
         @RequestParam(required = false) String status,
         @RequestParam(required = false) Long tagId,
-        @RequestParam(required = false) Boolean isGraduating
+        @RequestParam(required = false) Boolean isGraduating,
+        @RequestParam(required = false) String keyword
     ) {
         CurrentUser user = AuthContext.requireUser();
         return ApiResponse.success(studentService.listStudents(
-            user, pageNo, pageSize, name, studentNo, grade, major, className, politicalStatus, status, tagId, isGraduating
+            user, pageNo, pageSize, name, studentNo, grade, major, className, politicalStatus, status, tagId, isGraduating, keyword
         ));
     }
 
@@ -85,6 +86,12 @@ public class StudentController {
                                                             @Valid @RequestBody StudentDto.UpdateTagsRequest request) {
         CurrentUser user = AuthContext.requireUser();
         return ApiResponse.success(studentService.updateTags(user, studentId, request));
+    }
+
+    @PostMapping("/batch-register")
+    public ApiResponse<StudentDto.BatchRegisterStudentResponse> batchRegister(@RequestBody StudentDto.BatchRegisterStudentRequest request) {
+        CurrentUser user = AuthContext.requireUser();
+        return ApiResponse.success(studentService.batchRegisterStudents(user, request));
     }
 
     @PostMapping("/import-tasks")

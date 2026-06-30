@@ -556,6 +556,12 @@
 - `readStatus`
 - `tag`
 
+通知列表和详情返回 `deliveredCount`、`readCount`、`unreadCount`：
+
+- `deliveredCount`：通知总人数，保留兼容字段。
+- `readCount`：已读人数。
+- `unreadCount`：未读人数，满足 `unreadCount + readCount = deliveredCount`。
+
 ### 10.2 标记已读
 
 `POST /notices/{noticeId}/read`
@@ -588,7 +594,7 @@
 后端职责：
 
 - 保存草稿或定时发布
-- 发布时计算接收人并写入 `msg_notice_user`
+- 发布时计算接收人，写入总人数、已读人数和未读人数统计
 - 记录每个渠道发送结果
 
 ### 10.5 通知管理分页

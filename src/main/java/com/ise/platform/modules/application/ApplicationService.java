@@ -51,7 +51,7 @@ public class ApplicationService {
 
         List<ApplicationDto.ApplicationView> records = jdbcTemplate.query("""
                 select a.id, a.application_no, a.application_type, a.title, a.purpose, a.status,
-                       coalesce(u.real_name, '-') as current_approver, a.submitted_at
+                       coalesce(u.real_name, '-') as current_approver, a.submitted_at, a.form_data_json
                   from biz_application a
                   left join sys_user u on u.id = a.current_approver_id
                  where a.is_deleted = 0
@@ -113,6 +113,7 @@ public class ApplicationService {
             throw new BusinessException(ErrorCode.FORBIDDEN, "no permission to view this application");
         }
 
+        Map<String, Object> formData = fromJson(entity.formDataJson());
         return new ApplicationDto.ApplicationDetailView(
             entity.id(),
             entity.applicationNo(),
@@ -122,7 +123,8 @@ public class ApplicationService {
             entity.status(),
             entity.currentApprover(),
             format(entity.submittedAt()),
-            fromJson(entity.formDataJson()),
+            formData,
+            attachmentFromFormData(formData),
             null,
             approvalRecords(applicationId)
         );
@@ -183,7 +185,7 @@ public class ApplicationService {
 
         List<ApplicationDto.ApplicationView> records = jdbcTemplate.query("""
                 select a.id, a.application_no, a.application_type, a.title, a.purpose, a.status,
-                       coalesce(u.real_name, '-') as current_approver, a.submitted_at
+                       coalesce(u.real_name, '-') as current_approver, a.submitted_at, a.form_data_json
                   from biz_application a
                   left join sys_user u on u.id = a.current_approver_id
                   left join stu_student s on s.id = a.student_id
@@ -383,6 +385,7 @@ public class ApplicationService {
     }
 
     private ApplicationDto.ApplicationView mapApplicationView(ResultSet rs, int rowNum) throws SQLException {
+        Map<String, Object> formData = fromJson(rs.getString("form_data_json"));
         return new ApplicationDto.ApplicationView(
             rs.getLong("id"),
             rs.getString("application_no"),
@@ -391,7 +394,8 @@ public class ApplicationService {
             rs.getString("purpose"),
             rs.getString("status"),
             rs.getString("current_approver"),
-            format(rs.getTimestamp("submitted_at"))
+            format(rs.getTimestamp("submitted_at")),
+            attachmentFromFormData(formData)
         );
     }
 
@@ -440,6 +444,36 @@ public class ApplicationService {
         } catch (Exception exception) {
             throw new BusinessException(ErrorCode.INTERNAL_ERROR, "stored formData is invalid");
         }
+    }
+
+    private ApplicationDto.AttachmentFile attachmentFromFormData(Map<String, Object> formData) {
+        Long fileId = longValue(formData.get("attachmentFileId"));
+        if (fileId == null) {
+            return null;
+        }
+        String fileName = stringValue(formData.get("attachmentFileName"));
+        if (!StringUtils.hasText(fileName)) {
+            fileName = "申请附件-" + fileId;
+        }
+        return new ApplicationDto.AttachmentFile(fileId, fileName);
+    }
+
+    private Long longValue(Object value) {
+        if (value instanceof Number number) {
+            return number.longValue();
+        }
+        if (value instanceof String text && StringUtils.hasText(text)) {
+            try {
+                return Long.valueOf(text.trim());
+            } catch (NumberFormatException ignored) {
+                return null;
+            }
+        }
+        return null;
+    }
+
+    private String stringValue(Object value) {
+        return value == null ? "" : String.valueOf(value);
     }
 
     private String format(Timestamp timestamp) {

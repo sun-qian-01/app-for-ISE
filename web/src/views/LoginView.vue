@@ -40,7 +40,16 @@
         <form v-else class="form" @submit.prevent="handleRegister">
           <label>
             <span>学号</span>
-            <input v-model="registerForm.studentNo" class="input" type="text" placeholder="请输入学号" />
+            <input
+              v-model="registerForm.studentNo"
+              class="input"
+              type="text"
+              inputmode="numeric"
+              maxlength="10"
+              pattern="\d{10}"
+              placeholder="请输入10位数字学号"
+              @input="normalizeStudentNo"
+            />
           </label>
           <label>
             <span>姓名</span>
@@ -179,6 +188,10 @@ async function handleRegister() {
     feedback.value = "请填写学号、姓名、年级、专业、班级和密码。";
     return;
   }
+  if (!/^\d{10}$/.test(registerForm.studentNo.trim())) {
+    feedback.value = "学号必须是10位数字。";
+    return;
+  }
   if (registerForm.password !== registerForm.confirmPassword) {
     feedback.value = "两次输入的密码不一致。";
     return;
@@ -204,5 +217,9 @@ async function handleRegister() {
   } catch (error) {
     feedback.value = error.message || "注册失败，请稍后重试。";
   }
+}
+
+function normalizeStudentNo() {
+  registerForm.studentNo = registerForm.studentNo.replace(/\D/g, "").slice(0, 10);
 }
 </script>

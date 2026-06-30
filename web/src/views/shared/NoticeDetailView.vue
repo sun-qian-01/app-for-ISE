@@ -15,7 +15,8 @@
     <div v-else class="stack">
       <div class="info-list">
         <div><span>发布时间</span><strong>{{ notice.publishAt || "-" }}</strong></div>
-        <div><span>触达人数</span><strong>{{ notice.deliveredCount }}</strong></div>
+        <div><span>总人数</span><strong>{{ notice.totalCount }}</strong></div>
+        <div><span>未读人数</span><strong>{{ notice.unreadCount }}</strong></div>
         <div><span>已读人数</span><strong>{{ notice.readCount }}</strong></div>
       </div>
 
@@ -65,7 +66,8 @@ const notice = reactive({
   content: "",
   audience: "",
   publishAt: "",
-  deliveredCount: 0,
+  totalCount: 0,
+  unreadCount: 0,
   readCount: 0,
   tags: [],
   channelLabels: [],
@@ -110,12 +112,27 @@ async function loadData() {
     notice.content = data.content || "";
     notice.audience = data.audience || "";
     notice.publishAt = data.publishAt || "";
-    notice.deliveredCount = data.deliveredCount || 0;
-    notice.readCount = data.readCount || 0;
+    const stats = toNoticeStats(data);
+    notice.totalCount = stats.total;
+    notice.unreadCount = stats.unread;
+    notice.readCount = stats.read;
     notice.tags = data.tags || [];
     notice.channelLabels = data.channelLabels || [];
     notice.read = data.readStatus === "read";
   } catch {}
+}
+
+function toNoticeStats(item) {
+  const total = Number(item.deliveredCount) || 0;
+  const read = Number(item.readCount) || 0;
+  const unread = Number.isFinite(Number(item.unreadCount))
+    ? Number(item.unreadCount)
+    : Math.max(total - read, 0);
+  return {
+    total: Math.max(total, read + unread),
+    read,
+    unread,
+  };
 }
 
 async function markAsRead() {

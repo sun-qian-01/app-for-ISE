@@ -11,6 +11,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
@@ -39,8 +40,16 @@ class ApiIntegrationTest {
     @Autowired
     private ObjectMapper objectMapper;
 
+    @Autowired
+    private JdbcTemplate jdbcTemplate;
+
     @BeforeEach
     void setUp() {
+        jdbcTemplate.update("""
+            update sys_user
+               set password_hash = '{demo}123456'
+             where username in ('20220001', '20220018', 'teacher001', 'leader001')
+            """);
         mockMvc = MockMvcBuilders.webAppContextSetup(wac)
             .addFilter(new AuthFilter(authService, objectMapper), "/api/v1/*")
             .build();
@@ -63,6 +72,105 @@ class ApiIntegrationTest {
     }
 
     @Test
+    void registerShouldRequireTenDigitStudentNo() throws Exception {
+        mockMvc.perform(post("/api/v1/auth/register")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content("""
+                    {
+                      "studentNo": "中文学号",
+                      "name": "测试学生",
+                      "grade": "2026",
+                      "major": "软件工程",
+                      "className": "软件工程2班",
+                      "password": "abc123"
+                    }
+                    """))
+            .andExpect(status().isOk())
+            .andExpect(jsonPath("$.code").value(40001));
+    }
+
+    @Test
+    void registeredStudentShouldLoginAndAppearInTeacherStudentList() throws Exception {
+        jdbcTemplate.update("delete from sys_user where username = ?", "2026999901");
+        jdbcTemplate.update("delete from stu_student where student_no = ?", "2026999901");
+
+        mockMvc.perform(post("/api/v1/auth/register")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content("""
+                    {
+                      "studentNo": "2026999901",
+                      "name": "测试学生",
+                      "grade": "2026",
+                      "major": "软件工程",
+                      "className": "软件工程2班",
+                      "phone": "13800009901",
+                      "email": "test9901@example.edu.cn",
+                      "password": "abc123"
+                    }
+                    """))
+            .andExpect(status().isOk())
+            .andExpect(jsonPath("$.code").value(0))
+            .andExpect(jsonPath("$.data.studentNo").value("2026999901"));
+
+        String studentToken = loginAndGetToken("2026999901", "abc123");
+        assertThat(studentToken).isNotBlank();
+
+        String teacherToken = loginAndGetToken("teacher001", "123456");
+        mockMvc.perform(get("/api/v1/students")
+                .header(HttpHeaders.AUTHORIZATION, "Bearer " + teacherToken)
+                .param("studentNo", "2026999901")
+                .param("pageNo", "1")
+                .param("pageSize", "20"))
+            .andExpect(status().isOk())
+            .andExpect(jsonPath("$.code").value(0))
+            .andExpect(jsonPath("$.data.records[0].studentNo").value("2026999901"))
+            .andExpect(jsonPath("$.data.records[0].name").value("测试学生"));
+    }
+
+    @Test
+    void batchImportedStudentsShouldAppearInStudentListAndLogin() throws Exception {
+        jdbcTemplate.update("delete from sys_user where username = ?", "2026888801");
+        jdbcTemplate.update("delete from stu_student where student_no = ?", "2026888801");
+        String teacherToken = loginAndGetToken("teacher001", "123456");
+
+        mockMvc.perform(post("/api/v1/students/batch-register")
+                .header(HttpHeaders.AUTHORIZATION, "Bearer " + teacherToken)
+                .contentType(MediaType.APPLICATION_JSON)
+                .content("""
+                    {
+                      "rows": [
+                        {
+                          "studentNo": "2026888801",
+                          "name": "导入学生",
+                          "grade": "2026",
+                          "major": "软件工程",
+                          "className": "软件工程1班",
+                          "phone": "13800008801",
+                          "email": "import8801@example.edu.cn"
+                        }
+                      ]
+                    }
+                    """))
+            .andExpect(status().isOk())
+            .andExpect(jsonPath("$.code").value(0))
+            .andExpect(jsonPath("$.data.successCount").value(1))
+            .andExpect(jsonPath("$.data.failedCount").value(0));
+
+        mockMvc.perform(get("/api/v1/students")
+                .header(HttpHeaders.AUTHORIZATION, "Bearer " + teacherToken)
+                .param("keyword", "导入学生")
+                .param("pageNo", "1")
+                .param("pageSize", "20"))
+            .andExpect(status().isOk())
+            .andExpect(jsonPath("$.code").value(0))
+            .andExpect(jsonPath("$.data.records[0].studentNo").value("2026888801"))
+            .andExpect(jsonPath("$.data.records[0].status").value("在读"));
+
+        String importedToken = loginAndGetToken("2026888801", "info666");
+        assertThat(importedToken).isNotBlank();
+    }
+
+    @Test
     void meWithoutTokenShouldReturn401BusinessCode() throws Exception {
         mockMvc.perform(get("/api/v1/auth/me"))
             .andExpect(status().isOk())
@@ -77,6 +185,46 @@ class ApiIntegrationTest {
             .andExpect(status().isOk())
             .andExpect(jsonPath("$.code").value(0))
             .andExpect(jsonPath("$.data.menus").isArray());
+    }
+
+    @Test
+    void changePasswordShouldPersistForNextLogin() throws Exception {
+        String token = loginAndGetToken("20220001", "123456");
+
+        mockMvc.perform(post("/api/v1/auth/password")
+                .header(HttpHeaders.AUTHORIZATION, "Bearer " + token)
+                .contentType(MediaType.APPLICATION_JSON)
+                .content("""
+                    {
+                      "oldPassword": "123456",
+                      "newPassword": "654321"
+                    }
+                    """))
+            .andExpect(status().isOk())
+            .andExpect(jsonPath("$.code").value(0));
+
+        mockMvc.perform(post("/api/v1/auth/login")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content("""
+                    {
+                      "username": "20220001",
+                      "password": "123456"
+                    }
+                    """))
+            .andExpect(status().isOk())
+            .andExpect(jsonPath("$.code").value(40100));
+
+        mockMvc.perform(post("/api/v1/auth/login")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content("""
+                    {
+                      "username": "20220001",
+                      "password": "654321"
+                    }
+                    """))
+            .andExpect(status().isOk())
+            .andExpect(jsonPath("$.code").value(0))
+            .andExpect(jsonPath("$.data.token").isNotEmpty());
     }
 
     @Test
@@ -211,6 +359,35 @@ class ApiIntegrationTest {
     }
 
     @Test
+    void noticePublishShouldAppendAuditLog() throws Exception {
+        String token = loginAndGetToken("teacher001", "123456");
+
+        mockMvc.perform(post("/api/v1/notices")
+                .header(HttpHeaders.AUTHORIZATION, "Bearer " + token)
+                .contentType(MediaType.APPLICATION_JSON)
+                .content("""
+                    {
+                      "title": "审计日志联动通知",
+                      "content": "请及时查看通知。",
+                      "audience": "2022级学生",
+                      "channelLabels": ["站内"],
+                      "tags": ["测试"]
+                    }
+                    """))
+            .andExpect(status().isOk())
+            .andExpect(jsonPath("$.code").value(0));
+
+        mockMvc.perform(get("/api/v1/audit-logs")
+                .header(HttpHeaders.AUTHORIZATION, "Bearer " + token))
+            .andExpect(status().isOk())
+            .andExpect(jsonPath("$.code").value(0))
+            .andExpect(jsonPath("$.data[0].actor").value("李老师"))
+            .andExpect(jsonPath("$.data[0].module").value("通知"))
+            .andExpect(jsonPath("$.data[0].action").value("发布定向通知：审计日志联动通知"))
+            .andExpect(jsonPath("$.data[0].result").value("成功"));
+    }
+
+    @Test
     void createApplicationShouldReturnSubmittedStatus() throws Exception {
         String token = loginAndGetToken("20220001", "123456");
 
@@ -238,6 +415,82 @@ class ApiIntegrationTest {
             .andExpect(status().isOk())
             .andExpect(jsonPath("$.code").value(0))
             .andExpect(jsonPath("$.data.applicationNo").value("APP20260418001"));
+    }
+
+    @Test
+    void teacherApplicationListAndDetailShouldExposeAttachment() throws Exception {
+        String studentToken = loginAndGetToken("20220001", "123456");
+        MockMultipartFile file = new MockMultipartFile(
+            "file",
+            "application-proof.txt",
+            MediaType.TEXT_PLAIN_VALUE,
+            "proof".getBytes()
+        );
+        MvcResult uploadResult = mockMvc.perform(multipart("/api/v1/files/upload")
+                .file(file)
+                .param("bizType", "application_attachment")
+                .header(HttpHeaders.AUTHORIZATION, "Bearer " + studentToken))
+            .andExpect(status().isOk())
+            .andExpect(jsonPath("$.code").value(0))
+            .andReturn();
+
+        JsonNode uploadRoot = objectMapper.readTree(uploadResult.getResponse().getContentAsString());
+        long fileId = uploadRoot.path("data").path("fileId").asLong();
+
+        MvcResult createResult = mockMvc.perform(post("/api/v1/applications")
+                .header(HttpHeaders.AUTHORIZATION, "Bearer " + studentToken)
+                .contentType(MediaType.APPLICATION_JSON)
+                .content("""
+                    {
+                      "applicationType": "certificate",
+                      "templateId": 1,
+                      "title": "带附件申请",
+                      "purpose": "证明附件展示",
+                      "formData": {
+                        "description": "请查看附件",
+                        "attachmentFileId": %d,
+                        "attachmentFileName": "application-proof.txt"
+                      }
+                    }
+                    """.formatted(fileId)))
+            .andExpect(status().isOk())
+            .andExpect(jsonPath("$.code").value(0))
+            .andReturn();
+
+        String applicationNo = objectMapper.readTree(createResult.getResponse().getContentAsString())
+            .path("data")
+            .path("applicationNo")
+            .asText();
+        String teacherToken = loginAndGetToken("teacher001", "123456");
+
+        MvcResult listResult = mockMvc.perform(get("/api/v1/applications/approvals/pending")
+                .header(HttpHeaders.AUTHORIZATION, "Bearer " + teacherToken)
+                .param("pageNo", "1")
+                .param("pageSize", "50"))
+            .andExpect(status().isOk())
+            .andExpect(jsonPath("$.code").value(0))
+            .andReturn();
+
+        JsonNode records = objectMapper.readTree(listResult.getResponse().getContentAsString())
+            .path("data")
+            .path("records");
+        JsonNode createdRecord = null;
+        for (JsonNode record : records) {
+            if (applicationNo.equals(record.path("applicationNo").asText())) {
+                createdRecord = record;
+                break;
+            }
+        }
+        assertThat(createdRecord).isNotNull();
+        assertThat(createdRecord.path("attachment").path("fileId").asLong()).isEqualTo(fileId);
+        assertThat(createdRecord.path("attachment").path("fileName").asText()).isEqualTo("application-proof.txt");
+
+        mockMvc.perform(get("/api/v1/applications/{applicationId}", createdRecord.path("id").asLong())
+                .header(HttpHeaders.AUTHORIZATION, "Bearer " + teacherToken))
+            .andExpect(status().isOk())
+            .andExpect(jsonPath("$.code").value(0))
+            .andExpect(jsonPath("$.data.attachment.fileId").value(fileId))
+            .andExpect(jsonPath("$.data.attachment.fileName").value("application-proof.txt"));
     }
 
     @Test
@@ -402,9 +655,9 @@ class ApiIntegrationTest {
         String token = loginAndGetToken("20220001", "123456");
         MockMultipartFile file = new MockMultipartFile(
             "file",
-            "demo.txt",
-            "text/plain",
-            "hello-api".getBytes()
+            "demo.pdf",
+            "application/pdf",
+            "%PDF-1.4".getBytes()
         );
 
         MvcResult uploadResult = mockMvc.perform(multipart("/api/v1/files/upload")

@@ -45,29 +45,28 @@ class StudentServiceTest {
     void listStudentsShouldSupportFiltersForManager() {
         CurrentUser user = teacherUser();
         var page = studentService.listStudents(user, 1, 10, null, null, "2022", "软件工程",
-            null, null, null, null, null);
+            null, null, null, null, null, null);
         assertThat(page.getTotal()).isGreaterThanOrEqualTo(2);
         assertThat(page.getRecords()).allMatch(item -> "2022".equals(item.getGrade()));
     }
 
     @Test
-    void teacherAdminCanOnlyListManagedClassStudents() {
+    void teacherAdminCanListAllStudents() {
         CurrentUser user = teacherUser();
         var page = studentService.listStudents(user, 1, 20, null, null, null, null,
-            null, null, null, null, null);
+            null, null, null, null, null, null);
 
         assertThat(page.getRecords()).isNotEmpty();
-        assertThat(page.getRecords()).allMatch(item -> "软件工程2班".equals(item.getClassName()));
+        assertThat(page.getRecords()).anyMatch(item -> "软件工程2班".equals(item.getClassName()));
+        assertThat(page.getRecords()).anyMatch(item -> "数据科学1班".equals(item.getClassName()));
     }
 
     @Test
-    void teacherAdminCannotViewStudentOutsideManagedClass() {
+    void teacherAdminCanViewStudentOutsideManagedClass() {
         CurrentUser user = teacherUser();
 
-        assertThatThrownBy(() -> studentService.studentDetail(user, 3L, false))
-            .isInstanceOf(BusinessException.class)
-            .extracting(ex -> ((BusinessException) ex).getErrorCode())
-            .isEqualTo(ErrorCode.FORBIDDEN);
+        var detail = studentService.studentDetail(user, 3L, false);
+        assertThat(detail.getBase().getName()).isEqualTo("林嘉禾");
     }
 
     @Test

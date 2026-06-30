@@ -12,6 +12,10 @@ export async function getPendingApplications(params = {}) {
   return client.get("/applications/approvals/pending", { params });
 }
 
+export async function getApplicationDetail(applicationId) {
+  return client.get(`/applications/${applicationId}`);
+}
+
 export async function approveApplication(applicationId, comment) {
   return client.post(`/applications/${applicationId}/approve`, { comment });
 }
