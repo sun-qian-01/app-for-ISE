@@ -556,11 +556,56 @@ textarea {
   flex-wrap: wrap;
 }
 
+.flow-stack {
+  display: grid;
+  gap: 18px;
+}
+
+.flow-group {
+  display: grid;
+  gap: 12px;
+  padding-top: 14px;
+  border-top: 1px dashed rgba(96, 72, 45, 0.14);
+}
+
+.flow-group:first-child {
+  padding-top: 0;
+  border-top: 0;
+}
+
+.flow-group__head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.flow-group__head h3 {
+  margin: 0;
+  font-size: 1rem;
+}
+
 .timeline__item {
   padding: 14px 16px;
   border: 1px solid var(--border);
   border-radius: 14px;
   background: var(--surface-strong);
+}
+
+.timeline__item.is-current {
+  border-color: rgba(143, 45, 31, 0.35);
+  background: rgba(143, 45, 31, 0.08);
+}
+
+.timeline__item.is-done {
+  border-color: rgba(50, 107, 72, 0.24);
+  background: rgba(50, 107, 72, 0.08);
+}
+
+.timeline__item.is-warn {
+  border-color: rgba(154, 93, 18, 0.26);
+  background: rgba(154, 93, 18, 0.08);
 }
 
 .timeline__item strong {

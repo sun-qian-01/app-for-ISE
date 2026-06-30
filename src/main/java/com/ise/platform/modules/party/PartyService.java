@@ -36,7 +36,7 @@ public class PartyService {
     );
     private final AtomicLong materialIdGenerator = new AtomicLong(5000);
 
-    private final Map<Long, PartyInstanceState> instanceByStudentId = new HashMap<>();
+    private final Map<Long, List<PartyInstanceState>> instancesByStudentId = new HashMap<>();
     private final List<PartyDto.FlowDefinitionView> flowDefinitions;
 
     public PartyService() {
@@ -52,6 +52,17 @@ public class PartyService {
                     new PartyDto.StageDefinitionView("probationary_party_member", "预备党员", 4),
                     new PartyDto.StageDefinitionView("party_member", "正式党员", 5)
                 )
+            ),
+            new PartyDto.FlowDefinitionView(
+                2L,
+                "league_join",
+                "入团流程",
+                List.of(
+                    new PartyDto.StageDefinitionView("league_applicant", "入团申请人", 1),
+                    new PartyDto.StageDefinitionView("league_activist", "入团积极分子", 2),
+                    new PartyDto.StageDefinitionView("league_development_candidate", "发展对象", 3),
+                    new PartyDto.StageDefinitionView("league_member", "正式团员", 4)
+                )
             )
         );
 
@@ -62,7 +73,14 @@ public class PartyService {
         stageStates1.add(new StageState(1003L, "probationary_party_member", "预备党员", 4, "reviewing", "2026-04-25 23:59:59"));
         stageStates1.add(new StageState(1004L, "party_member", "正式党员", 5, "pending", "2027-04-25 23:59:59"));
         stageStates1.get(3).materials.add(new MaterialState(4001L, "季度思想汇报", 31L, "pending", "2026-04-18 14:30:00", "", null));
-        instanceByStudentId.put(1L, new PartyInstanceState(1L, "20220001", "赵晨曦", "软件工程2班", "入党流程", "processing", "probationary_party_member", 1003L, stageStates1));
+        addInstance(new PartyInstanceState(1L, "20220001", "赵晨曦", "软件工程2班", "party_join", "入党流程", "processing", "probationary_party_member", 1003L, stageStates1));
+
+        List<StageState> leagueStageStates1 = new ArrayList<>();
+        leagueStageStates1.add(new StageState(2000L, "league_applicant", "入团申请人", 1, "approved", "2023-09-30 23:59:59"));
+        leagueStageStates1.add(new StageState(2001L, "league_activist", "入团积极分子", 2, "approved", "2023-12-20 23:59:59"));
+        leagueStageStates1.add(new StageState(2002L, "league_development_candidate", "发展对象", 3, "approved", "2024-03-20 23:59:59"));
+        leagueStageStates1.add(new StageState(2003L, "league_member", "正式团员", 4, "approved", "2024-04-25 23:59:59"));
+        addInstance(new PartyInstanceState(1L, "20220001", "赵晨曦", "软件工程2班", "league_join", "入团流程", "completed", "league_member", 2003L, leagueStageStates1));
 
         List<StageState> stageStates2 = new ArrayList<>();
         stageStates2.add(new StageState(1100L, "applicant", "入党申请人", 1, "approved", "2025-10-15 23:59:59"));
@@ -72,7 +90,14 @@ public class PartyService {
         stageStates2.add(new StageState(1104L, "party_member", "正式党员", 5, "pending", "2027-12-30 23:59:59"));
         stageStates2.get(2).materials.add(new MaterialState(4101L, "发展对象培训结业证", 32L, "pending", "2026-04-21 09:10:00", "", null));
         stageStates2.get(2).materials.add(new MaterialState(4102L, "季度思想汇报", 33L, "pending", "2026-04-21 09:15:00", "", null));
-        instanceByStudentId.put(2L, new PartyInstanceState(2L, "20220018", "陈一诺", "软件工程2班", "入党流程", "processing", "development_candidate", 1102L, stageStates2));
+        addInstance(new PartyInstanceState(2L, "20220018", "陈一诺", "软件工程2班", "party_join", "入党流程", "processing", "development_candidate", 1102L, stageStates2));
+
+        List<StageState> leagueStageStates2 = new ArrayList<>();
+        leagueStageStates2.add(new StageState(2100L, "league_applicant", "入团申请人", 1, "approved", "2023-10-15 23:59:59"));
+        leagueStageStates2.add(new StageState(2101L, "league_activist", "入团积极分子", 2, "approved", "2024-01-18 23:59:59"));
+        leagueStageStates2.add(new StageState(2102L, "league_development_candidate", "发展对象", 3, "approved", "2024-04-30 23:59:59"));
+        leagueStageStates2.add(new StageState(2103L, "league_member", "正式团员", 4, "approved", "2024-05-30 23:59:59"));
+        addInstance(new PartyInstanceState(2L, "20220018", "陈一诺", "软件工程2班", "league_join", "入团流程", "completed", "league_member", 2103L, leagueStageStates2));
     }
 
     public List<PartyDto.FlowDefinitionView> flows() {
@@ -84,11 +109,25 @@ public class PartyService {
         if (studentId == null) {
             throw new BusinessException(ErrorCode.FORBIDDEN, "student account required");
         }
-        PartyInstanceState instance = instanceByStudentId.get(studentId);
+        PartyInstanceState instance = instancesByStudentId.getOrDefault(studentId, List.of()).stream()
+            .filter(item -> "party_join".equals(item.flowCode))
+            .findFirst()
+            .orElse(null);
         if (instance == null) {
-            return new PartyDto.PartyInstanceView("入党流程", "processing", "applicant", List.of());
+            return new PartyDto.PartyInstanceView("party_join", "入党流程", "processing", "applicant", List.of());
         }
         return toView(instance);
+    }
+
+    public List<PartyDto.PartyInstanceView> myInstances(CurrentUser user) {
+        Long studentId = user.getStudentId();
+        if (studentId == null) {
+            throw new BusinessException(ErrorCode.FORBIDDEN, "student account required");
+        }
+        return instancesByStudentId.getOrDefault(studentId, List.of()).stream()
+            .sorted(Comparator.comparing(instance -> flowOrder(instance.flowCode)))
+            .map(this::toView)
+            .toList();
     }
 
     public PartyDto.MaterialView submitMaterial(CurrentUser user, Long stageRecordId, PartyDto.MaterialSubmitRequest request) {
@@ -96,7 +135,7 @@ public class PartyService {
         if (studentId == null) {
             throw new BusinessException(ErrorCode.FORBIDDEN, "student account required");
         }
-        PartyInstanceState instance = instanceByStudentId.get(studentId);
+        PartyInstanceState instance = findOwnerByStudentAndStage(studentId, stageRecordId);
         if (instance == null) {
             throw new BusinessException(ErrorCode.NOT_FOUND, "party instance not found");
         }
@@ -133,7 +172,7 @@ public class PartyService {
         String keywordFilter = StringUtils.hasText(keyword) ? keyword.trim().toLowerCase(Locale.ROOT) : null;
 
         List<PartyDto.PartyTodoItem> todos = new ArrayList<>();
-        for (PartyInstanceState instance : instanceByStudentId.values()) {
+        for (PartyInstanceState instance : allInstances()) {
             for (StageState stage : instance.stages) {
                 if ("approved".equals(stage.stageStatus) || "pending".equals(stage.stageStatus)) {
                     continue;
@@ -181,7 +220,7 @@ public class PartyService {
 
         StageState stage = null;
         PartyInstanceState owner = null;
-        for (PartyInstanceState item : instanceByStudentId.values()) {
+        for (PartyInstanceState item : allInstances()) {
             StageState matched = item.stages.stream().filter(s -> s.stageRecordId.equals(stageRecordId)).findFirst().orElse(null);
             if (matched != null) {
                 stage = matched;
@@ -238,7 +277,7 @@ public class PartyService {
                     .toList()
             ))
             .toList();
-        return new PartyDto.PartyInstanceView(instance.flowName, instance.instanceStatus, instance.currentStageCode, stages);
+        return new PartyDto.PartyInstanceView(instance.flowCode, instance.flowName, instance.instanceStatus, instance.currentStageCode, stages);
     }
 
     private PartyDto.MaterialView toMaterialView(MaterialState material) {
@@ -307,11 +346,39 @@ public class PartyService {
         return value.trim().toLowerCase(Locale.ROOT);
     }
 
+    private void addInstance(PartyInstanceState instance) {
+        instancesByStudentId.computeIfAbsent(instance.studentId, ignored -> new ArrayList<>()).add(instance);
+    }
+
+    private List<PartyInstanceState> allInstances() {
+        return instancesByStudentId.values().stream()
+            .flatMap(List::stream)
+            .toList();
+    }
+
+    private PartyInstanceState findOwnerByStudentAndStage(Long studentId, Long stageRecordId) {
+        return instancesByStudentId.getOrDefault(studentId, List.of()).stream()
+            .filter(instance -> instance.stages.stream().anyMatch(stage -> stage.stageRecordId.equals(stageRecordId)))
+            .findFirst()
+            .orElse(null);
+    }
+
+    private int flowOrder(String flowCode) {
+        if ("party_join".equals(flowCode)) {
+            return 1;
+        }
+        if ("league_join".equals(flowCode)) {
+            return 2;
+        }
+        return 99;
+    }
+
     private static class PartyInstanceState {
         private final Long studentId;
         private final String studentNo;
         private final String studentName;
         private final String className;
+        private final String flowCode;
         private final String flowName;
         private final String instanceStatus;
         private String currentStageCode;
@@ -322,6 +389,7 @@ public class PartyService {
                                    String studentNo,
                                    String studentName,
                                    String className,
+                                   String flowCode,
                                    String flowName,
                                    String instanceStatus,
                                    String currentStageCode,
@@ -331,6 +399,7 @@ public class PartyService {
             this.studentNo = studentNo;
             this.studentName = studentName;
             this.className = className;
+            this.flowCode = flowCode;
             this.flowName = flowName;
             this.instanceStatus = instanceStatus;
             this.currentStageCode = currentStageCode;

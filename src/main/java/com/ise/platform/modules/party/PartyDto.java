@@ -45,16 +45,26 @@ public final class PartyDto {
     }
 
     public static class PartyInstanceView {
+        private String flowCode;
         private String flowName;
         private String instanceStatus;
         private String currentStageCode;
         private List<StageView> stages;
 
         public PartyInstanceView(String flowName, String instanceStatus, String currentStageCode, List<StageView> stages) {
+            this(null, flowName, instanceStatus, currentStageCode, stages);
+        }
+
+        public PartyInstanceView(String flowCode, String flowName, String instanceStatus, String currentStageCode, List<StageView> stages) {
+            this.flowCode = flowCode;
             this.flowName = flowName;
             this.instanceStatus = instanceStatus;
             this.currentStageCode = currentStageCode;
             this.stages = stages;
+        }
+
+        public String getFlowCode() {
+            return flowCode;
         }
 
         public String getFlowName() {

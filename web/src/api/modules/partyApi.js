@@ -4,6 +4,10 @@ export async function getMyPartyStages() {
   return client.get("/party/instances/me");
 }
 
+export async function getMyPartyFlows() {
+  return client.get("/party/instances/me/all");
+}
+
 export async function getPartyTodos(params = {}) {
   return client.get("/party/todos", { params });
 }

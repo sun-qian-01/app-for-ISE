@@ -36,6 +36,12 @@ public class PartyController {
         return ApiResponse.success(partyService.myInstance(user));
     }
 
+    @GetMapping("/instances/me/all")
+    public ApiResponse<List<PartyDto.PartyInstanceView>> myInstances() {
+        CurrentUser user = AuthContext.requireUser();
+        return ApiResponse.success(partyService.myInstances(user));
+    }
+
     @PostMapping("/stage-records/{stageRecordId}/materials")
     public ApiResponse<PartyDto.MaterialView> submitMaterial(@PathVariable Long stageRecordId,
                                                              @Valid @RequestBody PartyDto.MaterialSubmitRequest request) {

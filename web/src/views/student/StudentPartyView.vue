@@ -8,31 +8,44 @@
     <LoadingState v-if="loading" text="党团流程加载中..." />
     <ErrorState v-else-if="error" description="党团流程加载失败，请稍后重试。" @retry="loadData" />
     <EmptyState
-      v-else-if="!stages.length"
+      v-else-if="!visibleFlows.length"
       title="暂无党团流程"
       description="当前账号还没有党团流程记录。"
     />
-    <div v-else class="timeline timeline--flow">
-      <div v-for="stage in stages" :key="stage.stageRecordId" class="timeline__item" :class="stageStatusClass(stage)">
-        <strong>{{ stage.stageName }}</strong>
-        <span>{{ stageDisplayLabel(stage) }} · {{ stage.dueAt }}</span>
+    <div v-else class="flow-stack">
+      <div v-for="flow in visibleFlows" :key="flow.flowCode || flow.flowName" class="flow-group">
+        <div class="flow-group__head">
+          <h3>{{ flow.flowName }}</h3>
+          <span class="subtle-note">{{ flow.stages.length }} 个节点</span>
+        </div>
+        <div class="timeline timeline--flow">
+          <div
+            v-for="stage in flow.stages"
+            :key="stage.stageRecordId || `${flow.flowCode}-${stage.stageCode}`"
+            class="timeline__item"
+            :class="stageStatusClass(flow, stage)"
+          >
+            <strong>{{ stage.stageName }}</strong>
+            <span>{{ stageDisplayLabel(flow, stage) }} · {{ stage.dueAt }}</span>
+          </div>
+        </div>
       </div>
     </div>
   </section>
 </template>
 
 <script setup>
-import { onMounted, ref } from "vue";
+import { computed, onMounted, ref } from "vue";
 import EmptyState from "../../components/common/EmptyState.vue";
 import ErrorState from "../../components/common/ErrorState.vue";
 import LoadingState from "../../components/common/LoadingState.vue";
-import { getMyPartyStages } from "../../api/modules/partyApi";
+import { getMyPartyFlows } from "../../api/modules/partyApi";
 import { stageLabel, statusClass } from "../../utils/status";
 
-const stages = ref([]);
-const currentStageCode = ref("");
+const flows = ref([]);
 const loading = ref(false);
 const error = ref(null);
+const visibleFlows = computed(() => (flows.value || []).filter((flow) => (flow.stages || []).length));
 
 onMounted(() => {
   loadData();
@@ -42,9 +55,7 @@ async function loadData() {
   loading.value = true;
   error.value = null;
   try {
-    const instance = await getMyPartyStages();
-    currentStageCode.value = instance.currentStageCode || "";
-    stages.value = instance.stages || [];
+    flows.value = await getMyPartyFlows();
   } catch (err) {
     error.value = err;
   } finally {
@@ -52,15 +63,15 @@ async function loadData() {
   }
 }
 
-function isCurrentStage(stage) {
-  return Boolean(currentStageCode.value) && stage.stageCode === currentStageCode.value;
+function isCurrentStage(flow, stage) {
+  return Boolean(flow.currentStageCode) && stage.stageCode === flow.currentStageCode;
 }
 
-function stageDisplayLabel(stage) {
-  return isCurrentStage(stage) ? "所处阶段" : stageLabel(stage.stageStatus);
+function stageDisplayLabel(flow, stage) {
+  return isCurrentStage(flow, stage) ? "所处阶段" : stageLabel(stage.stageStatus);
 }
 
-function stageStatusClass(stage) {
-  return isCurrentStage(stage) ? "is-current" : statusClass(stage.stageStatus);
+function stageStatusClass(flow, stage) {
+  return isCurrentStage(flow, stage) ? "is-current" : statusClass(stage.stageStatus);
 }
 </script>

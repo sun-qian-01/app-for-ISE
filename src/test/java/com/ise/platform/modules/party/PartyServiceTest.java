@@ -18,9 +18,25 @@ class PartyServiceTest {
     @Test
     void flowsShouldContainOrderedStages() {
         var flows = partyService.flows();
-        assertThat(flows).isNotEmpty();
+        assertThat(flows).extracting(PartyDto.FlowDefinitionView::getFlowName)
+            .containsExactly("入党流程", "入团流程");
         assertThat(flows.get(0).getStages()).isNotEmpty();
         assertThat(flows.get(0).getStages().get(0).getStageOrder()).isEqualTo(1);
+        assertThat(flows.get(1).getStages()).extracting(PartyDto.StageDefinitionView::getStageName)
+            .containsExactly("入团申请人", "入团积极分子", "发展对象", "正式团员");
+    }
+
+    @Test
+    void myInstancesShouldExposePartyAndLeagueFlows() {
+        CurrentUser user = studentUser(1L, "20220001");
+
+        var flows = partyService.myInstances(user);
+
+        assertThat(flows).extracting(PartyDto.PartyInstanceView::getFlowName)
+            .containsExactly("入党流程", "入团流程");
+        assertThat(flows.get(1).getCurrentStageCode()).isEqualTo("league_member");
+        assertThat(flows.get(1).getStages()).extracting(PartyDto.StageView::getStageName)
+            .containsExactly("入团申请人", "入团积极分子", "发展对象", "正式团员");
     }
 
     @Test
