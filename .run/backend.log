@@ -35,21 +35,950 @@
 
  :: Spring Boot ::                (v4.0.6)
 
-2026-06-08T09:05:28.296+08:00  INFO 3118324 --- [app-for-ise-backend] [           main] c.i.platform.PlatformBackendApplication  : Starting PlatformBackendApplication using Java 17.0.19 with PID 3118324 (/home/tianjiaming/learn/SWE/app-for-ISE/target/classes started by tianjiaming in /home/tianjiaming/learn/SWE/app-for-ISE)
-2026-06-08T09:05:28.300+08:00  INFO 3118324 --- [app-for-ise-backend] [           main] c.i.platform.PlatformBackendApplication  : No active profile set, falling back to 1 default profile: "default"
-2026-06-08T09:05:29.286+08:00  INFO 3118324 --- [app-for-ise-backend] [           main] o.s.boot.tomcat.TomcatWebServer          : Tomcat initialized with port 8080 (http)
-2026-06-08T09:05:29.302+08:00  INFO 3118324 --- [app-for-ise-backend] [           main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
-2026-06-08T09:05:29.302+08:00  INFO 3118324 --- [app-for-ise-backend] [           main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/11.0.21]
-2026-06-08T09:05:29.344+08:00  INFO 3118324 --- [app-for-ise-backend] [           main] b.w.c.s.WebApplicationContextInitializer : Root WebApplicationContext: initialization completed in 999 ms
-2026-06-08T09:05:29.389+08:00  INFO 3118324 --- [app-for-ise-backend] [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
-2026-06-08T09:05:29.634+08:00  INFO 3118324 --- [app-for-ise-backend] [           main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection conn0: url=jdbc:h2:file:./data/app-for-ise-dev user=SA
-2026-06-08T09:05:29.636+08:00  INFO 3118324 --- [app-for-ise-backend] [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
-2026-06-08T09:05:30.306+08:00  INFO 3118324 --- [app-for-ise-backend] [           main] o.s.boot.tomcat.TomcatWebServer          : Tomcat started on port 8080 (http) with context path '/'
-2026-06-08T09:05:30.312+08:00  INFO 3118324 --- [app-for-ise-backend] [           main] c.i.platform.PlatformBackendApplication  : Started PlatformBackendApplication in 2.462 seconds (process running for 2.763)
-2026-06-08T09:05:31.223+08:00  INFO 3118324 --- [app-for-ise-backend] [nio-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
-2026-06-08T09:05:31.224+08:00  INFO 3118324 --- [app-for-ise-backend] [nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
-2026-06-08T09:05:31.225+08:00  INFO 3118324 --- [app-for-ise-backend] [nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 1 ms
-2026-06-08T09:05:41.176+08:00  INFO 3118324 --- [app-for-ise-backend] [nio-8080-exec-3] com.ise.platform.modules.kb.KbService    : kb qa llm completed, evidenceCount=1, allowGeneralReply=false, answerPresent=true
-2026-06-08T09:08:03.703+08:00  INFO 3118324 --- [app-for-ise-backend] [nio-8080-exec-5] com.ise.platform.modules.kb.KbService    : kb qa llm completed, evidenceCount=0, allowGeneralReply=true, answerPresent=true
-2026-06-08T09:08:45.825+08:00  INFO 3118324 --- [app-for-ise-backend] [nio-8080-exec-9] com.ise.platform.modules.kb.KbService    : kb qa llm completed, evidenceCount=0, allowGeneralReply=true, answerPresent=true
-2026-06-08T09:13:05.355+08:00  INFO 3118324 --- [app-for-ise-backend] [nio-8080-exec-2] com.ise.platform.modules.kb.KbService    : kb qa llm completed, evidenceCount=1, allowGeneralReply=false, answerPresent=true
+2026-06-30T00:42:43.857+08:00  INFO 308997 --- [app-for-ise-backend] [           main] c.i.platform.PlatformBackendApplication  : Starting PlatformBackendApplication using Java 17.0.19 with PID 308997 (/home/tianjiaming/learn/SWE/app-for-ISE/target/classes started by tianjiaming in /home/tianjiaming/learn/SWE/app-for-ISE)
+2026-06-30T00:42:43.861+08:00  INFO 308997 --- [app-for-ise-backend] [           main] c.i.platform.PlatformBackendApplication  : No active profile set, falling back to 1 default profile: "default"
+2026-06-30T00:42:43.861+08:00 DEBUG 308997 --- [app-for-ise-backend] [           main] o.s.boot.SpringApplication               : Loading source class com.ise.platform.PlatformBackendApplication
+2026-06-30T00:42:43.905+08:00 DEBUG 308997 --- [app-for-ise-backend] [           main] ConfigServletWebServerApplicationContext : Refreshing org.springframework.boot.web.server.servlet.context.AnnotationConfigServletWebServerApplicationContext@33308786
+2026-06-30T00:42:44.795+08:00 DEBUG 308997 --- [app-for-ise-backend] [           main] o.s.b.t.s.TomcatServletWebServerFactory  : Code archive: /tmp/m2repo/org/springframework/boot/spring-boot-web-server/4.0.6/spring-boot-web-server-4.0.6.jar
+2026-06-30T00:42:44.796+08:00 DEBUG 308997 --- [app-for-ise-backend] [           main] o.s.b.t.s.TomcatServletWebServerFactory  : Code archive: /tmp/m2repo/org/springframework/boot/spring-boot-web-server/4.0.6/spring-boot-web-server-4.0.6.jar
+2026-06-30T00:42:44.796+08:00 DEBUG 308997 --- [app-for-ise-backend] [           main] o.s.b.t.s.TomcatServletWebServerFactory  : None of the document roots [src/main/webapp, public, static] point to a directory and will be ignored.
+2026-06-30T00:42:44.819+08:00  INFO 308997 --- [app-for-ise-backend] [           main] o.s.boot.tomcat.TomcatWebServer          : Tomcat initialized with port 8080 (http)
+2026-06-30T00:42:44.834+08:00  INFO 308997 --- [app-for-ise-backend] [           main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2026-06-30T00:42:44.834+08:00  INFO 308997 --- [app-for-ise-backend] [           main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/11.0.21]
+2026-06-30T00:42:44.872+08:00 DEBUG 308997 --- [app-for-ise-backend] [           main] b.w.c.s.WebApplicationContextInitializer : Published root WebApplicationContext as ServletContext attribute with name [org.springframework.web.context.WebApplicationContext.ROOT]
+2026-06-30T00:42:44.873+08:00  INFO 308997 --- [app-for-ise-backend] [           main] b.w.c.s.WebApplicationContextInitializer : Root WebApplicationContext: initialization completed in 967 ms
+2026-06-30T00:42:44.914+08:00  INFO 308997 --- [app-for-ise-backend] [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2026-06-30T00:42:45.144+08:00  INFO 308997 --- [app-for-ise-backend] [           main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection conn0: url=jdbc:h2:file:./data/app-for-ise-dev user=SA
+2026-06-30T00:42:45.145+08:00  INFO 308997 --- [app-for-ise-backend] [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2026-06-30T00:42:45.375+08:00 DEBUG 308997 --- [app-for-ise-backend] [           main] o.s.b.w.s.ServletContextInitializerBeans : Mapping filters: characterEncodingFilter urls=[/*] order=-2147483648, formContentFilter urls=[/*] order=-9900, requestContextFilter urls=[/*] order=-105, requestIdFilter urls=[/*] order=1, authFilter urls=[/*] order=2
+2026-06-30T00:42:45.376+08:00 DEBUG 308997 --- [app-for-ise-backend] [           main] o.s.b.w.s.ServletContextInitializerBeans : Mapping servlets: dispatcherServlet urls=[/]
+2026-06-30T00:42:45.406+08:00 DEBUG 308997 --- [app-for-ise-backend] [           main] o.s.b.s.f.OrderedRequestContextFilter    : Filter 'requestContextFilter' configured for use
+2026-06-30T00:42:45.410+08:00 DEBUG 308997 --- [app-for-ise-backend] [           main] o.s.b.s.f.OrderedCharacterEncodingFilter : Filter 'characterEncodingFilter' configured for use
+2026-06-30T00:42:45.410+08:00 DEBUG 308997 --- [app-for-ise-backend] [           main] o.s.b.s.filter.OrderedFormContentFilter  : Filter 'formContentFilter' configured for use
+2026-06-30T00:42:45.567+08:00 DEBUG 308997 --- [app-for-ise-backend] [           main] o.s.b.a.AutoConfigurationPackages        : @EnableAutoConfiguration was declared on a class in the package 'com.ise.platform'. Automatic @Repository and @Entity scanning is enabled.
+2026-06-30T00:42:45.687+08:00 DEBUG 308997 --- [app-for-ise-backend] [           main] s.w.s.m.m.a.RequestMappingHandlerMapping : 46 mappings in 'requestMappingHandlerMapping'
+2026-06-30T00:42:45.709+08:00 DEBUG 308997 --- [app-for-ise-backend] [           main] o.s.w.s.handler.SimpleUrlHandlerMapping  : Patterns [/webjars/**, /**] in 'resourceHandlerMapping'
+2026-06-30T00:42:45.725+08:00 DEBUG 308997 --- [app-for-ise-backend] [           main] s.w.s.m.m.a.RequestMappingHandlerAdapter : ControllerAdvice beans: 0 @ModelAttribute, 0 @InitBinder, 2 RequestBodyAdvice, 1 ResponseBodyAdvice
+2026-06-30T00:42:45.764+08:00 DEBUG 308997 --- [app-for-ise-backend] [           main] .m.m.a.ExceptionHandlerExceptionResolver : ControllerAdvice beans: 1 @ExceptionHandler, 1 ResponseBodyAdvice
+2026-06-30T00:42:45.851+08:00  INFO 308997 --- [app-for-ise-backend] [           main] o.s.boot.tomcat.TomcatWebServer          : Tomcat started on port 8080 (http) with context path '/'
+2026-06-30T00:42:45.859+08:00 DEBUG 308997 --- [app-for-ise-backend] [           main] .s.b.a.l.ConditionEvaluationReportLogger : 
+
+
+============================
+CONDITIONS EVALUATION REPORT
+============================
+
+
+Positive matches:
+-----------------
+
+   AopAutoConfiguration matched:
+      - @ConditionalOnBooleanProperty (spring.aop.auto=true) matched (OnPropertyCondition)
+
+   AopAutoConfiguration.ClassProxyingConfiguration matched:
+      - @ConditionalOnMissingClass did not find unwanted class 'org.aspectj.weaver.Advice' (OnClassCondition)
+      - @ConditionalOnBooleanProperty (spring.aop.proxy-target-class=true) matched (OnPropertyCondition)
+
+   ApplicationAvailabilityAutoConfiguration#applicationAvailability matched:
+      - @ConditionalOnMissingBean (types: org.springframework.boot.availability.ApplicationAvailability; SearchStrategy: all) did not find any beans (OnBeanCondition)
+
+   DataSourceAutoConfiguration matched:
+      - @ConditionalOnClass found required classes 'javax.sql.DataSource', 'org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseType' (OnClassCondition)
+      - @ConditionalOnMissingBean (types: io.r2dbc.spi.ConnectionFactory; SearchStrategy: all) did not find any beans (OnBeanCondition)
+
+   DataSourceAutoConfiguration.PooledDataSourceConfiguration matched:
+      - AnyNestedCondition 1 matched 1 did not; NestedCondition on DataSourceAutoConfiguration.PooledDataSourceCondition.PooledDataSourceAvailable PooledDataSource found supported DataSource; NestedCondition on DataSourceAutoConfiguration.PooledDataSourceCondition.ExplicitType @ConditionalOnProperty (spring.datasource.type) did not find property 'spring.datasource.type' (DataSourceAutoConfiguration.PooledDataSourceCondition)
+      - @ConditionalOnMissingBean (types: javax.sql.DataSource,javax.sql.XADataSource; SearchStrategy: all) did not find any beans (OnBeanCondition)
+
+   DataSourceAutoConfiguration.PooledDataSourceConfiguration#jdbcConnectionDetails matched:
+      - @ConditionalOnMissingBean (types: org.springframework.boot.jdbc.autoconfigure.JdbcConnectionDetails; SearchStrategy: all) did not find any beans (OnBeanCondition)
+
+   DataSourceConfiguration.Hikari matched:
+      - @ConditionalOnClass found required class 'com.zaxxer.hikari.HikariDataSource' (OnClassCondition)
+      - @ConditionalOnProperty (spring.datasource.type=com.zaxxer.hikari.HikariDataSource) matched (OnPropertyCondition)
+      - @ConditionalOnMissingBean (types: javax.sql.DataSource; SearchStrategy: all) did not find any beans (OnBeanCondition)
+
+   DataSourceInitializationAutoConfiguration matched:
+      - @ConditionalOnClass found required class 'org.springframework.jdbc.datasource.init.DatabasePopulator' (OnClassCondition)
+      - SQL InitializationDatabase Initialization spring.sql.init.mode is ALWAYS (OnSqlInitializationCondition)
+      - @ConditionalOnSingleCandidate (types: javax.sql.DataSource; SearchStrategy: all) found a single bean 'dataSource'; @ConditionalOnMissingBean (types: org.springframework.boot.sql.autoconfigure.init.ApplicationScriptDatabaseInitializer; SearchStrategy: all) did not find any beans (OnBeanCondition)
+
+   DataSourcePoolMetadataProvidersConfiguration.HikariPoolDataSourceMetadataProviderConfiguration matched:
+      - @ConditionalOnClass found required class 'com.zaxxer.hikari.HikariDataSource' (OnClassCondition)
+
+   DataSourceTransactionManagerAutoConfiguration matched:
+      - @ConditionalOnClass found required classes 'javax.sql.DataSource', 'org.springframework.jdbc.core.JdbcTemplate', 'org.springframework.transaction.TransactionManager' (OnClassCondition)
+
+   DataSourceTransactionManagerAutoConfiguration.JdbcTransactionManagerConfiguration matched:
+      - @ConditionalOnSingleCandidate (types: javax.sql.DataSource; SearchStrategy: all) found a single bean 'dataSource' (OnBeanCondition)
+
+   DataSourceTransactionManagerAutoConfiguration.JdbcTransactionManagerConfiguration#transactionManager matched:
+      - @ConditionalOnMissingBean (types: org.springframework.transaction.TransactionManager; SearchStrategy: all) did not find any beans (OnBeanCondition)
+
+   DispatcherServletAutoConfiguration matched:
+      - @ConditionalOnClass found required class 'org.springframework.web.servlet.DispatcherServlet' (OnClassCondition)
+      - found 'session' scope (OnWebApplicationCondition)
+
+   DispatcherServletAutoConfiguration.DispatcherServletConfiguration matched:
+      - @ConditionalOnClass found required class 'jakarta.servlet.ServletRegistration' (OnClassCondition)
+      - Default DispatcherServlet did not find dispatcher servlet beans (DispatcherServletAutoConfiguration.DefaultDispatcherServletCondition)
+
+   DispatcherServletAutoConfiguration.DispatcherServletRegistrationConfiguration matched:
+      - @ConditionalOnClass found required class 'jakarta.servlet.ServletRegistration' (OnClassCondition)
+      - DispatcherServlet Registration did not find servlet registration bean (DispatcherServletAutoConfiguration.DispatcherServletRegistrationCondition)
+
+   DispatcherServletAutoConfiguration.DispatcherServletRegistrationConfiguration#dispatcherServletRegistration matched:
+      - @ConditionalOnBean (names: dispatcherServlet types: org.springframework.web.servlet.DispatcherServlet; SearchStrategy: all) found bean 'dispatcherServlet' (OnBeanCondition)
+
+   ErrorMvcAutoConfiguration matched:
+      - @ConditionalOnClass found required classes 'jakarta.servlet.Servlet', 'org.springframework.web.servlet.DispatcherServlet' (OnClassCondition)
+      - found 'session' scope (OnWebApplicationCondition)
+
+   ErrorMvcAutoConfiguration#basicErrorController matched:
+      - @ConditionalOnMissingBean (types: org.springframework.boot.webmvc.error.ErrorController; SearchStrategy: current) did not find any beans (OnBeanCondition)
+
+   ErrorMvcAutoConfiguration#errorAttributes matched:
+      - @ConditionalOnMissingBean (types: org.springframework.boot.webmvc.error.ErrorAttributes; SearchStrategy: current) did not find any beans (OnBeanCondition)
+
+   ErrorMvcAutoConfiguration.DefaultErrorViewResolverConfiguration#conventionErrorViewResolver matched:
+      - @ConditionalOnBean (types: org.springframework.web.servlet.DispatcherServlet; SearchStrategy: all) found bean 'dispatcherServlet'; @ConditionalOnMissingBean (types: org.springframework.boot.webmvc.autoconfigure.error.ErrorViewResolver; SearchStrategy: all) did not find any beans (OnBeanCondition)
+
+   ErrorMvcAutoConfiguration.WhitelabelErrorViewConfiguration matched:
+      - @ConditionalOnBooleanProperty (spring.web.error.whitelabel.enabled=true) matched (OnPropertyCondition)
+      - ErrorTemplate Missing did not find error template view (ErrorMvcAutoConfiguration.ErrorTemplateMissingCondition)
+
+   ErrorMvcAutoConfiguration.WhitelabelErrorViewConfiguration#beanNameViewResolver matched:
+      - @ConditionalOnMissingBean (types: org.springframework.web.servlet.view.BeanNameViewResolver; SearchStrategy: all) did not find any beans (OnBeanCondition)
+
+   ErrorMvcAutoConfiguration.WhitelabelErrorViewConfiguration#defaultErrorView matched:
+      - @ConditionalOnMissingBean (names: error; SearchStrategy: all) did not find any beans (OnBeanCondition)
+
+   HttpEncodingAutoConfiguration matched:
+      - @ConditionalOnClass found required class 'org.springframework.web.filter.CharacterEncodingFilter' (OnClassCondition)
+      - found 'session' scope (OnWebApplicationCondition)
+      - @ConditionalOnBooleanProperty (spring.servlet.encoding.enabled=true) matched (OnPropertyCondition)
+
+   HttpEncodingAutoConfiguration#characterEncodingFilter matched:
+      - @ConditionalOnMissingBean (types: org.springframework.web.filter.CharacterEncodingFilter; SearchStrategy: all) did not find any beans (OnBeanCondition)
+
+   HttpMessageConvertersAutoConfiguration matched:
+      - @ConditionalOnClass found required class 'org.springframework.http.converter.HttpMessageConverter' (OnClassCondition)
+      - NoneNestedConditions 0 matched 1 did not; NestedCondition on HttpMessageConvertersAutoConfiguration.NotReactiveWebApplicationCondition.ReactiveWebApplication did not find reactive web application classes (HttpMessageConvertersAutoConfiguration.NotReactiveWebApplicationCondition)
+
+   HttpMessageConvertersAutoConfiguration.StringHttpMessageConverterConfiguration#stringHttpMessageConvertersCustomizer matched:
+      - @ConditionalOnMissingBean (types: org.springframework.http.converter.StringHttpMessageConverter; SearchStrategy: all) did not find any beans (OnBeanCondition)
+
+   JacksonAutoConfiguration matched:
+      - @ConditionalOnClass found required class 'tools.jackson.databind.json.JsonMapper' (OnClassCondition)
+
+   JacksonAutoConfiguration#jacksonJsonMapper matched:
+      - @ConditionalOnMissingBean (types: tools.jackson.databind.json.JsonMapper; SearchStrategy: all) did not find any beans (OnBeanCondition)
+
+   JacksonAutoConfiguration#jsonMapperBuilder matched:
+      - @ConditionalOnMissingBean (types: tools.jackson.databind.json.JsonMapper$Builder; SearchStrategy: all) did not find any beans (OnBeanCondition)
+
+   JacksonAutoConfiguration.JsonProblemDetailsConfiguration matched:
+      - @ConditionalOnClass found required class 'org.springframework.http.ProblemDetail' (OnClassCondition)
+
+   JacksonHttpMessageConvertersConfiguration.JacksonJsonHttpMessageConverterConfiguration matched:
+      - @ConditionalOnClass found required class 'tools.jackson.databind.json.JsonMapper' (OnClassCondition)
+      - @ConditionalOnProperty (spring.http.converters.preferred-json-mapper=jackson) matched (OnPropertyCondition)
+      - @ConditionalOnBean (types: tools.jackson.databind.json.JsonMapper; SearchStrategy: all) found bean 'jacksonJsonMapper' (OnBeanCondition)
+
+   JacksonHttpMessageConvertersConfiguration.JacksonJsonHttpMessageConverterConfiguration#jacksonJsonHttpMessageConvertersCustomizer matched:
+      - @ConditionalOnMissingBean (types: org.springframework.http.converter.json.JacksonJsonHttpMessageConverter ignored: org.springframework.hateoas.server.mvc.TypeConstrainedJacksonJsonHttpMessageConverter,org.springframework.data.rest.webmvc.alps.AlpsJacksonJsonHttpMessageConverter; SearchStrategy: all) did not find any beans (OnBeanCondition)
+
+   JdbcClientAutoConfiguration matched:
+      - @ConditionalOnSingleCandidate (types: org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate; SearchStrategy: all) found a single bean 'namedParameterJdbcTemplate'; @ConditionalOnMissingBean (types: org.springframework.jdbc.core.simple.JdbcClient; SearchStrategy: all) did not find any beans (OnBeanCondition)
+
+   JdbcTemplateAutoConfiguration matched:
+      - @ConditionalOnClass found required classes 'javax.sql.DataSource', 'org.springframework.jdbc.core.JdbcTemplate' (OnClassCondition)
+      - @ConditionalOnSingleCandidate (types: javax.sql.DataSource; SearchStrategy: all) found a single bean 'dataSource' (OnBeanCondition)
+
+   JdbcTemplateConfiguration matched:
+      - @ConditionalOnMissingBean (types: org.springframework.jdbc.core.JdbcOperations; SearchStrategy: all) did not find any beans (OnBeanCondition)
+
+   LifecycleAutoConfiguration#defaultLifecycleProcessor matched:
+      - @ConditionalOnMissingBean (names: lifecycleProcessor; SearchStrategy: current) did not find any beans (OnBeanCondition)
+
+   MultipartAutoConfiguration matched:
+      - @ConditionalOnClass found required classes 'jakarta.servlet.Servlet', 'org.springframework.web.multipart.support.StandardServletMultipartResolver', 'jakarta.servlet.MultipartConfigElement' (OnClassCondition)
+      - found 'session' scope (OnWebApplicationCondition)
+      - @ConditionalOnBooleanProperty (spring.servlet.multipart.enabled=true) matched (OnPropertyCondition)
+
+   MultipartAutoConfiguration#multipartConfigElement matched:
+      - @ConditionalOnMissingBean (types: jakarta.servlet.MultipartConfigElement; SearchStrategy: all) did not find any beans (OnBeanCondition)
+
+   MultipartAutoConfiguration#multipartResolver matched:
+      - @ConditionalOnMissingBean (types: org.springframework.web.multipart.MultipartResolver; SearchStrategy: all) did not find any beans (OnBeanCondition)
+
+   NamedParameterJdbcTemplateConfiguration matched:
+      - @ConditionalOnSingleCandidate (types: org.springframework.jdbc.core.JdbcTemplate; SearchStrategy: all) found a single bean 'jdbcTemplate'; @ConditionalOnMissingBean (types: org.springframework.jdbc.core.namedparam.NamedParameterJdbcOperations; SearchStrategy: all) did not find any beans (OnBeanCondition)
+
+   PersistenceExceptionTranslationAutoConfiguration matched:
+      - @ConditionalOnClass found required class 'org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor' (OnClassCondition)
+
+   PersistenceExceptionTranslationAutoConfiguration#persistenceExceptionTranslationPostProcessor matched:
+      - @ConditionalOnBooleanProperty (spring.persistence.exceptiontranslation.enabled=true) matched (OnPropertyCondition)
+      - @ConditionalOnMissingBean (types: org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor; SearchStrategy: all) did not find any beans (OnBeanCondition)
+
+   PropertyPlaceholderAutoConfiguration#propertySourcesPlaceholderConfigurer matched:
+      - @ConditionalOnMissingBean (types: org.springframework.context.support.PropertySourcesPlaceholderConfigurer; SearchStrategy: current) did not find any beans (OnBeanCondition)
+
+   SslAutoConfiguration#sslBundleRegistry matched:
+      - @ConditionalOnMissingBean (types: org.springframework.boot.ssl.SslBundleRegistry,org.springframework.boot.ssl.SslBundles; SearchStrategy: all) did not find any beans (OnBeanCondition)
+
+   TaskExecutionAutoConfiguration matched:
+      - @ConditionalOnClass found required class 'org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor' (OnClassCondition)
+
+   TaskExecutorConfigurations.AsyncConfigurerConfiguration matched:
+      - @ConditionalOnMissingBean (types: org.springframework.scheduling.annotation.AsyncConfigurer; SearchStrategy: all) did not find any beans (OnBeanCondition)
+
+   TaskExecutorConfigurations.SimpleAsyncTaskExecutorBuilderConfiguration#simpleAsyncTaskExecutorBuilder matched:
+      - @ConditionalOnMissingBean (types: org.springframework.boot.task.SimpleAsyncTaskExecutorBuilder; SearchStrategy: all) did not find any beans (OnBeanCondition)
+      - @ConditionalOnThreading found PLATFORM (OnThreadingCondition)
+
+   TaskExecutorConfigurations.TaskExecutorConfiguration matched:
+      - AnyNestedCondition 1 matched 1 did not; NestedCondition on TaskExecutorConfigurations.OnExecutorCondition.ModelCondition @ConditionalOnProperty (spring.task.execution.mode=force) did not find property 'spring.task.execution.mode'; NestedCondition on TaskExecutorConfigurations.OnExecutorCondition.ExecutorBeanCondition @ConditionalOnMissingBean (types: java.util.concurrent.Executor; SearchStrategy: all) did not find any beans (TaskExecutorConfigurations.OnExecutorCondition)
+
+   TaskExecutorConfigurations.TaskExecutorConfiguration#applicationTaskExecutor matched:
+      - @ConditionalOnThreading found PLATFORM (OnThreadingCondition)
+
+   TaskExecutorConfigurations.ThreadPoolTaskExecutorBuilderConfiguration#threadPoolTaskExecutorBuilder matched:
+      - @ConditionalOnMissingBean (types: org.springframework.boot.task.ThreadPoolTaskExecutorBuilder; SearchStrategy: all) did not find any beans (OnBeanCondition)
+
+   TaskSchedulingAutoConfiguration matched:
+      - @ConditionalOnClass found required class 'org.springframework.scheduling.concurrent.ThreadPoolTaskScheduler' (OnClassCondition)
+
+   TaskSchedulingConfigurations.SimpleAsyncTaskSchedulerBuilderConfiguration#simpleAsyncTaskSchedulerBuilder matched:
+      - @ConditionalOnMissingBean (types: org.springframework.boot.task.SimpleAsyncTaskSchedulerBuilder; SearchStrategy: all) did not find any beans (OnBeanCondition)
+      - @ConditionalOnThreading found PLATFORM (OnThreadingCondition)
+
+   TaskSchedulingConfigurations.ThreadPoolTaskSchedulerBuilderConfiguration#threadPoolTaskSchedulerBuilder matched:
+      - @ConditionalOnMissingBean (types: org.springframework.boot.task.ThreadPoolTaskSchedulerBuilder; SearchStrategy: all) did not find any beans (OnBeanCondition)
+
+   TomcatServletWebServerAutoConfiguration matched:
+      - @ConditionalOnClass found required classes 'jakarta.servlet.ServletRequest', 'org.apache.catalina.startup.Tomcat', 'org.apache.coyote.UpgradeProtocol', 'org.springframework.boot.tomcat.servlet.TomcatServletWebServerFactory' (OnClassCondition)
+      - found 'session' scope (OnWebApplicationCondition)
+
+   TomcatServletWebServerAutoConfiguration#tomcatServletWebServerFactory matched:
+      - @ConditionalOnMissingBean (types: org.springframework.boot.web.server.servlet.ServletWebServerFactory; SearchStrategy: current) did not find any beans (OnBeanCondition)
+
+   TomcatWebServerConfiguration matched:
+      - @ConditionalOnWarDeployment the application is not deployed as a WAR file. (OnWarDeploymentCondition)
+
+   TomcatWebServerConfiguration.TomcatWebSocketConfiguration matched:
+      - @ConditionalOnClass found required class 'org.apache.tomcat.websocket.server.WsSci' (OnClassCondition)
+
+   TransactionAutoConfiguration matched:
+      - @ConditionalOnClass found required class 'org.springframework.transaction.PlatformTransactionManager' (OnClassCondition)
+
+   TransactionAutoConfiguration.EnableTransactionManagementConfiguration matched:
+      - @ConditionalOnBean (types: org.springframework.transaction.TransactionManager; SearchStrategy: all) found bean 'transactionManager'; @ConditionalOnMissingBean (types: org.springframework.transaction.annotation.AbstractTransactionManagementConfiguration; SearchStrategy: all) did not find any beans (OnBeanCondition)
+
+   TransactionAutoConfiguration.EnableTransactionManagementConfiguration.CglibAutoProxyConfiguration matched:
+      - @ConditionalOnBooleanProperty (spring.aop.proxy-target-class=true) matched (OnPropertyCondition)
+
+   TransactionAutoConfiguration.TransactionTemplateConfiguration matched:
+      - @ConditionalOnSingleCandidate (types: org.springframework.transaction.PlatformTransactionManager; SearchStrategy: all) found a single bean 'transactionManager' (OnBeanCondition)
+
+   TransactionAutoConfiguration.TransactionTemplateConfiguration#transactionTemplate matched:
+      - @ConditionalOnMissingBean (types: org.springframework.transaction.support.TransactionOperations; SearchStrategy: all) did not find any beans (OnBeanCondition)
+
+   TransactionManagerCustomizationAutoConfiguration matched:
+      - @ConditionalOnClass found required class 'org.springframework.transaction.PlatformTransactionManager' (OnClassCondition)
+
+   TransactionManagerCustomizationAutoConfiguration#platformTransactionManagerCustomizers matched:
+      - @ConditionalOnMissingBean (types: org.springframework.boot.transaction.autoconfigure.TransactionManagerCustomizers; SearchStrategy: all) did not find any beans (OnBeanCondition)
+
+   ValidationAutoConfiguration matched:
+      - @ConditionalOnClass found required class 'jakarta.validation.executable.ExecutableValidator' (OnClassCondition)
+      - @ConditionalOnResource found location classpath:META-INF/services/jakarta.validation.spi.ValidationProvider (OnResourceCondition)
+
+   ValidationAutoConfiguration#defaultValidator matched:
+      - @ConditionalOnMissingBean (types: jakarta.validation.Validator; SearchStrategy: all) did not find any beans (OnBeanCondition)
+
+   ValidationAutoConfiguration#methodValidationPostProcessor matched:
+      - @ConditionalOnMissingBean (types: org.springframework.validation.beanvalidation.MethodValidationPostProcessor; SearchStrategy: current) did not find any beans (OnBeanCondition)
+
+   WebMvcAutoConfiguration matched:
+      - @ConditionalOnClass found required classes 'jakarta.servlet.Servlet', 'org.springframework.web.servlet.DispatcherServlet', 'org.springframework.web.servlet.config.annotation.WebMvcConfigurer' (OnClassCondition)
+      - found 'session' scope (OnWebApplicationCondition)
+      - @ConditionalOnMissingBean (types: org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupport; SearchStrategy: all) did not find any beans (OnBeanCondition)
+
+   WebMvcAutoConfiguration#formContentFilter matched:
+      - @ConditionalOnBooleanProperty (spring.mvc.formcontent.filter.enabled=true) matched (OnPropertyCondition)
+      - @ConditionalOnMissingBean (types: org.springframework.web.filter.FormContentFilter; SearchStrategy: all) did not find any beans (OnBeanCondition)
+
+   WebMvcAutoConfiguration.EnableWebMvcConfiguration#flashMapManager matched:
+      - @ConditionalOnMissingBean (names: flashMapManager; SearchStrategy: all) did not find any beans (OnBeanCondition)
+
+   WebMvcAutoConfiguration.EnableWebMvcConfiguration#localeResolver matched:
+      - @ConditionalOnMissingBean (names: localeResolver; SearchStrategy: all) did not find any beans (OnBeanCondition)
+
+   WebMvcAutoConfiguration.EnableWebMvcConfiguration#viewNameTranslator matched:
+      - @ConditionalOnMissingBean (names: viewNameTranslator; SearchStrategy: all) did not find any beans (OnBeanCondition)
+
+   WebMvcAutoConfiguration.WebMvcAutoConfigurationAdapter#defaultViewResolver matched:
+      - @ConditionalOnMissingBean (types: org.springframework.web.servlet.view.InternalResourceViewResolver; SearchStrategy: all) did not find any beans (OnBeanCondition)
+
+   WebMvcAutoConfiguration.WebMvcAutoConfigurationAdapter#requestContextFilter matched:
+      - @ConditionalOnMissingBean (types: org.springframework.web.context.request.RequestContextListener,org.springframework.web.filter.RequestContextFilter; SearchStrategy: all) did not find any beans (OnBeanCondition)
+
+   WebMvcAutoConfiguration.WebMvcAutoConfigurationAdapter#viewResolver matched:
+      - @ConditionalOnBean (types: org.springframework.web.servlet.ViewResolver; SearchStrategy: all) found beans 'defaultViewResolver', 'beanNameViewResolver', 'mvcViewResolver'; @ConditionalOnMissingBean (names: viewResolver types: org.springframework.web.servlet.view.ContentNegotiatingViewResolver; SearchStrategy: all) did not find any beans (OnBeanCondition)
+
+
+Negative matches:
+-----------------
+
+   AopAutoConfiguration.AspectJAutoProxyingConfiguration:
+      Did not match:
+         - @ConditionalOnClass did not find required class 'org.aspectj.weaver.Advice' (OnClassCondition)
+
+   DataSourceAutoConfiguration.EmbeddedDatabaseConfiguration:
+      Did not match:
+         - EmbeddedDataSource spring.datasource.url is set (DataSourceAutoConfiguration.EmbeddedDatabaseCondition)
+
+   DataSourceCheckpointRestoreConfiguration:
+      Did not match:
+         - @ConditionalOnClass did not find required class 'org.crac.Resource' (OnClassCondition)
+
+   DataSourceConfiguration.Dbcp2:
+      Did not match:
+         - @ConditionalOnClass did not find required class 'org.apache.commons.dbcp2.BasicDataSource' (OnClassCondition)
+
+   DataSourceConfiguration.Generic:
+      Did not match:
+         - @ConditionalOnProperty (spring.datasource.type) did not find property 'spring.datasource.type' (OnPropertyCondition)
+
+   DataSourceConfiguration.OracleUcp:
+      Did not match:
+         - @ConditionalOnClass did not find required classes 'oracle.ucp.jdbc.PoolDataSourceImpl', 'oracle.jdbc.OracleConnection' (OnClassCondition)
+
+   DataSourceConfiguration.Tomcat:
+      Did not match:
+         - @ConditionalOnClass did not find required class 'org.apache.tomcat.jdbc.pool.DataSource' (OnClassCondition)
+
+   DataSourceHealthContributorAutoConfiguration:
+      Did not match:
+         - @ConditionalOnClass did not find required class 'org.springframework.boot.health.autoconfigure.contributor.ConditionalOnEnabledHealthIndicator' (OnClassCondition)
+
+   DataSourceJmxConfiguration:
+      Did not match:
+         - @ConditionalOnBooleanProperty (spring.jmx.enabled=true) did not find property 'spring.jmx.enabled' (OnPropertyCondition)
+
+   DataSourcePoolMetadataProvidersConfiguration.CommonsDbcp2PoolDataSourceMetadataProviderConfiguration:
+      Did not match:
+         - @ConditionalOnClass did not find required class 'org.apache.commons.dbcp2.BasicDataSource' (OnClassCondition)
+
+   DataSourcePoolMetadataProvidersConfiguration.OracleUcpPoolDataSourceMetadataProviderConfiguration:
+      Did not match:
+         - @ConditionalOnClass did not find required classes 'oracle.ucp.jdbc.PoolDataSource', 'oracle.jdbc.OracleConnection' (OnClassCondition)
+
+   DataSourcePoolMetadataProvidersConfiguration.TomcatDataSourcePoolMetadataProviderConfiguration:
+      Did not match:
+         - @ConditionalOnClass did not find required class 'org.apache.tomcat.jdbc.pool.DataSource' (OnClassCondition)
+
+   DataSourcePoolMetricsAutoConfiguration:
+      Did not match:
+         - @ConditionalOnClass did not find required class 'io.micrometer.core.instrument.MeterRegistry' (OnClassCondition)
+
+   DispatcherServletAutoConfiguration.DispatcherServletConfiguration#multipartResolver:
+      Did not match:
+         - @ConditionalOnBean (types: org.springframework.web.multipart.MultipartResolver; SearchStrategy: all) did not find any beans of type org.springframework.web.multipart.MultipartResolver (OnBeanCondition)
+
+   GsonHttpMessageConvertersConfiguration:
+      Did not match:
+         - @ConditionalOnClass did not find required class 'com.google.gson.Gson' (OnClassCondition)
+
+   Jackson2HttpMessageConvertersConfiguration.MappingJackson2HttpMessageConverterConfiguration:
+      Did not match:
+         - AnyNestedCondition 0 matched 2 did not; NestedCondition on Jackson2HttpMessageConvertersConfiguration.PreferJackson2OrJacksonUnavailableCondition.JacksonUnavailable @ConditionalOnMissingBean (types: org.springframework.boot.http.converter.autoconfigure.JacksonHttpMessageConvertersConfiguration$JacksonJsonHttpMessageConvertersCustomizer; SearchStrategy: all) found beans of type 'org.springframework.boot.http.converter.autoconfigure.JacksonHttpMessageConvertersConfiguration$JacksonJsonHttpMessageConvertersCustomizer' jacksonJsonHttpMessageConvertersCustomizer; NestedCondition on Jackson2HttpMessageConvertersConfiguration.PreferJackson2OrJacksonUnavailableCondition.Jackson2Preferred @ConditionalOnProperty (spring.http.converters.preferred-json-mapper=jackson2) did not find property 'spring.http.converters.preferred-json-mapper' (Jackson2HttpMessageConvertersConfiguration.PreferJackson2OrJacksonUnavailableCondition)
+      Matched:
+         - @ConditionalOnClass found required class 'com.fasterxml.jackson.databind.ObjectMapper' (OnClassCondition)
+
+   Jackson2HttpMessageConvertersConfiguration.MappingJackson2XmlHttpMessageConverterConfiguration:
+      Did not match:
+         - @ConditionalOnClass did not find required class 'com.fasterxml.jackson.dataformat.xml.XmlMapper' (OnClassCondition)
+
+   JacksonAutoConfiguration.CborConfiguration:
+      Did not match:
+         - @ConditionalOnClass did not find required class 'tools.jackson.dataformat.cbor.CBORMapper' (OnClassCondition)
+
+   JacksonAutoConfiguration.XmlConfiguration:
+      Did not match:
+         - @ConditionalOnClass did not find required class 'tools.jackson.dataformat.xml.XmlMapper' (OnClassCondition)
+
+   JacksonHttpMessageConvertersConfiguration.JacksonXmlHttpMessageConverterConfiguration:
+      Did not match:
+         - @ConditionalOnClass did not find required class 'tools.jackson.dataformat.xml.XmlMapper' (OnClassCondition)
+
+   JmxAutoConfiguration:
+      Did not match:
+         - @ConditionalOnBooleanProperty (spring.jmx.enabled=true) did not find property 'spring.jmx.enabled' (OnPropertyCondition)
+      Matched:
+         - @ConditionalOnClass found required class 'org.springframework.jmx.export.MBeanExporter' (OnClassCondition)
+
+   JndiDataSourceAutoConfiguration:
+      Did not match:
+         - @ConditionalOnProperty (spring.datasource.jndi-name) did not find property 'spring.datasource.jndi-name' (OnPropertyCondition)
+      Matched:
+         - @ConditionalOnClass found required classes 'javax.sql.DataSource', 'org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseType' (OnClassCondition)
+
+   JsonbHttpMessageConvertersConfiguration:
+      Did not match:
+         - @ConditionalOnClass did not find required class 'jakarta.json.bind.Jsonb' (OnClassCondition)
+
+   JtaAutoConfiguration:
+      Did not match:
+         - @ConditionalOnClass did not find required class 'jakarta.transaction.Transaction' (OnClassCondition)
+
+   KotlinSerializationHttpMessageConvertersConfiguration:
+      Did not match:
+         - @ConditionalOnClass did not find required classes 'kotlinx.serialization.Serializable', 'kotlinx.serialization.json.Json' (OnClassCondition)
+
+   MessageSourceAutoConfiguration:
+      Did not match:
+         - ResourceBundle did not find bundle with basename messages (MessageSourceAutoConfiguration.ResourceBundleCondition)
+
+   ProjectInfoAutoConfiguration#buildProperties:
+      Did not match:
+         - @ConditionalOnResource did not find resource '${spring.info.build.location:classpath:META-INF/build-info.properties}' (OnResourceCondition)
+
+   ProjectInfoAutoConfiguration#gitProperties:
+      Did not match:
+         - GitResource did not find git info at classpath:git.properties (ProjectInfoAutoConfiguration.GitResourceAvailableCondition)
+
+   ServletHttpExchangesAutoConfiguration:
+      Did not match:
+         - @ConditionalOnBean did not find required type 'org.springframework.boot.actuate.web.exchanges.HttpExchangeRepository' (OnBeanCondition)
+
+   ServletManagementContextAutoConfiguration:
+      Did not match:
+         - @ConditionalOnClass did not find required class 'org.springframework.boot.actuate.autoconfigure.endpoint.web.WebEndpointProperties' (OnClassCondition)
+
+   ServletMappingsAutoConfiguration:
+      Did not match:
+         - @ConditionalOnClass did not find required class 'org.springframework.boot.actuate.autoconfigure.endpoint.condition.ConditionalOnAvailableEndpoint' (OnClassCondition)
+
+   ServletWebServerConfiguration#forwardedHeaderFilter:
+      Did not match:
+         - @ConditionalOnProperty (server.forward-headers-strategy=framework) did not find property 'server.forward-headers-strategy' (OnPropertyCondition)
+
+   SpringApplicationAdminJmxAutoConfiguration:
+      Did not match:
+         - @ConditionalOnBooleanProperty (spring.application.admin.enabled=true) did not find property 'spring.application.admin.enabled' (OnPropertyCondition)
+
+   TaskExecutorConfigurations.AsyncConfigurerWrapperConfiguration:
+      Did not match:
+         - @ConditionalOnBean (types: org.springframework.scheduling.annotation.AsyncConfigurer; SearchStrategy: all) did not find any beans of type org.springframework.scheduling.annotation.AsyncConfigurer (OnBeanCondition)
+
+   TaskExecutorConfigurations.SimpleAsyncTaskExecutorBuilderConfiguration#simpleAsyncTaskExecutorBuilderVirtualThreads:
+      Did not match:
+         - @ConditionalOnMissingBean (types: org.springframework.boot.task.SimpleAsyncTaskExecutorBuilder; SearchStrategy: all) found beans of type 'org.springframework.boot.task.SimpleAsyncTaskExecutorBuilder' simpleAsyncTaskExecutorBuilder (OnBeanCondition)
+
+   TaskExecutorConfigurations.TaskExecutorConfiguration#applicationTaskExecutorVirtualThreads:
+      Did not match:
+         - @ConditionalOnThreading did not find VIRTUAL (OnThreadingCondition)
+
+   TaskSchedulingAutoConfiguration#scheduledBeanLazyInitializationExcludeFilter:
+      Did not match:
+         - @ConditionalOnBean (names: org.springframework.scheduling.config.internalScheduledAnnotationProcessor; SearchStrategy: all) did not find any beans named org.springframework.scheduling.config.internalScheduledAnnotationProcessor (OnBeanCondition)
+
+   TaskSchedulingConfigurations.SimpleAsyncTaskSchedulerBuilderConfiguration#simpleAsyncTaskSchedulerBuilderVirtualThreads:
+      Did not match:
+         - @ConditionalOnMissingBean (types: org.springframework.boot.task.SimpleAsyncTaskSchedulerBuilder; SearchStrategy: all) found beans of type 'org.springframework.boot.task.SimpleAsyncTaskSchedulerBuilder' simpleAsyncTaskSchedulerBuilder (OnBeanCondition)
+
+   TaskSchedulingConfigurations.TaskSchedulerConfiguration:
+      Did not match:
+         - @ConditionalOnBean (names: org.springframework.scheduling.config.internalScheduledAnnotationProcessor; SearchStrategy: all) did not find any beans named org.springframework.scheduling.config.internalScheduledAnnotationProcessor (OnBeanCondition)
+
+   TomcatMetricsAutoConfiguration:
+      Did not match:
+         - @ConditionalOnClass did not find required class 'io.micrometer.core.instrument.binder.tomcat.TomcatMetrics' (OnClassCondition)
+
+   TomcatReactiveManagementContextAutoConfiguration:
+      Did not match:
+         - @ConditionalOnClass did not find required class 'org.springframework.boot.actuate.autoconfigure.web.server.ManagementContextFactory' (OnClassCondition)
+
+   TomcatReactiveWebServerAutoConfiguration:
+      Did not match:
+         - @ConditionalOnWebApplication did not find reactive web application classes (OnWebApplicationCondition)
+
+   TomcatServletManagementContextAutoConfiguration:
+      Did not match:
+         - @ConditionalOnClass did not find required class 'org.springframework.boot.actuate.autoconfigure.web.server.ManagementContextFactory' (OnClassCondition)
+
+   TomcatServletWebServerAutoConfiguration#tomcatForwardedHeaderFilterCustomizer:
+      Did not match:
+         - @ConditionalOnProperty (server.forward-headers-strategy=framework) did not find property 'server.forward-headers-strategy' (OnPropertyCondition)
+
+   TomcatWebServerConfiguration#tomcatVirtualThreadsProtocolHandlerCustomizer:
+      Did not match:
+         - @ConditionalOnThreading did not find VIRTUAL (OnThreadingCondition)
+
+   TransactionAutoConfiguration#transactionalOperator:
+      Did not match:
+         - @ConditionalOnSingleCandidate (types: org.springframework.transaction.ReactiveTransactionManager; SearchStrategy: all) did not find any beans (OnBeanCondition)
+
+   TransactionAutoConfiguration.AspectJTransactionManagementConfiguration:
+      Did not match:
+         - @ConditionalOnBean did not find required type 'org.springframework.transaction.aspectj.AbstractTransactionAspect' (OnBeanCondition)
+         - @ConditionalOnBean (types: org.springframework.transaction.aspectj.AbstractTransactionAspect; SearchStrategy: all) did not find any beans of type org.springframework.transaction.aspectj.AbstractTransactionAspect (OnBeanCondition)
+
+   TransactionAutoConfiguration.EnableTransactionManagementConfiguration.JdkDynamicAutoProxyConfiguration:
+      Did not match:
+         - @ConditionalOnBooleanProperty (spring.aop.proxy-target-class=false) did not find property 'spring.aop.proxy-target-class' (OnPropertyCondition)
+
+   WebMvcAutoConfiguration#hiddenHttpMethodFilter:
+      Did not match:
+         - @ConditionalOnBooleanProperty (spring.mvc.hiddenmethod.filter.enabled=true) did not find property 'spring.mvc.hiddenmethod.filter.enabled' (OnPropertyCondition)
+
+   WebMvcAutoConfiguration.ProblemDetailsErrorHandlingConfiguration:
+      Did not match:
+         - @ConditionalOnBooleanProperty (spring.mvc.problemdetails.enabled=true) did not find property 'spring.mvc.problemdetails.enabled' (OnPropertyCondition)
+
+   WebMvcAutoConfiguration.ResourceChainCustomizerConfiguration:
+      Did not match:
+         - @ConditionalOnEnabledResourceChain did not find class org.webjars.WebJarVersionLocator (OnEnabledResourceChainCondition)
+
+   WebMvcAutoConfiguration.WebMvcAutoConfigurationAdapter#beanNameViewResolver:
+      Did not match:
+         - @ConditionalOnMissingBean (types: org.springframework.web.servlet.view.BeanNameViewResolver; SearchStrategy: all) found beans of type 'org.springframework.web.servlet.view.BeanNameViewResolver' beanNameViewResolver (OnBeanCondition)
+
+   WebMvcHealthEndpointExtensionAutoConfiguration:
+      Did not match:
+         - @ConditionalOnClass did not find required class 'org.springframework.boot.health.actuate.endpoint.HealthEndpoint' (OnClassCondition)
+
+   WebMvcMappingsAutoConfiguration:
+      Did not match:
+         - @ConditionalOnClass did not find required class 'org.springframework.boot.actuate.autoconfigure.endpoint.condition.ConditionalOnAvailableEndpoint' (OnClassCondition)
+
+   WebMvcObservationAutoConfiguration:
+      Did not match:
+         - @ConditionalOnClass did not find required class 'org.springframework.boot.micrometer.observation.autoconfigure.ObservationProperties' (OnClassCondition)
+
+   XADataSourceAutoConfiguration:
+      Did not match:
+         - @ConditionalOnClass did not find required class 'jakarta.transaction.TransactionManager' (OnClassCondition)
+
+
+Exclusions:
+-----------
+
+    None
+
+
+Unconditional classes:
+----------------------
+
+    org.springframework.boot.autoconfigure.context.ConfigurationPropertiesAutoConfiguration
+
+    org.springframework.boot.autoconfigure.ssl.SslAutoConfiguration
+
+    org.springframework.boot.autoconfigure.context.LifecycleAutoConfiguration
+
+    org.springframework.boot.autoconfigure.context.PropertyPlaceholderAutoConfiguration
+
+    org.springframework.boot.autoconfigure.availability.ApplicationAvailabilityAutoConfiguration
+
+    org.springframework.boot.autoconfigure.info.ProjectInfoAutoConfiguration
+
+
+
+2026-06-30T00:42:45.862+08:00  INFO 308997 --- [app-for-ise-backend] [           main] c.i.platform.PlatformBackendApplication  : Started PlatformBackendApplication in 2.42 seconds (process running for 2.739)
+2026-06-30T00:42:45.863+08:00 DEBUG 308997 --- [app-for-ise-backend] [           main] o.s.b.a.ApplicationAvailabilityBean      : Application availability state LivenessState changed to CORRECT
+2026-06-30T00:42:45.865+08:00 DEBUG 308997 --- [app-for-ise-backend] [           main] o.s.b.a.ApplicationAvailabilityBean      : Application availability state ReadinessState changed to ACCEPTING_TRAFFIC
+2026-06-30T00:42:46.875+08:00  INFO 308997 --- [app-for-ise-backend] [nio-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-06-30T00:42:46.875+08:00  INFO 308997 --- [app-for-ise-backend] [nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2026-06-30T00:42:46.876+08:00 DEBUG 308997 --- [app-for-ise-backend] [nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Detected StandardServletMultipartResolver
+2026-06-30T00:42:46.876+08:00 DEBUG 308997 --- [app-for-ise-backend] [nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Detected AcceptHeaderLocaleResolver
+2026-06-30T00:42:46.878+08:00 DEBUG 308997 --- [app-for-ise-backend] [nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Detected org.springframework.web.servlet.view.DefaultRequestToViewNameTranslator@5e9aee35
+2026-06-30T00:42:46.878+08:00 DEBUG 308997 --- [app-for-ise-backend] [nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Detected org.springframework.web.servlet.support.SessionFlashMapManager@40992e39
+2026-06-30T00:42:46.879+08:00 DEBUG 308997 --- [app-for-ise-backend] [nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : enableLoggingRequestDetails='false': request parameters and headers will be masked to prevent unsafe logging of potentially sensitive data
+2026-06-30T00:42:46.879+08:00  INFO 308997 --- [app-for-ise-backend] [nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 3 ms
+2026-06-30T00:42:46.886+08:00 DEBUG 308997 --- [app-for-ise-backend] [nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : POST "/api/v1/auth/login", parameters={}
+2026-06-30T00:42:46.896+08:00 DEBUG 308997 --- [app-for-ise-backend] [nio-8080-exec-1] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to com.ise.platform.modules.auth.AuthController#login(LoginRequest)
+2026-06-30T00:42:46.966+08:00 DEBUG 308997 --- [app-for-ise-backend] [nio-8080-exec-1] m.m.a.RequestResponseBodyMethodProcessor : Read "application/json;charset=UTF-8" to [com.ise.platform.modules.auth.AuthDto$LoginRequest@211c5f8]
+2026-06-30T00:42:47.004+08:00 DEBUG 308997 --- [app-for-ise-backend] [nio-8080-exec-1] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL query
+2026-06-30T00:42:47.005+08:00 DEBUG 308997 --- [app-for-ise-backend] [nio-8080-exec-1] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL statement [select u.id,
+       u.username,
+       u.password_hash,
+       u.real_name,
+       u.user_type,
+       u.role_code,
+       u.student_id,
+       u.status,
+       s.student_no,
+       s.name as student_name,
+       s.grade,
+       s.major,
+       s.class_name
+  from sys_user u
+  left join stu_student s
+    on s.id = u.student_id and s.is_deleted = 0
+ where u.is_deleted = 0
+   and u.username = ?
+]
+2026-06-30T00:42:47.032+08:00 DEBUG 308997 --- [app-for-ise-backend] [nio-8080-exec-1] m.m.a.RequestResponseBodyMethodProcessor : Using 'application/json', given [*/*] and supported [application/json, application/*+json]
+2026-06-30T00:42:47.033+08:00 DEBUG 308997 --- [app-for-ise-backend] [nio-8080-exec-1] m.m.a.RequestResponseBodyMethodProcessor : Writing [com.ise.platform.common.api.ApiResponse@1acfdd4f]
+2026-06-30T00:42:47.068+08:00 DEBUG 308997 --- [app-for-ise-backend] [nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-06-30T00:43:00.776+08:00 DEBUG 308997 --- [app-for-ise-backend] [nio-8080-exec-2] o.s.web.servlet.DispatcherServlet        : POST "/api/v1/auth/login", parameters={}
+2026-06-30T00:43:00.777+08:00 DEBUG 308997 --- [app-for-ise-backend] [nio-8080-exec-2] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to com.ise.platform.modules.auth.AuthController#login(LoginRequest)
+2026-06-30T00:43:00.779+08:00 DEBUG 308997 --- [app-for-ise-backend] [nio-8080-exec-2] m.m.a.RequestResponseBodyMethodProcessor : Read "application/json;charset=UTF-8" to [com.ise.platform.modules.auth.AuthDto$LoginRequest@205b29e2]
+2026-06-30T00:43:00.780+08:00 DEBUG 308997 --- [app-for-ise-backend] [nio-8080-exec-2] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL query
+2026-06-30T00:43:00.780+08:00 DEBUG 308997 --- [app-for-ise-backend] [nio-8080-exec-2] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL statement [select u.id,
+       u.username,
+       u.password_hash,
+       u.real_name,
+       u.user_type,
+       u.role_code,
+       u.student_id,
+       u.status,
+       s.student_no,
+       s.name as student_name,
+       s.grade,
+       s.major,
+       s.class_name
+  from sys_user u
+  left join stu_student s
+    on s.id = u.student_id and s.is_deleted = 0
+ where u.is_deleted = 0
+   and u.username = ?
+]
+2026-06-30T00:43:00.781+08:00 DEBUG 308997 --- [app-for-ise-backend] [nio-8080-exec-2] m.m.a.RequestResponseBodyMethodProcessor : Using 'application/json', given [*/*] and supported [application/json, application/*+json]
+2026-06-30T00:43:00.782+08:00 DEBUG 308997 --- [app-for-ise-backend] [nio-8080-exec-2] m.m.a.RequestResponseBodyMethodProcessor : Writing [com.ise.platform.common.api.ApiResponse@2e9cc399]
+2026-06-30T00:43:00.784+08:00 DEBUG 308997 --- [app-for-ise-backend] [nio-8080-exec-2] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-06-30T00:43:00.792+08:00 DEBUG 308997 --- [app-for-ise-backend] [nio-8080-exec-3] o.s.web.servlet.DispatcherServlet        : POST "/api/v1/auth/login", parameters={}
+2026-06-30T00:43:00.793+08:00 DEBUG 308997 --- [app-for-ise-backend] [nio-8080-exec-3] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to com.ise.platform.modules.auth.AuthController#login(LoginRequest)
+2026-06-30T00:43:00.793+08:00 DEBUG 308997 --- [app-for-ise-backend] [nio-8080-exec-3] m.m.a.RequestResponseBodyMethodProcessor : Read "application/json;charset=UTF-8" to [com.ise.platform.modules.auth.AuthDto$LoginRequest@2403f531]
+2026-06-30T00:43:00.794+08:00 DEBUG 308997 --- [app-for-ise-backend] [nio-8080-exec-3] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL query
+2026-06-30T00:43:00.794+08:00 DEBUG 308997 --- [app-for-ise-backend] [nio-8080-exec-3] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL statement [select u.id,
+       u.username,
+       u.password_hash,
+       u.real_name,
+       u.user_type,
+       u.role_code,
+       u.student_id,
+       u.status,
+       s.student_no,
+       s.name as student_name,
+       s.grade,
+       s.major,
+       s.class_name
+  from sys_user u
+  left join stu_student s
+    on s.id = u.student_id and s.is_deleted = 0
+ where u.is_deleted = 0
+   and u.username = ?
+]
+2026-06-30T00:43:00.795+08:00 DEBUG 308997 --- [app-for-ise-backend] [nio-8080-exec-3] m.m.a.RequestResponseBodyMethodProcessor : Using 'application/json', given [*/*] and supported [application/json, application/*+json]
+2026-06-30T00:43:00.795+08:00 DEBUG 308997 --- [app-for-ise-backend] [nio-8080-exec-3] m.m.a.RequestResponseBodyMethodProcessor : Writing [com.ise.platform.common.api.ApiResponse@2ac40fc1]
+2026-06-30T00:43:00.795+08:00 DEBUG 308997 --- [app-for-ise-backend] [nio-8080-exec-3] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-06-30T00:43:00.846+08:00 DEBUG 308997 --- [app-for-ise-backend] [nio-8080-exec-4] o.s.web.servlet.DispatcherServlet        : POST "/api/v1/kb/qa", parameters={}
+2026-06-30T00:43:00.847+08:00 DEBUG 308997 --- [app-for-ise-backend] [nio-8080-exec-4] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to com.ise.platform.modules.kb.KbController#qa(QaRequest)
+2026-06-30T00:43:00.860+08:00 DEBUG 308997 --- [app-for-ise-backend] [nio-8080-exec-4] m.m.a.RequestResponseBodyMethodProcessor : Read "application/json;charset=UTF-8" to [com.ise.platform.modules.kb.KbDto$QaRequest@4385ffc2]
+2026-06-30T00:43:00.864+08:00 DEBUG 308997 --- [app-for-ise-backend] [nio-8080-exec-4] o.s.jdbc.core.JdbcTemplate               : Executing SQL query [select id, title, summary, category_label, standard_answer,
+       source_file_name, source_file_id, keywords_text
+  from kb_article
+ where is_deleted = 0 and publish_status = 'published'
+]
+2026-06-30T00:43:00.872+08:00 DEBUG 308997 --- [app-for-ise-backend] [nio-8080-exec-5] o.s.web.servlet.DispatcherServlet        : POST "/api/v1/kb/qa/stream", parameters={}
+2026-06-30T00:43:00.873+08:00 DEBUG 308997 --- [app-for-ise-backend] [nio-8080-exec-5] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to com.ise.platform.modules.kb.KbController#qaStream(QaRequest)
+2026-06-30T00:43:00.874+08:00 DEBUG 308997 --- [app-for-ise-backend] [nio-8080-exec-5] m.m.a.RequestResponseBodyMethodProcessor : Read "application/json;charset=UTF-8" to [com.ise.platform.modules.kb.KbDto$QaRequest@4667258]
+2026-06-30T00:43:00.880+08:00 DEBUG 308997 --- [app-for-ise-backend] [onPool-worker-1] o.s.jdbc.core.JdbcTemplate               : Executing SQL query [select id, title, summary, category_label, standard_answer,
+       source_file_name, source_file_id, keywords_text
+  from kb_article
+ where is_deleted = 0 and publish_status = 'published'
+]
+2026-06-30T00:43:00.885+08:00 DEBUG 308997 --- [app-for-ise-backend] [nio-8080-exec-5] o.s.w.c.request.async.WebAsyncManager    : Started async request for "/api/v1/kb/qa/stream"
+2026-06-30T00:43:00.898+08:00 DEBUG 308997 --- [app-for-ise-backend] [nio-8080-exec-5] o.s.w.c.request.async.WebAsyncManager    : Async result set for "/api/v1/kb/qa/stream"
+2026-06-30T00:43:00.898+08:00 DEBUG 308997 --- [app-for-ise-backend] [nio-8080-exec-5] o.s.w.c.request.async.WebAsyncManager    : Performing async dispatch for "/api/v1/kb/qa/stream"
+2026-06-30T00:43:00.900+08:00 DEBUG 308997 --- [app-for-ise-backend] [nio-8080-exec-5] o.s.web.servlet.DispatcherServlet        : Exiting but response remains open for further handling
+2026-06-30T00:43:00.904+08:00 DEBUG 308997 --- [app-for-ise-backend] [nio-8080-exec-5] o.s.web.servlet.DispatcherServlet        : "ASYNC" dispatch for POST "/api/v1/kb/qa/stream", parameters={}
+2026-06-30T00:43:00.904+08:00 DEBUG 308997 --- [app-for-ise-backend] [nio-8080-exec-5] s.w.s.m.m.a.RequestMappingHandlerAdapter : Resume with async result []
+2026-06-30T00:43:00.906+08:00 DEBUG 308997 --- [app-for-ise-backend] [nio-8080-exec-5] o.s.web.servlet.DispatcherServlet        : Exiting from "ASYNC" dispatch, status 200
+2026-06-30T00:43:20.512+08:00  INFO 308997 --- [app-for-ise-backend] [nio-8080-exec-4] c.i.p.modules.kb.rag.CodexQaClient       : codex qa completed, answerLength=421, evidenceCount=1, allowGeneralReply=false
+2026-06-30T00:43:20.513+08:00  INFO 308997 --- [app-for-ise-backend] [nio-8080-exec-4] com.ise.platform.modules.kb.KbService    : kb qa ai completed, evidenceCount=1, allowGeneralReply=false, answerPresent=true
+2026-06-30T00:43:20.514+08:00 DEBUG 308997 --- [app-for-ise-backend] [nio-8080-exec-4] m.m.a.RequestResponseBodyMethodProcessor : Using 'application/json', given [*/*] and supported [application/json, application/*+json]
+2026-06-30T00:43:20.514+08:00 DEBUG 308997 --- [app-for-ise-backend] [nio-8080-exec-4] m.m.a.RequestResponseBodyMethodProcessor : Writing [com.ise.platform.common.api.ApiResponse@140a9a5c]
+2026-06-30T00:43:20.516+08:00 DEBUG 308997 --- [app-for-ise-backend] [nio-8080-exec-4] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-06-30T00:43:20.571+08:00 DEBUG 308997 --- [app-for-ise-backend] [nio-8080-exec-7] o.s.web.servlet.DispatcherServlet        : POST "/api/v1/kb/qa", parameters={}
+2026-06-30T00:43:20.571+08:00 DEBUG 308997 --- [app-for-ise-backend] [nio-8080-exec-7] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to com.ise.platform.modules.kb.KbController#qa(QaRequest)
+2026-06-30T00:43:20.572+08:00 DEBUG 308997 --- [app-for-ise-backend] [nio-8080-exec-7] m.m.a.RequestResponseBodyMethodProcessor : Read "application/json;charset=UTF-8" to [com.ise.platform.modules.kb.KbDto$QaRequest@327f61f5]
+2026-06-30T00:43:20.573+08:00 DEBUG 308997 --- [app-for-ise-backend] [nio-8080-exec-7] o.s.jdbc.core.JdbcTemplate               : Executing SQL query [select id, title, summary, category_label, standard_answer,
+       source_file_name, source_file_id, keywords_text
+  from kb_article
+ where is_deleted = 0 and publish_status = 'published'
+]
+2026-06-30T00:43:32.435+08:00  INFO 308997 --- [app-for-ise-backend] [nio-8080-exec-7] c.i.p.modules.kb.rag.CodexQaClient       : codex qa completed, answerLength=279, evidenceCount=1, allowGeneralReply=false
+2026-06-30T00:43:32.436+08:00  INFO 308997 --- [app-for-ise-backend] [nio-8080-exec-7] com.ise.platform.modules.kb.KbService    : kb qa ai completed, evidenceCount=1, allowGeneralReply=false, answerPresent=true
+2026-06-30T00:43:32.437+08:00 DEBUG 308997 --- [app-for-ise-backend] [nio-8080-exec-7] m.m.a.RequestResponseBodyMethodProcessor : Using 'application/json', given [*/*] and supported [application/json, application/*+json]
+2026-06-30T00:43:32.437+08:00 DEBUG 308997 --- [app-for-ise-backend] [nio-8080-exec-7] m.m.a.RequestResponseBodyMethodProcessor : Writing [com.ise.platform.common.api.ApiResponse@38870a85]
+2026-06-30T00:43:32.438+08:00 DEBUG 308997 --- [app-for-ise-backend] [nio-8080-exec-7] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-06-30T00:43:32.491+08:00 DEBUG 308997 --- [app-for-ise-backend] [nio-8080-exec-8] o.s.web.servlet.DispatcherServlet        : POST "/api/v1/kb/qa", parameters={}
+2026-06-30T00:43:32.491+08:00 DEBUG 308997 --- [app-for-ise-backend] [nio-8080-exec-8] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to com.ise.platform.modules.kb.KbController#qa(QaRequest)
+2026-06-30T00:43:32.493+08:00 DEBUG 308997 --- [app-for-ise-backend] [nio-8080-exec-8] m.m.a.RequestResponseBodyMethodProcessor : Read "application/json;charset=UTF-8" to [com.ise.platform.modules.kb.KbDto$QaRequest@19e31451]
+2026-06-30T00:43:32.493+08:00 DEBUG 308997 --- [app-for-ise-backend] [nio-8080-exec-8] o.s.jdbc.core.JdbcTemplate               : Executing SQL query [select id, title, summary, category_label, standard_answer,
+       source_file_name, source_file_id, keywords_text
+  from kb_article
+ where is_deleted = 0 and publish_status = 'published'
+]
+2026-06-30T00:43:32.497+08:00 DEBUG 308997 --- [app-for-ise-backend] [nio-8080-exec-8] m.m.a.RequestResponseBodyMethodProcessor : Using 'application/json', given [*/*] and supported [application/json, application/*+json]
+2026-06-30T00:43:32.497+08:00 DEBUG 308997 --- [app-for-ise-backend] [nio-8080-exec-8] m.m.a.RequestResponseBodyMethodProcessor : Writing [com.ise.platform.common.api.ApiResponse@1724f91d]
+2026-06-30T00:43:32.498+08:00 DEBUG 308997 --- [app-for-ise-backend] [nio-8080-exec-8] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-06-30T02:45:55.541+08:00 DEBUG 308997 --- [app-for-ise-backend] [io-8080-exec-10] o.s.web.servlet.DispatcherServlet        : POST "/api/v1/auth/login", parameters={}
+2026-06-30T02:45:55.545+08:00 DEBUG 308997 --- [app-for-ise-backend] [io-8080-exec-10] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to com.ise.platform.modules.auth.AuthController#login(LoginRequest)
+2026-06-30T02:45:55.549+08:00 DEBUG 308997 --- [app-for-ise-backend] [io-8080-exec-10] m.m.a.RequestResponseBodyMethodProcessor : Read "application/json;charset=UTF-8" to [com.ise.platform.modules.auth.AuthDto$LoginRequest@623fd60]
+2026-06-30T02:45:55.551+08:00 DEBUG 308997 --- [app-for-ise-backend] [io-8080-exec-10] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL query
+2026-06-30T02:45:55.551+08:00 DEBUG 308997 --- [app-for-ise-backend] [io-8080-exec-10] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL statement [select u.id,
+       u.username,
+       u.password_hash,
+       u.real_name,
+       u.user_type,
+       u.role_code,
+       u.student_id,
+       u.status,
+       s.student_no,
+       s.name as student_name,
+       s.grade,
+       s.major,
+       s.class_name
+  from sys_user u
+  left join stu_student s
+    on s.id = u.student_id and s.is_deleted = 0
+ where u.is_deleted = 0
+   and u.username = ?
+]
+2026-06-30T02:45:55.555+08:00 DEBUG 308997 --- [app-for-ise-backend] [io-8080-exec-10] m.m.a.RequestResponseBodyMethodProcessor : Using 'application/json', given [application/json, text/plain, */*] and supported [application/json, application/*+json]
+2026-06-30T02:45:55.555+08:00 DEBUG 308997 --- [app-for-ise-backend] [io-8080-exec-10] m.m.a.RequestResponseBodyMethodProcessor : Writing [com.ise.platform.common.api.ApiResponse@8e413d4]
+2026-06-30T02:45:55.557+08:00 DEBUG 308997 --- [app-for-ise-backend] [io-8080-exec-10] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-06-30T02:45:55.674+08:00 DEBUG 308997 --- [app-for-ise-backend] [nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : GET "/api/v1/dashboard/student", parameters={}
+2026-06-30T02:45:55.675+08:00 DEBUG 308997 --- [app-for-ise-backend] [nio-8080-exec-1] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to com.ise.platform.modules.dashboard.DashboardController#student()
+2026-06-30T02:45:55.675+08:00 DEBUG 308997 --- [app-for-ise-backend] [nio-8080-exec-2] o.s.web.servlet.DispatcherServlet        : GET "/api/v1/dicts?types=role_code", parameters={masked}
+2026-06-30T02:45:55.676+08:00 DEBUG 308997 --- [app-for-ise-backend] [nio-8080-exec-2] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to com.ise.platform.modules.dict.DictController#dicts(String)
+2026-06-30T02:45:55.681+08:00 DEBUG 308997 --- [app-for-ise-backend] [nio-8080-exec-1] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL query
+2026-06-30T02:45:55.681+08:00 DEBUG 308997 --- [app-for-ise-backend] [nio-8080-exec-1] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL statement [select count(*)
+  from biz_notice n
+  left join biz_notice_read r
+    on r.notice_id = n.id and r.user_id = ?
+ where n.is_deleted = 0
+   and n.status = 'published'
+   and r.notice_id is null
+]
+2026-06-30T02:45:55.682+08:00 DEBUG 308997 --- [app-for-ise-backend] [nio-8080-exec-2] m.m.a.RequestResponseBodyMethodProcessor : Using 'application/json', given [application/json, text/plain, */*] and supported [application/json, application/*+json]
+2026-06-30T02:45:55.682+08:00 DEBUG 308997 --- [app-for-ise-backend] [nio-8080-exec-2] m.m.a.RequestResponseBodyMethodProcessor : Writing [com.ise.platform.common.api.ApiResponse@289f491c]
+2026-06-30T02:45:55.688+08:00 DEBUG 308997 --- [app-for-ise-backend] [nio-8080-exec-2] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-06-30T02:45:55.694+08:00 DEBUG 308997 --- [app-for-ise-backend] [nio-8080-exec-1] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL query
+2026-06-30T02:45:55.694+08:00 DEBUG 308997 --- [app-for-ise-backend] [nio-8080-exec-1] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL statement [select count(*) from biz_application where applicant_user_id = ? and status in ('submitted', 'reviewing') and is_deleted = 0]
+2026-06-30T02:45:55.696+08:00 DEBUG 308997 --- [app-for-ise-backend] [nio-8080-exec-1] m.m.a.RequestResponseBodyMethodProcessor : Using 'application/json', given [application/json, text/plain, */*] and supported [application/json, application/*+json]
+2026-06-30T02:45:55.696+08:00 DEBUG 308997 --- [app-for-ise-backend] [nio-8080-exec-1] m.m.a.RequestResponseBodyMethodProcessor : Writing [com.ise.platform.common.api.ApiResponse@2ca24ba]
+2026-06-30T02:45:55.697+08:00 DEBUG 308997 --- [app-for-ise-backend] [nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-06-30T02:45:57.662+08:00 DEBUG 308997 --- [app-for-ise-backend] [nio-8080-exec-5] o.s.web.servlet.DispatcherServlet        : GET "/api/v1/kb/articles?pageNo=1&pageSize=100", parameters={masked}
+2026-06-30T02:45:57.662+08:00 DEBUG 308997 --- [app-for-ise-backend] [nio-8080-exec-5] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to com.ise.platform.modules.kb.KbController#listArticles(int, int, String, Long, String, String)
+2026-06-30T02:45:57.664+08:00 DEBUG 308997 --- [app-for-ise-backend] [nio-8080-exec-5] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL query
+2026-06-30T02:45:57.664+08:00 DEBUG 308997 --- [app-for-ise-backend] [nio-8080-exec-5] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL statement [select count(*)
+  from kb_article
+ where is_deleted = 0
+   and (? = true or publish_status = 'published')
+   and (? is null or lower(title) like ? or lower(summary) like ? or lower(coalesce(source_file_name, '')) like ?)
+   and (? is null or lower(publish_status) = ?)
+   and (? is null or lower(category_label) = ?)
+]
+2026-06-30T02:45:57.686+08:00 DEBUG 308997 --- [app-for-ise-backend] [nio-8080-exec-3] o.s.web.servlet.DispatcherServlet        : GET "/api/v1/kb/templates", parameters={}
+2026-06-30T02:45:57.687+08:00 DEBUG 308997 --- [app-for-ise-backend] [nio-8080-exec-5] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL query
+2026-06-30T02:45:57.687+08:00 DEBUG 308997 --- [app-for-ise-backend] [nio-8080-exec-5] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL statement [select id, title, summary, category_label, publish_status, version_no,
+       source_file_name, source_file_id, keywords_text
+  from kb_article
+ where is_deleted = 0
+   and (? = true or publish_status = 'published')
+   and (? is null or lower(title) like ? or lower(summary) like ? or lower(coalesce(source_file_name, '')) like ?)
+   and (? is null or lower(publish_status) = ?)
+   and (? is null or lower(category_label) = ?)
+ order by updated_at desc, id desc
+ limit ? offset ?
+]
+2026-06-30T02:45:57.687+08:00 DEBUG 308997 --- [app-for-ise-backend] [nio-8080-exec-3] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to com.ise.platform.modules.kb.KbController#templates()
+2026-06-30T02:45:57.688+08:00 DEBUG 308997 --- [app-for-ise-backend] [nio-8080-exec-3] o.s.jdbc.core.JdbcTemplate               : Executing SQL query [select id, template_name, category_label, file_type, description, file_id, updated_at
+  from kb_template
+ where is_deleted = 0
+ order by updated_at desc, id desc
+]
+2026-06-30T02:45:57.691+08:00 DEBUG 308997 --- [app-for-ise-backend] [nio-8080-exec-5] m.m.a.RequestResponseBodyMethodProcessor : Using 'application/json', given [application/json, text/plain, */*] and supported [application/json, application/*+json]
+2026-06-30T02:45:57.691+08:00 DEBUG 308997 --- [app-for-ise-backend] [nio-8080-exec-3] m.m.a.RequestResponseBodyMethodProcessor : Using 'application/json', given [application/json, text/plain, */*] and supported [application/json, application/*+json]
+2026-06-30T02:45:57.691+08:00 DEBUG 308997 --- [app-for-ise-backend] [nio-8080-exec-5] m.m.a.RequestResponseBodyMethodProcessor : Writing [com.ise.platform.common.api.ApiResponse@2eb98c59]
+2026-06-30T02:45:57.691+08:00 DEBUG 308997 --- [app-for-ise-backend] [nio-8080-exec-3] m.m.a.RequestResponseBodyMethodProcessor : Writing [com.ise.platform.common.api.ApiResponse@1d566a81]
+2026-06-30T02:45:57.694+08:00 DEBUG 308997 --- [app-for-ise-backend] [nio-8080-exec-3] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-06-30T02:45:57.697+08:00 DEBUG 308997 --- [app-for-ise-backend] [nio-8080-exec-5] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-06-30T02:46:19.848+08:00 DEBUG 308997 --- [app-for-ise-backend] [nio-8080-exec-6] o.s.web.servlet.DispatcherServlet        : POST "/api/v1/kb/qa/stream", parameters={}
+2026-06-30T02:46:19.849+08:00 DEBUG 308997 --- [app-for-ise-backend] [nio-8080-exec-6] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to com.ise.platform.modules.kb.KbController#qaStream(QaRequest)
+2026-06-30T02:46:19.851+08:00 DEBUG 308997 --- [app-for-ise-backend] [nio-8080-exec-6] m.m.a.RequestResponseBodyMethodProcessor : Read "application/json;charset=UTF-8" to [com.ise.platform.modules.kb.KbDto$QaRequest@60129c07]
+2026-06-30T02:46:19.853+08:00 DEBUG 308997 --- [app-for-ise-backend] [nio-8080-exec-6] o.s.w.c.request.async.WebAsyncManager    : Started async request for "/api/v1/kb/qa/stream"
+2026-06-30T02:46:19.853+08:00 DEBUG 308997 --- [app-for-ise-backend] [onPool-worker-3] o.s.jdbc.core.JdbcTemplate               : Executing SQL query [select id, title, summary, category_label, standard_answer,
+       source_file_name, source_file_id, keywords_text
+  from kb_article
+ where is_deleted = 0 and publish_status = 'published'
+]
+2026-06-30T02:46:19.855+08:00 DEBUG 308997 --- [app-for-ise-backend] [nio-8080-exec-6] o.s.web.servlet.DispatcherServlet        : Exiting but response remains open for further handling
+2026-06-30T02:46:46.468+08:00  INFO 308997 --- [app-for-ise-backend] [onPool-worker-3] c.i.p.modules.kb.rag.CodexQaClient       : codex qa completed, answerLength=324, evidenceCount=2, allowGeneralReply=false
+2026-06-30T02:46:46.468+08:00  INFO 308997 --- [app-for-ise-backend] [onPool-worker-3] com.ise.platform.modules.kb.KbService    : kb qa ai completed, evidenceCount=2, allowGeneralReply=false, answerPresent=true
+2026-06-30T02:46:46.470+08:00 DEBUG 308997 --- [app-for-ise-backend] [onPool-worker-3] o.s.w.c.request.async.WebAsyncManager    : Async result set for "/api/v1/kb/qa/stream"
+2026-06-30T02:46:46.470+08:00 DEBUG 308997 --- [app-for-ise-backend] [onPool-worker-3] o.s.w.c.request.async.WebAsyncManager    : Performing async dispatch for "/api/v1/kb/qa/stream"
+2026-06-30T02:46:46.471+08:00 DEBUG 308997 --- [app-for-ise-backend] [nio-8080-exec-4] o.s.web.servlet.DispatcherServlet        : "ASYNC" dispatch for POST "/api/v1/kb/qa/stream", parameters={}
+2026-06-30T02:46:46.472+08:00 DEBUG 308997 --- [app-for-ise-backend] [nio-8080-exec-4] s.w.s.m.m.a.RequestMappingHandlerAdapter : Resume with async result []
+2026-06-30T02:46:46.472+08:00 DEBUG 308997 --- [app-for-ise-backend] [nio-8080-exec-4] o.s.web.servlet.DispatcherServlet        : Exiting from "ASYNC" dispatch, status 200
+2026-06-30T02:47:04.894+08:00 DEBUG 308997 --- [app-for-ise-backend] [nio-8080-exec-7] o.s.web.servlet.DispatcherServlet        : GET "/api/v1/party/instances/me", parameters={}
+2026-06-30T02:47:04.895+08:00 DEBUG 308997 --- [app-for-ise-backend] [nio-8080-exec-7] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to com.ise.platform.modules.party.PartyController#myInstance()
+2026-06-30T02:47:04.898+08:00 DEBUG 308997 --- [app-for-ise-backend] [nio-8080-exec-7] m.m.a.RequestResponseBodyMethodProcessor : Using 'application/json', given [application/json, text/plain, */*] and supported [application/json, application/*+json]
+2026-06-30T02:47:04.899+08:00 DEBUG 308997 --- [app-for-ise-backend] [nio-8080-exec-7] m.m.a.RequestResponseBodyMethodProcessor : Writing [com.ise.platform.common.api.ApiResponse@14612d8b]
+2026-06-30T02:47:04.908+08:00 DEBUG 308997 --- [app-for-ise-backend] [nio-8080-exec-7] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-06-30T02:47:05.538+08:00 DEBUG 308997 --- [app-for-ise-backend] [nio-8080-exec-9] o.s.web.servlet.DispatcherServlet        : GET "/api/v1/kb/templates", parameters={}
+2026-06-30T02:47:05.539+08:00 DEBUG 308997 --- [app-for-ise-backend] [nio-8080-exec-8] o.s.web.servlet.DispatcherServlet        : GET "/api/v1/kb/articles?pageNo=1&pageSize=100", parameters={masked}
+2026-06-30T02:47:05.539+08:00 DEBUG 308997 --- [app-for-ise-backend] [nio-8080-exec-9] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to com.ise.platform.modules.kb.KbController#templates()
+2026-06-30T02:47:05.539+08:00 DEBUG 308997 --- [app-for-ise-backend] [nio-8080-exec-9] o.s.jdbc.core.JdbcTemplate               : Executing SQL query [select id, template_name, category_label, file_type, description, file_id, updated_at
+  from kb_template
+ where is_deleted = 0
+ order by updated_at desc, id desc
+]
+2026-06-30T02:47:05.539+08:00 DEBUG 308997 --- [app-for-ise-backend] [nio-8080-exec-8] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to com.ise.platform.modules.kb.KbController#listArticles(int, int, String, Long, String, String)
+2026-06-30T02:47:05.540+08:00 DEBUG 308997 --- [app-for-ise-backend] [nio-8080-exec-8] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL query
+2026-06-30T02:47:05.540+08:00 DEBUG 308997 --- [app-for-ise-backend] [nio-8080-exec-8] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL statement [select count(*)
+  from kb_article
+ where is_deleted = 0
+   and (? = true or publish_status = 'published')
+   and (? is null or lower(title) like ? or lower(summary) like ? or lower(coalesce(source_file_name, '')) like ?)
+   and (? is null or lower(publish_status) = ?)
+   and (? is null or lower(category_label) = ?)
+]
+2026-06-30T02:47:05.542+08:00 DEBUG 308997 --- [app-for-ise-backend] [nio-8080-exec-9] m.m.a.RequestResponseBodyMethodProcessor : Using 'application/json', given [application/json, text/plain, */*] and supported [application/json, application/*+json]
+2026-06-30T02:47:05.542+08:00 DEBUG 308997 --- [app-for-ise-backend] [nio-8080-exec-9] m.m.a.RequestResponseBodyMethodProcessor : Writing [com.ise.platform.common.api.ApiResponse@4405bcda]
+2026-06-30T02:47:05.543+08:00 DEBUG 308997 --- [app-for-ise-backend] [nio-8080-exec-9] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-06-30T02:47:05.544+08:00 DEBUG 308997 --- [app-for-ise-backend] [nio-8080-exec-8] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL query
+2026-06-30T02:47:05.544+08:00 DEBUG 308997 --- [app-for-ise-backend] [nio-8080-exec-8] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL statement [select id, title, summary, category_label, publish_status, version_no,
+       source_file_name, source_file_id, keywords_text
+  from kb_article
+ where is_deleted = 0
+   and (? = true or publish_status = 'published')
+   and (? is null or lower(title) like ? or lower(summary) like ? or lower(coalesce(source_file_name, '')) like ?)
+   and (? is null or lower(publish_status) = ?)
+   and (? is null or lower(category_label) = ?)
+ order by updated_at desc, id desc
+ limit ? offset ?
+]
+2026-06-30T02:47:05.547+08:00 DEBUG 308997 --- [app-for-ise-backend] [nio-8080-exec-8] m.m.a.RequestResponseBodyMethodProcessor : Using 'application/json', given [application/json, text/plain, */*] and supported [application/json, application/*+json]
+2026-06-30T02:47:05.548+08:00 DEBUG 308997 --- [app-for-ise-backend] [nio-8080-exec-8] m.m.a.RequestResponseBodyMethodProcessor : Writing [com.ise.platform.common.api.ApiResponse@6705c3df]
+2026-06-30T02:47:05.548+08:00 DEBUG 308997 --- [app-for-ise-backend] [nio-8080-exec-8] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-06-30T02:47:09.373+08:00 DEBUG 308997 --- [app-for-ise-backend] [io-8080-exec-10] o.s.web.servlet.DispatcherServlet        : GET "/api/v1/party/instances/me", parameters={}
+2026-06-30T02:47:09.373+08:00 DEBUG 308997 --- [app-for-ise-backend] [io-8080-exec-10] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to com.ise.platform.modules.party.PartyController#myInstance()
+2026-06-30T02:47:09.374+08:00 DEBUG 308997 --- [app-for-ise-backend] [io-8080-exec-10] m.m.a.RequestResponseBodyMethodProcessor : Using 'application/json', given [application/json, text/plain, */*] and supported [application/json, application/*+json]
+2026-06-30T02:47:09.375+08:00 DEBUG 308997 --- [app-for-ise-backend] [io-8080-exec-10] m.m.a.RequestResponseBodyMethodProcessor : Writing [com.ise.platform.common.api.ApiResponse@cdb9610]
+2026-06-30T02:47:09.376+08:00 DEBUG 308997 --- [app-for-ise-backend] [io-8080-exec-10] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-06-30T02:47:09.634+08:00 DEBUG 308997 --- [app-for-ise-backend] [nio-8080-exec-2] o.s.web.servlet.DispatcherServlet        : GET "/api/v1/kb/articles?pageNo=1&pageSize=100", parameters={masked}
+2026-06-30T02:47:09.634+08:00 DEBUG 308997 --- [app-for-ise-backend] [nio-8080-exec-2] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to com.ise.platform.modules.kb.KbController#listArticles(int, int, String, Long, String, String)
+2026-06-30T02:47:09.636+08:00 DEBUG 308997 --- [app-for-ise-backend] [nio-8080-exec-2] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL query
+2026-06-30T02:47:09.636+08:00 DEBUG 308997 --- [app-for-ise-backend] [nio-8080-exec-2] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL statement [select count(*)
+  from kb_article
+ where is_deleted = 0
+   and (? = true or publish_status = 'published')
+   and (? is null or lower(title) like ? or lower(summary) like ? or lower(coalesce(source_file_name, '')) like ?)
+   and (? is null or lower(publish_status) = ?)
+   and (? is null or lower(category_label) = ?)
+]
+2026-06-30T02:47:09.638+08:00 DEBUG 308997 --- [app-for-ise-backend] [nio-8080-exec-2] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL query
+2026-06-30T02:47:09.638+08:00 DEBUG 308997 --- [app-for-ise-backend] [nio-8080-exec-2] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL statement [select id, title, summary, category_label, publish_status, version_no,
+       source_file_name, source_file_id, keywords_text
+  from kb_article
+ where is_deleted = 0
+   and (? = true or publish_status = 'published')
+   and (? is null or lower(title) like ? or lower(summary) like ? or lower(coalesce(source_file_name, '')) like ?)
+   and (? is null or lower(publish_status) = ?)
+   and (? is null or lower(category_label) = ?)
+ order by updated_at desc, id desc
+ limit ? offset ?
+]
+2026-06-30T02:47:09.642+08:00 DEBUG 308997 --- [app-for-ise-backend] [nio-8080-exec-2] m.m.a.RequestResponseBodyMethodProcessor : Using 'application/json', given [application/json, text/plain, */*] and supported [application/json, application/*+json]
+2026-06-30T02:47:09.642+08:00 DEBUG 308997 --- [app-for-ise-backend] [nio-8080-exec-2] m.m.a.RequestResponseBodyMethodProcessor : Writing [com.ise.platform.common.api.ApiResponse@369663a9]
+2026-06-30T02:47:09.643+08:00 DEBUG 308997 --- [app-for-ise-backend] [nio-8080-exec-2] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-06-30T02:47:09.942+08:00 DEBUG 308997 --- [app-for-ise-backend] [nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : GET "/api/v1/kb/templates", parameters={}
+2026-06-30T02:47:09.943+08:00 DEBUG 308997 --- [app-for-ise-backend] [nio-8080-exec-1] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to com.ise.platform.modules.kb.KbController#templates()
+2026-06-30T02:47:09.943+08:00 DEBUG 308997 --- [app-for-ise-backend] [nio-8080-exec-1] o.s.jdbc.core.JdbcTemplate               : Executing SQL query [select id, template_name, category_label, file_type, description, file_id, updated_at
+  from kb_template
+ where is_deleted = 0
+ order by updated_at desc, id desc
+]
+2026-06-30T02:47:09.945+08:00 DEBUG 308997 --- [app-for-ise-backend] [nio-8080-exec-1] m.m.a.RequestResponseBodyMethodProcessor : Using 'application/json', given [application/json, text/plain, */*] and supported [application/json, application/*+json]
+2026-06-30T02:47:09.945+08:00 DEBUG 308997 --- [app-for-ise-backend] [nio-8080-exec-1] m.m.a.RequestResponseBodyMethodProcessor : Writing [com.ise.platform.common.api.ApiResponse@32685ae5]
+2026-06-30T02:47:09.946+08:00 DEBUG 308997 --- [app-for-ise-backend] [nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-06-30T02:49:57.819+08:00 DEBUG 308997 --- [app-for-ise-backend] [nio-8080-exec-3] o.s.web.servlet.DispatcherServlet        : GET "/api/v1/kb/articles?pageNo=1&pageSize=100", parameters={masked}
+2026-06-30T02:49:57.820+08:00 DEBUG 308997 --- [app-for-ise-backend] [nio-8080-exec-3] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to com.ise.platform.modules.kb.KbController#listArticles(int, int, String, Long, String, String)
+2026-06-30T02:49:57.821+08:00 DEBUG 308997 --- [app-for-ise-backend] [nio-8080-exec-3] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL query
+2026-06-30T02:49:57.821+08:00 DEBUG 308997 --- [app-for-ise-backend] [nio-8080-exec-3] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL statement [select count(*)
+  from kb_article
+ where is_deleted = 0
+   and (? = true or publish_status = 'published')
+   and (? is null or lower(title) like ? or lower(summary) like ? or lower(coalesce(source_file_name, '')) like ?)
+   and (? is null or lower(publish_status) = ?)
+   and (? is null or lower(category_label) = ?)
+]
+2026-06-30T02:49:57.824+08:00 DEBUG 308997 --- [app-for-ise-backend] [nio-8080-exec-3] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL query
+2026-06-30T02:49:57.825+08:00 DEBUG 308997 --- [app-for-ise-backend] [nio-8080-exec-3] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL statement [select id, title, summary, category_label, publish_status, version_no,
+       source_file_name, source_file_id, keywords_text
+  from kb_article
+ where is_deleted = 0
+   and (? = true or publish_status = 'published')
+   and (? is null or lower(title) like ? or lower(summary) like ? or lower(coalesce(source_file_name, '')) like ?)
+   and (? is null or lower(publish_status) = ?)
+   and (? is null or lower(category_label) = ?)
+ order by updated_at desc, id desc
+ limit ? offset ?
+]
+2026-06-30T02:49:57.829+08:00 DEBUG 308997 --- [app-for-ise-backend] [nio-8080-exec-3] m.m.a.RequestResponseBodyMethodProcessor : Using 'application/json', given [application/json, text/plain, */*] and supported [application/json, application/*+json]
+2026-06-30T02:49:57.830+08:00 DEBUG 308997 --- [app-for-ise-backend] [nio-8080-exec-3] m.m.a.RequestResponseBodyMethodProcessor : Writing [com.ise.platform.common.api.ApiResponse@21b4f4ca]
+2026-06-30T02:49:57.831+08:00 DEBUG 308997 --- [app-for-ise-backend] [nio-8080-exec-3] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-06-30T02:49:57.934+08:00 DEBUG 308997 --- [app-for-ise-backend] [nio-8080-exec-5] o.s.web.servlet.DispatcherServlet        : GET "/api/v1/kb/templates", parameters={}
+2026-06-30T02:49:57.934+08:00 DEBUG 308997 --- [app-for-ise-backend] [nio-8080-exec-5] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to com.ise.platform.modules.kb.KbController#templates()
+2026-06-30T02:49:57.935+08:00 DEBUG 308997 --- [app-for-ise-backend] [nio-8080-exec-5] o.s.jdbc.core.JdbcTemplate               : Executing SQL query [select id, template_name, category_label, file_type, description, file_id, updated_at
+  from kb_template
+ where is_deleted = 0
+ order by updated_at desc, id desc
+]
+2026-06-30T02:49:57.936+08:00 DEBUG 308997 --- [app-for-ise-backend] [nio-8080-exec-5] m.m.a.RequestResponseBodyMethodProcessor : Using 'application/json', given [application/json, text/plain, */*] and supported [application/json, application/*+json]
+2026-06-30T02:49:57.937+08:00 DEBUG 308997 --- [app-for-ise-backend] [nio-8080-exec-5] m.m.a.RequestResponseBodyMethodProcessor : Writing [com.ise.platform.common.api.ApiResponse@3157c7e3]
+2026-06-30T02:49:57.937+08:00 DEBUG 308997 --- [app-for-ise-backend] [nio-8080-exec-5] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-06-30T02:51:00.629+08:00 DEBUG 308997 --- [app-for-ise-backend] [nio-8080-exec-6] o.s.web.servlet.DispatcherServlet        : GET "/api/v1/kb/articles?pageNo=1&pageSize=100", parameters={masked}
+2026-06-30T02:51:00.630+08:00 DEBUG 308997 --- [app-for-ise-backend] [nio-8080-exec-6] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to com.ise.platform.modules.kb.KbController#listArticles(int, int, String, Long, String, String)
+2026-06-30T02:51:00.631+08:00 DEBUG 308997 --- [app-for-ise-backend] [nio-8080-exec-6] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL query
+2026-06-30T02:51:00.631+08:00 DEBUG 308997 --- [app-for-ise-backend] [nio-8080-exec-6] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL statement [select count(*)
+  from kb_article
+ where is_deleted = 0
+   and (? = true or publish_status = 'published')
+   and (? is null or lower(title) like ? or lower(summary) like ? or lower(coalesce(source_file_name, '')) like ?)
+   and (? is null or lower(publish_status) = ?)
+   and (? is null or lower(category_label) = ?)
+]
+2026-06-30T02:51:00.634+08:00 DEBUG 308997 --- [app-for-ise-backend] [nio-8080-exec-6] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL query
+2026-06-30T02:51:00.634+08:00 DEBUG 308997 --- [app-for-ise-backend] [nio-8080-exec-6] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL statement [select id, title, summary, category_label, publish_status, version_no,
+       source_file_name, source_file_id, keywords_text
+  from kb_article
+ where is_deleted = 0
+   and (? = true or publish_status = 'published')
+   and (? is null or lower(title) like ? or lower(summary) like ? or lower(coalesce(source_file_name, '')) like ?)
+   and (? is null or lower(publish_status) = ?)
+   and (? is null or lower(category_label) = ?)
+ order by updated_at desc, id desc
+ limit ? offset ?
+]
+2026-06-30T02:51:00.637+08:00 DEBUG 308997 --- [app-for-ise-backend] [nio-8080-exec-6] m.m.a.RequestResponseBodyMethodProcessor : Using 'application/json', given [application/json, text/plain, */*] and supported [application/json, application/*+json]
+2026-06-30T02:51:00.637+08:00 DEBUG 308997 --- [app-for-ise-backend] [nio-8080-exec-6] m.m.a.RequestResponseBodyMethodProcessor : Writing [com.ise.platform.common.api.ApiResponse@1e8ddcde]
+2026-06-30T02:51:00.638+08:00 DEBUG 308997 --- [app-for-ise-backend] [nio-8080-exec-6] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-06-30T02:51:00.834+08:00 DEBUG 308997 --- [app-for-ise-backend] [nio-8080-exec-4] o.s.web.servlet.DispatcherServlet        : GET "/api/v1/kb/templates", parameters={}
+2026-06-30T02:51:00.835+08:00 DEBUG 308997 --- [app-for-ise-backend] [nio-8080-exec-4] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to com.ise.platform.modules.kb.KbController#templates()
+2026-06-30T02:51:00.835+08:00 DEBUG 308997 --- [app-for-ise-backend] [nio-8080-exec-4] o.s.jdbc.core.JdbcTemplate               : Executing SQL query [select id, template_name, category_label, file_type, description, file_id, updated_at
+  from kb_template
+ where is_deleted = 0
+ order by updated_at desc, id desc
+]
+2026-06-30T02:51:00.838+08:00 DEBUG 308997 --- [app-for-ise-backend] [nio-8080-exec-4] m.m.a.RequestResponseBodyMethodProcessor : Using 'application/json', given [application/json, text/plain, */*] and supported [application/json, application/*+json]
+2026-06-30T02:51:00.838+08:00 DEBUG 308997 --- [app-for-ise-backend] [nio-8080-exec-4] m.m.a.RequestResponseBodyMethodProcessor : Writing [com.ise.platform.common.api.ApiResponse@69ad2409]
+2026-06-30T02:51:00.839+08:00 DEBUG 308997 --- [app-for-ise-backend] [nio-8080-exec-4] o.s.web.servlet.DispatcherServlet        : Completed 200 OK

@@ -1,1 +1,0 @@
-import{n as e}from"./index-BwuBm236.js";async function t(){return e.get(`/students/me/profile`)}async function n(){let n=(await t())?.student?.id;return n?e.get(`/students/${n}/growth-records`):[]}async function r(t={}){return e.get(`/students`,{params:t})}export{t as n,r,n as t};

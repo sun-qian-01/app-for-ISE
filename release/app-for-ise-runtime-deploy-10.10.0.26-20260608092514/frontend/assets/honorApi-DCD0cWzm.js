@@ -1,1 +1,0 @@
-import{o as e}from"./index-DlxrupD9.js";async function t(){return e.get(`/honors/my`)}async function n(){return e.get(`/honors`)}export{t as n,n as t};

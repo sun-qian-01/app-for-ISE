@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report.xsd" version="3.0.2" name="com.ise.platform.modules.application.ApplicationServiceTest" time="3.304" tests="9" errors="0" skipped="0" failures="0" flakes="0">
+<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report.xsd" version="3.0.2" name="com.ise.platform.modules.application.ApplicationServiceTest" time="3.46" tests="9" errors="0" skipped="0" failures="0" flakes="0">
   <properties>
     <property name="java.specification.version" value="17"/>
     <property name="sun.jnu.encoding" value="UTF-8"/>
@@ -14,7 +14,7 @@
     <property name="sun.java.launcher" value="SUN_STANDARD"/>
     <property name="user.country" value="CN"/>
     <property name="sun.boot.library.path" value="/home/tianjiaming/.local/toolchains/jdk-17-tmp/jdk-17.0.19+10/lib"/>
-    <property name="sun.java.command" value="/home/tianjiaming/learn/SWE/app-for-ISE/target/surefire/surefirebooter-20260608092552597_3.jar /home/tianjiaming/learn/SWE/app-for-ISE/target/surefire 2026-06-08T09-25-52_512-jvmRun1 surefire-20260608092552597_1tmp surefire_0-20260608092552597_2tmp"/>
+    <property name="sun.java.command" value="/home/tianjiaming/learn/SWE/app-for-ISE/target/surefire/surefirebooter-20260629223014087_3.jar /home/tianjiaming/learn/SWE/app-for-ISE/target/surefire 2026-06-29T22-30-14_001-jvmRun1 surefire-20260629223014087_1tmp surefire_0-20260629223014087_2tmp"/>
     <property name="jdk.debug" value="release"/>
     <property name="surefire.test.class.path" value="/home/tianjiaming/learn/SWE/app-for-ISE/target/test-classes:/home/tianjiaming/learn/SWE/app-for-ISE/target/classes:/tmp/m2repo/org/springframework/boot/spring-boot-starter-web/4.0.6/spring-boot-starter-web-4.0.6.jar:/tmp/m2repo/org/springframework/boot/spring-boot-starter-jackson/4.0.6/spring-boot-starter-jackson-4.0.6.jar:/tmp/m2repo/org/springframework/boot/spring-boot-jackson/4.0.6/spring-boot-jackson-4.0.6.jar:/tmp/m2repo/tools/jackson/core/jackson-databind/3.1.2/jackson-databind-3.1.2.jar:/tmp/m2repo/tools/jackson/core/jackson-core/3.1.2/jackson-core-3.1.2.jar:/tmp/m2repo/org/springframework/boot/spring-boot-starter-tomcat/4.0.6/spring-boot-starter-tomcat-4.0.6.jar:/tmp/m2repo/org/springframework/boot/spring-boot-starter-tomcat-runtime/4.0.6/spring-boot-starter-tomcat-runtime-4.0.6.jar:/tmp/m2repo/org/springframework/boot/spring-boot-web-server/4.0.6/spring-boot-web-server-4.0.6.jar:/tmp/m2repo/org/apache/tomcat/embed/tomcat-embed-core/11.0.21/tomcat-embed-core-11.0.21.jar:/tmp/m2repo/org/apache/tomcat/embed/tomcat-embed-websocket/11.0.21/tomcat-embed-websocket-11.0.21.jar:/tmp/m2repo/org/springframework/boot/spring-boot-tomcat/4.0.6/spring-boot-tomcat-4.0.6.jar:/tmp/m2repo/org/springframework/boot/spring-boot-http-converter/4.0.6/spring-boot-http-converter-4.0.6.jar:/tmp/m2repo/org/springframework/boot/spring-boot/4.0.6/spring-boot-4.0.6.jar:/tmp/m2repo/org/springframework/spring-context/7.0.7/spring-context-7.0.7.jar:/tmp/m2repo/org/springframework/spring-web/7.0.7/spring-web-7.0.7.jar:/tmp/m2repo/org/springframework/spring-beans/7.0.7/spring-beans-7.0.7.jar:/tmp/m2repo/io/micrometer/micrometer-observation/1.16.5/micrometer-observation-1.16.5.jar:/tmp/m2repo/io/micrometer/micrometer-commons/1.16.5/micrometer-commons-1.16.5.jar:/tmp/m2repo/org/springframework/boot/spring-boot-webmvc/4.0.6/spring-boot-webmvc-4.0.6.jar:/tmp/m2repo/org/springframework/boot/spring-boot-servlet/4.0.6/spring-boot-servlet-4.0.6.jar:/tmp/m2repo/org/springframework/spring-webmvc/7.0.7/spring-webmvc-7.0.7.jar:/tmp/m2repo/org/springframework/spring-aop/7.0.7/spring-aop-7.0.7.jar:/tmp/m2repo/org/springframework/spring-expression/7.0.7/spring-expression-7.0.7.jar:/tmp/m2repo/com/fasterxml/jackson/core/jackson-databind/2.21.2/jackson-databind-2.21.2.jar:/tmp/m2repo/com/fasterxml/jackson/core/jackson-annotations/2.21/jackson-annotations-2.21.jar:/tmp/m2repo/com/fasterxml/jackson/core/jackson-core/2.21.2/jackson-core-2.21.2.jar:/tmp/m2repo/org/springframework/boot/spring-boot-starter-validation/4.0.6/spring-boot-starter-validation-4.0.6.jar:/tmp/m2repo/org/springframework/boot/spring-boot-starter/4.0.6/spring-boot-starter-4.0.6.jar:/tmp/m2repo/org/springframework/boot/spring-boot-starter-logging/4.0.6/spring-boot-starter-logging-4.0.6.jar:/tmp/m2repo/ch/qos/logback/logback-classic/1.5.32/logback-classic-1.5.32.jar:/tmp/m2repo/ch/qos/logback/logback-core/1.5.32/logback-core-1.5.32.jar:/tmp/m2repo/org/apache/logging/log4j/log4j-to-slf4j/2.25.4/log4j-to-slf4j-2.25.4.jar:/tmp/m2repo/org/apache/logging/log4j/log4j-api/2.25.4/log4j-api-2.25.4.jar:/tmp/m2repo/org/slf4j/jul-to-slf4j/2.0.17/jul-to-slf4j-2.0.17.jar:/tmp/m2repo/org/springframework/boot/spring-boot-autoconfigure/4.0.6/spring-boot-autoconfigure-4.0.6.jar:/tmp/m2repo/jakarta/annotation/jakarta.annotation-api/3.0.0/jakarta.annotation-api-3.0.0.jar:/tmp/m2repo/org/yaml/snakeyaml/2.5/snakeyaml-2.5.jar:/tmp/m2repo/org/springframework/boot/spring-boot-validation/4.0.6/spring-boot-validation-4.0.6.jar:/tmp/m2repo/org/apache/tomcat/embed/tomcat-embed-el/11.0.21/tomcat-embed-el-11.0.21.jar:/tmp/m2repo/org/hibernate/validator/hibernate-validator/9.0.1.Final/hibernate-validator-9.0.1.Final.jar:/tmp/m2repo/jakarta/validation/jakarta.validation-api/3.1.1/jakarta.validation-api-3.1.1.jar:/tmp/m2repo/org/jboss/logging/jboss-logging/3.6.3.Final/jboss-logging-3.6.3.Final.jar:/tmp/m2repo/com/fasterxml/classmate/1.7.3/classmate-1.7.3.jar:/tmp/m2repo/org/springframework/boot/spring-boot-starter-jdbc/4.0.6/spring-boot-starter-jdbc-4.0.6.jar:/tmp/m2repo/org/springframework/boot/spring-boot-jdbc/4.0.6/spring-boot-jdbc-4.0.6.jar:/tmp/m2repo/org/springframework/boot/spring-boot-sql/4.0.6/spring-boot-sql-4.0.6.jar:/tmp/m2repo/org/springframework/boot/spring-boot-transaction/4.0.6/spring-boot-transaction-4.0.6.jar:/tmp/m2repo/org/springframework/boot/spring-boot-persistence/4.0.6/spring-boot-persistence-4.0.6.jar:/tmp/m2repo/org/springframework/spring-tx/7.0.7/spring-tx-7.0.7.jar:/tmp/m2repo/org/springframework/spring-jdbc/7.0.7/spring-jdbc-7.0.7.jar:/tmp/m2repo/com/zaxxer/HikariCP/7.0.2/HikariCP-7.0.2.jar:/tmp/m2repo/org/slf4j/slf4j-api/2.0.17/slf4j-api-2.0.17.jar:/tmp/m2repo/com/h2database/h2/2.4.240/h2-2.4.240.jar:/tmp/m2repo/org/springframework/boot/spring-boot-starter-test/4.0.6/spring-boot-starter-test-4.0.6.jar:/tmp/m2repo/org/springframework/boot/spring-boot-test/4.0.6/spring-boot-test-4.0.6.jar:/tmp/m2repo/org/springframework/boot/spring-boot-test-autoconfigure/4.0.6/spring-boot-test-autoconfigure-4.0.6.jar:/tmp/m2repo/com/jayway/jsonpath/json-path/2.10.0/json-path-2.10.0.jar:/tmp/m2repo/jakarta/xml/bind/jakarta.xml.bind-api/4.0.4/jakarta.xml.bind-api-4.0.4.jar:/tmp/m2repo/jakarta/activation/jakarta.activation-api/2.1.4/jakarta.activation-api-2.1.4.jar:/tmp/m2repo/net/minidev/json-smart/2.6.0/json-smart-2.6.0.jar:/tmp/m2repo/net/minidev/accessors-smart/2.6.0/accessors-smart-2.6.0.jar:/tmp/m2repo/org/ow2/asm/asm/9.7.1/asm-9.7.1.jar:/tmp/m2repo/org/assertj/assertj-core/3.27.7/assertj-core-3.27.7.jar:/tmp/m2repo/net/bytebuddy/byte-buddy/1.17.8/byte-buddy-1.17.8.jar:/tmp/m2repo/org/awaitility/awaitility/4.3.0/awaitility-4.3.0.jar:/tmp/m2repo/org/hamcrest/hamcrest/3.0/hamcrest-3.0.jar:/tmp/m2repo/org/junit/jupiter/junit-jupiter/6.0.3/junit-jupiter-6.0.3.jar:/tmp/m2repo/org/junit/jupiter/junit-jupiter-api/6.0.3/junit-jupiter-api-6.0.3.jar:/tmp/m2repo/org/opentest4j/opentest4j/1.3.0/opentest4j-1.3.0.jar:/tmp/m2repo/org/junit/platform/junit-platform-commons/6.0.3/junit-platform-commons-6.0.3.jar:/tmp/m2repo/org/apiguardian/apiguardian-api/1.1.2/apiguardian-api-1.1.2.jar:/tmp/m2repo/org/junit/jupiter/junit-jupiter-params/6.0.3/junit-jupiter-params-6.0.3.jar:/tmp/m2repo/org/junit/jupiter/junit-jupiter-engine/6.0.3/junit-jupiter-engine-6.0.3.jar:/tmp/m2repo/org/junit/platform/junit-platform-engine/6.0.3/junit-platform-engine-6.0.3.jar:/tmp/m2repo/org/mockito/mockito-core/5.20.0/mockito-core-5.20.0.jar:/tmp/m2repo/net/bytebuddy/byte-buddy-agent/1.17.8/byte-buddy-agent-1.17.8.jar:/tmp/m2repo/org/objenesis/objenesis/3.3/objenesis-3.3.jar:/tmp/m2repo/org/mockito/mockito-junit-jupiter/5.20.0/mockito-junit-jupiter-5.20.0.jar:/tmp/m2repo/org/skyscreamer/jsonassert/1.5.3/jsonassert-1.5.3.jar:/tmp/m2repo/com/vaadin/external/google/android-json/0.0.20131108.vaadin1/android-json-0.0.20131108.vaadin1.jar:/tmp/m2repo/org/springframework/spring-core/7.0.7/spring-core-7.0.7.jar:/tmp/m2repo/commons-logging/commons-logging/1.3.6/commons-logging-1.3.6.jar:/tmp/m2repo/org/jspecify/jspecify/1.0.0/jspecify-1.0.0.jar:/tmp/m2repo/org/springframework/spring-test/7.0.7/spring-test-7.0.7.jar:/tmp/m2repo/org/xmlunit/xmlunit-core/2.10.4/xmlunit-core-2.10.4.jar:"/>
     <property name="sun.cpu.endian" value="little"/>
@@ -31,7 +31,7 @@
     <property name="java.specification.name" value="Java Platform API Specification"/>
     <property name="FILE_LOG_CHARSET" value="UTF-8"/>
     <property name="java.awt.headless" value="true"/>
-    <property name="surefire.real.class.path" value="/home/tianjiaming/learn/SWE/app-for-ISE/target/surefire/surefirebooter-20260608092552597_3.jar"/>
+    <property name="surefire.real.class.path" value="/home/tianjiaming/learn/SWE/app-for-ISE/target/surefire/surefirebooter-20260629223014087_3.jar"/>
     <property name="sun.management.compiler" value="HotSpot 64-Bit Tiered Compilers"/>
     <property name="java.runtime.version" value="17.0.19+10"/>
     <property name="user.name" value="tianjiaming"/>
@@ -49,7 +49,7 @@
     <property name="user.dir" value="/home/tianjiaming/learn/SWE/app-for-ISE"/>
     <property name="os.arch" value="amd64"/>
     <property name="java.vm.specification.name" value="Java Virtual Machine Specification"/>
-    <property name="PID" value="3703907"/>
+    <property name="PID" value="689567"/>
     <property name="CONSOLE_LOG_CHARSET" value="UTF-8"/>
     <property name="native.encoding" value="UTF-8"/>
     <property name="java.library.path" value="/usr/java/packages/lib:/usr/lib64:/lib64:/lib:/usr/lib"/>
@@ -61,11 +61,11 @@
     <property name="maven.repo.local" value="/tmp/m2repo"/>
     <property name="java.class.version" value="61.0"/>
   </properties>
-  <testcase name="managerCannotApproveApplicationOutsideManagedClass" classname="com.ise.platform.modules.application.ApplicationServiceTest" time="0.594">
-    <system-out><![CDATA[09:25:53.570 [main] INFO org.springframework.test.context.support.AnnotationConfigContextLoaderUtils -- Could not detect default configuration classes for test class [com.ise.platform.modules.application.ApplicationServiceTest]: ApplicationServiceTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
-09:25:53.700 [main] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper -- Found @SpringBootConfiguration com.ise.platform.PlatformBackendApplication for test class com.ise.platform.modules.application.ApplicationServiceTest
-09:25:53.786 [main] INFO org.springframework.test.context.support.AnnotationConfigContextLoaderUtils -- Could not detect default configuration classes for test class [com.ise.platform.modules.application.ApplicationServiceTest]: ApplicationServiceTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
-09:25:53.788 [main] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper -- Found @SpringBootConfiguration com.ise.platform.PlatformBackendApplication for test class com.ise.platform.modules.application.ApplicationServiceTest
+  <testcase name="managerCannotApproveApplicationOutsideManagedClass" classname="com.ise.platform.modules.application.ApplicationServiceTest" time="0.602">
+    <system-out><![CDATA[22:30:15.072 [main] INFO org.springframework.test.context.support.AnnotationConfigContextLoaderUtils -- Could not detect default configuration classes for test class [com.ise.platform.modules.application.ApplicationServiceTest]: ApplicationServiceTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+22:30:15.201 [main] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper -- Found @SpringBootConfiguration com.ise.platform.PlatformBackendApplication for test class com.ise.platform.modules.application.ApplicationServiceTest
+22:30:15.288 [main] INFO org.springframework.test.context.support.AnnotationConfigContextLoaderUtils -- Could not detect default configuration classes for test class [com.ise.platform.modules.application.ApplicationServiceTest]: ApplicationServiceTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+22:30:15.290 [main] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper -- Found @SpringBootConfiguration com.ise.platform.PlatformBackendApplication for test class com.ise.platform.modules.application.ApplicationServiceTest
 
   .   ____          _            __ _ _
  /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
@@ -76,20 +76,954 @@
 
  :: Spring Boot ::                (v4.0.6)
 
-2026-06-08T09:25:54.152+08:00  INFO 3703907 --- [           main] c.i.p.m.a.ApplicationServiceTest         : Starting ApplicationServiceTest using Java 17.0.19 with PID 3703907 (started by tianjiaming in /home/tianjiaming/learn/SWE/app-for-ISE)
-2026-06-08T09:25:54.154+08:00  INFO 3703907 --- [           main] c.i.p.m.a.ApplicationServiceTest         : No active profile set, falling back to 1 default profile: "default"
-2026-06-08T09:25:54.971+08:00  INFO 3703907 --- [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
-2026-06-08T09:25:55.179+08:00  INFO 3703907 --- [           main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection conn0: url=jdbc:h2:mem:app_for_ise_test user=SA
-2026-06-08T09:25:55.181+08:00  INFO 3703907 --- [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
-2026-06-08T09:25:55.913+08:00  INFO 3703907 --- [           main] c.i.p.m.a.ApplicationServiceTest         : Started ApplicationServiceTest in 2.068 seconds (process running for 3.239)
+2026-06-29T22:30:15.659+08:00  INFO 689567 --- [           main] c.i.p.m.a.ApplicationServiceTest         : Starting ApplicationServiceTest using Java 17.0.19 with PID 689567 (started by tianjiaming in /home/tianjiaming/learn/SWE/app-for-ISE)
+2026-06-29T22:30:15.660+08:00  INFO 689567 --- [           main] c.i.p.m.a.ApplicationServiceTest         : No active profile set, falling back to 1 default profile: "default"
+2026-06-29T22:30:15.661+08:00 DEBUG 689567 --- [           main] o.s.boot.SpringApplication               : Loading source class com.ise.platform.PlatformBackendApplication
+2026-06-29T22:30:15.693+08:00 DEBUG 689567 --- [           main] o.s.w.c.s.GenericWebApplicationContext   : Refreshing org.springframework.web.context.support.GenericWebApplicationContext@7cb8437d
+2026-06-29T22:30:16.514+08:00  INFO 689567 --- [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2026-06-29T22:30:16.738+08:00  INFO 689567 --- [           main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection conn0: url=jdbc:h2:mem:app_for_ise_test user=SA
+2026-06-29T22:30:16.740+08:00  INFO 689567 --- [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2026-06-29T22:30:17.162+08:00 DEBUG 689567 --- [           main] o.s.b.a.AutoConfigurationPackages        : @EnableAutoConfiguration was declared on a class in the package 'com.ise.platform'. Automatic @Repository and @Entity scanning is enabled.
+2026-06-29T22:30:17.303+08:00 DEBUG 689567 --- [           main] s.w.s.m.m.a.RequestMappingHandlerMapping : 45 mappings in 'requestMappingHandlerMapping'
+2026-06-29T22:30:17.327+08:00 DEBUG 689567 --- [           main] o.s.w.s.handler.SimpleUrlHandlerMapping  : Patterns [/webjars/**, /**] in 'resourceHandlerMapping'
+2026-06-29T22:30:17.344+08:00 DEBUG 689567 --- [           main] s.w.s.m.m.a.RequestMappingHandlerAdapter : ControllerAdvice beans: 0 @ModelAttribute, 0 @InitBinder, 2 RequestBodyAdvice, 1 ResponseBodyAdvice
+2026-06-29T22:30:17.393+08:00 DEBUG 689567 --- [           main] .m.m.a.ExceptionHandlerExceptionResolver : ControllerAdvice beans: 1 @ExceptionHandler, 1 ResponseBodyAdvice
+2026-06-29T22:30:17.513+08:00 DEBUG 689567 --- [           main] .s.b.a.l.ConditionEvaluationReportLogger : 
+
+
+============================
+CONDITIONS EVALUATION REPORT
+============================
+
+
+Positive matches:
+-----------------
+
+   AopAutoConfiguration matched:
+      - @ConditionalOnBooleanProperty (spring.aop.auto=true) matched (OnPropertyCondition)
+
+   AopAutoConfiguration.ClassProxyingConfiguration matched:
+      - @ConditionalOnMissingClass did not find unwanted class 'org.aspectj.weaver.Advice' (OnClassCondition)
+      - @ConditionalOnBooleanProperty (spring.aop.proxy-target-class=true) matched (OnPropertyCondition)
+
+   ApplicationAvailabilityAutoConfiguration#applicationAvailability matched:
+      - @ConditionalOnMissingBean (types: org.springframework.boot.availability.ApplicationAvailability; SearchStrategy: all) did not find any beans (OnBeanCondition)
+
+   DataSourceAutoConfiguration matched:
+      - @ConditionalOnClass found required classes 'javax.sql.DataSource', 'org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseType' (OnClassCondition)
+      - @ConditionalOnMissingBean (types: io.r2dbc.spi.ConnectionFactory; SearchStrategy: all) did not find any beans (OnBeanCondition)
+
+   DataSourceAutoConfiguration.PooledDataSourceConfiguration matched:
+      - AnyNestedCondition 1 matched 1 did not; NestedCondition on DataSourceAutoConfiguration.PooledDataSourceCondition.PooledDataSourceAvailable PooledDataSource found supported DataSource; NestedCondition on DataSourceAutoConfiguration.PooledDataSourceCondition.ExplicitType @ConditionalOnProperty (spring.datasource.type) did not find property 'spring.datasource.type' (DataSourceAutoConfiguration.PooledDataSourceCondition)
+      - @ConditionalOnMissingBean (types: javax.sql.DataSource,javax.sql.XADataSource; SearchStrategy: all) did not find any beans (OnBeanCondition)
+
+   DataSourceAutoConfiguration.PooledDataSourceConfiguration#jdbcConnectionDetails matched:
+      - @ConditionalOnMissingBean (types: org.springframework.boot.jdbc.autoconfigure.JdbcConnectionDetails; SearchStrategy: all) did not find any beans (OnBeanCondition)
+
+   DataSourceConfiguration.Hikari matched:
+      - @ConditionalOnClass found required class 'com.zaxxer.hikari.HikariDataSource' (OnClassCondition)
+      - @ConditionalOnProperty (spring.datasource.type=com.zaxxer.hikari.HikariDataSource) matched (OnPropertyCondition)
+      - @ConditionalOnMissingBean (types: javax.sql.DataSource; SearchStrategy: all) did not find any beans (OnBeanCondition)
+
+   DataSourceInitializationAutoConfiguration matched:
+      - @ConditionalOnClass found required class 'org.springframework.jdbc.datasource.init.DatabasePopulator' (OnClassCondition)
+      - SQL InitializationDatabase Initialization spring.sql.init.mode is ALWAYS (OnSqlInitializationCondition)
+      - @ConditionalOnSingleCandidate (types: javax.sql.DataSource; SearchStrategy: all) found a single bean 'dataSource'; @ConditionalOnMissingBean (types: org.springframework.boot.sql.autoconfigure.init.ApplicationScriptDatabaseInitializer; SearchStrategy: all) did not find any beans (OnBeanCondition)
+
+   DataSourcePoolMetadataProvidersConfiguration.HikariPoolDataSourceMetadataProviderConfiguration matched:
+      - @ConditionalOnClass found required class 'com.zaxxer.hikari.HikariDataSource' (OnClassCondition)
+
+   DataSourceTransactionManagerAutoConfiguration matched:
+      - @ConditionalOnClass found required classes 'javax.sql.DataSource', 'org.springframework.jdbc.core.JdbcTemplate', 'org.springframework.transaction.TransactionManager' (OnClassCondition)
+
+   DataSourceTransactionManagerAutoConfiguration.JdbcTransactionManagerConfiguration matched:
+      - @ConditionalOnSingleCandidate (types: javax.sql.DataSource; SearchStrategy: all) found a single bean 'dataSource' (OnBeanCondition)
+
+   DataSourceTransactionManagerAutoConfiguration.JdbcTransactionManagerConfiguration#transactionManager matched:
+      - @ConditionalOnMissingBean (types: org.springframework.transaction.TransactionManager; SearchStrategy: all) did not find any beans (OnBeanCondition)
+
+   DispatcherServletAutoConfiguration matched:
+      - @ConditionalOnClass found required class 'org.springframework.web.servlet.DispatcherServlet' (OnClassCondition)
+      - found 'session' scope (OnWebApplicationCondition)
+
+   DispatcherServletAutoConfiguration.DispatcherServletConfiguration matched:
+      - @ConditionalOnClass found required class 'jakarta.servlet.ServletRegistration' (OnClassCondition)
+      - Default DispatcherServlet did not find dispatcher servlet beans (DispatcherServletAutoConfiguration.DefaultDispatcherServletCondition)
+
+   DispatcherServletAutoConfiguration.DispatcherServletRegistrationConfiguration matched:
+      - @ConditionalOnClass found required class 'jakarta.servlet.ServletRegistration' (OnClassCondition)
+      - DispatcherServlet Registration did not find servlet registration bean (DispatcherServletAutoConfiguration.DispatcherServletRegistrationCondition)
+
+   DispatcherServletAutoConfiguration.DispatcherServletRegistrationConfiguration#dispatcherServletRegistration matched:
+      - @ConditionalOnBean (names: dispatcherServlet types: org.springframework.web.servlet.DispatcherServlet; SearchStrategy: all) found bean 'dispatcherServlet' (OnBeanCondition)
+
+   ErrorMvcAutoConfiguration matched:
+      - @ConditionalOnClass found required classes 'jakarta.servlet.Servlet', 'org.springframework.web.servlet.DispatcherServlet' (OnClassCondition)
+      - found 'session' scope (OnWebApplicationCondition)
+
+   ErrorMvcAutoConfiguration#basicErrorController matched:
+      - @ConditionalOnMissingBean (types: org.springframework.boot.webmvc.error.ErrorController; SearchStrategy: current) did not find any beans (OnBeanCondition)
+
+   ErrorMvcAutoConfiguration#errorAttributes matched:
+      - @ConditionalOnMissingBean (types: org.springframework.boot.webmvc.error.ErrorAttributes; SearchStrategy: current) did not find any beans (OnBeanCondition)
+
+   ErrorMvcAutoConfiguration.DefaultErrorViewResolverConfiguration#conventionErrorViewResolver matched:
+      - @ConditionalOnBean (types: org.springframework.web.servlet.DispatcherServlet; SearchStrategy: all) found bean 'dispatcherServlet'; @ConditionalOnMissingBean (types: org.springframework.boot.webmvc.autoconfigure.error.ErrorViewResolver; SearchStrategy: all) did not find any beans (OnBeanCondition)
+
+   ErrorMvcAutoConfiguration.WhitelabelErrorViewConfiguration matched:
+      - @ConditionalOnBooleanProperty (spring.web.error.whitelabel.enabled=true) matched (OnPropertyCondition)
+      - ErrorTemplate Missing did not find error template view (ErrorMvcAutoConfiguration.ErrorTemplateMissingCondition)
+
+   ErrorMvcAutoConfiguration.WhitelabelErrorViewConfiguration#beanNameViewResolver matched:
+      - @ConditionalOnMissingBean (types: org.springframework.web.servlet.view.BeanNameViewResolver; SearchStrategy: all) did not find any beans (OnBeanCondition)
+
+   ErrorMvcAutoConfiguration.WhitelabelErrorViewConfiguration#defaultErrorView matched:
+      - @ConditionalOnMissingBean (names: error; SearchStrategy: all) did not find any beans (OnBeanCondition)
+
+   HttpEncodingAutoConfiguration matched:
+      - @ConditionalOnClass found required class 'org.springframework.web.filter.CharacterEncodingFilter' (OnClassCondition)
+      - found 'session' scope (OnWebApplicationCondition)
+      - @ConditionalOnBooleanProperty (spring.servlet.encoding.enabled=true) matched (OnPropertyCondition)
+
+   HttpEncodingAutoConfiguration#characterEncodingFilter matched:
+      - @ConditionalOnMissingBean (types: org.springframework.web.filter.CharacterEncodingFilter; SearchStrategy: all) did not find any beans (OnBeanCondition)
+
+   HttpMessageConvertersAutoConfiguration matched:
+      - @ConditionalOnClass found required class 'org.springframework.http.converter.HttpMessageConverter' (OnClassCondition)
+      - NoneNestedConditions 0 matched 1 did not; NestedCondition on HttpMessageConvertersAutoConfiguration.NotReactiveWebApplicationCondition.ReactiveWebApplication did not find reactive web application classes (HttpMessageConvertersAutoConfiguration.NotReactiveWebApplicationCondition)
+
+   HttpMessageConvertersAutoConfiguration.StringHttpMessageConverterConfiguration#stringHttpMessageConvertersCustomizer matched:
+      - @ConditionalOnMissingBean (types: org.springframework.http.converter.StringHttpMessageConverter; SearchStrategy: all) did not find any beans (OnBeanCondition)
+
+   JacksonAutoConfiguration matched:
+      - @ConditionalOnClass found required class 'tools.jackson.databind.json.JsonMapper' (OnClassCondition)
+
+   JacksonAutoConfiguration#jacksonJsonMapper matched:
+      - @ConditionalOnMissingBean (types: tools.jackson.databind.json.JsonMapper; SearchStrategy: all) did not find any beans (OnBeanCondition)
+
+   JacksonAutoConfiguration#jsonMapperBuilder matched:
+      - @ConditionalOnMissingBean (types: tools.jackson.databind.json.JsonMapper$Builder; SearchStrategy: all) did not find any beans (OnBeanCondition)
+
+   JacksonAutoConfiguration.JsonProblemDetailsConfiguration matched:
+      - @ConditionalOnClass found required class 'org.springframework.http.ProblemDetail' (OnClassCondition)
+
+   JacksonHttpMessageConvertersConfiguration.JacksonJsonHttpMessageConverterConfiguration matched:
+      - @ConditionalOnClass found required class 'tools.jackson.databind.json.JsonMapper' (OnClassCondition)
+      - @ConditionalOnProperty (spring.http.converters.preferred-json-mapper=jackson) matched (OnPropertyCondition)
+      - @ConditionalOnBean (types: tools.jackson.databind.json.JsonMapper; SearchStrategy: all) found bean 'jacksonJsonMapper' (OnBeanCondition)
+
+   JacksonHttpMessageConvertersConfiguration.JacksonJsonHttpMessageConverterConfiguration#jacksonJsonHttpMessageConvertersCustomizer matched:
+      - @ConditionalOnMissingBean (types: org.springframework.http.converter.json.JacksonJsonHttpMessageConverter ignored: org.springframework.hateoas.server.mvc.TypeConstrainedJacksonJsonHttpMessageConverter,org.springframework.data.rest.webmvc.alps.AlpsJacksonJsonHttpMessageConverter; SearchStrategy: all) did not find any beans (OnBeanCondition)
+
+   JdbcClientAutoConfiguration matched:
+      - @ConditionalOnSingleCandidate (types: org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate; SearchStrategy: all) found a single bean 'namedParameterJdbcTemplate'; @ConditionalOnMissingBean (types: org.springframework.jdbc.core.simple.JdbcClient; SearchStrategy: all) did not find any beans (OnBeanCondition)
+
+   JdbcTemplateAutoConfiguration matched:
+      - @ConditionalOnClass found required classes 'javax.sql.DataSource', 'org.springframework.jdbc.core.JdbcTemplate' (OnClassCondition)
+      - @ConditionalOnSingleCandidate (types: javax.sql.DataSource; SearchStrategy: all) found a single bean 'dataSource' (OnBeanCondition)
+
+   JdbcTemplateConfiguration matched:
+      - @ConditionalOnMissingBean (types: org.springframework.jdbc.core.JdbcOperations; SearchStrategy: all) did not find any beans (OnBeanCondition)
+
+   LifecycleAutoConfiguration#defaultLifecycleProcessor matched:
+      - @ConditionalOnMissingBean (names: lifecycleProcessor; SearchStrategy: current) did not find any beans (OnBeanCondition)
+
+   MultipartAutoConfiguration matched:
+      - @ConditionalOnClass found required classes 'jakarta.servlet.Servlet', 'org.springframework.web.multipart.support.StandardServletMultipartResolver', 'jakarta.servlet.MultipartConfigElement' (OnClassCondition)
+      - found 'session' scope (OnWebApplicationCondition)
+      - @ConditionalOnBooleanProperty (spring.servlet.multipart.enabled=true) matched (OnPropertyCondition)
+
+   MultipartAutoConfiguration#multipartConfigElement matched:
+      - @ConditionalOnMissingBean (types: jakarta.servlet.MultipartConfigElement; SearchStrategy: all) did not find any beans (OnBeanCondition)
+
+   MultipartAutoConfiguration#multipartResolver matched:
+      - @ConditionalOnMissingBean (types: org.springframework.web.multipart.MultipartResolver; SearchStrategy: all) did not find any beans (OnBeanCondition)
+
+   NamedParameterJdbcTemplateConfiguration matched:
+      - @ConditionalOnSingleCandidate (types: org.springframework.jdbc.core.JdbcTemplate; SearchStrategy: all) found a single bean 'jdbcTemplate'; @ConditionalOnMissingBean (types: org.springframework.jdbc.core.namedparam.NamedParameterJdbcOperations; SearchStrategy: all) did not find any beans (OnBeanCondition)
+
+   PersistenceExceptionTranslationAutoConfiguration matched:
+      - @ConditionalOnClass found required class 'org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor' (OnClassCondition)
+
+   PersistenceExceptionTranslationAutoConfiguration#persistenceExceptionTranslationPostProcessor matched:
+      - @ConditionalOnBooleanProperty (spring.persistence.exceptiontranslation.enabled=true) matched (OnPropertyCondition)
+      - @ConditionalOnMissingBean (types: org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor; SearchStrategy: all) did not find any beans (OnBeanCondition)
+
+   PropertyPlaceholderAutoConfiguration#propertySourcesPlaceholderConfigurer matched:
+      - @ConditionalOnMissingBean (types: org.springframework.context.support.PropertySourcesPlaceholderConfigurer; SearchStrategy: current) did not find any beans (OnBeanCondition)
+
+   SslAutoConfiguration#sslBundleRegistry matched:
+      - @ConditionalOnMissingBean (types: org.springframework.boot.ssl.SslBundleRegistry,org.springframework.boot.ssl.SslBundles; SearchStrategy: all) did not find any beans (OnBeanCondition)
+
+   TaskExecutionAutoConfiguration matched:
+      - @ConditionalOnClass found required class 'org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor' (OnClassCondition)
+
+   TaskExecutorConfigurations.AsyncConfigurerConfiguration matched:
+      - @ConditionalOnMissingBean (types: org.springframework.scheduling.annotation.AsyncConfigurer; SearchStrategy: all) did not find any beans (OnBeanCondition)
+
+   TaskExecutorConfigurations.SimpleAsyncTaskExecutorBuilderConfiguration#simpleAsyncTaskExecutorBuilder matched:
+      - @ConditionalOnMissingBean (types: org.springframework.boot.task.SimpleAsyncTaskExecutorBuilder; SearchStrategy: all) did not find any beans (OnBeanCondition)
+      - @ConditionalOnThreading found PLATFORM (OnThreadingCondition)
+
+   TaskExecutorConfigurations.TaskExecutorConfiguration matched:
+      - AnyNestedCondition 1 matched 1 did not; NestedCondition on TaskExecutorConfigurations.OnExecutorCondition.ModelCondition @ConditionalOnProperty (spring.task.execution.mode=force) did not find property 'spring.task.execution.mode'; NestedCondition on TaskExecutorConfigurations.OnExecutorCondition.ExecutorBeanCondition @ConditionalOnMissingBean (types: java.util.concurrent.Executor; SearchStrategy: all) did not find any beans (TaskExecutorConfigurations.OnExecutorCondition)
+
+   TaskExecutorConfigurations.TaskExecutorConfiguration#applicationTaskExecutor matched:
+      - @ConditionalOnThreading found PLATFORM (OnThreadingCondition)
+
+   TaskExecutorConfigurations.ThreadPoolTaskExecutorBuilderConfiguration#threadPoolTaskExecutorBuilder matched:
+      - @ConditionalOnMissingBean (types: org.springframework.boot.task.ThreadPoolTaskExecutorBuilder; SearchStrategy: all) did not find any beans (OnBeanCondition)
+
+   TaskSchedulingAutoConfiguration matched:
+      - @ConditionalOnClass found required class 'org.springframework.scheduling.concurrent.ThreadPoolTaskScheduler' (OnClassCondition)
+
+   TaskSchedulingConfigurations.SimpleAsyncTaskSchedulerBuilderConfiguration#simpleAsyncTaskSchedulerBuilder matched:
+      - @ConditionalOnMissingBean (types: org.springframework.boot.task.SimpleAsyncTaskSchedulerBuilder; SearchStrategy: all) did not find any beans (OnBeanCondition)
+      - @ConditionalOnThreading found PLATFORM (OnThreadingCondition)
+
+   TaskSchedulingConfigurations.ThreadPoolTaskSchedulerBuilderConfiguration#threadPoolTaskSchedulerBuilder matched:
+      - @ConditionalOnMissingBean (types: org.springframework.boot.task.ThreadPoolTaskSchedulerBuilder; SearchStrategy: all) did not find any beans (OnBeanCondition)
+
+   TomcatServletWebServerAutoConfiguration matched:
+      - @ConditionalOnClass found required classes 'jakarta.servlet.ServletRequest', 'org.apache.catalina.startup.Tomcat', 'org.apache.coyote.UpgradeProtocol', 'org.springframework.boot.tomcat.servlet.TomcatServletWebServerFactory' (OnClassCondition)
+      - found 'session' scope (OnWebApplicationCondition)
+
+   TomcatServletWebServerAutoConfiguration#tomcatServletWebServerFactory matched:
+      - @ConditionalOnMissingBean (types: org.springframework.boot.web.server.servlet.ServletWebServerFactory; SearchStrategy: current) did not find any beans (OnBeanCondition)
+
+   TransactionAutoConfiguration matched:
+      - @ConditionalOnClass found required class 'org.springframework.transaction.PlatformTransactionManager' (OnClassCondition)
+
+   TransactionAutoConfiguration.EnableTransactionManagementConfiguration matched:
+      - @ConditionalOnBean (types: org.springframework.transaction.TransactionManager; SearchStrategy: all) found bean 'transactionManager'; @ConditionalOnMissingBean (types: org.springframework.transaction.annotation.AbstractTransactionManagementConfiguration; SearchStrategy: all) did not find any beans (OnBeanCondition)
+
+   TransactionAutoConfiguration.EnableTransactionManagementConfiguration.CglibAutoProxyConfiguration matched:
+      - @ConditionalOnBooleanProperty (spring.aop.proxy-target-class=true) matched (OnPropertyCondition)
+
+   TransactionAutoConfiguration.TransactionTemplateConfiguration matched:
+      - @ConditionalOnSingleCandidate (types: org.springframework.transaction.PlatformTransactionManager; SearchStrategy: all) found a single bean 'transactionManager' (OnBeanCondition)
+
+   TransactionAutoConfiguration.TransactionTemplateConfiguration#transactionTemplate matched:
+      - @ConditionalOnMissingBean (types: org.springframework.transaction.support.TransactionOperations; SearchStrategy: all) did not find any beans (OnBeanCondition)
+
+   TransactionManagerCustomizationAutoConfiguration matched:
+      - @ConditionalOnClass found required class 'org.springframework.transaction.PlatformTransactionManager' (OnClassCondition)
+
+   TransactionManagerCustomizationAutoConfiguration#platformTransactionManagerCustomizers matched:
+      - @ConditionalOnMissingBean (types: org.springframework.boot.transaction.autoconfigure.TransactionManagerCustomizers; SearchStrategy: all) did not find any beans (OnBeanCondition)
+
+   ValidationAutoConfiguration matched:
+      - @ConditionalOnClass found required class 'jakarta.validation.executable.ExecutableValidator' (OnClassCondition)
+      - @ConditionalOnResource found location classpath:META-INF/services/jakarta.validation.spi.ValidationProvider (OnResourceCondition)
+
+   ValidationAutoConfiguration#defaultValidator matched:
+      - @ConditionalOnMissingBean (types: jakarta.validation.Validator; SearchStrategy: all) did not find any beans (OnBeanCondition)
+
+   ValidationAutoConfiguration#methodValidationPostProcessor matched:
+      - @ConditionalOnMissingBean (types: org.springframework.validation.beanvalidation.MethodValidationPostProcessor; SearchStrategy: current) did not find any beans (OnBeanCondition)
+
+   WebMvcAutoConfiguration matched:
+      - @ConditionalOnClass found required classes 'jakarta.servlet.Servlet', 'org.springframework.web.servlet.DispatcherServlet', 'org.springframework.web.servlet.config.annotation.WebMvcConfigurer' (OnClassCondition)
+      - found 'session' scope (OnWebApplicationCondition)
+      - @ConditionalOnMissingBean (types: org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupport; SearchStrategy: all) did not find any beans (OnBeanCondition)
+
+   WebMvcAutoConfiguration#formContentFilter matched:
+      - @ConditionalOnBooleanProperty (spring.mvc.formcontent.filter.enabled=true) matched (OnPropertyCondition)
+      - @ConditionalOnMissingBean (types: org.springframework.web.filter.FormContentFilter; SearchStrategy: all) did not find any beans (OnBeanCondition)
+
+   WebMvcAutoConfiguration.EnableWebMvcConfiguration#flashMapManager matched:
+      - @ConditionalOnMissingBean (names: flashMapManager; SearchStrategy: all) did not find any beans (OnBeanCondition)
+
+   WebMvcAutoConfiguration.EnableWebMvcConfiguration#localeResolver matched:
+      - @ConditionalOnMissingBean (names: localeResolver; SearchStrategy: all) did not find any beans (OnBeanCondition)
+
+   WebMvcAutoConfiguration.EnableWebMvcConfiguration#viewNameTranslator matched:
+      - @ConditionalOnMissingBean (names: viewNameTranslator; SearchStrategy: all) did not find any beans (OnBeanCondition)
+
+   WebMvcAutoConfiguration.WebMvcAutoConfigurationAdapter#defaultViewResolver matched:
+      - @ConditionalOnMissingBean (types: org.springframework.web.servlet.view.InternalResourceViewResolver; SearchStrategy: all) did not find any beans (OnBeanCondition)
+
+   WebMvcAutoConfiguration.WebMvcAutoConfigurationAdapter#requestContextFilter matched:
+      - @ConditionalOnMissingBean (types: org.springframework.web.context.request.RequestContextListener,org.springframework.web.filter.RequestContextFilter; SearchStrategy: all) did not find any beans (OnBeanCondition)
+
+   WebMvcAutoConfiguration.WebMvcAutoConfigurationAdapter#viewResolver matched:
+      - @ConditionalOnBean (types: org.springframework.web.servlet.ViewResolver; SearchStrategy: all) found beans 'defaultViewResolver', 'beanNameViewResolver', 'mvcViewResolver'; @ConditionalOnMissingBean (names: viewResolver types: org.springframework.web.servlet.view.ContentNegotiatingViewResolver; SearchStrategy: all) did not find any beans (OnBeanCondition)
+
+
+Negative matches:
+-----------------
+
+   AopAutoConfiguration.AspectJAutoProxyingConfiguration:
+      Did not match:
+         - @ConditionalOnClass did not find required class 'org.aspectj.weaver.Advice' (OnClassCondition)
+
+   DataSourceAutoConfiguration.EmbeddedDatabaseConfiguration:
+      Did not match:
+         - EmbeddedDataSource spring.datasource.url is set (DataSourceAutoConfiguration.EmbeddedDatabaseCondition)
+
+   DataSourceCheckpointRestoreConfiguration:
+      Did not match:
+         - @ConditionalOnClass did not find required class 'org.crac.Resource' (OnClassCondition)
+
+   DataSourceConfiguration.Dbcp2:
+      Did not match:
+         - @ConditionalOnClass did not find required class 'org.apache.commons.dbcp2.BasicDataSource' (OnClassCondition)
+
+   DataSourceConfiguration.Generic:
+      Did not match:
+         - @ConditionalOnProperty (spring.datasource.type) did not find property 'spring.datasource.type' (OnPropertyCondition)
+
+   DataSourceConfiguration.OracleUcp:
+      Did not match:
+         - @ConditionalOnClass did not find required classes 'oracle.ucp.jdbc.PoolDataSourceImpl', 'oracle.jdbc.OracleConnection' (OnClassCondition)
+
+   DataSourceConfiguration.Tomcat:
+      Did not match:
+         - @ConditionalOnClass did not find required class 'org.apache.tomcat.jdbc.pool.DataSource' (OnClassCondition)
+
+   DataSourceHealthContributorAutoConfiguration:
+      Did not match:
+         - @ConditionalOnClass did not find required class 'org.springframework.boot.health.autoconfigure.contributor.ConditionalOnEnabledHealthIndicator' (OnClassCondition)
+
+   DataSourceJmxConfiguration:
+      Did not match:
+         - @ConditionalOnBooleanProperty (spring.jmx.enabled=true) found different value in property 'spring.jmx.enabled' (OnPropertyCondition)
+
+   DataSourcePoolMetadataProvidersConfiguration.CommonsDbcp2PoolDataSourceMetadataProviderConfiguration:
+      Did not match:
+         - @ConditionalOnClass did not find required class 'org.apache.commons.dbcp2.BasicDataSource' (OnClassCondition)
+
+   DataSourcePoolMetadataProvidersConfiguration.OracleUcpPoolDataSourceMetadataProviderConfiguration:
+      Did not match:
+         - @ConditionalOnClass did not find required classes 'oracle.ucp.jdbc.PoolDataSource', 'oracle.jdbc.OracleConnection' (OnClassCondition)
+
+   DataSourcePoolMetadataProvidersConfiguration.TomcatDataSourcePoolMetadataProviderConfiguration:
+      Did not match:
+         - @ConditionalOnClass did not find required class 'org.apache.tomcat.jdbc.pool.DataSource' (OnClassCondition)
+
+   DataSourcePoolMetricsAutoConfiguration:
+      Did not match:
+         - @ConditionalOnClass did not find required class 'io.micrometer.core.instrument.MeterRegistry' (OnClassCondition)
+
+   DispatcherServletAutoConfiguration.DispatcherServletConfiguration#multipartResolver:
+      Did not match:
+         - @ConditionalOnBean (types: org.springframework.web.multipart.MultipartResolver; SearchStrategy: all) did not find any beans of type org.springframework.web.multipart.MultipartResolver (OnBeanCondition)
+
+   GsonHttpMessageConvertersConfiguration:
+      Did not match:
+         - @ConditionalOnClass did not find required class 'com.google.gson.Gson' (OnClassCondition)
+
+   Jackson2HttpMessageConvertersConfiguration.MappingJackson2HttpMessageConverterConfiguration:
+      Did not match:
+         - AnyNestedCondition 0 matched 2 did not; NestedCondition on Jackson2HttpMessageConvertersConfiguration.PreferJackson2OrJacksonUnavailableCondition.JacksonUnavailable @ConditionalOnMissingBean (types: org.springframework.boot.http.converter.autoconfigure.JacksonHttpMessageConvertersConfiguration$JacksonJsonHttpMessageConvertersCustomizer; SearchStrategy: all) found beans of type 'org.springframework.boot.http.converter.autoconfigure.JacksonHttpMessageConvertersConfiguration$JacksonJsonHttpMessageConvertersCustomizer' jacksonJsonHttpMessageConvertersCustomizer; NestedCondition on Jackson2HttpMessageConvertersConfiguration.PreferJackson2OrJacksonUnavailableCondition.Jackson2Preferred @ConditionalOnProperty (spring.http.converters.preferred-json-mapper=jackson2) did not find property 'spring.http.converters.preferred-json-mapper' (Jackson2HttpMessageConvertersConfiguration.PreferJackson2OrJacksonUnavailableCondition)
+      Matched:
+         - @ConditionalOnClass found required class 'com.fasterxml.jackson.databind.ObjectMapper' (OnClassCondition)
+
+   Jackson2HttpMessageConvertersConfiguration.MappingJackson2XmlHttpMessageConverterConfiguration:
+      Did not match:
+         - @ConditionalOnClass did not find required class 'com.fasterxml.jackson.dataformat.xml.XmlMapper' (OnClassCondition)
+
+   JacksonAutoConfiguration.CborConfiguration:
+      Did not match:
+         - @ConditionalOnClass did not find required class 'tools.jackson.dataformat.cbor.CBORMapper' (OnClassCondition)
+
+   JacksonAutoConfiguration.XmlConfiguration:
+      Did not match:
+         - @ConditionalOnClass did not find required class 'tools.jackson.dataformat.xml.XmlMapper' (OnClassCondition)
+
+   JacksonHttpMessageConvertersConfiguration.JacksonXmlHttpMessageConverterConfiguration:
+      Did not match:
+         - @ConditionalOnClass did not find required class 'tools.jackson.dataformat.xml.XmlMapper' (OnClassCondition)
+
+   JmxAutoConfiguration:
+      Did not match:
+         - @ConditionalOnBooleanProperty (spring.jmx.enabled=true) found different value in property 'spring.jmx.enabled' (OnPropertyCondition)
+      Matched:
+         - @ConditionalOnClass found required class 'org.springframework.jmx.export.MBeanExporter' (OnClassCondition)
+
+   JndiDataSourceAutoConfiguration:
+      Did not match:
+         - @ConditionalOnProperty (spring.datasource.jndi-name) did not find property 'spring.datasource.jndi-name' (OnPropertyCondition)
+      Matched:
+         - @ConditionalOnClass found required classes 'javax.sql.DataSource', 'org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseType' (OnClassCondition)
+
+   JsonbHttpMessageConvertersConfiguration:
+      Did not match:
+         - @ConditionalOnClass did not find required class 'jakarta.json.bind.Jsonb' (OnClassCondition)
+
+   JtaAutoConfiguration:
+      Did not match:
+         - @ConditionalOnClass did not find required class 'jakarta.transaction.Transaction' (OnClassCondition)
+
+   KotlinSerializationHttpMessageConvertersConfiguration:
+      Did not match:
+         - @ConditionalOnClass did not find required classes 'kotlinx.serialization.Serializable', 'kotlinx.serialization.json.Json' (OnClassCondition)
+
+   MessageSourceAutoConfiguration:
+      Did not match:
+         - ResourceBundle did not find bundle with basename messages (MessageSourceAutoConfiguration.ResourceBundleCondition)
+
+   ProjectInfoAutoConfiguration#buildProperties:
+      Did not match:
+         - @ConditionalOnResource did not find resource '${spring.info.build.location:classpath:META-INF/build-info.properties}' (OnResourceCondition)
+
+   ProjectInfoAutoConfiguration#gitProperties:
+      Did not match:
+         - GitResource did not find git info at classpath:git.properties (ProjectInfoAutoConfiguration.GitResourceAvailableCondition)
+
+   ServletHttpExchangesAutoConfiguration:
+      Did not match:
+         - @ConditionalOnBean did not find required type 'org.springframework.boot.actuate.web.exchanges.HttpExchangeRepository' (OnBeanCondition)
+
+   ServletManagementContextAutoConfiguration:
+      Did not match:
+         - @ConditionalOnClass did not find required class 'org.springframework.boot.actuate.autoconfigure.endpoint.web.WebEndpointProperties' (OnClassCondition)
+
+   ServletMappingsAutoConfiguration:
+      Did not match:
+         - @ConditionalOnClass did not find required class 'org.springframework.boot.actuate.autoconfigure.endpoint.condition.ConditionalOnAvailableEndpoint' (OnClassCondition)
+
+   ServletWebServerConfiguration#forwardedHeaderFilter:
+      Did not match:
+         - @ConditionalOnProperty (server.forward-headers-strategy=framework) did not find property 'server.forward-headers-strategy' (OnPropertyCondition)
+
+   SpringApplicationAdminJmxAutoConfiguration:
+      Did not match:
+         - @ConditionalOnBooleanProperty (spring.application.admin.enabled=true) did not find property 'spring.application.admin.enabled' (OnPropertyCondition)
+
+   TaskExecutorConfigurations.AsyncConfigurerWrapperConfiguration:
+      Did not match:
+         - @ConditionalOnBean (types: org.springframework.scheduling.annotation.AsyncConfigurer; SearchStrategy: all) did not find any beans of type org.springframework.scheduling.annotation.AsyncConfigurer (OnBeanCondition)
+
+   TaskExecutorConfigurations.SimpleAsyncTaskExecutorBuilderConfiguration#simpleAsyncTaskExecutorBuilderVirtualThreads:
+      Did not match:
+         - @ConditionalOnMissingBean (types: org.springframework.boot.task.SimpleAsyncTaskExecutorBuilder; SearchStrategy: all) found beans of type 'org.springframework.boot.task.SimpleAsyncTaskExecutorBuilder' simpleAsyncTaskExecutorBuilder (OnBeanCondition)
+
+   TaskExecutorConfigurations.TaskExecutorConfiguration#applicationTaskExecutorVirtualThreads:
+      Did not match:
+         - @ConditionalOnThreading did not find VIRTUAL (OnThreadingCondition)
+
+   TaskSchedulingAutoConfiguration#scheduledBeanLazyInitializationExcludeFilter:
+      Did not match:
+         - @ConditionalOnBean (names: org.springframework.scheduling.config.internalScheduledAnnotationProcessor; SearchStrategy: all) did not find any beans named org.springframework.scheduling.config.internalScheduledAnnotationProcessor (OnBeanCondition)
+
+   TaskSchedulingConfigurations.SimpleAsyncTaskSchedulerBuilderConfiguration#simpleAsyncTaskSchedulerBuilderVirtualThreads:
+      Did not match:
+         - @ConditionalOnMissingBean (types: org.springframework.boot.task.SimpleAsyncTaskSchedulerBuilder; SearchStrategy: all) found beans of type 'org.springframework.boot.task.SimpleAsyncTaskSchedulerBuilder' simpleAsyncTaskSchedulerBuilder (OnBeanCondition)
+
+   TaskSchedulingConfigurations.TaskSchedulerConfiguration:
+      Did not match:
+         - @ConditionalOnBean (names: org.springframework.scheduling.config.internalScheduledAnnotationProcessor; SearchStrategy: all) did not find any beans named org.springframework.scheduling.config.internalScheduledAnnotationProcessor (OnBeanCondition)
+
+   TomcatMetricsAutoConfiguration:
+      Did not match:
+         - @ConditionalOnClass did not find required class 'io.micrometer.core.instrument.binder.tomcat.TomcatMetrics' (OnClassCondition)
+
+   TomcatReactiveManagementContextAutoConfiguration:
+      Did not match:
+         - @ConditionalOnClass did not find required class 'org.springframework.boot.actuate.autoconfigure.web.server.ManagementContextFactory' (OnClassCondition)
+
+   TomcatReactiveWebServerAutoConfiguration:
+      Did not match:
+         - @ConditionalOnWebApplication did not find reactive web application classes (OnWebApplicationCondition)
+
+   TomcatServletManagementContextAutoConfiguration:
+      Did not match:
+         - @ConditionalOnClass did not find required class 'org.springframework.boot.actuate.autoconfigure.web.server.ManagementContextFactory' (OnClassCondition)
+
+   TomcatServletWebServerAutoConfiguration#tomcatForwardedHeaderFilterCustomizer:
+      Did not match:
+         - @ConditionalOnProperty (server.forward-headers-strategy=framework) did not find property 'server.forward-headers-strategy' (OnPropertyCondition)
+
+   TomcatWebServerConfiguration:
+      Did not match:
+         - Application is deployed as a WAR file. (OnWarDeploymentCondition)
+
+   TransactionAutoConfiguration#transactionalOperator:
+      Did not match:
+         - @ConditionalOnSingleCandidate (types: org.springframework.transaction.ReactiveTransactionManager; SearchStrategy: all) did not find any beans (OnBeanCondition)
+
+   TransactionAutoConfiguration.AspectJTransactionManagementConfiguration:
+      Did not match:
+         - @ConditionalOnBean did not find required type 'org.springframework.transaction.aspectj.AbstractTransactionAspect' (OnBeanCondition)
+         - @ConditionalOnBean (types: org.springframework.transaction.aspectj.AbstractTransactionAspect; SearchStrategy: all) did not find any beans of type org.springframework.transaction.aspectj.AbstractTransactionAspect (OnBeanCondition)
+
+   TransactionAutoConfiguration.EnableTransactionManagementConfiguration.JdkDynamicAutoProxyConfiguration:
+      Did not match:
+         - @ConditionalOnBooleanProperty (spring.aop.proxy-target-class=false) did not find property 'spring.aop.proxy-target-class' (OnPropertyCondition)
+
+   WebMvcAutoConfiguration#hiddenHttpMethodFilter:
+      Did not match:
+         - @ConditionalOnBooleanProperty (spring.mvc.hiddenmethod.filter.enabled=true) did not find property 'spring.mvc.hiddenmethod.filter.enabled' (OnPropertyCondition)
+
+   WebMvcAutoConfiguration.ProblemDetailsErrorHandlingConfiguration:
+      Did not match:
+         - @ConditionalOnBooleanProperty (spring.mvc.problemdetails.enabled=true) did not find property 'spring.mvc.problemdetails.enabled' (OnPropertyCondition)
+
+   WebMvcAutoConfiguration.ResourceChainCustomizerConfiguration:
+      Did not match:
+         - @ConditionalOnEnabledResourceChain did not find class org.webjars.WebJarVersionLocator (OnEnabledResourceChainCondition)
+
+   WebMvcAutoConfiguration.WebMvcAutoConfigurationAdapter#beanNameViewResolver:
+      Did not match:
+         - @ConditionalOnMissingBean (types: org.springframework.web.servlet.view.BeanNameViewResolver; SearchStrategy: all) found beans of type 'org.springframework.web.servlet.view.BeanNameViewResolver' beanNameViewResolver (OnBeanCondition)
+
+   WebMvcHealthEndpointExtensionAutoConfiguration:
+      Did not match:
+         - @ConditionalOnClass did not find required class 'org.springframework.boot.health.actuate.endpoint.HealthEndpoint' (OnClassCondition)
+
+   WebMvcMappingsAutoConfiguration:
+      Did not match:
+         - @ConditionalOnClass did not find required class 'org.springframework.boot.actuate.autoconfigure.endpoint.condition.ConditionalOnAvailableEndpoint' (OnClassCondition)
+
+   WebMvcObservationAutoConfiguration:
+      Did not match:
+         - @ConditionalOnClass did not find required class 'org.springframework.boot.micrometer.observation.autoconfigure.ObservationProperties' (OnClassCondition)
+
+   XADataSourceAutoConfiguration:
+      Did not match:
+         - @ConditionalOnClass did not find required class 'jakarta.transaction.TransactionManager' (OnClassCondition)
+
+
+Exclusions:
+-----------
+
+    None
+
+
+Unconditional classes:
+----------------------
+
+    org.springframework.boot.autoconfigure.context.ConfigurationPropertiesAutoConfiguration
+
+    org.springframework.boot.autoconfigure.ssl.SslAutoConfiguration
+
+    org.springframework.boot.autoconfigure.context.LifecycleAutoConfiguration
+
+    org.springframework.boot.autoconfigure.context.PropertyPlaceholderAutoConfiguration
+
+    org.springframework.boot.autoconfigure.availability.ApplicationAvailabilityAutoConfiguration
+
+    org.springframework.boot.autoconfigure.info.ProjectInfoAutoConfiguration
+
+
+
+2026-06-29T22:30:17.521+08:00  INFO 689567 --- [           main] c.i.p.m.a.ApplicationServiceTest         : Started ApplicationServiceTest in 2.167 seconds (process running for 3.36)
+2026-06-29T22:30:17.522+08:00 DEBUG 689567 --- [           main] o.s.b.a.ApplicationAvailabilityBean      : Application availability state LivenessState changed to CORRECT
+2026-06-29T22:30:17.525+08:00 DEBUG 689567 --- [           main] o.s.b.a.ApplicationAvailabilityBean      : Application availability state ReadinessState changed to ACCEPTING_TRAFFIC
+2026-06-29T22:30:18.036+08:00 DEBUG 689567 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing SQL query [select coalesce(max(id), 0) + 1 from biz_application]
+2026-06-29T22:30:18.058+08:00 DEBUG 689567 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL update
+2026-06-29T22:30:18.059+08:00 DEBUG 689567 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL statement [insert into biz_application (
+    id, application_no, application_type, template_id, applicant_user_id, student_id,
+    title, purpose, form_data_json, status, current_approver_id, submitted_at,
+    created_at, updated_at, is_deleted
+) values (?, ?, 'certificate', 1, 1, 3, '跨班级申请', '测试数据范围', '{}', 'submitted', 8,
+    current_timestamp, current_timestamp, current_timestamp, 0)
+]
+2026-06-29T22:30:18.106+08:00 DEBUG 689567 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL query
+2026-06-29T22:30:18.107+08:00 DEBUG 689567 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL statement [select a.id, a.application_no, a.application_type, a.template_id, a.applicant_user_id,
+       a.student_id, a.title, a.purpose, a.form_data_json, a.status,
+       coalesce(u.real_name, '-') as current_approver, a.submitted_at
+  from biz_application a
+  left join sys_user u on u.id = a.current_approver_id
+ where a.id = ? and a.is_deleted = 0
+]
+2026-06-29T22:30:18.111+08:00 DEBUG 689567 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL query
+2026-06-29T22:30:18.111+08:00 DEBUG 689567 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL statement [select class_name from stu_student where id = ? and is_deleted = 0]
 ]]></system-out>
   </testcase>
-  <testcase name="collegeLeaderCanSeePendingApplicationsAcrossClasses" classname="com.ise.platform.modules.application.ApplicationServiceTest" time="0.024"/>
-  <testcase name="createdApplicationShouldSurviveServiceReadBackFromDatabase" classname="com.ise.platform.modules.application.ApplicationServiceTest" time="0.066"/>
-  <testcase name="applicantCanRevokeReviewingApplication" classname="com.ise.platform.modules.application.ApplicationServiceTest" time="0.008"/>
-  <testcase name="managerCanOnlySeePendingApplicationsFromManagedClass" classname="com.ise.platform.modules.application.ApplicationServiceTest" time="0.01"/>
-  <testcase name="studentCannotApproveApplication" classname="com.ise.platform.modules.application.ApplicationServiceTest" time="0.003"/>
-  <testcase name="managerCanApproveSubmittedApplication" classname="com.ise.platform.modules.application.ApplicationServiceTest" time="0.018"/>
-  <testcase name="createShouldReturnSubmittedStatusAndVisibleInMyList" classname="com.ise.platform.modules.application.ApplicationServiceTest" time="0.009"/>
-  <testcase name="approvalShouldRollbackStatusWhenApprovalRecordInsertFails" classname="com.ise.platform.modules.application.ApplicationServiceTest" time="0.017"/>
+  <testcase name="collegeLeaderCanSeePendingApplicationsAcrossClasses" classname="com.ise.platform.modules.application.ApplicationServiceTest" time="0.029">
+    <system-out><![CDATA[2026-06-29T22:30:18.142+08:00 DEBUG 689567 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing SQL query [select coalesce(max(id), 0) + 1 from biz_application]
+2026-06-29T22:30:18.143+08:00 DEBUG 689567 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL update
+2026-06-29T22:30:18.143+08:00 DEBUG 689567 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL statement [insert into biz_application (
+    id, application_no, application_type, template_id, applicant_user_id, student_id,
+    title, purpose, form_data_json, status, current_approver_id, submitted_at,
+    created_at, updated_at, is_deleted
+) values (?, ?, 'certificate', 1, 1, 3, '跨班级申请', '测试数据范围', '{}', 'submitted', 8,
+    current_timestamp, current_timestamp, current_timestamp, 0)
+]
+2026-06-29T22:30:18.144+08:00 DEBUG 689567 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL query
+2026-06-29T22:30:18.144+08:00 DEBUG 689567 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL statement [select count(*)
+  from biz_application a
+  left join stu_student s on s.id = a.student_id
+ where a.is_deleted = 0
+   and (? is null or lower(a.application_type) = ?)
+   and (? is null or a.template_id = ?)
+   and ((? is not null and lower(a.status) = ?)
+        or (? is null and a.status in ('submitted', 'reviewing')))
+   
+]
+2026-06-29T22:30:18.155+08:00 DEBUG 689567 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL query
+2026-06-29T22:30:18.156+08:00 DEBUG 689567 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL statement [select a.id, a.application_no, a.application_type, a.title, a.purpose, a.status,
+       coalesce(u.real_name, '-') as current_approver, a.submitted_at
+  from biz_application a
+  left join sys_user u on u.id = a.current_approver_id
+  left join stu_student s on s.id = a.student_id
+ where a.is_deleted = 0
+   and (? is null or lower(a.application_type) = ?)
+   and (? is null or a.template_id = ?)
+   and ((? is not null and lower(a.status) = ?)
+        or (? is null and a.status in ('submitted', 'reviewing')))
+   
+ order by a.submitted_at desc, a.id desc
+ limit ? offset ?
+]
+]]></system-out>
+  </testcase>
+  <testcase name="createdApplicationShouldSurviveServiceReadBackFromDatabase" classname="com.ise.platform.modules.application.ApplicationServiceTest" time="0.074">
+    <system-out><![CDATA[2026-06-29T22:30:18.172+08:00 DEBUG 689567 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing SQL query [select coalesce(max(id), 0) + 1 from biz_application]
+2026-06-29T22:30:18.202+08:00 DEBUG 689567 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL update
+2026-06-29T22:30:18.202+08:00 DEBUG 689567 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL statement [insert into biz_application (
+    id, application_no, application_type, template_id, applicant_user_id, student_id,
+    title, purpose, form_data_json, status, current_approver_id, submitted_at,
+    created_at, updated_at, is_deleted
+) values (?, ?, ?, ?, ?, ?, ?, ?, ?, 'submitted', ?, ?, ?, ?, 0)
+]
+2026-06-29T22:30:18.204+08:00 DEBUG 689567 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing SQL query [select coalesce(max(id), 0) + 1 from biz_approval_record]
+2026-06-29T22:30:18.205+08:00 DEBUG 689567 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL update
+2026-06-29T22:30:18.205+08:00 DEBUG 689567 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL statement [insert into biz_approval_record (
+    id, application_id, approver_user_id, action_type, action_comment,
+    before_status, after_status, action_time
+) values (?, ?, ?, ?, ?, ?, ?, ?)
+]
+2026-06-29T22:30:18.208+08:00 DEBUG 689567 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL query
+2026-06-29T22:30:18.208+08:00 DEBUG 689567 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL statement [select count(*)
+  from biz_application
+ where is_deleted = 0
+   and applicant_user_id = ?
+   and (? is null or lower(application_type) = ?)
+   and (? is null or lower(status) = ?)
+]
+2026-06-29T22:30:18.210+08:00 DEBUG 689567 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL query
+2026-06-29T22:30:18.210+08:00 DEBUG 689567 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL statement [select a.id, a.application_no, a.application_type, a.title, a.purpose, a.status,
+       coalesce(u.real_name, '-') as current_approver, a.submitted_at
+  from biz_application a
+  left join sys_user u on u.id = a.current_approver_id
+ where a.is_deleted = 0
+   and a.applicant_user_id = ?
+   and (? is null or lower(a.application_type) = ?)
+   and (? is null or lower(a.status) = ?)
+ order by a.submitted_at desc, a.id desc
+ limit ? offset ?
+]
+2026-06-29T22:30:18.213+08:00 DEBUG 689567 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL query
+2026-06-29T22:30:18.213+08:00 DEBUG 689567 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL statement [select a.id, a.application_no, a.application_type, a.template_id, a.applicant_user_id,
+       a.student_id, a.title, a.purpose, a.form_data_json, a.status,
+       coalesce(u.real_name, '-') as current_approver, a.submitted_at
+  from biz_application a
+  left join sys_user u on u.id = a.current_approver_id
+ where a.id = ? and a.is_deleted = 0
+]
+2026-06-29T22:30:18.230+08:00 DEBUG 689567 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL query
+2026-06-29T22:30:18.231+08:00 DEBUG 689567 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL statement [select r.action_type, r.action_comment, r.action_time, u.real_name
+  from biz_approval_record r
+  left join sys_user u on u.id = r.approver_user_id
+ where r.application_id = ?
+ order by r.action_time asc, r.id asc
+]
+2026-06-29T22:30:18.240+08:00 DEBUG 689567 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL query
+2026-06-29T22:30:18.240+08:00 DEBUG 689567 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL statement [select count(*) from biz_application where application_no = ?]
+]]></system-out>
+  </testcase>
+  <testcase name="applicantCanRevokeReviewingApplication" classname="com.ise.platform.modules.application.ApplicationServiceTest" time="0.011">
+    <system-out><![CDATA[2026-06-29T22:30:18.248+08:00 DEBUG 689567 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL query
+2026-06-29T22:30:18.248+08:00 DEBUG 689567 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL statement [select a.id, a.application_no, a.application_type, a.template_id, a.applicant_user_id,
+       a.student_id, a.title, a.purpose, a.form_data_json, a.status,
+       coalesce(u.real_name, '-') as current_approver, a.submitted_at
+  from biz_application a
+  left join sys_user u on u.id = a.current_approver_id
+ where a.id = ? and a.is_deleted = 0
+]
+2026-06-29T22:30:18.249+08:00 DEBUG 689567 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL update
+2026-06-29T22:30:18.249+08:00 DEBUG 689567 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL statement [update biz_application
+   set status = 'revoked',
+       current_approver_id = null,
+       finished_at = ?,
+       revoke_reason = ?,
+       updated_at = ?
+ where id = ? and is_deleted = 0
+]
+2026-06-29T22:30:18.251+08:00 DEBUG 689567 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing SQL query [select coalesce(max(id), 0) + 1 from biz_approval_record]
+2026-06-29T22:30:18.251+08:00 DEBUG 689567 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL update
+2026-06-29T22:30:18.251+08:00 DEBUG 689567 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL statement [insert into biz_approval_record (
+    id, application_id, approver_user_id, action_type, action_comment,
+    before_status, after_status, action_time
+) values (?, ?, ?, ?, ?, ?, ?, ?)
+]
+2026-06-29T22:30:18.252+08:00 DEBUG 689567 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL query
+2026-06-29T22:30:18.252+08:00 DEBUG 689567 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL statement [select a.id, a.application_no, a.application_type, a.template_id, a.applicant_user_id,
+       a.student_id, a.title, a.purpose, a.form_data_json, a.status,
+       coalesce(u.real_name, '-') as current_approver, a.submitted_at
+  from biz_application a
+  left join sys_user u on u.id = a.current_approver_id
+ where a.id = ? and a.is_deleted = 0
+]
+2026-06-29T22:30:18.253+08:00 DEBUG 689567 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL query
+2026-06-29T22:30:18.254+08:00 DEBUG 689567 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL statement [select r.action_type, r.action_comment, r.action_time, u.real_name
+  from biz_approval_record r
+  left join sys_user u on u.id = r.approver_user_id
+ where r.application_id = ?
+ order by r.action_time asc, r.id asc
+]
+]]></system-out>
+  </testcase>
+  <testcase name="managerCanOnlySeePendingApplicationsFromManagedClass" classname="com.ise.platform.modules.application.ApplicationServiceTest" time="0.014">
+    <system-out><![CDATA[2026-06-29T22:30:18.261+08:00 DEBUG 689567 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing SQL query [select coalesce(max(id), 0) + 1 from biz_application]
+2026-06-29T22:30:18.262+08:00 DEBUG 689567 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL update
+2026-06-29T22:30:18.262+08:00 DEBUG 689567 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL statement [insert into biz_application (
+    id, application_no, application_type, template_id, applicant_user_id, student_id,
+    title, purpose, form_data_json, status, current_approver_id, submitted_at,
+    created_at, updated_at, is_deleted
+) values (?, ?, 'certificate', 1, 1, 3, '跨班级申请', '测试数据范围', '{}', 'submitted', 8,
+    current_timestamp, current_timestamp, current_timestamp, 0)
+]
+2026-06-29T22:30:18.264+08:00 DEBUG 689567 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL query
+2026-06-29T22:30:18.264+08:00 DEBUG 689567 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL statement [select count(*)
+  from biz_application a
+  left join stu_student s on s.id = a.student_id
+ where a.is_deleted = 0
+   and (? is null or lower(a.application_type) = ?)
+   and (? is null or a.template_id = ?)
+   and ((? is not null and lower(a.status) = ?)
+        or (? is null and a.status in ('submitted', 'reviewing')))
+   and s.class_name in (?)
+]
+2026-06-29T22:30:18.266+08:00 DEBUG 689567 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL query
+2026-06-29T22:30:18.266+08:00 DEBUG 689567 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL statement [select a.id, a.application_no, a.application_type, a.title, a.purpose, a.status,
+       coalesce(u.real_name, '-') as current_approver, a.submitted_at
+  from biz_application a
+  left join sys_user u on u.id = a.current_approver_id
+  left join stu_student s on s.id = a.student_id
+ where a.is_deleted = 0
+   and (? is null or lower(a.application_type) = ?)
+   and (? is null or a.template_id = ?)
+   and ((? is not null and lower(a.status) = ?)
+        or (? is null and a.status in ('submitted', 'reviewing')))
+   and s.class_name in (?)
+ order by a.submitted_at desc, a.id desc
+ limit ? offset ?
+]
+]]></system-out>
+  </testcase>
+  <testcase name="studentCannotApproveApplication" classname="com.ise.platform.modules.application.ApplicationServiceTest" time="0.006"/>
+  <testcase name="managerCanApproveSubmittedApplication" classname="com.ise.platform.modules.application.ApplicationServiceTest" time="0.025">
+    <system-out><![CDATA[2026-06-29T22:30:18.285+08:00 DEBUG 689567 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing SQL query [select coalesce(max(id), 0) + 1 from biz_application]
+2026-06-29T22:30:18.288+08:00 DEBUG 689567 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL update
+2026-06-29T22:30:18.288+08:00 DEBUG 689567 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL statement [insert into biz_application (
+    id, application_no, application_type, template_id, applicant_user_id, student_id,
+    title, purpose, form_data_json, status, current_approver_id, submitted_at,
+    created_at, updated_at, is_deleted
+) values (?, ?, ?, ?, ?, ?, ?, ?, ?, 'submitted', ?, ?, ?, ?, 0)
+]
+2026-06-29T22:30:18.289+08:00 DEBUG 689567 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing SQL query [select coalesce(max(id), 0) + 1 from biz_approval_record]
+2026-06-29T22:30:18.290+08:00 DEBUG 689567 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL update
+2026-06-29T22:30:18.290+08:00 DEBUG 689567 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL statement [insert into biz_approval_record (
+    id, application_id, approver_user_id, action_type, action_comment,
+    before_status, after_status, action_time
+) values (?, ?, ?, ?, ?, ?, ?, ?)
+]
+2026-06-29T22:30:18.291+08:00 DEBUG 689567 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL query
+2026-06-29T22:30:18.291+08:00 DEBUG 689567 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL statement [select count(*)
+  from biz_application
+ where is_deleted = 0
+   and applicant_user_id = ?
+   and (? is null or lower(application_type) = ?)
+   and (? is null or lower(status) = ?)
+]
+2026-06-29T22:30:18.292+08:00 DEBUG 689567 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL query
+2026-06-29T22:30:18.292+08:00 DEBUG 689567 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL statement [select a.id, a.application_no, a.application_type, a.title, a.purpose, a.status,
+       coalesce(u.real_name, '-') as current_approver, a.submitted_at
+  from biz_application a
+  left join sys_user u on u.id = a.current_approver_id
+ where a.is_deleted = 0
+   and a.applicant_user_id = ?
+   and (? is null or lower(a.application_type) = ?)
+   and (? is null or lower(a.status) = ?)
+ order by a.submitted_at desc, a.id desc
+ limit ? offset ?
+]
+2026-06-29T22:30:18.295+08:00 DEBUG 689567 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL query
+2026-06-29T22:30:18.295+08:00 DEBUG 689567 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL statement [select count(*)
+  from biz_application a
+  left join stu_student s on s.id = a.student_id
+ where a.is_deleted = 0
+   and (? is null or lower(a.application_type) = ?)
+   and (? is null or a.template_id = ?)
+   and ((? is not null and lower(a.status) = ?)
+        or (? is null and a.status in ('submitted', 'reviewing')))
+   and s.class_name in (?)
+]
+2026-06-29T22:30:18.297+08:00 DEBUG 689567 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL query
+2026-06-29T22:30:18.297+08:00 DEBUG 689567 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL statement [select a.id, a.application_no, a.application_type, a.title, a.purpose, a.status,
+       coalesce(u.real_name, '-') as current_approver, a.submitted_at
+  from biz_application a
+  left join sys_user u on u.id = a.current_approver_id
+  left join stu_student s on s.id = a.student_id
+ where a.is_deleted = 0
+   and (? is null or lower(a.application_type) = ?)
+   and (? is null or a.template_id = ?)
+   and ((? is not null and lower(a.status) = ?)
+        or (? is null and a.status in ('submitted', 'reviewing')))
+   and s.class_name in (?)
+ order by a.submitted_at desc, a.id desc
+ limit ? offset ?
+]
+2026-06-29T22:30:18.299+08:00 DEBUG 689567 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL query
+2026-06-29T22:30:18.300+08:00 DEBUG 689567 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL statement [select a.id, a.application_no, a.application_type, a.template_id, a.applicant_user_id,
+       a.student_id, a.title, a.purpose, a.form_data_json, a.status,
+       coalesce(u.real_name, '-') as current_approver, a.submitted_at
+  from biz_application a
+  left join sys_user u on u.id = a.current_approver_id
+ where a.id = ? and a.is_deleted = 0
+]
+2026-06-29T22:30:18.301+08:00 DEBUG 689567 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL query
+2026-06-29T22:30:18.301+08:00 DEBUG 689567 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL statement [select class_name from stu_student where id = ? and is_deleted = 0]
+2026-06-29T22:30:18.302+08:00 DEBUG 689567 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL update
+2026-06-29T22:30:18.302+08:00 DEBUG 689567 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL statement [update biz_application
+   set status = ?,
+       current_approver_id = null,
+       finished_at = ?,
+       updated_at = ?
+ where id = ? and is_deleted = 0
+]
+2026-06-29T22:30:18.303+08:00 DEBUG 689567 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing SQL query [select coalesce(max(id), 0) + 1 from biz_approval_record]
+2026-06-29T22:30:18.303+08:00 DEBUG 689567 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL update
+2026-06-29T22:30:18.304+08:00 DEBUG 689567 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL statement [insert into biz_approval_record (
+    id, application_id, approver_user_id, action_type, action_comment,
+    before_status, after_status, action_time
+) values (?, ?, ?, ?, ?, ?, ?, ?)
+]
+2026-06-29T22:30:18.304+08:00 DEBUG 689567 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL query
+2026-06-29T22:30:18.304+08:00 DEBUG 689567 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL statement [select a.id, a.application_no, a.application_type, a.template_id, a.applicant_user_id,
+       a.student_id, a.title, a.purpose, a.form_data_json, a.status,
+       coalesce(u.real_name, '-') as current_approver, a.submitted_at
+  from biz_application a
+  left join sys_user u on u.id = a.current_approver_id
+ where a.id = ? and a.is_deleted = 0
+]
+2026-06-29T22:30:18.305+08:00 DEBUG 689567 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL query
+2026-06-29T22:30:18.305+08:00 DEBUG 689567 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL statement [select r.action_type, r.action_comment, r.action_time, u.real_name
+  from biz_approval_record r
+  left join sys_user u on u.id = r.approver_user_id
+ where r.application_id = ?
+ order by r.action_time asc, r.id asc
+]
+]]></system-out>
+  </testcase>
+  <testcase name="createShouldReturnSubmittedStatusAndVisibleInMyList" classname="com.ise.platform.modules.application.ApplicationServiceTest" time="0.015">
+    <system-out><![CDATA[2026-06-29T22:30:18.314+08:00 DEBUG 689567 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing SQL query [select coalesce(max(id), 0) + 1 from biz_application]
+2026-06-29T22:30:18.316+08:00 DEBUG 689567 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL update
+2026-06-29T22:30:18.316+08:00 DEBUG 689567 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL statement [insert into biz_application (
+    id, application_no, application_type, template_id, applicant_user_id, student_id,
+    title, purpose, form_data_json, status, current_approver_id, submitted_at,
+    created_at, updated_at, is_deleted
+) values (?, ?, ?, ?, ?, ?, ?, ?, ?, 'submitted', ?, ?, ?, ?, 0)
+]
+2026-06-29T22:30:18.318+08:00 DEBUG 689567 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing SQL query [select coalesce(max(id), 0) + 1 from biz_approval_record]
+2026-06-29T22:30:18.318+08:00 DEBUG 689567 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL update
+2026-06-29T22:30:18.319+08:00 DEBUG 689567 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL statement [insert into biz_approval_record (
+    id, application_id, approver_user_id, action_type, action_comment,
+    before_status, after_status, action_time
+) values (?, ?, ?, ?, ?, ?, ?, ?)
+]
+2026-06-29T22:30:18.320+08:00 DEBUG 689567 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL query
+2026-06-29T22:30:18.320+08:00 DEBUG 689567 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL statement [select count(*)
+  from biz_application
+ where is_deleted = 0
+   and applicant_user_id = ?
+   and (? is null or lower(application_type) = ?)
+   and (? is null or lower(status) = ?)
+]
+2026-06-29T22:30:18.321+08:00 DEBUG 689567 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL query
+2026-06-29T22:30:18.321+08:00 DEBUG 689567 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL statement [select a.id, a.application_no, a.application_type, a.title, a.purpose, a.status,
+       coalesce(u.real_name, '-') as current_approver, a.submitted_at
+  from biz_application a
+  left join sys_user u on u.id = a.current_approver_id
+ where a.is_deleted = 0
+   and a.applicant_user_id = ?
+   and (? is null or lower(a.application_type) = ?)
+   and (? is null or lower(a.status) = ?)
+ order by a.submitted_at desc, a.id desc
+ limit ? offset ?
+]
+]]></system-out>
+  </testcase>
+  <testcase name="approvalShouldRollbackStatusWhenApprovalRecordInsertFails" classname="com.ise.platform.modules.application.ApplicationServiceTest" time="0.02">
+    <system-out><![CDATA[2026-06-29T22:30:18.329+08:00 DEBUG 689567 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing SQL query [select coalesce(max(id), 0) + 1 from biz_application]
+2026-06-29T22:30:18.329+08:00 DEBUG 689567 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL update
+2026-06-29T22:30:18.329+08:00 DEBUG 689567 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL statement [insert into biz_application (
+    id, application_no, application_type, template_id, applicant_user_id, student_id,
+    title, purpose, form_data_json, status, current_approver_id, submitted_at,
+    created_at, updated_at, is_deleted
+) values (?, ?, ?, ?, ?, ?, ?, ?, ?, 'submitted', ?, ?, ?, ?, 0)
+]
+2026-06-29T22:30:18.330+08:00 DEBUG 689567 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing SQL query [select coalesce(max(id), 0) + 1 from biz_approval_record]
+2026-06-29T22:30:18.330+08:00 DEBUG 689567 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL update
+2026-06-29T22:30:18.330+08:00 DEBUG 689567 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL statement [insert into biz_approval_record (
+    id, application_id, approver_user_id, action_type, action_comment,
+    before_status, after_status, action_time
+) values (?, ?, ?, ?, ?, ?, ?, ?)
+]
+2026-06-29T22:30:18.331+08:00 DEBUG 689567 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL query
+2026-06-29T22:30:18.331+08:00 DEBUG 689567 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL statement [select count(*)
+  from biz_application
+ where is_deleted = 0
+   and applicant_user_id = ?
+   and (? is null or lower(application_type) = ?)
+   and (? is null or lower(status) = ?)
+]
+2026-06-29T22:30:18.331+08:00 DEBUG 689567 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL query
+2026-06-29T22:30:18.331+08:00 DEBUG 689567 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL statement [select a.id, a.application_no, a.application_type, a.title, a.purpose, a.status,
+       coalesce(u.real_name, '-') as current_approver, a.submitted_at
+  from biz_application a
+  left join sys_user u on u.id = a.current_approver_id
+ where a.is_deleted = 0
+   and a.applicant_user_id = ?
+   and (? is null or lower(a.application_type) = ?)
+   and (? is null or lower(a.status) = ?)
+ order by a.submitted_at desc, a.id desc
+ limit ? offset ?
+]
+2026-06-29T22:30:18.334+08:00 DEBUG 689567 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL query
+2026-06-29T22:30:18.334+08:00 DEBUG 689567 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL statement [select a.id, a.application_no, a.application_type, a.template_id, a.applicant_user_id,
+       a.student_id, a.title, a.purpose, a.form_data_json, a.status,
+       coalesce(u.real_name, '-') as current_approver, a.submitted_at
+  from biz_application a
+  left join sys_user u on u.id = a.current_approver_id
+ where a.id = ? and a.is_deleted = 0
+]
+2026-06-29T22:30:18.335+08:00 DEBUG 689567 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL query
+2026-06-29T22:30:18.335+08:00 DEBUG 689567 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL statement [select class_name from stu_student where id = ? and is_deleted = 0]
+2026-06-29T22:30:18.336+08:00 DEBUG 689567 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL update
+2026-06-29T22:30:18.336+08:00 DEBUG 689567 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL statement [update biz_application
+   set status = ?,
+       current_approver_id = null,
+       finished_at = ?,
+       updated_at = ?
+ where id = ? and is_deleted = 0
+]
+2026-06-29T22:30:18.337+08:00 DEBUG 689567 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing SQL query [select coalesce(max(id), 0) + 1 from biz_approval_record]
+2026-06-29T22:30:18.337+08:00 DEBUG 689567 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL update
+2026-06-29T22:30:18.337+08:00 DEBUG 689567 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL statement [insert into biz_approval_record (
+    id, application_id, approver_user_id, action_type, action_comment,
+    before_status, after_status, action_time
+) values (?, ?, ?, ?, ?, ?, ?, ?)
+]
+2026-06-29T22:30:18.343+08:00 DEBUG 689567 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL query
+2026-06-29T22:30:18.343+08:00 DEBUG 689567 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL statement [select a.id, a.application_no, a.application_type, a.template_id, a.applicant_user_id,
+       a.student_id, a.title, a.purpose, a.form_data_json, a.status,
+       coalesce(u.real_name, '-') as current_approver, a.submitted_at
+  from biz_application a
+  left join sys_user u on u.id = a.current_approver_id
+ where a.id = ? and a.is_deleted = 0
+]
+2026-06-29T22:30:18.344+08:00 DEBUG 689567 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL query
+2026-06-29T22:30:18.344+08:00 DEBUG 689567 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL statement [select r.action_type, r.action_comment, r.action_time, u.real_name
+  from biz_approval_record r
+  left join sys_user u on u.id = r.approver_user_id
+ where r.application_id = ?
+ order by r.action_time asc, r.id asc
+]
+]]></system-out>
+  </testcase>
 </testsuite>

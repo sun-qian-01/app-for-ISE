@@ -4,3 +4,6 @@
 *.local
 scripts/.env.rag.local
 .local-runtime/
+docs/*.pptx
+docs/*.docx
+release/

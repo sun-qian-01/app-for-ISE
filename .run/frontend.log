@@ -13,3 +13,11 @@
 15:30:18 [vite] (client) hmr update /src/styles/main.css
 15:31:32 [vite] (client) hmr update /src/styles/main.css
 08:31:14 [vite] (client) hmr update /src/views/student/StudentKnowledgeView.vue
+22:48:40 [vite] (client) page reload src/api/client.js
+22:48:40 [vite] (client) hmr update /src/views/student/StudentKnowledgeView.vue
+22:49:04 [vite] (client) hmr update /src/views/student/StudentKnowledgeView.vue
+22:49:33 [vite] (client) hmr update /src/views/student/StudentKnowledgeView.vue
+22:52:29 [vite] (client) page reload src/api/client.js
+00:38:12 [vite] (client) hmr update /src/views/student/StudentKnowledgeView.vue
+02:49:57 [vite] (client) hmr update /src/views/student/StudentKnowledgeView.vue
+02:51:00 [vite] (client) hmr update /src/views/student/StudentKnowledgeView.vue

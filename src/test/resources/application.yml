@@ -9,3 +9,5 @@ spring:
       mode: always
       schema-locations: classpath:db/schema-h2.sql
       data-locations: classpath:db/data-h2.sql
+
+CODEX_QA_ENABLED: false

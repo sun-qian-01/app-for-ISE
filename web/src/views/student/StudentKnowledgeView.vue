@@ -139,7 +139,7 @@
 </template>
 
 <script setup>
-import { computed, nextTick, onMounted, ref } from "vue";
+import { computed, nextTick, onMounted, ref, watch } from "vue";
 import { useRouter } from "vue-router";
 import EmptyState from "../../components/common/EmptyState.vue";
 import ErrorState from "../../components/common/ErrorState.vue";
@@ -149,7 +149,8 @@ import RecordCard from "../../components/common/RecordCard.vue";
 import SearchBar from "../../components/common/SearchBar.vue";
 import StatusTag from "../../components/common/StatusTag.vue";
 import { useAsyncPage } from "../../composables/useAsyncPage";
-import { askKnowledgeQuestion, getKnowledgeList, getKnowledgeTemplates } from "../../api/modules/kbApi";
+import { askKnowledgeQuestionStream, getKnowledgeList, getKnowledgeTemplates } from "../../api/modules/kbApi";
+import { createInitialKbChatMessages, loadKbChatMessages, saveKbChatMessages } from "../../utils/kbChatStore";
 import { downloadWithAuth } from "../../utils/downloadFile";
 import { formatQaSourceLabel, getQaReliability, normalizeQaSources } from "../../utils/kbQa";
 
@@ -163,18 +164,7 @@ const idleReliability = {
   tone: "default",
   description: "我会优先引用已发布知识条目；如果没有可靠来源，会明确提示。",
 };
-const messages = ref([
-  {
-    id: 1,
-    role: "assistant",
-    content: "你好，我是学院知识库助手。你可以直接问我政策流程，也可以连续追问。",
-    sources: [],
-    confidence: null,
-    reliability: idleReliability,
-    thinking: false,
-    error: false,
-  },
-]);
+const messages = ref(createInitialKbChatMessages().map(prepareMessageForView));
 const articles = ref([]);
 const templates = ref([]);
 const keyword = ref("");
@@ -201,8 +191,13 @@ const filteredArticles = computed(() =>
 );
 
 onMounted(() => {
+  restoreConversation();
   loadData();
 });
+
+watch(messages, (value) => {
+  saveKbChatMessages(value);
+}, { deep: true });
 
 async function loadData() {
   try {
@@ -255,7 +250,16 @@ async function submitQuestion() {
 
   asking.value = true;
   try {
-    const result = await askKnowledgeQuestion(text, { history });
+    const result = await askKnowledgeQuestionStream(text, {
+      history,
+      onEvent(event, data) {
+        if (event === "status" && data?.message) {
+          updateThinkingMessage(thinkingId, {
+            content: data.message,
+          });
+        }
+      },
+    });
     const sources = normalizeQaSources(result.sources);
     replaceThinkingMessage(thinkingId, {
       content: result.answer || "未返回有效回答",
@@ -287,18 +291,12 @@ async function downloadTemplate(item) {
 }
 
 function clearConversation() {
-  messages.value = [
-    {
-      id: nextMessageId(),
-      role: "assistant",
-      content: "对话已清空。你可以开始新的问题。",
-      sources: [],
-      confidence: null,
-      reliability: idleReliability,
-      thinking: false,
-      error: false,
-    },
-  ];
+  messages.value = createInitialKbChatMessages().map((item) => prepareMessageForView({
+    ...item,
+    id: nextMessageId(),
+    content: "对话已清空。你可以开始新的问题。",
+  }));
+  saveKbChatMessages(messages.value);
   scrollChatToBottom();
 }
 
@@ -325,7 +323,41 @@ function replaceThinkingMessage(messageId, payload) {
     thinking: false,
     error: payload.error,
   };
+  saveKbChatMessages(messages.value);
   scrollChatToBottom();
+}
+
+function updateThinkingMessage(messageId, payload) {
+  const index = messages.value.findIndex((item) => item.id === messageId);
+  if (index < 0) {
+    return;
+  }
+  messages.value[index] = {
+    ...messages.value[index],
+    ...payload,
+  };
+  scrollChatToBottom();
+}
+
+function restoreConversation() {
+  const restored = loadKbChatMessages().map(prepareMessageForView);
+  messages.value = restored.length ? restored : createInitialKbChatMessages().map(prepareMessageForView);
+  messageSeq.value = Math.max(1, ...messages.value.map((item) => item.id || 1));
+  scrollChatToBottom();
+}
+
+function prepareMessageForView(message) {
+  const sources = normalizeQaSources(message.sources);
+  const reliability = message.role === "assistant" && typeof message.confidence === "number"
+    ? getQaReliability(message.confidence, sources)
+    : idleReliability;
+  return {
+    ...message,
+    sources,
+    reliability: message.role === "assistant" ? reliability : null,
+    thinking: Boolean(message.thinking),
+    error: Boolean(message.error),
+  };
 }
 
 function nextMessageId() {

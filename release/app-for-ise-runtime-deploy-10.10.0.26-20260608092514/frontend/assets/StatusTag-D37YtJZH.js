@@ -1,1 +1,0 @@
-import{E as e,F as t,L as n,b as r,g as i}from"./index-DlxrupD9.js";var a={__name:`StatusTag`,props:{label:{type:String,required:!0},tone:{type:String,default:`default`}},setup(a){let o=a,s=i(()=>o.tone===`success`?`pill pill--success`:o.tone===`warn`?`pill pill--warn`:`pill`);return(i,o)=>(e(),r(`span`,{class:t(s.value)},n(a.label),3))}};export{a as t};
