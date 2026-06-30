@@ -1,147 +1,178 @@
 <template>
-  <div class="grid grid--two">
-    <section class="panel">
-      <PageHeader
-        title="智能问答"
-        description="支持连续追问；会优先基于已发布知识条目回答。"
-      />
+  <div class="kb-ai-layout">
+    <aside class="panel chat-history" :class="{ 'is-open': historyOpen }">
+      <div class="section-head">
+        <h2>聊天记录</h2>
+        <button class="button button--primary" type="button" :disabled="asking" @click="createNewConversation">
+          新对话
+        </button>
+      </div>
+      <div class="chat-session-list">
+        <button
+          v-for="session in sortedSessions"
+          :key="session.id"
+          class="chat-session"
+          :class="{ 'is-active': session.id === currentSessionId }"
+          type="button"
+          @click="selectConversation(session.id)"
+        >
+          <strong>{{ session.title }}</strong>
+          <span>{{ getSessionPreview(session) }}</span>
+          <small>{{ formatSessionTime(session.updatedAt) }}</small>
+        </button>
+      </div>
+    </aside>
+    <button v-if="historyOpen" class="history-backdrop" type="button" @click="historyOpen = false" />
 
-      <div class="chat-box">
-        <div ref="chatListRef" class="chat-list">
-          <div
-            v-for="msg in messages"
-            :key="msg.id"
-            class="chat-item"
-            :class="[
-              msg.role === 'user' ? 'chat-item--user' : 'chat-item--assistant',
-              msg.error ? 'chat-item--error' : '',
-            ]"
-          >
-            <div class="chat-role">{{ msg.role === "user" ? "我" : "助手" }}</div>
-            <div class="chat-bubble">
-              <div v-if="msg.role === 'assistant'" class="chat-bubble__meta">
-                <StatusTag :label="msg.reliability.label" :tone="msg.reliability.tone" />
-                <span v-if="typeof msg.confidence === 'number'" class="subtle-note">
-                  置信度 {{ Math.round(msg.confidence * 100) }}%
-                </span>
-              </div>
-              <p class="chat-bubble__content">{{ msg.content }}</p>
-              <p v-if="msg.thinking" class="subtle-note">正在检索知识库并整理答案...</p>
-              <p v-else-if="msg.role === 'assistant'" class="subtle-note">
-                {{ msg.reliability.description }}
-              </p>
-              <div v-if="msg.sources?.length" class="qa-sources">
-                <strong>依据来源</strong>
-                <button
-                  v-for="source in msg.sources"
-                  :key="`${source.articleId || 'file'}-${source.sourceUrl || source.title}`"
-                  class="source-chip"
-                  type="button"
-                  @click="openQaSource(source)"
-                >
-                  {{ formatQaSourceLabel(source) }}
-                </button>
+    <div class="kb-ai-content">
+      <section class="panel chat-panel">
+        <PageHeader
+          title="智能问答"
+          description="您可以向 AI 智能体提出相关的问题。它将检索数据库里的文件，并为您提供答复。过程可能较慢，请耐心等待。"
+        >
+          <template #actions>
+            <button class="button history-toggle" type="button" @click="historyOpen = true">聊天记录</button>
+            <button class="button" type="button" :disabled="asking" @click="clearConversation">清空当前对话</button>
+          </template>
+        </PageHeader>
+
+        <div class="chat-box">
+          <div ref="chatListRef" class="chat-list chat-list--large">
+            <div
+              v-for="msg in messages"
+              :key="msg.id"
+              class="chat-item"
+              :class="[
+                msg.role === 'user' ? 'chat-item--user' : 'chat-item--assistant',
+                msg.error ? 'chat-item--error' : '',
+              ]"
+            >
+              <div class="chat-role">{{ msg.role === "user" ? "我" : "助手" }}</div>
+              <div class="chat-bubble">
+                <div v-if="msg.role === 'assistant'" class="chat-bubble__meta">
+                  <StatusTag :label="msg.reliability.label" :tone="msg.reliability.tone" />
+                  <span v-if="typeof msg.confidence === 'number'" class="subtle-note">
+                    置信度 {{ Math.round(msg.confidence * 100) }}%
+                  </span>
+                </div>
+                <p class="chat-bubble__content">{{ msg.content }}</p>
+                <p v-if="msg.thinking" class="subtle-note">正在检索知识库并整理答案...</p>
+                <p v-else-if="msg.role === 'assistant'" class="subtle-note">
+                  {{ msg.reliability.description }}
+                </p>
+                <div v-if="msg.sources?.length" class="qa-sources">
+                  <strong>依据来源</strong>
+                  <button
+                    v-for="source in msg.sources"
+                    :key="`${source.articleId || 'file'}-${source.sourceUrl || source.title}`"
+                    class="source-chip"
+                    type="button"
+                    @click="openQaSource(source)"
+                  >
+                    {{ formatQaSourceLabel(source) }}
+                  </button>
+                </div>
               </div>
             </div>
           </div>
+
+          <form class="form chat-composer" @submit.prevent="submitQuestion">
+            <label>
+              <span>在这里输入您的问题</span>
+              <textarea
+                v-model="question"
+                class="input textarea"
+                rows="3"
+                placeholder="我应该如何开具团员证明？"
+                @keydown.shift.enter.prevent="submitQuestion"
+              />
+            </label>
+            <div class="topbar__actions">
+              <button class="button button--primary" type="submit" :disabled="asking">
+                {{ asking ? "思考中..." : "发送问题" }}
+              </button>
+            </div>
+          </form>
         </div>
+      </section>
 
-        <form class="form" @submit.prevent="submitQuestion">
-          <label>
-            <span>问题描述</span>
-            <textarea
-              v-model="question"
-              class="input textarea"
-              rows="3"
-              placeholder="例如：国家奖学金需要提交哪些材料？可继续追问：那截止时间呢？"
-            />
-          </label>
-          <div class="topbar__actions">
-            <button class="button button--primary" type="submit" :disabled="asking">
-              {{ asking ? "思考中..." : "发送问题" }}
-            </button>
-            <button class="button" type="button" :disabled="asking" @click="clearConversation">清空对话</button>
-          </div>
-        </form>
-      </div>
-    </section>
+      <section class="panel">
+        <PageHeader
+          title="政策与模板"
+          description="支持按分类和关键字筛选文章，并查看可下载模板。"
+        />
+        <SearchBar>
+          <select v-model="categoryFilter" class="input input--select">
+            <option value="all">全部分类</option>
+            <option v-for="item in categoryOptions" :key="item" :value="item">{{ item }}</option>
+          </select>
+          <input v-model="keyword" class="input" type="search" placeholder="搜索标题、摘要、来源" />
+        </SearchBar>
 
-    <section class="panel">
-      <PageHeader
-        title="政策与模板"
-        description="支持按分类和关键字筛选文章，并查看可下载模板。"
-      />
-      <SearchBar>
-        <select v-model="categoryFilter" class="input input--select">
-          <option value="all">全部分类</option>
-          <option v-for="item in categoryOptions" :key="item" :value="item">{{ item }}</option>
-        </select>
-        <input v-model="keyword" class="input" type="search" placeholder="搜索标题、摘要、来源" />
-      </SearchBar>
+        <LoadingState v-if="loading" text="知识库内容加载中..." />
+        <ErrorState v-else-if="error" description="知识库列表加载失败，请稍后重试。" @retry="loadData" />
+        <div v-else class="stack">
+          <section class="template-panel">
+            <div class="section-head">
+              <h3>常用模板下载</h3>
+              <span class="subtle-note">共 {{ filteredTemplates.length }} 份</span>
+            </div>
+            <div class="stack">
+              <EmptyState
+                v-if="!filteredTemplates.length"
+                title="暂无模板"
+                description="可以调整分类或关键字，重新筛选。"
+              />
+              <RecordCard
+                v-for="item in filteredTemplates"
+                :key="item.templateId"
+                :meta="`${item.categoryLabel} · ${item.fileType.toUpperCase()} · ${item.updatedAt}`"
+                :title="item.name"
+                :description="item.description"
+              >
+                <template #actions>
+                  <button class="button" type="button" :disabled="!item.fileUrl" @click="downloadTemplate(item)">
+                    下载模板
+                  </button>
+                </template>
+              </RecordCard>
+            </div>
+          </section>
 
-      <LoadingState v-if="loading" text="知识库内容加载中..." />
-      <ErrorState v-else-if="error" description="知识库列表加载失败，请稍后重试。" @retry="loadData" />
-      <div v-else class="stack">
-        <section class="template-panel">
-          <div class="section-head">
-            <h3>常用模板下载</h3>
-            <span class="subtle-note">共 {{ filteredTemplates.length }} 份</span>
-          </div>
-          <div class="stack">
+          <section class="stack">
+            <div class="section-head">
+              <h3>政策条目</h3>
+              <span class="subtle-note">共 {{ filteredArticles.length }} 条</span>
+            </div>
             <EmptyState
-              v-if="!filteredTemplates.length"
-              title="暂无模板"
+              v-if="!filteredArticles.length"
+              title="没有匹配的知识条目"
               description="可以调整分类或关键字，重新筛选。"
             />
             <RecordCard
-              v-for="item in filteredTemplates"
-              :key="item.templateId"
-              :meta="`${item.categoryLabel} · ${item.fileType.toUpperCase()} · ${item.updatedAt}`"
-              :title="item.name"
-              :description="item.description"
+              v-for="item in filteredArticles"
+              :key="item.articleId"
+              :to="{ name: 'student-kb-article', params: { articleId: item.articleId } }"
+              :meta="`${item.categoryLabel} · ${item.version}`"
+              :title="item.title"
+              :description="item.summary"
             >
-              <template #actions>
-                <button class="button" type="button" :disabled="!item.fileUrl" @click="downloadTemplate(item)">
-                  下载模板
-                </button>
+              <template #tags>
+                <StatusTag :label="item.publishStatus" tone="success" />
               </template>
+              <template #extra>来源：{{ item.source || "无" }}</template>
             </RecordCard>
-          </div>
-        </section>
-
-        <section class="stack">
-          <div class="section-head">
-            <h3>政策条目</h3>
-            <span class="subtle-note">共 {{ filteredArticles.length }} 条</span>
-          </div>
-          <EmptyState
-            v-if="!filteredArticles.length"
-            title="没有匹配的知识条目"
-            description="可以调整分类或关键字，重新筛选。"
-          />
-          <RecordCard
-            v-for="item in filteredArticles"
-            :key="item.articleId"
-            :to="{ name: 'student-kb-article', params: { articleId: item.articleId } }"
-            :meta="`${item.categoryLabel} · ${item.version}`"
-            :title="item.title"
-            :description="item.summary"
-          >
-            <template #tags>
-              <StatusTag :label="item.publishStatus" tone="success" />
-            </template>
-            <template #extra>来源：{{ item.source || "无" }}</template>
-          </RecordCard>
-          <PaginationBar
-            v-if="articleTotal > pageSize"
-            :page-no="pageNo"
-            :page-size="pageSize"
-            :total="articleTotal"
-            @change="changePage"
-          />
-        </section>
-      </div>
-    </section>
+            <PaginationBar
+              v-if="articleTotal > pageSize"
+              :page-no="pageNo"
+              :page-size="pageSize"
+              :total="articleTotal"
+              @change="changePage"
+            />
+          </section>
+        </div>
+      </section>
+    </div>
   </div>
 </template>
 
@@ -158,21 +189,38 @@ import SearchBar from "../../components/common/SearchBar.vue";
 import StatusTag from "../../components/common/StatusTag.vue";
 import { useAsyncPage } from "../../composables/useAsyncPage";
 import { askKnowledgeQuestionStream, getKnowledgeList, getKnowledgeTemplates } from "../../api/modules/kbApi";
-import { createInitialKbChatMessages, loadKbChatMessages, saveKbChatMessages } from "../../utils/kbChatStore";
+import {
+  createInitialKbChatMessages,
+  createKbChatSession,
+  getKbChatAccountKey,
+  loadKbChatState,
+  saveKbChatState,
+} from "../../utils/kbChatStore";
+import { useAuthStore } from "../../stores/auth";
 import { downloadWithAuth } from "../../utils/downloadFile";
 import { formatQaSourceLabel, getQaReliability, normalizeQaSources } from "../../utils/kbQa";
 
 const router = useRouter();
+const authStore = useAuthStore();
 const question = ref("");
 const asking = ref(false);
 const chatListRef = ref(null);
-const messageSeq = ref(1);
+const historyOpen = ref(false);
+const sessions = ref([]);
+const currentSessionId = ref("");
 const idleReliability = {
-  label: "可继续提问",
+  label: "",
   tone: "default",
   description: "我会优先引用已发布知识条目；如果没有可靠来源，会明确提示。",
 };
-const messages = ref(createInitialKbChatMessages().map(prepareMessageForView));
+const accountKey = computed(() => getKbChatAccountKey(authStore.user));
+const currentSession = computed(() =>
+  sessions.value.find((item) => item.id === currentSessionId.value) || sessions.value[0] || null,
+);
+const messages = computed(() => currentSession.value?.messages || []);
+const sortedSessions = computed(() =>
+  [...sessions.value].sort((a, b) => String(b.updatedAt || "").localeCompare(String(a.updatedAt || ""))),
+);
 const articles = ref([]);
 const templates = ref([]);
 const articleTotal = ref(0);
@@ -215,8 +263,12 @@ onMounted(() => {
   loadData();
 });
 
-watch(messages, (value) => {
-  saveKbChatMessages(value);
+watch(accountKey, () => {
+  restoreConversation();
+});
+
+watch([sessions, currentSessionId], () => {
+  persistConversation();
 }, { deep: true });
 
 async function loadData() {
@@ -242,10 +294,11 @@ async function submitQuestion() {
     return;
   }
 
-  const history = buildHistory();
-  const userMessageId = nextMessageId();
-  messages.value.push({
-    id: userMessageId,
+  const session = ensureActiveSession();
+  const sessionId = session.id;
+  const history = buildHistory(session.messages);
+  session.messages.push({
+    id: nextMessageId(session),
     role: "user",
     content: text,
     sources: [],
@@ -254,11 +307,12 @@ async function submitQuestion() {
     thinking: false,
     error: false,
   });
+  updateSessionMeta(session);
   scrollChatToBottom();
   question.value = "";
 
-  const thinkingId = nextMessageId();
-  messages.value.push({
+  const thinkingId = nextMessageId(session);
+  session.messages.push({
     id: thinkingId,
     role: "assistant",
     content: "正在整理答案...",
@@ -272,6 +326,7 @@ async function submitQuestion() {
     thinking: true,
     error: false,
   });
+  updateSessionMeta(session);
   scrollChatToBottom();
 
   asking.value = true;
@@ -280,21 +335,21 @@ async function submitQuestion() {
       history,
       onEvent(event, data) {
         if (event === "status" && data?.message) {
-          updateThinkingMessage(thinkingId, {
+          updateThinkingMessage(sessionId, thinkingId, {
             content: data.message,
           });
         }
       },
     });
     const sources = normalizeQaSources(result.sources);
-    replaceThinkingMessage(thinkingId, {
+    replaceThinkingMessage(sessionId, thinkingId, {
       content: result.answer || "未返回有效回答",
       sources,
       confidence: typeof result.confidence === "number" ? result.confidence : 0,
       error: false,
     });
   } catch (error) {
-    replaceThinkingMessage(thinkingId, {
+    replaceThinkingMessage(sessionId, thinkingId, {
       content: error?.message || "问答请求失败",
       sources: [],
       confidence: 0,
@@ -316,30 +371,46 @@ async function downloadTemplate(item) {
   }
 }
 
-function clearConversation() {
-  messages.value = createInitialKbChatMessages().map((item) => prepareMessageForView({
-    ...item,
-    id: nextMessageId(),
-    content: "对话已清空。你可以开始新的问题。",
-  }));
-  saveKbChatMessages(messages.value);
+function createNewConversation() {
+  const session = prepareSessionForView(createKbChatSession({ title: "新的对话" }));
+  sessions.value = [session, ...sessions.value];
+  currentSessionId.value = session.id;
+  historyOpen.value = false;
   scrollChatToBottom();
 }
 
-function buildHistory() {
-  return messages.value
+function clearConversation() {
+  const session = ensureActiveSession();
+  session.messages = createInitialKbChatMessages().map(prepareMessageForView);
+  session.title = "新的对话";
+  updateSessionMeta(session);
+  scrollChatToBottom();
+}
+
+function selectConversation(sessionId) {
+  currentSessionId.value = sessionId;
+  historyOpen.value = false;
+  scrollChatToBottom();
+}
+
+function buildHistory(sourceMessages = messages.value) {
+  return sourceMessages
     .filter((item) => !item.thinking && (item.role === "user" || item.role === "assistant"))
     .slice(-10)
     .map((item) => ({ role: item.role, content: item.content }));
 }
 
-function replaceThinkingMessage(messageId, payload) {
-  const index = messages.value.findIndex((item) => item.id === messageId);
+function replaceThinkingMessage(sessionId, messageId, payload) {
+  const session = findSession(sessionId);
+  if (!session) {
+    return;
+  }
+  const index = session.messages.findIndex((item) => item.id === messageId);
   if (index < 0) {
     return;
   }
   const reliability = getQaReliability(payload.confidence, payload.sources);
-  messages.value[index] = {
+  session.messages[index] = {
     id: messageId,
     role: "assistant",
     content: payload.content,
@@ -349,27 +420,49 @@ function replaceThinkingMessage(messageId, payload) {
     thinking: false,
     error: payload.error,
   };
-  saveKbChatMessages(messages.value);
+  updateSessionMeta(session);
   scrollChatToBottom();
 }
 
-function updateThinkingMessage(messageId, payload) {
-  const index = messages.value.findIndex((item) => item.id === messageId);
+function updateThinkingMessage(sessionId, messageId, payload) {
+  const session = findSession(sessionId);
+  if (!session) {
+    return;
+  }
+  const index = session.messages.findIndex((item) => item.id === messageId);
   if (index < 0) {
     return;
   }
-  messages.value[index] = {
-    ...messages.value[index],
+  session.messages[index] = {
+    ...session.messages[index],
     ...payload,
   };
+  updateSessionMeta(session);
   scrollChatToBottom();
 }
 
 function restoreConversation() {
-  const restored = loadKbChatMessages().map(prepareMessageForView);
-  messages.value = restored.length ? restored : createInitialKbChatMessages().map(prepareMessageForView);
-  messageSeq.value = Math.max(1, ...messages.value.map((item) => item.id || 1));
+  const restored = loadKbChatState(accountKey.value);
+  sessions.value = restored.sessions.map(prepareSessionForView);
+  currentSessionId.value = restored.currentSessionId;
   scrollChatToBottom();
+}
+
+function persistConversation() {
+  if (!sessions.value.length || !currentSessionId.value) {
+    return;
+  }
+  saveKbChatState(accountKey.value, {
+    currentSessionId: currentSessionId.value,
+    sessions: sessions.value,
+  });
+}
+
+function prepareSessionForView(session) {
+  return {
+    ...session,
+    messages: session.messages.map(prepareMessageForView),
+  };
 }
 
 function prepareMessageForView(message) {
@@ -386,9 +479,47 @@ function prepareMessageForView(message) {
   };
 }
 
-function nextMessageId() {
-  messageSeq.value += 1;
-  return messageSeq.value;
+function ensureActiveSession() {
+  if (currentSession.value) {
+    return currentSession.value;
+  }
+  createNewConversation();
+  return currentSession.value;
+}
+
+function findSession(sessionId) {
+  return sessions.value.find((item) => item.id === sessionId);
+}
+
+function updateSessionMeta(session) {
+  session.updatedAt = new Date().toISOString();
+  const firstQuestion = session.messages.find((item) => item.role === "user" && item.content);
+  if (firstQuestion) {
+    session.title = firstQuestion.content.length > 24 ? `${firstQuestion.content.slice(0, 24)}...` : firstQuestion.content;
+  }
+}
+
+function nextMessageId(session) {
+  return Math.max(0, ...session.messages.map((item) => Number(item.id) || 0)) + 1;
+}
+
+function getSessionPreview(session) {
+  const latest = [...session.messages].reverse().find((item) => item.content && item.role !== "assistant");
+  if (!latest) {
+    return "尚未提问";
+  }
+  return latest.content.length > 32 ? `${latest.content.slice(0, 32)}...` : latest.content;
+}
+
+function formatSessionTime(value) {
+  if (!value) {
+    return "";
+  }
+  const date = new Date(value);
+  if (Number.isNaN(date.getTime())) {
+    return "";
+  }
+  return `${date.getMonth() + 1}/${date.getDate()} ${String(date.getHours()).padStart(2, "0")}:${String(date.getMinutes()).padStart(2, "0")}`;
 }
 
 function scrollChatToBottom() {

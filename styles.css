@@ -1,3 +1,25 @@
+@font-face {
+  font-family: "AppNotoSerifCJKSC";
+  src:
+    local("NotoSerifCJKsc-Regular"),
+    local("Noto Serif CJK SC"),
+    url("web/public/fonts/NotoSerifCJK-Regular.ttc");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "AppNotoSerifCJKSC";
+  src:
+    local("NotoSerifCJKsc-Regular"),
+    local("Noto Serif CJK SC"),
+    url("web/public/fonts/NotoSerifCJK-Regular.ttc");
+  font-weight: 500 800;
+  font-style: normal;
+  font-display: swap;
+}
+
 :root {
   --bg: #f4f6f1;
   --bg-strong: linear-gradient(135deg, #f7f2e8 0%, #e7efe9 56%, #edf1f7 100%);
@@ -17,8 +39,8 @@
   --radius-md: 14px;
   --radius-sm: 10px;
   --sidebar-width: 240px;
-  --font-display: "Georgia", "Times New Roman", serif;
-  --font-body: "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
+  --font-display: "AppNotoSerifCJKSC", "Noto Serif CJK SC", "Source Han Serif SC", "Songti SC", Georgia, serif;
+  --font-body: "AppNotoSerifCJKSC", "Noto Serif CJK SC", "Source Han Serif SC", "Songti SC", Georgia, serif;
 }
 
 * {

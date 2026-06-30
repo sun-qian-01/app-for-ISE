@@ -14,6 +14,9 @@
 /home/tianjiaming/learn/SWE/app-for-ISE/src/main/java/com/ise/platform/modules/application/ApplicationController.java
 /home/tianjiaming/learn/SWE/app-for-ISE/src/main/java/com/ise/platform/modules/application/ApplicationDto.java
 /home/tianjiaming/learn/SWE/app-for-ISE/src/main/java/com/ise/platform/modules/application/ApplicationService.java
+/home/tianjiaming/learn/SWE/app-for-ISE/src/main/java/com/ise/platform/modules/audit/AuditLogController.java
+/home/tianjiaming/learn/SWE/app-for-ISE/src/main/java/com/ise/platform/modules/audit/AuditLogDto.java
+/home/tianjiaming/learn/SWE/app-for-ISE/src/main/java/com/ise/platform/modules/audit/AuditLogService.java
 /home/tianjiaming/learn/SWE/app-for-ISE/src/main/java/com/ise/platform/modules/auth/AuthController.java
 /home/tianjiaming/learn/SWE/app-for-ISE/src/main/java/com/ise/platform/modules/auth/AuthDto.java
 /home/tianjiaming/learn/SWE/app-for-ISE/src/main/java/com/ise/platform/modules/auth/AuthService.java

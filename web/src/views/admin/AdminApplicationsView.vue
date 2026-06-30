@@ -3,7 +3,6 @@
     <section class="panel">
       <PageHeader
         title="审批处理"
-        api="GET /applications/approvals/pending"
         description="查看审批队列、申请人摘要、附件情况和生成文件状态。"
       />
 

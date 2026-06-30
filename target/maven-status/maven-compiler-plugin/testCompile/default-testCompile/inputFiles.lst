@@ -1,6 +1,8 @@
 /home/tianjiaming/learn/SWE/app-for-ISE/src/test/java/com/ise/platform/modules/ApiIntegrationTest.java
 /home/tianjiaming/learn/SWE/app-for-ISE/src/test/java/com/ise/platform/modules/application/ApplicationServiceTest.java
+/home/tianjiaming/learn/SWE/app-for-ISE/src/test/java/com/ise/platform/modules/dashboard/DashboardServiceTest.java
 /home/tianjiaming/learn/SWE/app-for-ISE/src/test/java/com/ise/platform/modules/file/FileServiceTest.java
+/home/tianjiaming/learn/SWE/app-for-ISE/src/test/java/com/ise/platform/modules/honor/HonorServiceTest.java
 /home/tianjiaming/learn/SWE/app-for-ISE/src/test/java/com/ise/platform/modules/kb/KbServiceTest.java
 /home/tianjiaming/learn/SWE/app-for-ISE/src/test/java/com/ise/platform/modules/kb/rag/CodexQaClientTest.java
 /home/tianjiaming/learn/SWE/app-for-ISE/src/test/java/com/ise/platform/modules/kb/rag/EmbeddingClientTest.java

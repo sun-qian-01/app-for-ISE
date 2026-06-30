@@ -3,7 +3,6 @@
     <section class="panel">
       <PageHeader
         title="精准通知"
-        api="GET /notices"
         description="查看通知列表、未读人数和已读情况，并从右侧创建新的定向通知。"
       >
         <template #actions>
@@ -62,7 +61,6 @@
     <section class="panel">
       <PageHeader
         title="创建通知"
-        api="POST /notices"
         description="按目标范围、标签和渠道配置通知，并直接提交后端。"
       />
       <form class="form" @submit.prevent="createNoticeRecord">

@@ -3,7 +3,6 @@
     <section class="panel">
       <div class="section-head">
         <h2>领导看板</h2>
-        <span class="pill">GET /dashboard/leader</span>
       </div>
       <div class="grid grid--metrics">
         <MetricCard label="学生总数" :value="data.studentTotal" />

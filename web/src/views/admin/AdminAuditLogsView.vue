@@ -1,6 +1,6 @@
 <template>
   <section class="panel">
-    <PageHeader title="审计日志" api="GET /audit-logs" />
+    <PageHeader title="审计日志" />
     <SearchBar>
       <select v-model="moduleFilter" class="input input--select">
         <option value="all">全部模块</option>
