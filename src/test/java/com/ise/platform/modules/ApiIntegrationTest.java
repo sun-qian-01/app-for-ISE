@@ -321,6 +321,64 @@ class ApiIntegrationTest {
     }
 
     @Test
+    void teacherUploadedTemplateShouldRemainAfterSwitchingAccounts() throws Exception {
+        jdbcTemplate.update("delete from kb_template where template_name = ?", "跨账号保留模板");
+        String teacherToken = loginAndGetToken("teacher001", "123456");
+        MockMultipartFile file = new MockMultipartFile(
+            "file",
+            "shared-template.pdf",
+            "application/pdf",
+            "%PDF-1.4".getBytes()
+        );
+        MvcResult uploadResult = mockMvc.perform(multipart("/api/v1/files/upload")
+                .file(file)
+                .param("bizType", "kb_template")
+                .header(HttpHeaders.AUTHORIZATION, "Bearer " + teacherToken))
+            .andExpect(status().isOk())
+            .andExpect(jsonPath("$.code").value(0))
+            .andReturn();
+        long fileId = objectMapper.readTree(uploadResult.getResponse().getContentAsString())
+            .path("data")
+            .path("fileId")
+            .asLong();
+
+        mockMvc.perform(post("/api/v1/kb/templates")
+                .header(HttpHeaders.AUTHORIZATION, "Bearer " + teacherToken)
+                .contentType(MediaType.APPLICATION_JSON)
+                .content("""
+                    {
+                      "name": "跨账号保留模板",
+                      "categoryLabel": "证明",
+                      "fileType": "pdf",
+                      "description": "切换账号后仍需保留",
+                      "fileId": %d
+                    }
+                    """.formatted(fileId)))
+            .andExpect(status().isOk())
+            .andExpect(jsonPath("$.code").value(0))
+            .andExpect(jsonPath("$.data.name").value("跨账号保留模板"));
+
+        String studentToken = loginAndGetToken("20220001", "123456");
+        MvcResult studentTemplates = mockMvc.perform(get("/api/v1/kb/templates")
+                .header(HttpHeaders.AUTHORIZATION, "Bearer " + studentToken))
+            .andExpect(status().isOk())
+            .andExpect(jsonPath("$.code").value(0))
+            .andReturn();
+        assertThat(dataArrayContainsName(studentTemplates, "跨账号保留模板")).isTrue();
+        mockMvc.perform(get("/api/v1/files/{fileId}/download", fileId)
+                .header(HttpHeaders.AUTHORIZATION, "Bearer " + studentToken))
+            .andExpect(status().isOk());
+
+        String teacherTokenAgain = loginAndGetToken("teacher001", "123456");
+        MvcResult teacherTemplates = mockMvc.perform(get("/api/v1/kb/templates")
+                .header(HttpHeaders.AUTHORIZATION, "Bearer " + teacherTokenAgain))
+            .andExpect(status().isOk())
+            .andExpect(jsonPath("$.code").value(0))
+            .andReturn();
+        assertThat(dataArrayContainsName(teacherTemplates, "跨账号保留模板")).isTrue();
+    }
+
+    @Test
     void partyFlowsShouldReturnStageDefinitions() throws Exception {
         String token = loginAndGetToken("20220001", "123456");
         mockMvc.perform(get("/api/v1/party/flows")
@@ -385,6 +443,47 @@ class ApiIntegrationTest {
             .andExpect(jsonPath("$.data[0].module").value("通知"))
             .andExpect(jsonPath("$.data[0].action").value("发布定向通知：审计日志联动通知"))
             .andExpect(jsonPath("$.data[0].result").value("成功"));
+    }
+
+    @Test
+    void teacherNoticeShouldRemainAfterSwitchingAccounts() throws Exception {
+        jdbcTemplate.update("delete from biz_notice where title = ?", "跨账号保留通知");
+        String teacherToken = loginAndGetToken("teacher001", "123456");
+
+        mockMvc.perform(post("/api/v1/notices")
+                .header(HttpHeaders.AUTHORIZATION, "Bearer " + teacherToken)
+                .contentType(MediaType.APPLICATION_JSON)
+                .content("""
+                    {
+                      "title": "跨账号保留通知",
+                      "content": "请及时查看通知。",
+                      "audience": "2022级学生",
+                      "channelLabels": ["站内"],
+                      "tags": ["测试"]
+                    }
+                    """))
+            .andExpect(status().isOk())
+            .andExpect(jsonPath("$.code").value(0));
+
+        String studentToken = loginAndGetToken("20220001", "123456");
+        MvcResult studentNotices = mockMvc.perform(get("/api/v1/notices/my")
+                .header(HttpHeaders.AUTHORIZATION, "Bearer " + studentToken)
+                .param("pageNo", "1")
+                .param("pageSize", "50"))
+            .andExpect(status().isOk())
+            .andExpect(jsonPath("$.code").value(0))
+            .andReturn();
+        assertThat(pagedRecordsContainTitle(studentNotices, "跨账号保留通知")).isTrue();
+
+        String teacherTokenAgain = loginAndGetToken("teacher001", "123456");
+        MvcResult teacherNotices = mockMvc.perform(get("/api/v1/notices")
+                .header(HttpHeaders.AUTHORIZATION, "Bearer " + teacherTokenAgain)
+                .param("pageNo", "1")
+                .param("pageSize", "50"))
+            .andExpect(status().isOk())
+            .andExpect(jsonPath("$.code").value(0))
+            .andReturn();
+        assertThat(pagedRecordsContainTitle(teacherNotices, "跨账号保留通知")).isTrue();
     }
 
     @Test
@@ -692,6 +791,28 @@ class ApiIntegrationTest {
         String token = root.path("data").path("token").asText();
         assertThat(token).isNotBlank();
         return token;
+    }
+
+    private boolean dataArrayContainsName(MvcResult result, String name) throws Exception {
+        JsonNode data = objectMapper.readTree(result.getResponse().getContentAsString()).path("data");
+        for (JsonNode item : data) {
+            if (name.equals(item.path("name").asText())) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private boolean pagedRecordsContainTitle(MvcResult result, String title) throws Exception {
+        JsonNode records = objectMapper.readTree(result.getResponse().getContentAsString())
+            .path("data")
+            .path("records");
+        for (JsonNode item : records) {
+            if (title.equals(item.path("title").asText())) {
+                return true;
+            }
+        }
+        return false;
     }
 
     private Long findApplicationIdByNo(String token, String applicationNo) throws Exception {

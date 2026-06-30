@@ -1,6 +1,7 @@
 package com.ise.platform.modules.kb;
 
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 
 import java.util.List;
 
@@ -231,6 +232,62 @@ public final class KbDto {
 
         public String getFileUrl() {
             return fileUrl;
+        }
+    }
+
+    public static class CreateTemplateRequest {
+        @NotBlank(message = "name is required")
+        private String name;
+
+        @NotBlank(message = "categoryLabel is required")
+        private String categoryLabel;
+
+        @NotBlank(message = "fileType is required")
+        private String fileType;
+
+        private String description;
+
+        @NotNull(message = "fileId is required")
+        private Long fileId;
+
+        public String getName() {
+            return name;
+        }
+
+        public void setName(String name) {
+            this.name = name;
+        }
+
+        public String getCategoryLabel() {
+            return categoryLabel;
+        }
+
+        public void setCategoryLabel(String categoryLabel) {
+            this.categoryLabel = categoryLabel;
+        }
+
+        public String getFileType() {
+            return fileType;
+        }
+
+        public void setFileType(String fileType) {
+            this.fileType = fileType;
+        }
+
+        public String getDescription() {
+            return description;
+        }
+
+        public void setDescription(String description) {
+            this.description = description;
+        }
+
+        public Long getFileId() {
+            return fileId;
+        }
+
+        public void setFileId(Long fileId) {
+            this.fileId = fileId;
         }
     }
 

@@ -135,7 +135,7 @@ import SearchBar from "../../components/common/SearchBar.vue";
 import StatusTag from "../../components/common/StatusTag.vue";
 import { useAsyncPage } from "../../composables/useAsyncPage";
 import { uploadFile } from "../../api/modules/fileApi";
-import { getKnowledgeList, getKnowledgeTemplates } from "../../api/modules/kbApi";
+import { createKnowledgeTemplate, getKnowledgeList, getKnowledgeTemplates } from "../../api/modules/kbApi";
 import { downloadWithAuth } from "../../utils/downloadFile";
 
 const articles = ref([]);
@@ -246,14 +246,12 @@ async function handleUpload() {
   try {
     const uploaded = await uploadFile(selectedFile.value, uploadForm.value.bizType);
     const fileType = inferFileType(uploaded.fileName || selectedFile.value.name);
-    templates.value.unshift({
-      templateId: uploaded.fileId,
+    await createKnowledgeTemplate({
       name: uploadForm.value.name,
       categoryLabel: uploadForm.value.categoryLabel,
       fileType,
-      updatedAt: new Date().toISOString().slice(0, 10),
       description: uploadForm.value.description || "教师上传资源",
-      fileUrl: uploaded.fileUrl,
+      fileId: uploaded.fileId,
     });
     uploadFeedback.value = `文件已上传：${uploaded.fileName}`;
     selectedFile.value = null;
@@ -263,6 +261,7 @@ async function handleUpload() {
       bizType: "kb_template",
       description: "",
     };
+    await loadData();
   } catch (error) {
     uploadFeedback.value = error?.message || "文件上传失败，请稍后重试。";
   } finally {
