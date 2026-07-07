@@ -78,7 +78,9 @@ public class FileService {
     public FileEntity requireFile(CurrentUser user, Long fileId) {
         FileEntity file = fileStore.get(fileId);
         if (file != null) {
-            // Demo rule: uploader and admins can download uploaded attachments.
+            if (isSharedResource(file.bizType())) {
+                return file;
+            }
             boolean isOwner = file.uploadedBy().equals(user.getId());
             boolean isManager = user.getRoles().stream().anyMatch(role ->
                 "teacher_admin".equals(role) || "college_leader".equals(role) || "system_admin".equals(role));
@@ -97,6 +99,13 @@ public class FileService {
         String placeholderName = "demo-file-" + fileId + ".txt";
         byte[] content = ("该文件为演示占位内容，fileId=" + fileId).getBytes();
         return new FileEntity(fileId, placeholderName, "text/plain;charset=UTF-8", content, "demo_seeded", user.getId());
+    }
+
+    private boolean isSharedResource(String bizType) {
+        return "kb_template".equals(bizType)
+            || "kb_policy".equals(bizType)
+            || "knowledge_attachment".equals(bizType)
+            || "notice_attachment".equals(bizType);
     }
 
     private FileEntity loadSeededFile(Long fileId, CurrentUser user) {

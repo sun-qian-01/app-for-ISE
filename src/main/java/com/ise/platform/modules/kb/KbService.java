@@ -120,6 +120,56 @@ public class KbService {
         );
     }
 
+    public KbDto.TemplateView createTemplate(CurrentUser user, KbDto.CreateTemplateRequest request) {
+        if (!isManagerLike(user)) {
+            throw new BusinessException(ErrorCode.FORBIDDEN, "manager role required");
+        }
+        String name = normalizeRequired(request.getName(), "name is required");
+        String categoryLabel = normalizeRequired(request.getCategoryLabel(), "categoryLabel is required");
+        String fileType = normalizeRequired(request.getFileType(), "fileType is required").toLowerCase(Locale.ROOT);
+        String description = StringUtils.hasText(request.getDescription()) ? request.getDescription().trim() : "";
+        Long fileId = request.getFileId();
+        Long templateId = nextId("kb_template");
+
+        jdbcTemplate.update(
+            """
+                insert into kb_template (
+                    id, template_name, category_label, file_type, description,
+                    file_id, updated_at, is_deleted
+                ) values (?, ?, ?, ?, ?, ?, current_timestamp, 0)
+                """,
+            templateId,
+            name,
+            categoryLabel,
+            fileType,
+            description,
+            fileId
+        );
+
+        return jdbcTemplate.queryForObject(
+            """
+                select id, template_name, category_label, file_type, description, file_id, updated_at
+                  from kb_template
+                 where id = ?
+                   and is_deleted = 0
+                """,
+            (rs, rowNum) -> {
+                Long savedFileId = rs.getObject("file_id", Long.class);
+                return new KbDto.TemplateView(
+                    rs.getLong("id"),
+                    rs.getString("template_name"),
+                    rs.getString("category_label"),
+                    rs.getString("file_type"),
+                    format(rs.getTimestamp("updated_at")),
+                    rs.getString("description"),
+                    savedFileId,
+                    buildSourceUrl(savedFileId)
+                );
+            },
+            templateId
+        );
+    }
+
     public KbDto.ArticleDetailView articleDetail(CurrentUser user, Long articleId) {
         List<KbDto.ArticleDetailView> rows = jdbcTemplate.query(
             """
@@ -275,6 +325,18 @@ public class KbService {
             return "";
         }
         return "/api/v1/files/" + fileId + "/download";
+    }
+
+    private Long nextId(String tableName) {
+        Long value = jdbcTemplate.queryForObject("select coalesce(max(id), 0) + 1 from " + tableName, Long.class);
+        return value == null ? 1L : value;
+    }
+
+    private String normalizeRequired(String value, String message) {
+        if (!StringUtils.hasText(value)) {
+            throw new BusinessException(ErrorCode.PARAM_INVALID, message);
+        }
+        return value.trim();
     }
 
     private List<String> parseKeywords(String raw) {

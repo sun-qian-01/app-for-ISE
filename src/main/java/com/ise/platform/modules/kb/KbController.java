@@ -62,6 +62,12 @@ public class KbController {
         return ApiResponse.success(kbService.templates(user));
     }
 
+    @PostMapping("/templates")
+    public ApiResponse<KbDto.TemplateView> createTemplate(@Valid @RequestBody KbDto.CreateTemplateRequest request) {
+        CurrentUser user = AuthContext.requireUser();
+        return ApiResponse.success(kbService.createTemplate(user, request));
+    }
+
     @PostMapping("/qa")
     public ApiResponse<KbDto.QaResponse> qa(@Valid @RequestBody KbDto.QaRequest request) {
         AuthContext.requireUser();

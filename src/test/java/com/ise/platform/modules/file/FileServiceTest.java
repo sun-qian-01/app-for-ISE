@@ -39,6 +39,18 @@ class FileServiceTest {
     }
 
     @Test
+    void knowledgeTemplateUploadShouldBeDownloadableByStudents() {
+        CurrentUser teacher = teacherUser();
+        CurrentUser student = studentUser(1L, "20220001");
+        MockMultipartFile file = new MockMultipartFile("file", "template.pdf", "application/pdf", "%PDF".getBytes());
+
+        FileDto.UploadData data = fileService.upload(teacher, file, "kb_template");
+        FileService.FileEntity entity = fileService.requireFile(student, data.getFileId());
+
+        assertThat(entity.fileName()).isEqualTo("template.pdf");
+    }
+
+    @Test
     void seededDocxTemplateShouldDownloadAsOfficeFile() {
         FileService.FileEntity entity = fileService.requireFile(studentUser(1L, "20220001"), 13001L);
 
@@ -95,6 +107,19 @@ class FileServiceTest {
             List.of("file:upload"),
             List.of(new DataScope("self", String.valueOf(userId))),
             userId
+        );
+    }
+
+    private CurrentUser teacherUser() {
+        return new CurrentUser(
+            8L,
+            "teacher001",
+            "李老师",
+            "teacher",
+            List.of("teacher_admin"),
+            List.of("file:upload"),
+            List.of(new DataScope("class", "软件工程2班")),
+            null
         );
     }
 }
