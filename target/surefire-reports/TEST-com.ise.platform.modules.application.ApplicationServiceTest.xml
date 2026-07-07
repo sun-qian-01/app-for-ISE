@@ -1,71 +1,69 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report.xsd" version="3.0.2" name="com.ise.platform.modules.application.ApplicationServiceTest" time="3.46" tests="9" errors="0" skipped="0" failures="0" flakes="0">
+<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report.xsd" version="3.0.2" name="com.ise.platform.modules.application.ApplicationServiceTest" time="2.542" tests="9" errors="0" skipped="0" failures="0" flakes="0">
   <properties>
     <property name="java.specification.version" value="17"/>
     <property name="sun.jnu.encoding" value="UTF-8"/>
-    <property name="java.class.path" value="/home/tianjiaming/learn/SWE/app-for-ISE/target/test-classes:/home/tianjiaming/learn/SWE/app-for-ISE/target/classes:/tmp/m2repo/org/springframework/boot/spring-boot-starter-web/4.0.6/spring-boot-starter-web-4.0.6.jar:/tmp/m2repo/org/springframework/boot/spring-boot-starter-jackson/4.0.6/spring-boot-starter-jackson-4.0.6.jar:/tmp/m2repo/org/springframework/boot/spring-boot-jackson/4.0.6/spring-boot-jackson-4.0.6.jar:/tmp/m2repo/tools/jackson/core/jackson-databind/3.1.2/jackson-databind-3.1.2.jar:/tmp/m2repo/tools/jackson/core/jackson-core/3.1.2/jackson-core-3.1.2.jar:/tmp/m2repo/org/springframework/boot/spring-boot-starter-tomcat/4.0.6/spring-boot-starter-tomcat-4.0.6.jar:/tmp/m2repo/org/springframework/boot/spring-boot-starter-tomcat-runtime/4.0.6/spring-boot-starter-tomcat-runtime-4.0.6.jar:/tmp/m2repo/org/springframework/boot/spring-boot-web-server/4.0.6/spring-boot-web-server-4.0.6.jar:/tmp/m2repo/org/apache/tomcat/embed/tomcat-embed-core/11.0.21/tomcat-embed-core-11.0.21.jar:/tmp/m2repo/org/apache/tomcat/embed/tomcat-embed-websocket/11.0.21/tomcat-embed-websocket-11.0.21.jar:/tmp/m2repo/org/springframework/boot/spring-boot-tomcat/4.0.6/spring-boot-tomcat-4.0.6.jar:/tmp/m2repo/org/springframework/boot/spring-boot-http-converter/4.0.6/spring-boot-http-converter-4.0.6.jar:/tmp/m2repo/org/springframework/boot/spring-boot/4.0.6/spring-boot-4.0.6.jar:/tmp/m2repo/org/springframework/spring-context/7.0.7/spring-context-7.0.7.jar:/tmp/m2repo/org/springframework/spring-web/7.0.7/spring-web-7.0.7.jar:/tmp/m2repo/org/springframework/spring-beans/7.0.7/spring-beans-7.0.7.jar:/tmp/m2repo/io/micrometer/micrometer-observation/1.16.5/micrometer-observation-1.16.5.jar:/tmp/m2repo/io/micrometer/micrometer-commons/1.16.5/micrometer-commons-1.16.5.jar:/tmp/m2repo/org/springframework/boot/spring-boot-webmvc/4.0.6/spring-boot-webmvc-4.0.6.jar:/tmp/m2repo/org/springframework/boot/spring-boot-servlet/4.0.6/spring-boot-servlet-4.0.6.jar:/tmp/m2repo/org/springframework/spring-webmvc/7.0.7/spring-webmvc-7.0.7.jar:/tmp/m2repo/org/springframework/spring-aop/7.0.7/spring-aop-7.0.7.jar:/tmp/m2repo/org/springframework/spring-expression/7.0.7/spring-expression-7.0.7.jar:/tmp/m2repo/com/fasterxml/jackson/core/jackson-databind/2.21.2/jackson-databind-2.21.2.jar:/tmp/m2repo/com/fasterxml/jackson/core/jackson-annotations/2.21/jackson-annotations-2.21.jar:/tmp/m2repo/com/fasterxml/jackson/core/jackson-core/2.21.2/jackson-core-2.21.2.jar:/tmp/m2repo/org/springframework/boot/spring-boot-starter-validation/4.0.6/spring-boot-starter-validation-4.0.6.jar:/tmp/m2repo/org/springframework/boot/spring-boot-starter/4.0.6/spring-boot-starter-4.0.6.jar:/tmp/m2repo/org/springframework/boot/spring-boot-starter-logging/4.0.6/spring-boot-starter-logging-4.0.6.jar:/tmp/m2repo/ch/qos/logback/logback-classic/1.5.32/logback-classic-1.5.32.jar:/tmp/m2repo/ch/qos/logback/logback-core/1.5.32/logback-core-1.5.32.jar:/tmp/m2repo/org/apache/logging/log4j/log4j-to-slf4j/2.25.4/log4j-to-slf4j-2.25.4.jar:/tmp/m2repo/org/apache/logging/log4j/log4j-api/2.25.4/log4j-api-2.25.4.jar:/tmp/m2repo/org/slf4j/jul-to-slf4j/2.0.17/jul-to-slf4j-2.0.17.jar:/tmp/m2repo/org/springframework/boot/spring-boot-autoconfigure/4.0.6/spring-boot-autoconfigure-4.0.6.jar:/tmp/m2repo/jakarta/annotation/jakarta.annotation-api/3.0.0/jakarta.annotation-api-3.0.0.jar:/tmp/m2repo/org/yaml/snakeyaml/2.5/snakeyaml-2.5.jar:/tmp/m2repo/org/springframework/boot/spring-boot-validation/4.0.6/spring-boot-validation-4.0.6.jar:/tmp/m2repo/org/apache/tomcat/embed/tomcat-embed-el/11.0.21/tomcat-embed-el-11.0.21.jar:/tmp/m2repo/org/hibernate/validator/hibernate-validator/9.0.1.Final/hibernate-validator-9.0.1.Final.jar:/tmp/m2repo/jakarta/validation/jakarta.validation-api/3.1.1/jakarta.validation-api-3.1.1.jar:/tmp/m2repo/org/jboss/logging/jboss-logging/3.6.3.Final/jboss-logging-3.6.3.Final.jar:/tmp/m2repo/com/fasterxml/classmate/1.7.3/classmate-1.7.3.jar:/tmp/m2repo/org/springframework/boot/spring-boot-starter-jdbc/4.0.6/spring-boot-starter-jdbc-4.0.6.jar:/tmp/m2repo/org/springframework/boot/spring-boot-jdbc/4.0.6/spring-boot-jdbc-4.0.6.jar:/tmp/m2repo/org/springframework/boot/spring-boot-sql/4.0.6/spring-boot-sql-4.0.6.jar:/tmp/m2repo/org/springframework/boot/spring-boot-transaction/4.0.6/spring-boot-transaction-4.0.6.jar:/tmp/m2repo/org/springframework/boot/spring-boot-persistence/4.0.6/spring-boot-persistence-4.0.6.jar:/tmp/m2repo/org/springframework/spring-tx/7.0.7/spring-tx-7.0.7.jar:/tmp/m2repo/org/springframework/spring-jdbc/7.0.7/spring-jdbc-7.0.7.jar:/tmp/m2repo/com/zaxxer/HikariCP/7.0.2/HikariCP-7.0.2.jar:/tmp/m2repo/org/slf4j/slf4j-api/2.0.17/slf4j-api-2.0.17.jar:/tmp/m2repo/com/h2database/h2/2.4.240/h2-2.4.240.jar:/tmp/m2repo/org/springframework/boot/spring-boot-starter-test/4.0.6/spring-boot-starter-test-4.0.6.jar:/tmp/m2repo/org/springframework/boot/spring-boot-test/4.0.6/spring-boot-test-4.0.6.jar:/tmp/m2repo/org/springframework/boot/spring-boot-test-autoconfigure/4.0.6/spring-boot-test-autoconfigure-4.0.6.jar:/tmp/m2repo/com/jayway/jsonpath/json-path/2.10.0/json-path-2.10.0.jar:/tmp/m2repo/jakarta/xml/bind/jakarta.xml.bind-api/4.0.4/jakarta.xml.bind-api-4.0.4.jar:/tmp/m2repo/jakarta/activation/jakarta.activation-api/2.1.4/jakarta.activation-api-2.1.4.jar:/tmp/m2repo/net/minidev/json-smart/2.6.0/json-smart-2.6.0.jar:/tmp/m2repo/net/minidev/accessors-smart/2.6.0/accessors-smart-2.6.0.jar:/tmp/m2repo/org/ow2/asm/asm/9.7.1/asm-9.7.1.jar:/tmp/m2repo/org/assertj/assertj-core/3.27.7/assertj-core-3.27.7.jar:/tmp/m2repo/net/bytebuddy/byte-buddy/1.17.8/byte-buddy-1.17.8.jar:/tmp/m2repo/org/awaitility/awaitility/4.3.0/awaitility-4.3.0.jar:/tmp/m2repo/org/hamcrest/hamcrest/3.0/hamcrest-3.0.jar:/tmp/m2repo/org/junit/jupiter/junit-jupiter/6.0.3/junit-jupiter-6.0.3.jar:/tmp/m2repo/org/junit/jupiter/junit-jupiter-api/6.0.3/junit-jupiter-api-6.0.3.jar:/tmp/m2repo/org/opentest4j/opentest4j/1.3.0/opentest4j-1.3.0.jar:/tmp/m2repo/org/junit/platform/junit-platform-commons/6.0.3/junit-platform-commons-6.0.3.jar:/tmp/m2repo/org/apiguardian/apiguardian-api/1.1.2/apiguardian-api-1.1.2.jar:/tmp/m2repo/org/junit/jupiter/junit-jupiter-params/6.0.3/junit-jupiter-params-6.0.3.jar:/tmp/m2repo/org/junit/jupiter/junit-jupiter-engine/6.0.3/junit-jupiter-engine-6.0.3.jar:/tmp/m2repo/org/junit/platform/junit-platform-engine/6.0.3/junit-platform-engine-6.0.3.jar:/tmp/m2repo/org/mockito/mockito-core/5.20.0/mockito-core-5.20.0.jar:/tmp/m2repo/net/bytebuddy/byte-buddy-agent/1.17.8/byte-buddy-agent-1.17.8.jar:/tmp/m2repo/org/objenesis/objenesis/3.3/objenesis-3.3.jar:/tmp/m2repo/org/mockito/mockito-junit-jupiter/5.20.0/mockito-junit-jupiter-5.20.0.jar:/tmp/m2repo/org/skyscreamer/jsonassert/1.5.3/jsonassert-1.5.3.jar:/tmp/m2repo/com/vaadin/external/google/android-json/0.0.20131108.vaadin1/android-json-0.0.20131108.vaadin1.jar:/tmp/m2repo/org/springframework/spring-core/7.0.7/spring-core-7.0.7.jar:/tmp/m2repo/commons-logging/commons-logging/1.3.6/commons-logging-1.3.6.jar:/tmp/m2repo/org/jspecify/jspecify/1.0.0/jspecify-1.0.0.jar:/tmp/m2repo/org/springframework/spring-test/7.0.7/spring-test-7.0.7.jar:/tmp/m2repo/org/xmlunit/xmlunit-core/2.10.4/xmlunit-core-2.10.4.jar:"/>
-    <property name="java.vm.vendor" value="Eclipse Adoptium"/>
+    <property name="java.class.path" value="/home/sunqian/app-for-ISE/target/test-classes:/home/sunqian/app-for-ISE/target/classes:/tmp/m2repo/org/springframework/boot/spring-boot-starter-web/4.0.6/spring-boot-starter-web-4.0.6.jar:/tmp/m2repo/org/springframework/boot/spring-boot-starter-jackson/4.0.6/spring-boot-starter-jackson-4.0.6.jar:/tmp/m2repo/org/springframework/boot/spring-boot-jackson/4.0.6/spring-boot-jackson-4.0.6.jar:/tmp/m2repo/tools/jackson/core/jackson-databind/3.1.2/jackson-databind-3.1.2.jar:/tmp/m2repo/tools/jackson/core/jackson-core/3.1.2/jackson-core-3.1.2.jar:/tmp/m2repo/org/springframework/boot/spring-boot-starter-tomcat/4.0.6/spring-boot-starter-tomcat-4.0.6.jar:/tmp/m2repo/org/springframework/boot/spring-boot-starter-tomcat-runtime/4.0.6/spring-boot-starter-tomcat-runtime-4.0.6.jar:/tmp/m2repo/org/springframework/boot/spring-boot-web-server/4.0.6/spring-boot-web-server-4.0.6.jar:/tmp/m2repo/org/apache/tomcat/embed/tomcat-embed-core/11.0.21/tomcat-embed-core-11.0.21.jar:/tmp/m2repo/org/apache/tomcat/embed/tomcat-embed-websocket/11.0.21/tomcat-embed-websocket-11.0.21.jar:/tmp/m2repo/org/springframework/boot/spring-boot-tomcat/4.0.6/spring-boot-tomcat-4.0.6.jar:/tmp/m2repo/org/springframework/boot/spring-boot-http-converter/4.0.6/spring-boot-http-converter-4.0.6.jar:/tmp/m2repo/org/springframework/boot/spring-boot/4.0.6/spring-boot-4.0.6.jar:/tmp/m2repo/org/springframework/spring-context/7.0.7/spring-context-7.0.7.jar:/tmp/m2repo/org/springframework/spring-web/7.0.7/spring-web-7.0.7.jar:/tmp/m2repo/org/springframework/spring-beans/7.0.7/spring-beans-7.0.7.jar:/tmp/m2repo/io/micrometer/micrometer-observation/1.16.5/micrometer-observation-1.16.5.jar:/tmp/m2repo/io/micrometer/micrometer-commons/1.16.5/micrometer-commons-1.16.5.jar:/tmp/m2repo/org/springframework/boot/spring-boot-webmvc/4.0.6/spring-boot-webmvc-4.0.6.jar:/tmp/m2repo/org/springframework/boot/spring-boot-servlet/4.0.6/spring-boot-servlet-4.0.6.jar:/tmp/m2repo/org/springframework/spring-webmvc/7.0.7/spring-webmvc-7.0.7.jar:/tmp/m2repo/org/springframework/spring-aop/7.0.7/spring-aop-7.0.7.jar:/tmp/m2repo/org/springframework/spring-expression/7.0.7/spring-expression-7.0.7.jar:/tmp/m2repo/com/fasterxml/jackson/core/jackson-databind/2.21.2/jackson-databind-2.21.2.jar:/tmp/m2repo/com/fasterxml/jackson/core/jackson-annotations/2.21/jackson-annotations-2.21.jar:/tmp/m2repo/com/fasterxml/jackson/core/jackson-core/2.21.2/jackson-core-2.21.2.jar:/tmp/m2repo/org/springframework/boot/spring-boot-starter-validation/4.0.6/spring-boot-starter-validation-4.0.6.jar:/tmp/m2repo/org/springframework/boot/spring-boot-starter/4.0.6/spring-boot-starter-4.0.6.jar:/tmp/m2repo/org/springframework/boot/spring-boot-starter-logging/4.0.6/spring-boot-starter-logging-4.0.6.jar:/tmp/m2repo/ch/qos/logback/logback-classic/1.5.32/logback-classic-1.5.32.jar:/tmp/m2repo/ch/qos/logback/logback-core/1.5.32/logback-core-1.5.32.jar:/tmp/m2repo/org/apache/logging/log4j/log4j-to-slf4j/2.25.4/log4j-to-slf4j-2.25.4.jar:/tmp/m2repo/org/apache/logging/log4j/log4j-api/2.25.4/log4j-api-2.25.4.jar:/tmp/m2repo/org/slf4j/jul-to-slf4j/2.0.17/jul-to-slf4j-2.0.17.jar:/tmp/m2repo/org/springframework/boot/spring-boot-autoconfigure/4.0.6/spring-boot-autoconfigure-4.0.6.jar:/tmp/m2repo/jakarta/annotation/jakarta.annotation-api/3.0.0/jakarta.annotation-api-3.0.0.jar:/tmp/m2repo/org/yaml/snakeyaml/2.5/snakeyaml-2.5.jar:/tmp/m2repo/org/springframework/boot/spring-boot-validation/4.0.6/spring-boot-validation-4.0.6.jar:/tmp/m2repo/org/apache/tomcat/embed/tomcat-embed-el/11.0.21/tomcat-embed-el-11.0.21.jar:/tmp/m2repo/org/hibernate/validator/hibernate-validator/9.0.1.Final/hibernate-validator-9.0.1.Final.jar:/tmp/m2repo/jakarta/validation/jakarta.validation-api/3.1.1/jakarta.validation-api-3.1.1.jar:/tmp/m2repo/org/jboss/logging/jboss-logging/3.6.3.Final/jboss-logging-3.6.3.Final.jar:/tmp/m2repo/com/fasterxml/classmate/1.7.3/classmate-1.7.3.jar:/tmp/m2repo/org/springframework/boot/spring-boot-starter-jdbc/4.0.6/spring-boot-starter-jdbc-4.0.6.jar:/tmp/m2repo/org/springframework/boot/spring-boot-jdbc/4.0.6/spring-boot-jdbc-4.0.6.jar:/tmp/m2repo/org/springframework/boot/spring-boot-sql/4.0.6/spring-boot-sql-4.0.6.jar:/tmp/m2repo/org/springframework/boot/spring-boot-transaction/4.0.6/spring-boot-transaction-4.0.6.jar:/tmp/m2repo/org/springframework/boot/spring-boot-persistence/4.0.6/spring-boot-persistence-4.0.6.jar:/tmp/m2repo/org/springframework/spring-tx/7.0.7/spring-tx-7.0.7.jar:/tmp/m2repo/org/springframework/spring-jdbc/7.0.7/spring-jdbc-7.0.7.jar:/tmp/m2repo/com/zaxxer/HikariCP/7.0.2/HikariCP-7.0.2.jar:/tmp/m2repo/org/slf4j/slf4j-api/2.0.17/slf4j-api-2.0.17.jar:/tmp/m2repo/com/h2database/h2/2.4.240/h2-2.4.240.jar:/tmp/m2repo/org/springframework/boot/spring-boot-starter-test/4.0.6/spring-boot-starter-test-4.0.6.jar:/tmp/m2repo/org/springframework/boot/spring-boot-test/4.0.6/spring-boot-test-4.0.6.jar:/tmp/m2repo/org/springframework/boot/spring-boot-test-autoconfigure/4.0.6/spring-boot-test-autoconfigure-4.0.6.jar:/tmp/m2repo/com/jayway/jsonpath/json-path/2.10.0/json-path-2.10.0.jar:/tmp/m2repo/jakarta/xml/bind/jakarta.xml.bind-api/4.0.4/jakarta.xml.bind-api-4.0.4.jar:/tmp/m2repo/jakarta/activation/jakarta.activation-api/2.1.4/jakarta.activation-api-2.1.4.jar:/tmp/m2repo/net/minidev/json-smart/2.6.0/json-smart-2.6.0.jar:/tmp/m2repo/net/minidev/accessors-smart/2.6.0/accessors-smart-2.6.0.jar:/tmp/m2repo/org/ow2/asm/asm/9.7.1/asm-9.7.1.jar:/tmp/m2repo/org/assertj/assertj-core/3.27.7/assertj-core-3.27.7.jar:/tmp/m2repo/net/bytebuddy/byte-buddy/1.17.8/byte-buddy-1.17.8.jar:/tmp/m2repo/org/awaitility/awaitility/4.3.0/awaitility-4.3.0.jar:/tmp/m2repo/org/hamcrest/hamcrest/3.0/hamcrest-3.0.jar:/tmp/m2repo/org/junit/jupiter/junit-jupiter/6.0.3/junit-jupiter-6.0.3.jar:/tmp/m2repo/org/junit/jupiter/junit-jupiter-api/6.0.3/junit-jupiter-api-6.0.3.jar:/tmp/m2repo/org/opentest4j/opentest4j/1.3.0/opentest4j-1.3.0.jar:/tmp/m2repo/org/junit/platform/junit-platform-commons/6.0.3/junit-platform-commons-6.0.3.jar:/tmp/m2repo/org/apiguardian/apiguardian-api/1.1.2/apiguardian-api-1.1.2.jar:/tmp/m2repo/org/junit/jupiter/junit-jupiter-params/6.0.3/junit-jupiter-params-6.0.3.jar:/tmp/m2repo/org/junit/jupiter/junit-jupiter-engine/6.0.3/junit-jupiter-engine-6.0.3.jar:/tmp/m2repo/org/junit/platform/junit-platform-engine/6.0.3/junit-platform-engine-6.0.3.jar:/tmp/m2repo/org/mockito/mockito-core/5.20.0/mockito-core-5.20.0.jar:/tmp/m2repo/net/bytebuddy/byte-buddy-agent/1.17.8/byte-buddy-agent-1.17.8.jar:/tmp/m2repo/org/objenesis/objenesis/3.3/objenesis-3.3.jar:/tmp/m2repo/org/mockito/mockito-junit-jupiter/5.20.0/mockito-junit-jupiter-5.20.0.jar:/tmp/m2repo/org/skyscreamer/jsonassert/1.5.3/jsonassert-1.5.3.jar:/tmp/m2repo/com/vaadin/external/google/android-json/0.0.20131108.vaadin1/android-json-0.0.20131108.vaadin1.jar:/tmp/m2repo/org/springframework/spring-core/7.0.7/spring-core-7.0.7.jar:/tmp/m2repo/commons-logging/commons-logging/1.3.6/commons-logging-1.3.6.jar:/tmp/m2repo/org/jspecify/jspecify/1.0.0/jspecify-1.0.0.jar:/tmp/m2repo/org/springframework/spring-test/7.0.7/spring-test-7.0.7.jar:/tmp/m2repo/org/xmlunit/xmlunit-core/2.10.4/xmlunit-core-2.10.4.jar:"/>
+    <property name="java.vm.vendor" value="Ubuntu"/>
     <property name="sun.arch.data.model" value="64"/>
-    <property name="java.vendor.url" value="https://adoptium.net/"/>
+    <property name="java.vendor.url" value="https://ubuntu.com/"/>
     <property name="user.timezone" value="Asia/Shanghai"/>
     <property name="org.jboss.logging.provider" value="slf4j"/>
     <property name="os.name" value="Linux"/>
     <property name="java.vm.specification.version" value="17"/>
     <property name="sun.java.launcher" value="SUN_STANDARD"/>
-    <property name="user.country" value="CN"/>
-    <property name="sun.boot.library.path" value="/home/tianjiaming/.local/toolchains/jdk-17-tmp/jdk-17.0.19+10/lib"/>
-    <property name="sun.java.command" value="/home/tianjiaming/learn/SWE/app-for-ISE/target/surefire/surefirebooter-20260629223014087_3.jar /home/tianjiaming/learn/SWE/app-for-ISE/target/surefire 2026-06-29T22-30-14_001-jvmRun1 surefire-20260629223014087_1tmp surefire_0-20260629223014087_2tmp"/>
+    <property name="sun.boot.library.path" value="/usr/lib/jvm/java-17-openjdk-amd64/lib"/>
+    <property name="sun.java.command" value="/home/sunqian/app-for-ISE/target/surefire/surefirebooter-20260630124501620_3.jar /home/sunqian/app-for-ISE/target/surefire 2026-06-30T12-45-00_462-jvmRun1 surefire-20260630124501620_1tmp surefire_0-20260630124501620_2tmp"/>
     <property name="jdk.debug" value="release"/>
-    <property name="surefire.test.class.path" value="/home/tianjiaming/learn/SWE/app-for-ISE/target/test-classes:/home/tianjiaming/learn/SWE/app-for-ISE/target/classes:/tmp/m2repo/org/springframework/boot/spring-boot-starter-web/4.0.6/spring-boot-starter-web-4.0.6.jar:/tmp/m2repo/org/springframework/boot/spring-boot-starter-jackson/4.0.6/spring-boot-starter-jackson-4.0.6.jar:/tmp/m2repo/org/springframework/boot/spring-boot-jackson/4.0.6/spring-boot-jackson-4.0.6.jar:/tmp/m2repo/tools/jackson/core/jackson-databind/3.1.2/jackson-databind-3.1.2.jar:/tmp/m2repo/tools/jackson/core/jackson-core/3.1.2/jackson-core-3.1.2.jar:/tmp/m2repo/org/springframework/boot/spring-boot-starter-tomcat/4.0.6/spring-boot-starter-tomcat-4.0.6.jar:/tmp/m2repo/org/springframework/boot/spring-boot-starter-tomcat-runtime/4.0.6/spring-boot-starter-tomcat-runtime-4.0.6.jar:/tmp/m2repo/org/springframework/boot/spring-boot-web-server/4.0.6/spring-boot-web-server-4.0.6.jar:/tmp/m2repo/org/apache/tomcat/embed/tomcat-embed-core/11.0.21/tomcat-embed-core-11.0.21.jar:/tmp/m2repo/org/apache/tomcat/embed/tomcat-embed-websocket/11.0.21/tomcat-embed-websocket-11.0.21.jar:/tmp/m2repo/org/springframework/boot/spring-boot-tomcat/4.0.6/spring-boot-tomcat-4.0.6.jar:/tmp/m2repo/org/springframework/boot/spring-boot-http-converter/4.0.6/spring-boot-http-converter-4.0.6.jar:/tmp/m2repo/org/springframework/boot/spring-boot/4.0.6/spring-boot-4.0.6.jar:/tmp/m2repo/org/springframework/spring-context/7.0.7/spring-context-7.0.7.jar:/tmp/m2repo/org/springframework/spring-web/7.0.7/spring-web-7.0.7.jar:/tmp/m2repo/org/springframework/spring-beans/7.0.7/spring-beans-7.0.7.jar:/tmp/m2repo/io/micrometer/micrometer-observation/1.16.5/micrometer-observation-1.16.5.jar:/tmp/m2repo/io/micrometer/micrometer-commons/1.16.5/micrometer-commons-1.16.5.jar:/tmp/m2repo/org/springframework/boot/spring-boot-webmvc/4.0.6/spring-boot-webmvc-4.0.6.jar:/tmp/m2repo/org/springframework/boot/spring-boot-servlet/4.0.6/spring-boot-servlet-4.0.6.jar:/tmp/m2repo/org/springframework/spring-webmvc/7.0.7/spring-webmvc-7.0.7.jar:/tmp/m2repo/org/springframework/spring-aop/7.0.7/spring-aop-7.0.7.jar:/tmp/m2repo/org/springframework/spring-expression/7.0.7/spring-expression-7.0.7.jar:/tmp/m2repo/com/fasterxml/jackson/core/jackson-databind/2.21.2/jackson-databind-2.21.2.jar:/tmp/m2repo/com/fasterxml/jackson/core/jackson-annotations/2.21/jackson-annotations-2.21.jar:/tmp/m2repo/com/fasterxml/jackson/core/jackson-core/2.21.2/jackson-core-2.21.2.jar:/tmp/m2repo/org/springframework/boot/spring-boot-starter-validation/4.0.6/spring-boot-starter-validation-4.0.6.jar:/tmp/m2repo/org/springframework/boot/spring-boot-starter/4.0.6/spring-boot-starter-4.0.6.jar:/tmp/m2repo/org/springframework/boot/spring-boot-starter-logging/4.0.6/spring-boot-starter-logging-4.0.6.jar:/tmp/m2repo/ch/qos/logback/logback-classic/1.5.32/logback-classic-1.5.32.jar:/tmp/m2repo/ch/qos/logback/logback-core/1.5.32/logback-core-1.5.32.jar:/tmp/m2repo/org/apache/logging/log4j/log4j-to-slf4j/2.25.4/log4j-to-slf4j-2.25.4.jar:/tmp/m2repo/org/apache/logging/log4j/log4j-api/2.25.4/log4j-api-2.25.4.jar:/tmp/m2repo/org/slf4j/jul-to-slf4j/2.0.17/jul-to-slf4j-2.0.17.jar:/tmp/m2repo/org/springframework/boot/spring-boot-autoconfigure/4.0.6/spring-boot-autoconfigure-4.0.6.jar:/tmp/m2repo/jakarta/annotation/jakarta.annotation-api/3.0.0/jakarta.annotation-api-3.0.0.jar:/tmp/m2repo/org/yaml/snakeyaml/2.5/snakeyaml-2.5.jar:/tmp/m2repo/org/springframework/boot/spring-boot-validation/4.0.6/spring-boot-validation-4.0.6.jar:/tmp/m2repo/org/apache/tomcat/embed/tomcat-embed-el/11.0.21/tomcat-embed-el-11.0.21.jar:/tmp/m2repo/org/hibernate/validator/hibernate-validator/9.0.1.Final/hibernate-validator-9.0.1.Final.jar:/tmp/m2repo/jakarta/validation/jakarta.validation-api/3.1.1/jakarta.validation-api-3.1.1.jar:/tmp/m2repo/org/jboss/logging/jboss-logging/3.6.3.Final/jboss-logging-3.6.3.Final.jar:/tmp/m2repo/com/fasterxml/classmate/1.7.3/classmate-1.7.3.jar:/tmp/m2repo/org/springframework/boot/spring-boot-starter-jdbc/4.0.6/spring-boot-starter-jdbc-4.0.6.jar:/tmp/m2repo/org/springframework/boot/spring-boot-jdbc/4.0.6/spring-boot-jdbc-4.0.6.jar:/tmp/m2repo/org/springframework/boot/spring-boot-sql/4.0.6/spring-boot-sql-4.0.6.jar:/tmp/m2repo/org/springframework/boot/spring-boot-transaction/4.0.6/spring-boot-transaction-4.0.6.jar:/tmp/m2repo/org/springframework/boot/spring-boot-persistence/4.0.6/spring-boot-persistence-4.0.6.jar:/tmp/m2repo/org/springframework/spring-tx/7.0.7/spring-tx-7.0.7.jar:/tmp/m2repo/org/springframework/spring-jdbc/7.0.7/spring-jdbc-7.0.7.jar:/tmp/m2repo/com/zaxxer/HikariCP/7.0.2/HikariCP-7.0.2.jar:/tmp/m2repo/org/slf4j/slf4j-api/2.0.17/slf4j-api-2.0.17.jar:/tmp/m2repo/com/h2database/h2/2.4.240/h2-2.4.240.jar:/tmp/m2repo/org/springframework/boot/spring-boot-starter-test/4.0.6/spring-boot-starter-test-4.0.6.jar:/tmp/m2repo/org/springframework/boot/spring-boot-test/4.0.6/spring-boot-test-4.0.6.jar:/tmp/m2repo/org/springframework/boot/spring-boot-test-autoconfigure/4.0.6/spring-boot-test-autoconfigure-4.0.6.jar:/tmp/m2repo/com/jayway/jsonpath/json-path/2.10.0/json-path-2.10.0.jar:/tmp/m2repo/jakarta/xml/bind/jakarta.xml.bind-api/4.0.4/jakarta.xml.bind-api-4.0.4.jar:/tmp/m2repo/jakarta/activation/jakarta.activation-api/2.1.4/jakarta.activation-api-2.1.4.jar:/tmp/m2repo/net/minidev/json-smart/2.6.0/json-smart-2.6.0.jar:/tmp/m2repo/net/minidev/accessors-smart/2.6.0/accessors-smart-2.6.0.jar:/tmp/m2repo/org/ow2/asm/asm/9.7.1/asm-9.7.1.jar:/tmp/m2repo/org/assertj/assertj-core/3.27.7/assertj-core-3.27.7.jar:/tmp/m2repo/net/bytebuddy/byte-buddy/1.17.8/byte-buddy-1.17.8.jar:/tmp/m2repo/org/awaitility/awaitility/4.3.0/awaitility-4.3.0.jar:/tmp/m2repo/org/hamcrest/hamcrest/3.0/hamcrest-3.0.jar:/tmp/m2repo/org/junit/jupiter/junit-jupiter/6.0.3/junit-jupiter-6.0.3.jar:/tmp/m2repo/org/junit/jupiter/junit-jupiter-api/6.0.3/junit-jupiter-api-6.0.3.jar:/tmp/m2repo/org/opentest4j/opentest4j/1.3.0/opentest4j-1.3.0.jar:/tmp/m2repo/org/junit/platform/junit-platform-commons/6.0.3/junit-platform-commons-6.0.3.jar:/tmp/m2repo/org/apiguardian/apiguardian-api/1.1.2/apiguardian-api-1.1.2.jar:/tmp/m2repo/org/junit/jupiter/junit-jupiter-params/6.0.3/junit-jupiter-params-6.0.3.jar:/tmp/m2repo/org/junit/jupiter/junit-jupiter-engine/6.0.3/junit-jupiter-engine-6.0.3.jar:/tmp/m2repo/org/junit/platform/junit-platform-engine/6.0.3/junit-platform-engine-6.0.3.jar:/tmp/m2repo/org/mockito/mockito-core/5.20.0/mockito-core-5.20.0.jar:/tmp/m2repo/net/bytebuddy/byte-buddy-agent/1.17.8/byte-buddy-agent-1.17.8.jar:/tmp/m2repo/org/objenesis/objenesis/3.3/objenesis-3.3.jar:/tmp/m2repo/org/mockito/mockito-junit-jupiter/5.20.0/mockito-junit-jupiter-5.20.0.jar:/tmp/m2repo/org/skyscreamer/jsonassert/1.5.3/jsonassert-1.5.3.jar:/tmp/m2repo/com/vaadin/external/google/android-json/0.0.20131108.vaadin1/android-json-0.0.20131108.vaadin1.jar:/tmp/m2repo/org/springframework/spring-core/7.0.7/spring-core-7.0.7.jar:/tmp/m2repo/commons-logging/commons-logging/1.3.6/commons-logging-1.3.6.jar:/tmp/m2repo/org/jspecify/jspecify/1.0.0/jspecify-1.0.0.jar:/tmp/m2repo/org/springframework/spring-test/7.0.7/spring-test-7.0.7.jar:/tmp/m2repo/org/xmlunit/xmlunit-core/2.10.4/xmlunit-core-2.10.4.jar:"/>
+    <property name="surefire.test.class.path" value="/home/sunqian/app-for-ISE/target/test-classes:/home/sunqian/app-for-ISE/target/classes:/tmp/m2repo/org/springframework/boot/spring-boot-starter-web/4.0.6/spring-boot-starter-web-4.0.6.jar:/tmp/m2repo/org/springframework/boot/spring-boot-starter-jackson/4.0.6/spring-boot-starter-jackson-4.0.6.jar:/tmp/m2repo/org/springframework/boot/spring-boot-jackson/4.0.6/spring-boot-jackson-4.0.6.jar:/tmp/m2repo/tools/jackson/core/jackson-databind/3.1.2/jackson-databind-3.1.2.jar:/tmp/m2repo/tools/jackson/core/jackson-core/3.1.2/jackson-core-3.1.2.jar:/tmp/m2repo/org/springframework/boot/spring-boot-starter-tomcat/4.0.6/spring-boot-starter-tomcat-4.0.6.jar:/tmp/m2repo/org/springframework/boot/spring-boot-starter-tomcat-runtime/4.0.6/spring-boot-starter-tomcat-runtime-4.0.6.jar:/tmp/m2repo/org/springframework/boot/spring-boot-web-server/4.0.6/spring-boot-web-server-4.0.6.jar:/tmp/m2repo/org/apache/tomcat/embed/tomcat-embed-core/11.0.21/tomcat-embed-core-11.0.21.jar:/tmp/m2repo/org/apache/tomcat/embed/tomcat-embed-websocket/11.0.21/tomcat-embed-websocket-11.0.21.jar:/tmp/m2repo/org/springframework/boot/spring-boot-tomcat/4.0.6/spring-boot-tomcat-4.0.6.jar:/tmp/m2repo/org/springframework/boot/spring-boot-http-converter/4.0.6/spring-boot-http-converter-4.0.6.jar:/tmp/m2repo/org/springframework/boot/spring-boot/4.0.6/spring-boot-4.0.6.jar:/tmp/m2repo/org/springframework/spring-context/7.0.7/spring-context-7.0.7.jar:/tmp/m2repo/org/springframework/spring-web/7.0.7/spring-web-7.0.7.jar:/tmp/m2repo/org/springframework/spring-beans/7.0.7/spring-beans-7.0.7.jar:/tmp/m2repo/io/micrometer/micrometer-observation/1.16.5/micrometer-observation-1.16.5.jar:/tmp/m2repo/io/micrometer/micrometer-commons/1.16.5/micrometer-commons-1.16.5.jar:/tmp/m2repo/org/springframework/boot/spring-boot-webmvc/4.0.6/spring-boot-webmvc-4.0.6.jar:/tmp/m2repo/org/springframework/boot/spring-boot-servlet/4.0.6/spring-boot-servlet-4.0.6.jar:/tmp/m2repo/org/springframework/spring-webmvc/7.0.7/spring-webmvc-7.0.7.jar:/tmp/m2repo/org/springframework/spring-aop/7.0.7/spring-aop-7.0.7.jar:/tmp/m2repo/org/springframework/spring-expression/7.0.7/spring-expression-7.0.7.jar:/tmp/m2repo/com/fasterxml/jackson/core/jackson-databind/2.21.2/jackson-databind-2.21.2.jar:/tmp/m2repo/com/fasterxml/jackson/core/jackson-annotations/2.21/jackson-annotations-2.21.jar:/tmp/m2repo/com/fasterxml/jackson/core/jackson-core/2.21.2/jackson-core-2.21.2.jar:/tmp/m2repo/org/springframework/boot/spring-boot-starter-validation/4.0.6/spring-boot-starter-validation-4.0.6.jar:/tmp/m2repo/org/springframework/boot/spring-boot-starter/4.0.6/spring-boot-starter-4.0.6.jar:/tmp/m2repo/org/springframework/boot/spring-boot-starter-logging/4.0.6/spring-boot-starter-logging-4.0.6.jar:/tmp/m2repo/ch/qos/logback/logback-classic/1.5.32/logback-classic-1.5.32.jar:/tmp/m2repo/ch/qos/logback/logback-core/1.5.32/logback-core-1.5.32.jar:/tmp/m2repo/org/apache/logging/log4j/log4j-to-slf4j/2.25.4/log4j-to-slf4j-2.25.4.jar:/tmp/m2repo/org/apache/logging/log4j/log4j-api/2.25.4/log4j-api-2.25.4.jar:/tmp/m2repo/org/slf4j/jul-to-slf4j/2.0.17/jul-to-slf4j-2.0.17.jar:/tmp/m2repo/org/springframework/boot/spring-boot-autoconfigure/4.0.6/spring-boot-autoconfigure-4.0.6.jar:/tmp/m2repo/jakarta/annotation/jakarta.annotation-api/3.0.0/jakarta.annotation-api-3.0.0.jar:/tmp/m2repo/org/yaml/snakeyaml/2.5/snakeyaml-2.5.jar:/tmp/m2repo/org/springframework/boot/spring-boot-validation/4.0.6/spring-boot-validation-4.0.6.jar:/tmp/m2repo/org/apache/tomcat/embed/tomcat-embed-el/11.0.21/tomcat-embed-el-11.0.21.jar:/tmp/m2repo/org/hibernate/validator/hibernate-validator/9.0.1.Final/hibernate-validator-9.0.1.Final.jar:/tmp/m2repo/jakarta/validation/jakarta.validation-api/3.1.1/jakarta.validation-api-3.1.1.jar:/tmp/m2repo/org/jboss/logging/jboss-logging/3.6.3.Final/jboss-logging-3.6.3.Final.jar:/tmp/m2repo/com/fasterxml/classmate/1.7.3/classmate-1.7.3.jar:/tmp/m2repo/org/springframework/boot/spring-boot-starter-jdbc/4.0.6/spring-boot-starter-jdbc-4.0.6.jar:/tmp/m2repo/org/springframework/boot/spring-boot-jdbc/4.0.6/spring-boot-jdbc-4.0.6.jar:/tmp/m2repo/org/springframework/boot/spring-boot-sql/4.0.6/spring-boot-sql-4.0.6.jar:/tmp/m2repo/org/springframework/boot/spring-boot-transaction/4.0.6/spring-boot-transaction-4.0.6.jar:/tmp/m2repo/org/springframework/boot/spring-boot-persistence/4.0.6/spring-boot-persistence-4.0.6.jar:/tmp/m2repo/org/springframework/spring-tx/7.0.7/spring-tx-7.0.7.jar:/tmp/m2repo/org/springframework/spring-jdbc/7.0.7/spring-jdbc-7.0.7.jar:/tmp/m2repo/com/zaxxer/HikariCP/7.0.2/HikariCP-7.0.2.jar:/tmp/m2repo/org/slf4j/slf4j-api/2.0.17/slf4j-api-2.0.17.jar:/tmp/m2repo/com/h2database/h2/2.4.240/h2-2.4.240.jar:/tmp/m2repo/org/springframework/boot/spring-boot-starter-test/4.0.6/spring-boot-starter-test-4.0.6.jar:/tmp/m2repo/org/springframework/boot/spring-boot-test/4.0.6/spring-boot-test-4.0.6.jar:/tmp/m2repo/org/springframework/boot/spring-boot-test-autoconfigure/4.0.6/spring-boot-test-autoconfigure-4.0.6.jar:/tmp/m2repo/com/jayway/jsonpath/json-path/2.10.0/json-path-2.10.0.jar:/tmp/m2repo/jakarta/xml/bind/jakarta.xml.bind-api/4.0.4/jakarta.xml.bind-api-4.0.4.jar:/tmp/m2repo/jakarta/activation/jakarta.activation-api/2.1.4/jakarta.activation-api-2.1.4.jar:/tmp/m2repo/net/minidev/json-smart/2.6.0/json-smart-2.6.0.jar:/tmp/m2repo/net/minidev/accessors-smart/2.6.0/accessors-smart-2.6.0.jar:/tmp/m2repo/org/ow2/asm/asm/9.7.1/asm-9.7.1.jar:/tmp/m2repo/org/assertj/assertj-core/3.27.7/assertj-core-3.27.7.jar:/tmp/m2repo/net/bytebuddy/byte-buddy/1.17.8/byte-buddy-1.17.8.jar:/tmp/m2repo/org/awaitility/awaitility/4.3.0/awaitility-4.3.0.jar:/tmp/m2repo/org/hamcrest/hamcrest/3.0/hamcrest-3.0.jar:/tmp/m2repo/org/junit/jupiter/junit-jupiter/6.0.3/junit-jupiter-6.0.3.jar:/tmp/m2repo/org/junit/jupiter/junit-jupiter-api/6.0.3/junit-jupiter-api-6.0.3.jar:/tmp/m2repo/org/opentest4j/opentest4j/1.3.0/opentest4j-1.3.0.jar:/tmp/m2repo/org/junit/platform/junit-platform-commons/6.0.3/junit-platform-commons-6.0.3.jar:/tmp/m2repo/org/apiguardian/apiguardian-api/1.1.2/apiguardian-api-1.1.2.jar:/tmp/m2repo/org/junit/jupiter/junit-jupiter-params/6.0.3/junit-jupiter-params-6.0.3.jar:/tmp/m2repo/org/junit/jupiter/junit-jupiter-engine/6.0.3/junit-jupiter-engine-6.0.3.jar:/tmp/m2repo/org/junit/platform/junit-platform-engine/6.0.3/junit-platform-engine-6.0.3.jar:/tmp/m2repo/org/mockito/mockito-core/5.20.0/mockito-core-5.20.0.jar:/tmp/m2repo/net/bytebuddy/byte-buddy-agent/1.17.8/byte-buddy-agent-1.17.8.jar:/tmp/m2repo/org/objenesis/objenesis/3.3/objenesis-3.3.jar:/tmp/m2repo/org/mockito/mockito-junit-jupiter/5.20.0/mockito-junit-jupiter-5.20.0.jar:/tmp/m2repo/org/skyscreamer/jsonassert/1.5.3/jsonassert-1.5.3.jar:/tmp/m2repo/com/vaadin/external/google/android-json/0.0.20131108.vaadin1/android-json-0.0.20131108.vaadin1.jar:/tmp/m2repo/org/springframework/spring-core/7.0.7/spring-core-7.0.7.jar:/tmp/m2repo/commons-logging/commons-logging/1.3.6/commons-logging-1.3.6.jar:/tmp/m2repo/org/jspecify/jspecify/1.0.0/jspecify-1.0.0.jar:/tmp/m2repo/org/springframework/spring-test/7.0.7/spring-test-7.0.7.jar:/tmp/m2repo/org/xmlunit/xmlunit-core/2.10.4/xmlunit-core-2.10.4.jar:"/>
     <property name="sun.cpu.endian" value="little"/>
-    <property name="user.home" value="/home/tianjiaming"/>
-    <property name="user.language" value="zh"/>
+    <property name="user.home" value="/home/sunqian"/>
+    <property name="user.language" value="en"/>
     <property name="java.specification.vendor" value="Oracle Corporation"/>
     <property name="java.version.date" value="2026-04-21"/>
-    <property name="java.home" value="/home/tianjiaming/.local/toolchains/jdk-17-tmp/jdk-17.0.19+10"/>
+    <property name="java.home" value="/usr/lib/jvm/java-17-openjdk-amd64"/>
     <property name="file.separator" value="/"/>
-    <property name="basedir" value="/home/tianjiaming/learn/SWE/app-for-ISE"/>
-    <property name="java.vm.compressedOopsMode" value="Zero based"/>
+    <property name="basedir" value="/home/sunqian/app-for-ISE"/>
+    <property name="java.vm.compressedOopsMode" value="32-bit"/>
     <property name="line.separator" value="&#10;"/>
-    <property name="java.vm.specification.vendor" value="Oracle Corporation"/>
     <property name="java.specification.name" value="Java Platform API Specification"/>
+    <property name="java.vm.specification.vendor" value="Oracle Corporation"/>
     <property name="FILE_LOG_CHARSET" value="UTF-8"/>
     <property name="java.awt.headless" value="true"/>
-    <property name="surefire.real.class.path" value="/home/tianjiaming/learn/SWE/app-for-ISE/target/surefire/surefirebooter-20260629223014087_3.jar"/>
+    <property name="surefire.real.class.path" value="/home/sunqian/app-for-ISE/target/surefire/surefirebooter-20260630124501620_3.jar"/>
     <property name="sun.management.compiler" value="HotSpot 64-Bit Tiered Compilers"/>
-    <property name="java.runtime.version" value="17.0.19+10"/>
-    <property name="user.name" value="tianjiaming"/>
+    <property name="java.runtime.version" value="17.0.19+10-1-24.04.2-Ubuntu"/>
+    <property name="user.name" value="sunqian"/>
     <property name="path.separator" value=":"/>
-    <property name="os.version" value="6.8.0-90-generic"/>
+    <property name="os.version" value="6.6.87.2-microsoft-standard-WSL2"/>
     <property name="java.runtime.name" value="OpenJDK Runtime Environment"/>
     <property name="file.encoding" value="UTF-8"/>
     <property name="java.vm.name" value="OpenJDK 64-Bit Server VM"/>
-    <property name="java.vendor.version" value="Temurin-17.0.19+10"/>
     <property name="localRepository" value="/tmp/m2repo"/>
-    <property name="java.vendor.url.bug" value="https://github.com/adoptium/adoptium-support/issues"/>
+    <property name="java.vendor.url.bug" value="https://bugs.launchpad.net/ubuntu/+source/openjdk-17"/>
     <property name="java.io.tmpdir" value="/tmp"/>
     <property name="com.zaxxer.hikari.pool_number" value="1"/>
     <property name="java.version" value="17.0.19"/>
-    <property name="user.dir" value="/home/tianjiaming/learn/SWE/app-for-ISE"/>
+    <property name="user.dir" value="/home/sunqian/app-for-ISE"/>
     <property name="os.arch" value="amd64"/>
     <property name="java.vm.specification.name" value="Java Virtual Machine Specification"/>
-    <property name="PID" value="689567"/>
+    <property name="PID" value="22952"/>
     <property name="CONSOLE_LOG_CHARSET" value="UTF-8"/>
     <property name="native.encoding" value="UTF-8"/>
-    <property name="java.library.path" value="/usr/java/packages/lib:/usr/lib64:/lib64:/lib:/usr/lib"/>
+    <property name="java.library.path" value="/usr/java/packages/lib:/usr/lib/x86_64-linux-gnu/jni:/lib/x86_64-linux-gnu:/usr/lib/x86_64-linux-gnu:/usr/lib/jni:/lib:/usr/lib"/>
     <property name="java.vm.info" value="mixed mode, sharing"/>
-    <property name="java.vendor" value="Eclipse Adoptium"/>
-    <property name="java.vm.version" value="17.0.19+10"/>
+    <property name="java.vendor" value="Ubuntu"/>
+    <property name="java.vm.version" value="17.0.19+10-1-24.04.2-Ubuntu"/>
     <property name="java.specification.maintenance.version" value="1"/>
     <property name="sun.io.unicode.encoding" value="UnicodeLittle"/>
     <property name="maven.repo.local" value="/tmp/m2repo"/>
     <property name="java.class.version" value="61.0"/>
   </properties>
-  <testcase name="managerCannotApproveApplicationOutsideManagedClass" classname="com.ise.platform.modules.application.ApplicationServiceTest" time="0.602">
-    <system-out><![CDATA[22:30:15.072 [main] INFO org.springframework.test.context.support.AnnotationConfigContextLoaderUtils -- Could not detect default configuration classes for test class [com.ise.platform.modules.application.ApplicationServiceTest]: ApplicationServiceTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
-22:30:15.201 [main] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper -- Found @SpringBootConfiguration com.ise.platform.PlatformBackendApplication for test class com.ise.platform.modules.application.ApplicationServiceTest
-22:30:15.288 [main] INFO org.springframework.test.context.support.AnnotationConfigContextLoaderUtils -- Could not detect default configuration classes for test class [com.ise.platform.modules.application.ApplicationServiceTest]: ApplicationServiceTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
-22:30:15.290 [main] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper -- Found @SpringBootConfiguration com.ise.platform.PlatformBackendApplication for test class com.ise.platform.modules.application.ApplicationServiceTest
+  <testcase name="managerCannotApproveApplicationOutsideManagedClass" classname="com.ise.platform.modules.application.ApplicationServiceTest" time="0.473">
+    <system-out><![CDATA[12:45:02.426 [main] INFO org.springframework.test.context.support.AnnotationConfigContextLoaderUtils -- Could not detect default configuration classes for test class [com.ise.platform.modules.application.ApplicationServiceTest]: ApplicationServiceTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+12:45:02.534 [main] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper -- Found @SpringBootConfiguration com.ise.platform.PlatformBackendApplication for test class com.ise.platform.modules.application.ApplicationServiceTest
+12:45:02.596 [main] INFO org.springframework.test.context.support.AnnotationConfigContextLoaderUtils -- Could not detect default configuration classes for test class [com.ise.platform.modules.application.ApplicationServiceTest]: ApplicationServiceTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+12:45:02.598 [main] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper -- Found @SpringBootConfiguration com.ise.platform.PlatformBackendApplication for test class com.ise.platform.modules.application.ApplicationServiceTest
 
   .   ____          _            __ _ _
  /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
@@ -76,19 +74,19 @@
 
  :: Spring Boot ::                (v4.0.6)
 
-2026-06-29T22:30:15.659+08:00  INFO 689567 --- [           main] c.i.p.m.a.ApplicationServiceTest         : Starting ApplicationServiceTest using Java 17.0.19 with PID 689567 (started by tianjiaming in /home/tianjiaming/learn/SWE/app-for-ISE)
-2026-06-29T22:30:15.660+08:00  INFO 689567 --- [           main] c.i.p.m.a.ApplicationServiceTest         : No active profile set, falling back to 1 default profile: "default"
-2026-06-29T22:30:15.661+08:00 DEBUG 689567 --- [           main] o.s.boot.SpringApplication               : Loading source class com.ise.platform.PlatformBackendApplication
-2026-06-29T22:30:15.693+08:00 DEBUG 689567 --- [           main] o.s.w.c.s.GenericWebApplicationContext   : Refreshing org.springframework.web.context.support.GenericWebApplicationContext@7cb8437d
-2026-06-29T22:30:16.514+08:00  INFO 689567 --- [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
-2026-06-29T22:30:16.738+08:00  INFO 689567 --- [           main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection conn0: url=jdbc:h2:mem:app_for_ise_test user=SA
-2026-06-29T22:30:16.740+08:00  INFO 689567 --- [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
-2026-06-29T22:30:17.162+08:00 DEBUG 689567 --- [           main] o.s.b.a.AutoConfigurationPackages        : @EnableAutoConfiguration was declared on a class in the package 'com.ise.platform'. Automatic @Repository and @Entity scanning is enabled.
-2026-06-29T22:30:17.303+08:00 DEBUG 689567 --- [           main] s.w.s.m.m.a.RequestMappingHandlerMapping : 45 mappings in 'requestMappingHandlerMapping'
-2026-06-29T22:30:17.327+08:00 DEBUG 689567 --- [           main] o.s.w.s.handler.SimpleUrlHandlerMapping  : Patterns [/webjars/**, /**] in 'resourceHandlerMapping'
-2026-06-29T22:30:17.344+08:00 DEBUG 689567 --- [           main] s.w.s.m.m.a.RequestMappingHandlerAdapter : ControllerAdvice beans: 0 @ModelAttribute, 0 @InitBinder, 2 RequestBodyAdvice, 1 ResponseBodyAdvice
-2026-06-29T22:30:17.393+08:00 DEBUG 689567 --- [           main] .m.m.a.ExceptionHandlerExceptionResolver : ControllerAdvice beans: 1 @ExceptionHandler, 1 ResponseBodyAdvice
-2026-06-29T22:30:17.513+08:00 DEBUG 689567 --- [           main] .s.b.a.l.ConditionEvaluationReportLogger : 
+2026-06-30T12:45:02.870+08:00  INFO 22952 --- [           main] c.i.p.m.a.ApplicationServiceTest         : Starting ApplicationServiceTest using Java 17.0.19 with PID 22952 (started by sunqian in /home/sunqian/app-for-ISE)
+2026-06-30T12:45:02.871+08:00  INFO 22952 --- [           main] c.i.p.m.a.ApplicationServiceTest         : No active profile set, falling back to 1 default profile: "default"
+2026-06-30T12:45:02.871+08:00 DEBUG 22952 --- [           main] o.s.boot.SpringApplication               : Loading source class com.ise.platform.PlatformBackendApplication
+2026-06-30T12:45:02.903+08:00 DEBUG 22952 --- [           main] o.s.w.c.s.GenericWebApplicationContext   : Refreshing org.springframework.web.context.support.GenericWebApplicationContext@64693226
+2026-06-30T12:45:03.436+08:00  INFO 22952 --- [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2026-06-30T12:45:03.548+08:00  INFO 22952 --- [           main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection conn0: url=jdbc:h2:mem:app_for_ise_test user=SA
+2026-06-30T12:45:03.549+08:00  INFO 22952 --- [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2026-06-30T12:45:03.899+08:00 DEBUG 22952 --- [           main] o.s.b.a.AutoConfigurationPackages        : @EnableAutoConfiguration was declared on a class in the package 'com.ise.platform'. Automatic @Repository and @Entity scanning is enabled.
+2026-06-30T12:45:04.022+08:00 DEBUG 22952 --- [           main] s.w.s.m.m.a.RequestMappingHandlerMapping : 51 mappings in 'requestMappingHandlerMapping'
+2026-06-30T12:45:04.042+08:00 DEBUG 22952 --- [           main] o.s.w.s.handler.SimpleUrlHandlerMapping  : Patterns [/webjars/**, /**] in 'resourceHandlerMapping'
+2026-06-30T12:45:04.061+08:00 DEBUG 22952 --- [           main] s.w.s.m.m.a.RequestMappingHandlerAdapter : ControllerAdvice beans: 0 @ModelAttribute, 0 @InitBinder, 2 RequestBodyAdvice, 1 ResponseBodyAdvice
+2026-06-30T12:45:04.095+08:00 DEBUG 22952 --- [           main] .m.m.a.ExceptionHandlerExceptionResolver : ControllerAdvice beans: 1 @ExceptionHandler, 1 ResponseBodyAdvice
+2026-06-30T12:45:04.200+08:00 DEBUG 22952 --- [           main] .s.b.a.l.ConditionEvaluationReportLogger : 
 
 
 ============================
@@ -608,42 +606,42 @@ Unconditional classes:
 
 
 
-2026-06-29T22:30:17.521+08:00  INFO 689567 --- [           main] c.i.p.m.a.ApplicationServiceTest         : Started ApplicationServiceTest in 2.167 seconds (process running for 3.36)
-2026-06-29T22:30:17.522+08:00 DEBUG 689567 --- [           main] o.s.b.a.ApplicationAvailabilityBean      : Application availability state LivenessState changed to CORRECT
-2026-06-29T22:30:17.525+08:00 DEBUG 689567 --- [           main] o.s.b.a.ApplicationAvailabilityBean      : Application availability state ReadinessState changed to ACCEPTING_TRAFFIC
-2026-06-29T22:30:18.036+08:00 DEBUG 689567 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing SQL query [select coalesce(max(id), 0) + 1 from biz_application]
-2026-06-29T22:30:18.058+08:00 DEBUG 689567 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL update
-2026-06-29T22:30:18.059+08:00 DEBUG 689567 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL statement [insert into biz_application (
+2026-06-30T12:45:04.210+08:00  INFO 22952 --- [           main] c.i.p.m.a.ApplicationServiceTest         : Started ApplicationServiceTest in 1.567 seconds (process running for 2.552)
+2026-06-30T12:45:04.211+08:00 DEBUG 22952 --- [           main] o.s.b.a.ApplicationAvailabilityBean      : Application availability state LivenessState changed to CORRECT
+2026-06-30T12:45:04.214+08:00 DEBUG 22952 --- [           main] o.s.b.a.ApplicationAvailabilityBean      : Application availability state ReadinessState changed to ACCEPTING_TRAFFIC
+2026-06-30T12:45:04.635+08:00 DEBUG 22952 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing SQL query [select coalesce(max(id), 0) + 1 from biz_application]
+2026-06-30T12:45:04.647+08:00 DEBUG 22952 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL update
+2026-06-30T12:45:04.648+08:00 DEBUG 22952 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL statement [insert into biz_application (
     id, application_no, application_type, template_id, applicant_user_id, student_id,
     title, purpose, form_data_json, status, current_approver_id, submitted_at,
     created_at, updated_at, is_deleted
 ) values (?, ?, 'certificate', 1, 1, 3, '跨班级申请', '测试数据范围', '{}', 'submitted', 8,
     current_timestamp, current_timestamp, current_timestamp, 0)
 ]
-2026-06-29T22:30:18.106+08:00 DEBUG 689567 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL query
-2026-06-29T22:30:18.107+08:00 DEBUG 689567 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL statement [select a.id, a.application_no, a.application_type, a.template_id, a.applicant_user_id,
+2026-06-30T12:45:04.676+08:00 DEBUG 22952 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL query
+2026-06-30T12:45:04.676+08:00 DEBUG 22952 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL statement [select a.id, a.application_no, a.application_type, a.template_id, a.applicant_user_id,
        a.student_id, a.title, a.purpose, a.form_data_json, a.status,
        coalesce(u.real_name, '-') as current_approver, a.submitted_at
   from biz_application a
   left join sys_user u on u.id = a.current_approver_id
  where a.id = ? and a.is_deleted = 0
 ]
-2026-06-29T22:30:18.111+08:00 DEBUG 689567 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL query
-2026-06-29T22:30:18.111+08:00 DEBUG 689567 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL statement [select class_name from stu_student where id = ? and is_deleted = 0]
+2026-06-30T12:45:04.680+08:00 DEBUG 22952 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL query
+2026-06-30T12:45:04.680+08:00 DEBUG 22952 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL statement [select class_name from stu_student where id = ? and is_deleted = 0]
 ]]></system-out>
   </testcase>
-  <testcase name="collegeLeaderCanSeePendingApplicationsAcrossClasses" classname="com.ise.platform.modules.application.ApplicationServiceTest" time="0.029">
-    <system-out><![CDATA[2026-06-29T22:30:18.142+08:00 DEBUG 689567 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing SQL query [select coalesce(max(id), 0) + 1 from biz_application]
-2026-06-29T22:30:18.143+08:00 DEBUG 689567 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL update
-2026-06-29T22:30:18.143+08:00 DEBUG 689567 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL statement [insert into biz_application (
+  <testcase name="collegeLeaderCanSeePendingApplicationsAcrossClasses" classname="com.ise.platform.modules.application.ApplicationServiceTest" time="0.034">
+    <system-out><![CDATA[2026-06-30T12:45:04.702+08:00 DEBUG 22952 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing SQL query [select coalesce(max(id), 0) + 1 from biz_application]
+2026-06-30T12:45:04.703+08:00 DEBUG 22952 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL update
+2026-06-30T12:45:04.703+08:00 DEBUG 22952 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL statement [insert into biz_application (
     id, application_no, application_type, template_id, applicant_user_id, student_id,
     title, purpose, form_data_json, status, current_approver_id, submitted_at,
     created_at, updated_at, is_deleted
 ) values (?, ?, 'certificate', 1, 1, 3, '跨班级申请', '测试数据范围', '{}', 'submitted', 8,
     current_timestamp, current_timestamp, current_timestamp, 0)
 ]
-2026-06-29T22:30:18.144+08:00 DEBUG 689567 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL query
-2026-06-29T22:30:18.144+08:00 DEBUG 689567 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL statement [select count(*)
+2026-06-30T12:45:04.704+08:00 DEBUG 22952 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL query
+2026-06-30T12:45:04.704+08:00 DEBUG 22952 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL statement [select count(*)
   from biz_application a
   left join stu_student s on s.id = a.student_id
  where a.is_deleted = 0
@@ -653,9 +651,9 @@ Unconditional classes:
         or (? is null and a.status in ('submitted', 'reviewing')))
    
 ]
-2026-06-29T22:30:18.155+08:00 DEBUG 689567 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL query
-2026-06-29T22:30:18.156+08:00 DEBUG 689567 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL statement [select a.id, a.application_no, a.application_type, a.title, a.purpose, a.status,
-       coalesce(u.real_name, '-') as current_approver, a.submitted_at
+2026-06-30T12:45:04.712+08:00 DEBUG 22952 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL query
+2026-06-30T12:45:04.712+08:00 DEBUG 22952 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL statement [select a.id, a.application_no, a.application_type, a.title, a.purpose, a.status,
+       coalesce(u.real_name, '-') as current_approver, a.submitted_at, a.form_data_json
   from biz_application a
   left join sys_user u on u.id = a.current_approver_id
   left join stu_student s on s.id = a.student_id
@@ -670,33 +668,33 @@ Unconditional classes:
 ]
 ]]></system-out>
   </testcase>
-  <testcase name="createdApplicationShouldSurviveServiceReadBackFromDatabase" classname="com.ise.platform.modules.application.ApplicationServiceTest" time="0.074">
-    <system-out><![CDATA[2026-06-29T22:30:18.172+08:00 DEBUG 689567 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing SQL query [select coalesce(max(id), 0) + 1 from biz_application]
-2026-06-29T22:30:18.202+08:00 DEBUG 689567 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL update
-2026-06-29T22:30:18.202+08:00 DEBUG 689567 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL statement [insert into biz_application (
+  <testcase name="createdApplicationShouldSurviveServiceReadBackFromDatabase" classname="com.ise.platform.modules.application.ApplicationServiceTest" time="0.036">
+    <system-out><![CDATA[2026-06-30T12:45:04.738+08:00 DEBUG 22952 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing SQL query [select coalesce(max(id), 0) + 1 from biz_application]
+2026-06-30T12:45:04.749+08:00 DEBUG 22952 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL update
+2026-06-30T12:45:04.750+08:00 DEBUG 22952 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL statement [insert into biz_application (
     id, application_no, application_type, template_id, applicant_user_id, student_id,
     title, purpose, form_data_json, status, current_approver_id, submitted_at,
     created_at, updated_at, is_deleted
 ) values (?, ?, ?, ?, ?, ?, ?, ?, ?, 'submitted', ?, ?, ?, ?, 0)
 ]
-2026-06-29T22:30:18.204+08:00 DEBUG 689567 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing SQL query [select coalesce(max(id), 0) + 1 from biz_approval_record]
-2026-06-29T22:30:18.205+08:00 DEBUG 689567 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL update
-2026-06-29T22:30:18.205+08:00 DEBUG 689567 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL statement [insert into biz_approval_record (
+2026-06-30T12:45:04.752+08:00 DEBUG 22952 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing SQL query [select coalesce(max(id), 0) + 1 from biz_approval_record]
+2026-06-30T12:45:04.753+08:00 DEBUG 22952 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL update
+2026-06-30T12:45:04.753+08:00 DEBUG 22952 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL statement [insert into biz_approval_record (
     id, application_id, approver_user_id, action_type, action_comment,
     before_status, after_status, action_time
 ) values (?, ?, ?, ?, ?, ?, ?, ?)
 ]
-2026-06-29T22:30:18.208+08:00 DEBUG 689567 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL query
-2026-06-29T22:30:18.208+08:00 DEBUG 689567 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL statement [select count(*)
+2026-06-30T12:45:04.754+08:00 DEBUG 22952 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL query
+2026-06-30T12:45:04.755+08:00 DEBUG 22952 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL statement [select count(*)
   from biz_application
  where is_deleted = 0
    and applicant_user_id = ?
    and (? is null or lower(application_type) = ?)
    and (? is null or lower(status) = ?)
 ]
-2026-06-29T22:30:18.210+08:00 DEBUG 689567 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL query
-2026-06-29T22:30:18.210+08:00 DEBUG 689567 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL statement [select a.id, a.application_no, a.application_type, a.title, a.purpose, a.status,
-       coalesce(u.real_name, '-') as current_approver, a.submitted_at
+2026-06-30T12:45:04.756+08:00 DEBUG 22952 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL query
+2026-06-30T12:45:04.756+08:00 DEBUG 22952 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL statement [select a.id, a.application_no, a.application_type, a.title, a.purpose, a.status,
+       coalesce(u.real_name, '-') as current_approver, a.submitted_at, a.form_data_json
   from biz_application a
   left join sys_user u on u.id = a.current_approver_id
  where a.is_deleted = 0
@@ -706,36 +704,36 @@ Unconditional classes:
  order by a.submitted_at desc, a.id desc
  limit ? offset ?
 ]
-2026-06-29T22:30:18.213+08:00 DEBUG 689567 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL query
-2026-06-29T22:30:18.213+08:00 DEBUG 689567 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL statement [select a.id, a.application_no, a.application_type, a.template_id, a.applicant_user_id,
+2026-06-30T12:45:04.759+08:00 DEBUG 22952 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL query
+2026-06-30T12:45:04.759+08:00 DEBUG 22952 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL statement [select a.id, a.application_no, a.application_type, a.template_id, a.applicant_user_id,
        a.student_id, a.title, a.purpose, a.form_data_json, a.status,
        coalesce(u.real_name, '-') as current_approver, a.submitted_at
   from biz_application a
   left join sys_user u on u.id = a.current_approver_id
  where a.id = ? and a.is_deleted = 0
 ]
-2026-06-29T22:30:18.230+08:00 DEBUG 689567 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL query
-2026-06-29T22:30:18.231+08:00 DEBUG 689567 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL statement [select r.action_type, r.action_comment, r.action_time, u.real_name
+2026-06-30T12:45:04.761+08:00 DEBUG 22952 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL query
+2026-06-30T12:45:04.762+08:00 DEBUG 22952 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL statement [select r.action_type, r.action_comment, r.action_time, u.real_name
   from biz_approval_record r
   left join sys_user u on u.id = r.approver_user_id
  where r.application_id = ?
  order by r.action_time asc, r.id asc
 ]
-2026-06-29T22:30:18.240+08:00 DEBUG 689567 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL query
-2026-06-29T22:30:18.240+08:00 DEBUG 689567 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL statement [select count(*) from biz_application where application_no = ?]
+2026-06-30T12:45:04.768+08:00 DEBUG 22952 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL query
+2026-06-30T12:45:04.768+08:00 DEBUG 22952 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL statement [select count(*) from biz_application where application_no = ?]
 ]]></system-out>
   </testcase>
-  <testcase name="applicantCanRevokeReviewingApplication" classname="com.ise.platform.modules.application.ApplicationServiceTest" time="0.011">
-    <system-out><![CDATA[2026-06-29T22:30:18.248+08:00 DEBUG 689567 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL query
-2026-06-29T22:30:18.248+08:00 DEBUG 689567 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL statement [select a.id, a.application_no, a.application_type, a.template_id, a.applicant_user_id,
+  <testcase name="applicantCanRevokeReviewingApplication" classname="com.ise.platform.modules.application.ApplicationServiceTest" time="0.01">
+    <system-out><![CDATA[2026-06-30T12:45:04.776+08:00 DEBUG 22952 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL query
+2026-06-30T12:45:04.776+08:00 DEBUG 22952 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL statement [select a.id, a.application_no, a.application_type, a.template_id, a.applicant_user_id,
        a.student_id, a.title, a.purpose, a.form_data_json, a.status,
        coalesce(u.real_name, '-') as current_approver, a.submitted_at
   from biz_application a
   left join sys_user u on u.id = a.current_approver_id
  where a.id = ? and a.is_deleted = 0
 ]
-2026-06-29T22:30:18.249+08:00 DEBUG 689567 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL update
-2026-06-29T22:30:18.249+08:00 DEBUG 689567 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL statement [update biz_application
+2026-06-30T12:45:04.777+08:00 DEBUG 22952 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL update
+2026-06-30T12:45:04.777+08:00 DEBUG 22952 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL statement [update biz_application
    set status = 'revoked',
        current_approver_id = null,
        finished_at = ?,
@@ -743,23 +741,23 @@ Unconditional classes:
        updated_at = ?
  where id = ? and is_deleted = 0
 ]
-2026-06-29T22:30:18.251+08:00 DEBUG 689567 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing SQL query [select coalesce(max(id), 0) + 1 from biz_approval_record]
-2026-06-29T22:30:18.251+08:00 DEBUG 689567 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL update
-2026-06-29T22:30:18.251+08:00 DEBUG 689567 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL statement [insert into biz_approval_record (
+2026-06-30T12:45:04.779+08:00 DEBUG 22952 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing SQL query [select coalesce(max(id), 0) + 1 from biz_approval_record]
+2026-06-30T12:45:04.779+08:00 DEBUG 22952 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL update
+2026-06-30T12:45:04.779+08:00 DEBUG 22952 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL statement [insert into biz_approval_record (
     id, application_id, approver_user_id, action_type, action_comment,
     before_status, after_status, action_time
 ) values (?, ?, ?, ?, ?, ?, ?, ?)
 ]
-2026-06-29T22:30:18.252+08:00 DEBUG 689567 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL query
-2026-06-29T22:30:18.252+08:00 DEBUG 689567 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL statement [select a.id, a.application_no, a.application_type, a.template_id, a.applicant_user_id,
+2026-06-30T12:45:04.780+08:00 DEBUG 22952 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL query
+2026-06-30T12:45:04.780+08:00 DEBUG 22952 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL statement [select a.id, a.application_no, a.application_type, a.template_id, a.applicant_user_id,
        a.student_id, a.title, a.purpose, a.form_data_json, a.status,
        coalesce(u.real_name, '-') as current_approver, a.submitted_at
   from biz_application a
   left join sys_user u on u.id = a.current_approver_id
  where a.id = ? and a.is_deleted = 0
 ]
-2026-06-29T22:30:18.253+08:00 DEBUG 689567 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL query
-2026-06-29T22:30:18.254+08:00 DEBUG 689567 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL statement [select r.action_type, r.action_comment, r.action_time, u.real_name
+2026-06-30T12:45:04.781+08:00 DEBUG 22952 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL query
+2026-06-30T12:45:04.781+08:00 DEBUG 22952 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL statement [select r.action_type, r.action_comment, r.action_time, u.real_name
   from biz_approval_record r
   left join sys_user u on u.id = r.approver_user_id
  where r.application_id = ?
@@ -767,18 +765,18 @@ Unconditional classes:
 ]
 ]]></system-out>
   </testcase>
-  <testcase name="managerCanOnlySeePendingApplicationsFromManagedClass" classname="com.ise.platform.modules.application.ApplicationServiceTest" time="0.014">
-    <system-out><![CDATA[2026-06-29T22:30:18.261+08:00 DEBUG 689567 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing SQL query [select coalesce(max(id), 0) + 1 from biz_application]
-2026-06-29T22:30:18.262+08:00 DEBUG 689567 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL update
-2026-06-29T22:30:18.262+08:00 DEBUG 689567 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL statement [insert into biz_application (
+  <testcase name="managerCanOnlySeePendingApplicationsFromManagedClass" classname="com.ise.platform.modules.application.ApplicationServiceTest" time="0.01">
+    <system-out><![CDATA[2026-06-30T12:45:04.786+08:00 DEBUG 22952 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing SQL query [select coalesce(max(id), 0) + 1 from biz_application]
+2026-06-30T12:45:04.786+08:00 DEBUG 22952 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL update
+2026-06-30T12:45:04.787+08:00 DEBUG 22952 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL statement [insert into biz_application (
     id, application_no, application_type, template_id, applicant_user_id, student_id,
     title, purpose, form_data_json, status, current_approver_id, submitted_at,
     created_at, updated_at, is_deleted
 ) values (?, ?, 'certificate', 1, 1, 3, '跨班级申请', '测试数据范围', '{}', 'submitted', 8,
     current_timestamp, current_timestamp, current_timestamp, 0)
 ]
-2026-06-29T22:30:18.264+08:00 DEBUG 689567 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL query
-2026-06-29T22:30:18.264+08:00 DEBUG 689567 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL statement [select count(*)
+2026-06-30T12:45:04.788+08:00 DEBUG 22952 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL query
+2026-06-30T12:45:04.788+08:00 DEBUG 22952 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL statement [select count(*)
   from biz_application a
   left join stu_student s on s.id = a.student_id
  where a.is_deleted = 0
@@ -788,9 +786,9 @@ Unconditional classes:
         or (? is null and a.status in ('submitted', 'reviewing')))
    and s.class_name in (?)
 ]
-2026-06-29T22:30:18.266+08:00 DEBUG 689567 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL query
-2026-06-29T22:30:18.266+08:00 DEBUG 689567 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL statement [select a.id, a.application_no, a.application_type, a.title, a.purpose, a.status,
-       coalesce(u.real_name, '-') as current_approver, a.submitted_at
+2026-06-30T12:45:04.789+08:00 DEBUG 22952 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL query
+2026-06-30T12:45:04.789+08:00 DEBUG 22952 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL statement [select a.id, a.application_no, a.application_type, a.title, a.purpose, a.status,
+       coalesce(u.real_name, '-') as current_approver, a.submitted_at, a.form_data_json
   from biz_application a
   left join sys_user u on u.id = a.current_approver_id
   left join stu_student s on s.id = a.student_id
@@ -805,34 +803,34 @@ Unconditional classes:
 ]
 ]]></system-out>
   </testcase>
-  <testcase name="studentCannotApproveApplication" classname="com.ise.platform.modules.application.ApplicationServiceTest" time="0.006"/>
-  <testcase name="managerCanApproveSubmittedApplication" classname="com.ise.platform.modules.application.ApplicationServiceTest" time="0.025">
-    <system-out><![CDATA[2026-06-29T22:30:18.285+08:00 DEBUG 689567 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing SQL query [select coalesce(max(id), 0) + 1 from biz_application]
-2026-06-29T22:30:18.288+08:00 DEBUG 689567 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL update
-2026-06-29T22:30:18.288+08:00 DEBUG 689567 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL statement [insert into biz_application (
+  <testcase name="studentCannotApproveApplication" classname="com.ise.platform.modules.application.ApplicationServiceTest" time="0.002"/>
+  <testcase name="managerCanApproveSubmittedApplication" classname="com.ise.platform.modules.application.ApplicationServiceTest" time="0.02">
+    <system-out><![CDATA[2026-06-30T12:45:04.801+08:00 DEBUG 22952 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing SQL query [select coalesce(max(id), 0) + 1 from biz_application]
+2026-06-30T12:45:04.802+08:00 DEBUG 22952 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL update
+2026-06-30T12:45:04.802+08:00 DEBUG 22952 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL statement [insert into biz_application (
     id, application_no, application_type, template_id, applicant_user_id, student_id,
     title, purpose, form_data_json, status, current_approver_id, submitted_at,
     created_at, updated_at, is_deleted
 ) values (?, ?, ?, ?, ?, ?, ?, ?, ?, 'submitted', ?, ?, ?, ?, 0)
 ]
-2026-06-29T22:30:18.289+08:00 DEBUG 689567 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing SQL query [select coalesce(max(id), 0) + 1 from biz_approval_record]
-2026-06-29T22:30:18.290+08:00 DEBUG 689567 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL update
-2026-06-29T22:30:18.290+08:00 DEBUG 689567 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL statement [insert into biz_approval_record (
+2026-06-30T12:45:04.803+08:00 DEBUG 22952 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing SQL query [select coalesce(max(id), 0) + 1 from biz_approval_record]
+2026-06-30T12:45:04.803+08:00 DEBUG 22952 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL update
+2026-06-30T12:45:04.803+08:00 DEBUG 22952 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL statement [insert into biz_approval_record (
     id, application_id, approver_user_id, action_type, action_comment,
     before_status, after_status, action_time
 ) values (?, ?, ?, ?, ?, ?, ?, ?)
 ]
-2026-06-29T22:30:18.291+08:00 DEBUG 689567 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL query
-2026-06-29T22:30:18.291+08:00 DEBUG 689567 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL statement [select count(*)
+2026-06-30T12:45:04.804+08:00 DEBUG 22952 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL query
+2026-06-30T12:45:04.804+08:00 DEBUG 22952 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL statement [select count(*)
   from biz_application
  where is_deleted = 0
    and applicant_user_id = ?
    and (? is null or lower(application_type) = ?)
    and (? is null or lower(status) = ?)
 ]
-2026-06-29T22:30:18.292+08:00 DEBUG 689567 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL query
-2026-06-29T22:30:18.292+08:00 DEBUG 689567 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL statement [select a.id, a.application_no, a.application_type, a.title, a.purpose, a.status,
-       coalesce(u.real_name, '-') as current_approver, a.submitted_at
+2026-06-30T12:45:04.804+08:00 DEBUG 22952 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL query
+2026-06-30T12:45:04.805+08:00 DEBUG 22952 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL statement [select a.id, a.application_no, a.application_type, a.title, a.purpose, a.status,
+       coalesce(u.real_name, '-') as current_approver, a.submitted_at, a.form_data_json
   from biz_application a
   left join sys_user u on u.id = a.current_approver_id
  where a.is_deleted = 0
@@ -842,8 +840,8 @@ Unconditional classes:
  order by a.submitted_at desc, a.id desc
  limit ? offset ?
 ]
-2026-06-29T22:30:18.295+08:00 DEBUG 689567 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL query
-2026-06-29T22:30:18.295+08:00 DEBUG 689567 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL statement [select count(*)
+2026-06-30T12:45:04.807+08:00 DEBUG 22952 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL query
+2026-06-30T12:45:04.808+08:00 DEBUG 22952 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL statement [select count(*)
   from biz_application a
   left join stu_student s on s.id = a.student_id
  where a.is_deleted = 0
@@ -853,9 +851,9 @@ Unconditional classes:
         or (? is null and a.status in ('submitted', 'reviewing')))
    and s.class_name in (?)
 ]
-2026-06-29T22:30:18.297+08:00 DEBUG 689567 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL query
-2026-06-29T22:30:18.297+08:00 DEBUG 689567 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL statement [select a.id, a.application_no, a.application_type, a.title, a.purpose, a.status,
-       coalesce(u.real_name, '-') as current_approver, a.submitted_at
+2026-06-30T12:45:04.809+08:00 DEBUG 22952 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL query
+2026-06-30T12:45:04.809+08:00 DEBUG 22952 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL statement [select a.id, a.application_no, a.application_type, a.title, a.purpose, a.status,
+       coalesce(u.real_name, '-') as current_approver, a.submitted_at, a.form_data_json
   from biz_application a
   left join sys_user u on u.id = a.current_approver_id
   left join stu_student s on s.id = a.student_id
@@ -868,41 +866,41 @@ Unconditional classes:
  order by a.submitted_at desc, a.id desc
  limit ? offset ?
 ]
-2026-06-29T22:30:18.299+08:00 DEBUG 689567 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL query
-2026-06-29T22:30:18.300+08:00 DEBUG 689567 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL statement [select a.id, a.application_no, a.application_type, a.template_id, a.applicant_user_id,
+2026-06-30T12:45:04.812+08:00 DEBUG 22952 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL query
+2026-06-30T12:45:04.812+08:00 DEBUG 22952 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL statement [select a.id, a.application_no, a.application_type, a.template_id, a.applicant_user_id,
        a.student_id, a.title, a.purpose, a.form_data_json, a.status,
        coalesce(u.real_name, '-') as current_approver, a.submitted_at
   from biz_application a
   left join sys_user u on u.id = a.current_approver_id
  where a.id = ? and a.is_deleted = 0
 ]
-2026-06-29T22:30:18.301+08:00 DEBUG 689567 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL query
-2026-06-29T22:30:18.301+08:00 DEBUG 689567 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL statement [select class_name from stu_student where id = ? and is_deleted = 0]
-2026-06-29T22:30:18.302+08:00 DEBUG 689567 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL update
-2026-06-29T22:30:18.302+08:00 DEBUG 689567 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL statement [update biz_application
+2026-06-30T12:45:04.814+08:00 DEBUG 22952 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL query
+2026-06-30T12:45:04.814+08:00 DEBUG 22952 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL statement [select class_name from stu_student where id = ? and is_deleted = 0]
+2026-06-30T12:45:04.814+08:00 DEBUG 22952 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL update
+2026-06-30T12:45:04.814+08:00 DEBUG 22952 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL statement [update biz_application
    set status = ?,
        current_approver_id = null,
        finished_at = ?,
        updated_at = ?
  where id = ? and is_deleted = 0
 ]
-2026-06-29T22:30:18.303+08:00 DEBUG 689567 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing SQL query [select coalesce(max(id), 0) + 1 from biz_approval_record]
-2026-06-29T22:30:18.303+08:00 DEBUG 689567 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL update
-2026-06-29T22:30:18.304+08:00 DEBUG 689567 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL statement [insert into biz_approval_record (
+2026-06-30T12:45:04.815+08:00 DEBUG 22952 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing SQL query [select coalesce(max(id), 0) + 1 from biz_approval_record]
+2026-06-30T12:45:04.815+08:00 DEBUG 22952 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL update
+2026-06-30T12:45:04.815+08:00 DEBUG 22952 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL statement [insert into biz_approval_record (
     id, application_id, approver_user_id, action_type, action_comment,
     before_status, after_status, action_time
 ) values (?, ?, ?, ?, ?, ?, ?, ?)
 ]
-2026-06-29T22:30:18.304+08:00 DEBUG 689567 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL query
-2026-06-29T22:30:18.304+08:00 DEBUG 689567 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL statement [select a.id, a.application_no, a.application_type, a.template_id, a.applicant_user_id,
+2026-06-30T12:45:04.816+08:00 DEBUG 22952 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL query
+2026-06-30T12:45:04.816+08:00 DEBUG 22952 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL statement [select a.id, a.application_no, a.application_type, a.template_id, a.applicant_user_id,
        a.student_id, a.title, a.purpose, a.form_data_json, a.status,
        coalesce(u.real_name, '-') as current_approver, a.submitted_at
   from biz_application a
   left join sys_user u on u.id = a.current_approver_id
  where a.id = ? and a.is_deleted = 0
 ]
-2026-06-29T22:30:18.305+08:00 DEBUG 689567 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL query
-2026-06-29T22:30:18.305+08:00 DEBUG 689567 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL statement [select r.action_type, r.action_comment, r.action_time, u.real_name
+2026-06-30T12:45:04.816+08:00 DEBUG 22952 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL query
+2026-06-30T12:45:04.816+08:00 DEBUG 22952 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL statement [select r.action_type, r.action_comment, r.action_time, u.real_name
   from biz_approval_record r
   left join sys_user u on u.id = r.approver_user_id
  where r.application_id = ?
@@ -910,33 +908,33 @@ Unconditional classes:
 ]
 ]]></system-out>
   </testcase>
-  <testcase name="createShouldReturnSubmittedStatusAndVisibleInMyList" classname="com.ise.platform.modules.application.ApplicationServiceTest" time="0.015">
-    <system-out><![CDATA[2026-06-29T22:30:18.314+08:00 DEBUG 689567 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing SQL query [select coalesce(max(id), 0) + 1 from biz_application]
-2026-06-29T22:30:18.316+08:00 DEBUG 689567 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL update
-2026-06-29T22:30:18.316+08:00 DEBUG 689567 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL statement [insert into biz_application (
+  <testcase name="createShouldReturnSubmittedStatusAndVisibleInMyList" classname="com.ise.platform.modules.application.ApplicationServiceTest" time="0.012">
+    <system-out><![CDATA[2026-06-30T12:45:04.822+08:00 DEBUG 22952 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing SQL query [select coalesce(max(id), 0) + 1 from biz_application]
+2026-06-30T12:45:04.822+08:00 DEBUG 22952 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL update
+2026-06-30T12:45:04.822+08:00 DEBUG 22952 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL statement [insert into biz_application (
     id, application_no, application_type, template_id, applicant_user_id, student_id,
     title, purpose, form_data_json, status, current_approver_id, submitted_at,
     created_at, updated_at, is_deleted
 ) values (?, ?, ?, ?, ?, ?, ?, ?, ?, 'submitted', ?, ?, ?, ?, 0)
 ]
-2026-06-29T22:30:18.318+08:00 DEBUG 689567 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing SQL query [select coalesce(max(id), 0) + 1 from biz_approval_record]
-2026-06-29T22:30:18.318+08:00 DEBUG 689567 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL update
-2026-06-29T22:30:18.319+08:00 DEBUG 689567 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL statement [insert into biz_approval_record (
+2026-06-30T12:45:04.824+08:00 DEBUG 22952 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing SQL query [select coalesce(max(id), 0) + 1 from biz_approval_record]
+2026-06-30T12:45:04.825+08:00 DEBUG 22952 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL update
+2026-06-30T12:45:04.825+08:00 DEBUG 22952 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL statement [insert into biz_approval_record (
     id, application_id, approver_user_id, action_type, action_comment,
     before_status, after_status, action_time
 ) values (?, ?, ?, ?, ?, ?, ?, ?)
 ]
-2026-06-29T22:30:18.320+08:00 DEBUG 689567 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL query
-2026-06-29T22:30:18.320+08:00 DEBUG 689567 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL statement [select count(*)
+2026-06-30T12:45:04.825+08:00 DEBUG 22952 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL query
+2026-06-30T12:45:04.825+08:00 DEBUG 22952 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL statement [select count(*)
   from biz_application
  where is_deleted = 0
    and applicant_user_id = ?
    and (? is null or lower(application_type) = ?)
    and (? is null or lower(status) = ?)
 ]
-2026-06-29T22:30:18.321+08:00 DEBUG 689567 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL query
-2026-06-29T22:30:18.321+08:00 DEBUG 689567 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL statement [select a.id, a.application_no, a.application_type, a.title, a.purpose, a.status,
-       coalesce(u.real_name, '-') as current_approver, a.submitted_at
+2026-06-30T12:45:04.827+08:00 DEBUG 22952 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL query
+2026-06-30T12:45:04.827+08:00 DEBUG 22952 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL statement [select a.id, a.application_no, a.application_type, a.title, a.purpose, a.status,
+       coalesce(u.real_name, '-') as current_approver, a.submitted_at, a.form_data_json
   from biz_application a
   left join sys_user u on u.id = a.current_approver_id
  where a.is_deleted = 0
@@ -948,33 +946,33 @@ Unconditional classes:
 ]
 ]]></system-out>
   </testcase>
-  <testcase name="approvalShouldRollbackStatusWhenApprovalRecordInsertFails" classname="com.ise.platform.modules.application.ApplicationServiceTest" time="0.02">
-    <system-out><![CDATA[2026-06-29T22:30:18.329+08:00 DEBUG 689567 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing SQL query [select coalesce(max(id), 0) + 1 from biz_application]
-2026-06-29T22:30:18.329+08:00 DEBUG 689567 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL update
-2026-06-29T22:30:18.329+08:00 DEBUG 689567 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL statement [insert into biz_application (
+  <testcase name="approvalShouldRollbackStatusWhenApprovalRecordInsertFails" classname="com.ise.platform.modules.application.ApplicationServiceTest" time="0.016">
+    <system-out><![CDATA[2026-06-30T12:45:04.835+08:00 DEBUG 22952 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing SQL query [select coalesce(max(id), 0) + 1 from biz_application]
+2026-06-30T12:45:04.836+08:00 DEBUG 22952 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL update
+2026-06-30T12:45:04.836+08:00 DEBUG 22952 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL statement [insert into biz_application (
     id, application_no, application_type, template_id, applicant_user_id, student_id,
     title, purpose, form_data_json, status, current_approver_id, submitted_at,
     created_at, updated_at, is_deleted
 ) values (?, ?, ?, ?, ?, ?, ?, ?, ?, 'submitted', ?, ?, ?, ?, 0)
 ]
-2026-06-29T22:30:18.330+08:00 DEBUG 689567 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing SQL query [select coalesce(max(id), 0) + 1 from biz_approval_record]
-2026-06-29T22:30:18.330+08:00 DEBUG 689567 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL update
-2026-06-29T22:30:18.330+08:00 DEBUG 689567 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL statement [insert into biz_approval_record (
+2026-06-30T12:45:04.837+08:00 DEBUG 22952 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing SQL query [select coalesce(max(id), 0) + 1 from biz_approval_record]
+2026-06-30T12:45:04.837+08:00 DEBUG 22952 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL update
+2026-06-30T12:45:04.837+08:00 DEBUG 22952 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL statement [insert into biz_approval_record (
     id, application_id, approver_user_id, action_type, action_comment,
     before_status, after_status, action_time
 ) values (?, ?, ?, ?, ?, ?, ?, ?)
 ]
-2026-06-29T22:30:18.331+08:00 DEBUG 689567 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL query
-2026-06-29T22:30:18.331+08:00 DEBUG 689567 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL statement [select count(*)
+2026-06-30T12:45:04.838+08:00 DEBUG 22952 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL query
+2026-06-30T12:45:04.838+08:00 DEBUG 22952 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL statement [select count(*)
   from biz_application
  where is_deleted = 0
    and applicant_user_id = ?
    and (? is null or lower(application_type) = ?)
    and (? is null or lower(status) = ?)
 ]
-2026-06-29T22:30:18.331+08:00 DEBUG 689567 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL query
-2026-06-29T22:30:18.331+08:00 DEBUG 689567 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL statement [select a.id, a.application_no, a.application_type, a.title, a.purpose, a.status,
-       coalesce(u.real_name, '-') as current_approver, a.submitted_at
+2026-06-30T12:45:04.839+08:00 DEBUG 22952 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL query
+2026-06-30T12:45:04.839+08:00 DEBUG 22952 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL statement [select a.id, a.application_no, a.application_type, a.title, a.purpose, a.status,
+       coalesce(u.real_name, '-') as current_approver, a.submitted_at, a.form_data_json
   from biz_application a
   left join sys_user u on u.id = a.current_approver_id
  where a.is_deleted = 0
@@ -984,41 +982,41 @@ Unconditional classes:
  order by a.submitted_at desc, a.id desc
  limit ? offset ?
 ]
-2026-06-29T22:30:18.334+08:00 DEBUG 689567 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL query
-2026-06-29T22:30:18.334+08:00 DEBUG 689567 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL statement [select a.id, a.application_no, a.application_type, a.template_id, a.applicant_user_id,
+2026-06-30T12:45:04.841+08:00 DEBUG 22952 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL query
+2026-06-30T12:45:04.841+08:00 DEBUG 22952 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL statement [select a.id, a.application_no, a.application_type, a.template_id, a.applicant_user_id,
        a.student_id, a.title, a.purpose, a.form_data_json, a.status,
        coalesce(u.real_name, '-') as current_approver, a.submitted_at
   from biz_application a
   left join sys_user u on u.id = a.current_approver_id
  where a.id = ? and a.is_deleted = 0
 ]
-2026-06-29T22:30:18.335+08:00 DEBUG 689567 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL query
-2026-06-29T22:30:18.335+08:00 DEBUG 689567 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL statement [select class_name from stu_student where id = ? and is_deleted = 0]
-2026-06-29T22:30:18.336+08:00 DEBUG 689567 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL update
-2026-06-29T22:30:18.336+08:00 DEBUG 689567 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL statement [update biz_application
+2026-06-30T12:45:04.841+08:00 DEBUG 22952 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL query
+2026-06-30T12:45:04.841+08:00 DEBUG 22952 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL statement [select class_name from stu_student where id = ? and is_deleted = 0]
+2026-06-30T12:45:04.842+08:00 DEBUG 22952 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL update
+2026-06-30T12:45:04.842+08:00 DEBUG 22952 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL statement [update biz_application
    set status = ?,
        current_approver_id = null,
        finished_at = ?,
        updated_at = ?
  where id = ? and is_deleted = 0
 ]
-2026-06-29T22:30:18.337+08:00 DEBUG 689567 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing SQL query [select coalesce(max(id), 0) + 1 from biz_approval_record]
-2026-06-29T22:30:18.337+08:00 DEBUG 689567 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL update
-2026-06-29T22:30:18.337+08:00 DEBUG 689567 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL statement [insert into biz_approval_record (
+2026-06-30T12:45:04.843+08:00 DEBUG 22952 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing SQL query [select coalesce(max(id), 0) + 1 from biz_approval_record]
+2026-06-30T12:45:04.843+08:00 DEBUG 22952 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL update
+2026-06-30T12:45:04.843+08:00 DEBUG 22952 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL statement [insert into biz_approval_record (
     id, application_id, approver_user_id, action_type, action_comment,
     before_status, after_status, action_time
 ) values (?, ?, ?, ?, ?, ?, ?, ?)
 ]
-2026-06-29T22:30:18.343+08:00 DEBUG 689567 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL query
-2026-06-29T22:30:18.343+08:00 DEBUG 689567 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL statement [select a.id, a.application_no, a.application_type, a.template_id, a.applicant_user_id,
+2026-06-30T12:45:04.847+08:00 DEBUG 22952 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL query
+2026-06-30T12:45:04.847+08:00 DEBUG 22952 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL statement [select a.id, a.application_no, a.application_type, a.template_id, a.applicant_user_id,
        a.student_id, a.title, a.purpose, a.form_data_json, a.status,
        coalesce(u.real_name, '-') as current_approver, a.submitted_at
   from biz_application a
   left join sys_user u on u.id = a.current_approver_id
  where a.id = ? and a.is_deleted = 0
 ]
-2026-06-29T22:30:18.344+08:00 DEBUG 689567 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL query
-2026-06-29T22:30:18.344+08:00 DEBUG 689567 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL statement [select r.action_type, r.action_comment, r.action_time, u.real_name
+2026-06-30T12:45:04.848+08:00 DEBUG 22952 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL query
+2026-06-30T12:45:04.848+08:00 DEBUG 22952 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL statement [select r.action_type, r.action_comment, r.action_time, u.real_name
   from biz_approval_record r
   left join sys_user u on u.id = r.approver_user_id
  where r.application_id = ?

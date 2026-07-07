@@ -1,68 +1,78 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report.xsd" version="3.0.2" name="com.ise.platform.modules.notice.NoticeServiceTest" time="0.036" tests="2" errors="0" skipped="0" failures="0" flakes="0">
+<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report.xsd" version="3.0.2" name="com.ise.platform.modules.notice.NoticeServiceTest" time="0.075" tests="9" errors="0" skipped="0" failures="0" flakes="0">
   <properties>
     <property name="java.specification.version" value="17"/>
     <property name="sun.jnu.encoding" value="UTF-8"/>
-    <property name="java.class.path" value="/home/tianjiaming/learn/SWE/app-for-ISE/target/test-classes:/home/tianjiaming/learn/SWE/app-for-ISE/target/classes:/tmp/m2repo/org/springframework/boot/spring-boot-starter-web/4.0.6/spring-boot-starter-web-4.0.6.jar:/tmp/m2repo/org/springframework/boot/spring-boot-starter-jackson/4.0.6/spring-boot-starter-jackson-4.0.6.jar:/tmp/m2repo/org/springframework/boot/spring-boot-jackson/4.0.6/spring-boot-jackson-4.0.6.jar:/tmp/m2repo/tools/jackson/core/jackson-databind/3.1.2/jackson-databind-3.1.2.jar:/tmp/m2repo/tools/jackson/core/jackson-core/3.1.2/jackson-core-3.1.2.jar:/tmp/m2repo/org/springframework/boot/spring-boot-starter-tomcat/4.0.6/spring-boot-starter-tomcat-4.0.6.jar:/tmp/m2repo/org/springframework/boot/spring-boot-starter-tomcat-runtime/4.0.6/spring-boot-starter-tomcat-runtime-4.0.6.jar:/tmp/m2repo/org/springframework/boot/spring-boot-web-server/4.0.6/spring-boot-web-server-4.0.6.jar:/tmp/m2repo/org/apache/tomcat/embed/tomcat-embed-core/11.0.21/tomcat-embed-core-11.0.21.jar:/tmp/m2repo/org/apache/tomcat/embed/tomcat-embed-websocket/11.0.21/tomcat-embed-websocket-11.0.21.jar:/tmp/m2repo/org/springframework/boot/spring-boot-tomcat/4.0.6/spring-boot-tomcat-4.0.6.jar:/tmp/m2repo/org/springframework/boot/spring-boot-http-converter/4.0.6/spring-boot-http-converter-4.0.6.jar:/tmp/m2repo/org/springframework/boot/spring-boot/4.0.6/spring-boot-4.0.6.jar:/tmp/m2repo/org/springframework/spring-context/7.0.7/spring-context-7.0.7.jar:/tmp/m2repo/org/springframework/spring-web/7.0.7/spring-web-7.0.7.jar:/tmp/m2repo/org/springframework/spring-beans/7.0.7/spring-beans-7.0.7.jar:/tmp/m2repo/io/micrometer/micrometer-observation/1.16.5/micrometer-observation-1.16.5.jar:/tmp/m2repo/io/micrometer/micrometer-commons/1.16.5/micrometer-commons-1.16.5.jar:/tmp/m2repo/org/springframework/boot/spring-boot-webmvc/4.0.6/spring-boot-webmvc-4.0.6.jar:/tmp/m2repo/org/springframework/boot/spring-boot-servlet/4.0.6/spring-boot-servlet-4.0.6.jar:/tmp/m2repo/org/springframework/spring-webmvc/7.0.7/spring-webmvc-7.0.7.jar:/tmp/m2repo/org/springframework/spring-aop/7.0.7/spring-aop-7.0.7.jar:/tmp/m2repo/org/springframework/spring-expression/7.0.7/spring-expression-7.0.7.jar:/tmp/m2repo/com/fasterxml/jackson/core/jackson-databind/2.21.2/jackson-databind-2.21.2.jar:/tmp/m2repo/com/fasterxml/jackson/core/jackson-annotations/2.21/jackson-annotations-2.21.jar:/tmp/m2repo/com/fasterxml/jackson/core/jackson-core/2.21.2/jackson-core-2.21.2.jar:/tmp/m2repo/org/springframework/boot/spring-boot-starter-validation/4.0.6/spring-boot-starter-validation-4.0.6.jar:/tmp/m2repo/org/springframework/boot/spring-boot-starter/4.0.6/spring-boot-starter-4.0.6.jar:/tmp/m2repo/org/springframework/boot/spring-boot-starter-logging/4.0.6/spring-boot-starter-logging-4.0.6.jar:/tmp/m2repo/ch/qos/logback/logback-classic/1.5.32/logback-classic-1.5.32.jar:/tmp/m2repo/ch/qos/logback/logback-core/1.5.32/logback-core-1.5.32.jar:/tmp/m2repo/org/apache/logging/log4j/log4j-to-slf4j/2.25.4/log4j-to-slf4j-2.25.4.jar:/tmp/m2repo/org/apache/logging/log4j/log4j-api/2.25.4/log4j-api-2.25.4.jar:/tmp/m2repo/org/slf4j/jul-to-slf4j/2.0.17/jul-to-slf4j-2.0.17.jar:/tmp/m2repo/org/springframework/boot/spring-boot-autoconfigure/4.0.6/spring-boot-autoconfigure-4.0.6.jar:/tmp/m2repo/jakarta/annotation/jakarta.annotation-api/3.0.0/jakarta.annotation-api-3.0.0.jar:/tmp/m2repo/org/yaml/snakeyaml/2.5/snakeyaml-2.5.jar:/tmp/m2repo/org/springframework/boot/spring-boot-validation/4.0.6/spring-boot-validation-4.0.6.jar:/tmp/m2repo/org/apache/tomcat/embed/tomcat-embed-el/11.0.21/tomcat-embed-el-11.0.21.jar:/tmp/m2repo/org/hibernate/validator/hibernate-validator/9.0.1.Final/hibernate-validator-9.0.1.Final.jar:/tmp/m2repo/jakarta/validation/jakarta.validation-api/3.1.1/jakarta.validation-api-3.1.1.jar:/tmp/m2repo/org/jboss/logging/jboss-logging/3.6.3.Final/jboss-logging-3.6.3.Final.jar:/tmp/m2repo/com/fasterxml/classmate/1.7.3/classmate-1.7.3.jar:/tmp/m2repo/org/springframework/boot/spring-boot-starter-jdbc/4.0.6/spring-boot-starter-jdbc-4.0.6.jar:/tmp/m2repo/org/springframework/boot/spring-boot-jdbc/4.0.6/spring-boot-jdbc-4.0.6.jar:/tmp/m2repo/org/springframework/boot/spring-boot-sql/4.0.6/spring-boot-sql-4.0.6.jar:/tmp/m2repo/org/springframework/boot/spring-boot-transaction/4.0.6/spring-boot-transaction-4.0.6.jar:/tmp/m2repo/org/springframework/boot/spring-boot-persistence/4.0.6/spring-boot-persistence-4.0.6.jar:/tmp/m2repo/org/springframework/spring-tx/7.0.7/spring-tx-7.0.7.jar:/tmp/m2repo/org/springframework/spring-jdbc/7.0.7/spring-jdbc-7.0.7.jar:/tmp/m2repo/com/zaxxer/HikariCP/7.0.2/HikariCP-7.0.2.jar:/tmp/m2repo/org/slf4j/slf4j-api/2.0.17/slf4j-api-2.0.17.jar:/tmp/m2repo/com/h2database/h2/2.4.240/h2-2.4.240.jar:/tmp/m2repo/org/springframework/boot/spring-boot-starter-test/4.0.6/spring-boot-starter-test-4.0.6.jar:/tmp/m2repo/org/springframework/boot/spring-boot-test/4.0.6/spring-boot-test-4.0.6.jar:/tmp/m2repo/org/springframework/boot/spring-boot-test-autoconfigure/4.0.6/spring-boot-test-autoconfigure-4.0.6.jar:/tmp/m2repo/com/jayway/jsonpath/json-path/2.10.0/json-path-2.10.0.jar:/tmp/m2repo/jakarta/xml/bind/jakarta.xml.bind-api/4.0.4/jakarta.xml.bind-api-4.0.4.jar:/tmp/m2repo/jakarta/activation/jakarta.activation-api/2.1.4/jakarta.activation-api-2.1.4.jar:/tmp/m2repo/net/minidev/json-smart/2.6.0/json-smart-2.6.0.jar:/tmp/m2repo/net/minidev/accessors-smart/2.6.0/accessors-smart-2.6.0.jar:/tmp/m2repo/org/ow2/asm/asm/9.7.1/asm-9.7.1.jar:/tmp/m2repo/org/assertj/assertj-core/3.27.7/assertj-core-3.27.7.jar:/tmp/m2repo/net/bytebuddy/byte-buddy/1.17.8/byte-buddy-1.17.8.jar:/tmp/m2repo/org/awaitility/awaitility/4.3.0/awaitility-4.3.0.jar:/tmp/m2repo/org/hamcrest/hamcrest/3.0/hamcrest-3.0.jar:/tmp/m2repo/org/junit/jupiter/junit-jupiter/6.0.3/junit-jupiter-6.0.3.jar:/tmp/m2repo/org/junit/jupiter/junit-jupiter-api/6.0.3/junit-jupiter-api-6.0.3.jar:/tmp/m2repo/org/opentest4j/opentest4j/1.3.0/opentest4j-1.3.0.jar:/tmp/m2repo/org/junit/platform/junit-platform-commons/6.0.3/junit-platform-commons-6.0.3.jar:/tmp/m2repo/org/apiguardian/apiguardian-api/1.1.2/apiguardian-api-1.1.2.jar:/tmp/m2repo/org/junit/jupiter/junit-jupiter-params/6.0.3/junit-jupiter-params-6.0.3.jar:/tmp/m2repo/org/junit/jupiter/junit-jupiter-engine/6.0.3/junit-jupiter-engine-6.0.3.jar:/tmp/m2repo/org/junit/platform/junit-platform-engine/6.0.3/junit-platform-engine-6.0.3.jar:/tmp/m2repo/org/mockito/mockito-core/5.20.0/mockito-core-5.20.0.jar:/tmp/m2repo/net/bytebuddy/byte-buddy-agent/1.17.8/byte-buddy-agent-1.17.8.jar:/tmp/m2repo/org/objenesis/objenesis/3.3/objenesis-3.3.jar:/tmp/m2repo/org/mockito/mockito-junit-jupiter/5.20.0/mockito-junit-jupiter-5.20.0.jar:/tmp/m2repo/org/skyscreamer/jsonassert/1.5.3/jsonassert-1.5.3.jar:/tmp/m2repo/com/vaadin/external/google/android-json/0.0.20131108.vaadin1/android-json-0.0.20131108.vaadin1.jar:/tmp/m2repo/org/springframework/spring-core/7.0.7/spring-core-7.0.7.jar:/tmp/m2repo/commons-logging/commons-logging/1.3.6/commons-logging-1.3.6.jar:/tmp/m2repo/org/jspecify/jspecify/1.0.0/jspecify-1.0.0.jar:/tmp/m2repo/org/springframework/spring-test/7.0.7/spring-test-7.0.7.jar:/tmp/m2repo/org/xmlunit/xmlunit-core/2.10.4/xmlunit-core-2.10.4.jar:"/>
-    <property name="java.vm.vendor" value="Eclipse Adoptium"/>
+    <property name="java.class.path" value="/home/sunqian/app-for-ISE/target/test-classes:/home/sunqian/app-for-ISE/target/classes:/tmp/m2repo/org/springframework/boot/spring-boot-starter-web/4.0.6/spring-boot-starter-web-4.0.6.jar:/tmp/m2repo/org/springframework/boot/spring-boot-starter-jackson/4.0.6/spring-boot-starter-jackson-4.0.6.jar:/tmp/m2repo/org/springframework/boot/spring-boot-jackson/4.0.6/spring-boot-jackson-4.0.6.jar:/tmp/m2repo/tools/jackson/core/jackson-databind/3.1.2/jackson-databind-3.1.2.jar:/tmp/m2repo/tools/jackson/core/jackson-core/3.1.2/jackson-core-3.1.2.jar:/tmp/m2repo/org/springframework/boot/spring-boot-starter-tomcat/4.0.6/spring-boot-starter-tomcat-4.0.6.jar:/tmp/m2repo/org/springframework/boot/spring-boot-starter-tomcat-runtime/4.0.6/spring-boot-starter-tomcat-runtime-4.0.6.jar:/tmp/m2repo/org/springframework/boot/spring-boot-web-server/4.0.6/spring-boot-web-server-4.0.6.jar:/tmp/m2repo/org/apache/tomcat/embed/tomcat-embed-core/11.0.21/tomcat-embed-core-11.0.21.jar:/tmp/m2repo/org/apache/tomcat/embed/tomcat-embed-websocket/11.0.21/tomcat-embed-websocket-11.0.21.jar:/tmp/m2repo/org/springframework/boot/spring-boot-tomcat/4.0.6/spring-boot-tomcat-4.0.6.jar:/tmp/m2repo/org/springframework/boot/spring-boot-http-converter/4.0.6/spring-boot-http-converter-4.0.6.jar:/tmp/m2repo/org/springframework/boot/spring-boot/4.0.6/spring-boot-4.0.6.jar:/tmp/m2repo/org/springframework/spring-context/7.0.7/spring-context-7.0.7.jar:/tmp/m2repo/org/springframework/spring-web/7.0.7/spring-web-7.0.7.jar:/tmp/m2repo/org/springframework/spring-beans/7.0.7/spring-beans-7.0.7.jar:/tmp/m2repo/io/micrometer/micrometer-observation/1.16.5/micrometer-observation-1.16.5.jar:/tmp/m2repo/io/micrometer/micrometer-commons/1.16.5/micrometer-commons-1.16.5.jar:/tmp/m2repo/org/springframework/boot/spring-boot-webmvc/4.0.6/spring-boot-webmvc-4.0.6.jar:/tmp/m2repo/org/springframework/boot/spring-boot-servlet/4.0.6/spring-boot-servlet-4.0.6.jar:/tmp/m2repo/org/springframework/spring-webmvc/7.0.7/spring-webmvc-7.0.7.jar:/tmp/m2repo/org/springframework/spring-aop/7.0.7/spring-aop-7.0.7.jar:/tmp/m2repo/org/springframework/spring-expression/7.0.7/spring-expression-7.0.7.jar:/tmp/m2repo/com/fasterxml/jackson/core/jackson-databind/2.21.2/jackson-databind-2.21.2.jar:/tmp/m2repo/com/fasterxml/jackson/core/jackson-annotations/2.21/jackson-annotations-2.21.jar:/tmp/m2repo/com/fasterxml/jackson/core/jackson-core/2.21.2/jackson-core-2.21.2.jar:/tmp/m2repo/org/springframework/boot/spring-boot-starter-validation/4.0.6/spring-boot-starter-validation-4.0.6.jar:/tmp/m2repo/org/springframework/boot/spring-boot-starter/4.0.6/spring-boot-starter-4.0.6.jar:/tmp/m2repo/org/springframework/boot/spring-boot-starter-logging/4.0.6/spring-boot-starter-logging-4.0.6.jar:/tmp/m2repo/ch/qos/logback/logback-classic/1.5.32/logback-classic-1.5.32.jar:/tmp/m2repo/ch/qos/logback/logback-core/1.5.32/logback-core-1.5.32.jar:/tmp/m2repo/org/apache/logging/log4j/log4j-to-slf4j/2.25.4/log4j-to-slf4j-2.25.4.jar:/tmp/m2repo/org/apache/logging/log4j/log4j-api/2.25.4/log4j-api-2.25.4.jar:/tmp/m2repo/org/slf4j/jul-to-slf4j/2.0.17/jul-to-slf4j-2.0.17.jar:/tmp/m2repo/org/springframework/boot/spring-boot-autoconfigure/4.0.6/spring-boot-autoconfigure-4.0.6.jar:/tmp/m2repo/jakarta/annotation/jakarta.annotation-api/3.0.0/jakarta.annotation-api-3.0.0.jar:/tmp/m2repo/org/yaml/snakeyaml/2.5/snakeyaml-2.5.jar:/tmp/m2repo/org/springframework/boot/spring-boot-validation/4.0.6/spring-boot-validation-4.0.6.jar:/tmp/m2repo/org/apache/tomcat/embed/tomcat-embed-el/11.0.21/tomcat-embed-el-11.0.21.jar:/tmp/m2repo/org/hibernate/validator/hibernate-validator/9.0.1.Final/hibernate-validator-9.0.1.Final.jar:/tmp/m2repo/jakarta/validation/jakarta.validation-api/3.1.1/jakarta.validation-api-3.1.1.jar:/tmp/m2repo/org/jboss/logging/jboss-logging/3.6.3.Final/jboss-logging-3.6.3.Final.jar:/tmp/m2repo/com/fasterxml/classmate/1.7.3/classmate-1.7.3.jar:/tmp/m2repo/org/springframework/boot/spring-boot-starter-jdbc/4.0.6/spring-boot-starter-jdbc-4.0.6.jar:/tmp/m2repo/org/springframework/boot/spring-boot-jdbc/4.0.6/spring-boot-jdbc-4.0.6.jar:/tmp/m2repo/org/springframework/boot/spring-boot-sql/4.0.6/spring-boot-sql-4.0.6.jar:/tmp/m2repo/org/springframework/boot/spring-boot-transaction/4.0.6/spring-boot-transaction-4.0.6.jar:/tmp/m2repo/org/springframework/boot/spring-boot-persistence/4.0.6/spring-boot-persistence-4.0.6.jar:/tmp/m2repo/org/springframework/spring-tx/7.0.7/spring-tx-7.0.7.jar:/tmp/m2repo/org/springframework/spring-jdbc/7.0.7/spring-jdbc-7.0.7.jar:/tmp/m2repo/com/zaxxer/HikariCP/7.0.2/HikariCP-7.0.2.jar:/tmp/m2repo/org/slf4j/slf4j-api/2.0.17/slf4j-api-2.0.17.jar:/tmp/m2repo/com/h2database/h2/2.4.240/h2-2.4.240.jar:/tmp/m2repo/org/springframework/boot/spring-boot-starter-test/4.0.6/spring-boot-starter-test-4.0.6.jar:/tmp/m2repo/org/springframework/boot/spring-boot-test/4.0.6/spring-boot-test-4.0.6.jar:/tmp/m2repo/org/springframework/boot/spring-boot-test-autoconfigure/4.0.6/spring-boot-test-autoconfigure-4.0.6.jar:/tmp/m2repo/com/jayway/jsonpath/json-path/2.10.0/json-path-2.10.0.jar:/tmp/m2repo/jakarta/xml/bind/jakarta.xml.bind-api/4.0.4/jakarta.xml.bind-api-4.0.4.jar:/tmp/m2repo/jakarta/activation/jakarta.activation-api/2.1.4/jakarta.activation-api-2.1.4.jar:/tmp/m2repo/net/minidev/json-smart/2.6.0/json-smart-2.6.0.jar:/tmp/m2repo/net/minidev/accessors-smart/2.6.0/accessors-smart-2.6.0.jar:/tmp/m2repo/org/ow2/asm/asm/9.7.1/asm-9.7.1.jar:/tmp/m2repo/org/assertj/assertj-core/3.27.7/assertj-core-3.27.7.jar:/tmp/m2repo/net/bytebuddy/byte-buddy/1.17.8/byte-buddy-1.17.8.jar:/tmp/m2repo/org/awaitility/awaitility/4.3.0/awaitility-4.3.0.jar:/tmp/m2repo/org/hamcrest/hamcrest/3.0/hamcrest-3.0.jar:/tmp/m2repo/org/junit/jupiter/junit-jupiter/6.0.3/junit-jupiter-6.0.3.jar:/tmp/m2repo/org/junit/jupiter/junit-jupiter-api/6.0.3/junit-jupiter-api-6.0.3.jar:/tmp/m2repo/org/opentest4j/opentest4j/1.3.0/opentest4j-1.3.0.jar:/tmp/m2repo/org/junit/platform/junit-platform-commons/6.0.3/junit-platform-commons-6.0.3.jar:/tmp/m2repo/org/apiguardian/apiguardian-api/1.1.2/apiguardian-api-1.1.2.jar:/tmp/m2repo/org/junit/jupiter/junit-jupiter-params/6.0.3/junit-jupiter-params-6.0.3.jar:/tmp/m2repo/org/junit/jupiter/junit-jupiter-engine/6.0.3/junit-jupiter-engine-6.0.3.jar:/tmp/m2repo/org/junit/platform/junit-platform-engine/6.0.3/junit-platform-engine-6.0.3.jar:/tmp/m2repo/org/mockito/mockito-core/5.20.0/mockito-core-5.20.0.jar:/tmp/m2repo/net/bytebuddy/byte-buddy-agent/1.17.8/byte-buddy-agent-1.17.8.jar:/tmp/m2repo/org/objenesis/objenesis/3.3/objenesis-3.3.jar:/tmp/m2repo/org/mockito/mockito-junit-jupiter/5.20.0/mockito-junit-jupiter-5.20.0.jar:/tmp/m2repo/org/skyscreamer/jsonassert/1.5.3/jsonassert-1.5.3.jar:/tmp/m2repo/com/vaadin/external/google/android-json/0.0.20131108.vaadin1/android-json-0.0.20131108.vaadin1.jar:/tmp/m2repo/org/springframework/spring-core/7.0.7/spring-core-7.0.7.jar:/tmp/m2repo/commons-logging/commons-logging/1.3.6/commons-logging-1.3.6.jar:/tmp/m2repo/org/jspecify/jspecify/1.0.0/jspecify-1.0.0.jar:/tmp/m2repo/org/springframework/spring-test/7.0.7/spring-test-7.0.7.jar:/tmp/m2repo/org/xmlunit/xmlunit-core/2.10.4/xmlunit-core-2.10.4.jar:"/>
+    <property name="java.vm.vendor" value="Ubuntu"/>
     <property name="sun.arch.data.model" value="64"/>
-    <property name="java.vendor.url" value="https://adoptium.net/"/>
+    <property name="java.vendor.url" value="https://ubuntu.com/"/>
     <property name="user.timezone" value="Asia/Shanghai"/>
     <property name="org.jboss.logging.provider" value="slf4j"/>
     <property name="os.name" value="Linux"/>
     <property name="java.vm.specification.version" value="17"/>
     <property name="sun.java.launcher" value="SUN_STANDARD"/>
-    <property name="user.country" value="CN"/>
-    <property name="sun.boot.library.path" value="/home/tianjiaming/.local/toolchains/jdk-17-tmp/jdk-17.0.19+10/lib"/>
-    <property name="sun.java.command" value="/home/tianjiaming/learn/SWE/app-for-ISE/target/surefire/surefirebooter-20260629223014087_3.jar /home/tianjiaming/learn/SWE/app-for-ISE/target/surefire 2026-06-29T22-30-14_001-jvmRun1 surefire-20260629223014087_1tmp surefire_0-20260629223014087_2tmp"/>
+    <property name="sun.boot.library.path" value="/usr/lib/jvm/java-17-openjdk-amd64/lib"/>
+    <property name="sun.java.command" value="/home/sunqian/app-for-ISE/target/surefire/surefirebooter-20260630124501620_3.jar /home/sunqian/app-for-ISE/target/surefire 2026-06-30T12-45-00_462-jvmRun1 surefire-20260630124501620_1tmp surefire_0-20260630124501620_2tmp"/>
     <property name="jdk.debug" value="release"/>
-    <property name="surefire.test.class.path" value="/home/tianjiaming/learn/SWE/app-for-ISE/target/test-classes:/home/tianjiaming/learn/SWE/app-for-ISE/target/classes:/tmp/m2repo/org/springframework/boot/spring-boot-starter-web/4.0.6/spring-boot-starter-web-4.0.6.jar:/tmp/m2repo/org/springframework/boot/spring-boot-starter-jackson/4.0.6/spring-boot-starter-jackson-4.0.6.jar:/tmp/m2repo/org/springframework/boot/spring-boot-jackson/4.0.6/spring-boot-jackson-4.0.6.jar:/tmp/m2repo/tools/jackson/core/jackson-databind/3.1.2/jackson-databind-3.1.2.jar:/tmp/m2repo/tools/jackson/core/jackson-core/3.1.2/jackson-core-3.1.2.jar:/tmp/m2repo/org/springframework/boot/spring-boot-starter-tomcat/4.0.6/spring-boot-starter-tomcat-4.0.6.jar:/tmp/m2repo/org/springframework/boot/spring-boot-starter-tomcat-runtime/4.0.6/spring-boot-starter-tomcat-runtime-4.0.6.jar:/tmp/m2repo/org/springframework/boot/spring-boot-web-server/4.0.6/spring-boot-web-server-4.0.6.jar:/tmp/m2repo/org/apache/tomcat/embed/tomcat-embed-core/11.0.21/tomcat-embed-core-11.0.21.jar:/tmp/m2repo/org/apache/tomcat/embed/tomcat-embed-websocket/11.0.21/tomcat-embed-websocket-11.0.21.jar:/tmp/m2repo/org/springframework/boot/spring-boot-tomcat/4.0.6/spring-boot-tomcat-4.0.6.jar:/tmp/m2repo/org/springframework/boot/spring-boot-http-converter/4.0.6/spring-boot-http-converter-4.0.6.jar:/tmp/m2repo/org/springframework/boot/spring-boot/4.0.6/spring-boot-4.0.6.jar:/tmp/m2repo/org/springframework/spring-context/7.0.7/spring-context-7.0.7.jar:/tmp/m2repo/org/springframework/spring-web/7.0.7/spring-web-7.0.7.jar:/tmp/m2repo/org/springframework/spring-beans/7.0.7/spring-beans-7.0.7.jar:/tmp/m2repo/io/micrometer/micrometer-observation/1.16.5/micrometer-observation-1.16.5.jar:/tmp/m2repo/io/micrometer/micrometer-commons/1.16.5/micrometer-commons-1.16.5.jar:/tmp/m2repo/org/springframework/boot/spring-boot-webmvc/4.0.6/spring-boot-webmvc-4.0.6.jar:/tmp/m2repo/org/springframework/boot/spring-boot-servlet/4.0.6/spring-boot-servlet-4.0.6.jar:/tmp/m2repo/org/springframework/spring-webmvc/7.0.7/spring-webmvc-7.0.7.jar:/tmp/m2repo/org/springframework/spring-aop/7.0.7/spring-aop-7.0.7.jar:/tmp/m2repo/org/springframework/spring-expression/7.0.7/spring-expression-7.0.7.jar:/tmp/m2repo/com/fasterxml/jackson/core/jackson-databind/2.21.2/jackson-databind-2.21.2.jar:/tmp/m2repo/com/fasterxml/jackson/core/jackson-annotations/2.21/jackson-annotations-2.21.jar:/tmp/m2repo/com/fasterxml/jackson/core/jackson-core/2.21.2/jackson-core-2.21.2.jar:/tmp/m2repo/org/springframework/boot/spring-boot-starter-validation/4.0.6/spring-boot-starter-validation-4.0.6.jar:/tmp/m2repo/org/springframework/boot/spring-boot-starter/4.0.6/spring-boot-starter-4.0.6.jar:/tmp/m2repo/org/springframework/boot/spring-boot-starter-logging/4.0.6/spring-boot-starter-logging-4.0.6.jar:/tmp/m2repo/ch/qos/logback/logback-classic/1.5.32/logback-classic-1.5.32.jar:/tmp/m2repo/ch/qos/logback/logback-core/1.5.32/logback-core-1.5.32.jar:/tmp/m2repo/org/apache/logging/log4j/log4j-to-slf4j/2.25.4/log4j-to-slf4j-2.25.4.jar:/tmp/m2repo/org/apache/logging/log4j/log4j-api/2.25.4/log4j-api-2.25.4.jar:/tmp/m2repo/org/slf4j/jul-to-slf4j/2.0.17/jul-to-slf4j-2.0.17.jar:/tmp/m2repo/org/springframework/boot/spring-boot-autoconfigure/4.0.6/spring-boot-autoconfigure-4.0.6.jar:/tmp/m2repo/jakarta/annotation/jakarta.annotation-api/3.0.0/jakarta.annotation-api-3.0.0.jar:/tmp/m2repo/org/yaml/snakeyaml/2.5/snakeyaml-2.5.jar:/tmp/m2repo/org/springframework/boot/spring-boot-validation/4.0.6/spring-boot-validation-4.0.6.jar:/tmp/m2repo/org/apache/tomcat/embed/tomcat-embed-el/11.0.21/tomcat-embed-el-11.0.21.jar:/tmp/m2repo/org/hibernate/validator/hibernate-validator/9.0.1.Final/hibernate-validator-9.0.1.Final.jar:/tmp/m2repo/jakarta/validation/jakarta.validation-api/3.1.1/jakarta.validation-api-3.1.1.jar:/tmp/m2repo/org/jboss/logging/jboss-logging/3.6.3.Final/jboss-logging-3.6.3.Final.jar:/tmp/m2repo/com/fasterxml/classmate/1.7.3/classmate-1.7.3.jar:/tmp/m2repo/org/springframework/boot/spring-boot-starter-jdbc/4.0.6/spring-boot-starter-jdbc-4.0.6.jar:/tmp/m2repo/org/springframework/boot/spring-boot-jdbc/4.0.6/spring-boot-jdbc-4.0.6.jar:/tmp/m2repo/org/springframework/boot/spring-boot-sql/4.0.6/spring-boot-sql-4.0.6.jar:/tmp/m2repo/org/springframework/boot/spring-boot-transaction/4.0.6/spring-boot-transaction-4.0.6.jar:/tmp/m2repo/org/springframework/boot/spring-boot-persistence/4.0.6/spring-boot-persistence-4.0.6.jar:/tmp/m2repo/org/springframework/spring-tx/7.0.7/spring-tx-7.0.7.jar:/tmp/m2repo/org/springframework/spring-jdbc/7.0.7/spring-jdbc-7.0.7.jar:/tmp/m2repo/com/zaxxer/HikariCP/7.0.2/HikariCP-7.0.2.jar:/tmp/m2repo/org/slf4j/slf4j-api/2.0.17/slf4j-api-2.0.17.jar:/tmp/m2repo/com/h2database/h2/2.4.240/h2-2.4.240.jar:/tmp/m2repo/org/springframework/boot/spring-boot-starter-test/4.0.6/spring-boot-starter-test-4.0.6.jar:/tmp/m2repo/org/springframework/boot/spring-boot-test/4.0.6/spring-boot-test-4.0.6.jar:/tmp/m2repo/org/springframework/boot/spring-boot-test-autoconfigure/4.0.6/spring-boot-test-autoconfigure-4.0.6.jar:/tmp/m2repo/com/jayway/jsonpath/json-path/2.10.0/json-path-2.10.0.jar:/tmp/m2repo/jakarta/xml/bind/jakarta.xml.bind-api/4.0.4/jakarta.xml.bind-api-4.0.4.jar:/tmp/m2repo/jakarta/activation/jakarta.activation-api/2.1.4/jakarta.activation-api-2.1.4.jar:/tmp/m2repo/net/minidev/json-smart/2.6.0/json-smart-2.6.0.jar:/tmp/m2repo/net/minidev/accessors-smart/2.6.0/accessors-smart-2.6.0.jar:/tmp/m2repo/org/ow2/asm/asm/9.7.1/asm-9.7.1.jar:/tmp/m2repo/org/assertj/assertj-core/3.27.7/assertj-core-3.27.7.jar:/tmp/m2repo/net/bytebuddy/byte-buddy/1.17.8/byte-buddy-1.17.8.jar:/tmp/m2repo/org/awaitility/awaitility/4.3.0/awaitility-4.3.0.jar:/tmp/m2repo/org/hamcrest/hamcrest/3.0/hamcrest-3.0.jar:/tmp/m2repo/org/junit/jupiter/junit-jupiter/6.0.3/junit-jupiter-6.0.3.jar:/tmp/m2repo/org/junit/jupiter/junit-jupiter-api/6.0.3/junit-jupiter-api-6.0.3.jar:/tmp/m2repo/org/opentest4j/opentest4j/1.3.0/opentest4j-1.3.0.jar:/tmp/m2repo/org/junit/platform/junit-platform-commons/6.0.3/junit-platform-commons-6.0.3.jar:/tmp/m2repo/org/apiguardian/apiguardian-api/1.1.2/apiguardian-api-1.1.2.jar:/tmp/m2repo/org/junit/jupiter/junit-jupiter-params/6.0.3/junit-jupiter-params-6.0.3.jar:/tmp/m2repo/org/junit/jupiter/junit-jupiter-engine/6.0.3/junit-jupiter-engine-6.0.3.jar:/tmp/m2repo/org/junit/platform/junit-platform-engine/6.0.3/junit-platform-engine-6.0.3.jar:/tmp/m2repo/org/mockito/mockito-core/5.20.0/mockito-core-5.20.0.jar:/tmp/m2repo/net/bytebuddy/byte-buddy-agent/1.17.8/byte-buddy-agent-1.17.8.jar:/tmp/m2repo/org/objenesis/objenesis/3.3/objenesis-3.3.jar:/tmp/m2repo/org/mockito/mockito-junit-jupiter/5.20.0/mockito-junit-jupiter-5.20.0.jar:/tmp/m2repo/org/skyscreamer/jsonassert/1.5.3/jsonassert-1.5.3.jar:/tmp/m2repo/com/vaadin/external/google/android-json/0.0.20131108.vaadin1/android-json-0.0.20131108.vaadin1.jar:/tmp/m2repo/org/springframework/spring-core/7.0.7/spring-core-7.0.7.jar:/tmp/m2repo/commons-logging/commons-logging/1.3.6/commons-logging-1.3.6.jar:/tmp/m2repo/org/jspecify/jspecify/1.0.0/jspecify-1.0.0.jar:/tmp/m2repo/org/springframework/spring-test/7.0.7/spring-test-7.0.7.jar:/tmp/m2repo/org/xmlunit/xmlunit-core/2.10.4/xmlunit-core-2.10.4.jar:"/>
+    <property name="surefire.test.class.path" value="/home/sunqian/app-for-ISE/target/test-classes:/home/sunqian/app-for-ISE/target/classes:/tmp/m2repo/org/springframework/boot/spring-boot-starter-web/4.0.6/spring-boot-starter-web-4.0.6.jar:/tmp/m2repo/org/springframework/boot/spring-boot-starter-jackson/4.0.6/spring-boot-starter-jackson-4.0.6.jar:/tmp/m2repo/org/springframework/boot/spring-boot-jackson/4.0.6/spring-boot-jackson-4.0.6.jar:/tmp/m2repo/tools/jackson/core/jackson-databind/3.1.2/jackson-databind-3.1.2.jar:/tmp/m2repo/tools/jackson/core/jackson-core/3.1.2/jackson-core-3.1.2.jar:/tmp/m2repo/org/springframework/boot/spring-boot-starter-tomcat/4.0.6/spring-boot-starter-tomcat-4.0.6.jar:/tmp/m2repo/org/springframework/boot/spring-boot-starter-tomcat-runtime/4.0.6/spring-boot-starter-tomcat-runtime-4.0.6.jar:/tmp/m2repo/org/springframework/boot/spring-boot-web-server/4.0.6/spring-boot-web-server-4.0.6.jar:/tmp/m2repo/org/apache/tomcat/embed/tomcat-embed-core/11.0.21/tomcat-embed-core-11.0.21.jar:/tmp/m2repo/org/apache/tomcat/embed/tomcat-embed-websocket/11.0.21/tomcat-embed-websocket-11.0.21.jar:/tmp/m2repo/org/springframework/boot/spring-boot-tomcat/4.0.6/spring-boot-tomcat-4.0.6.jar:/tmp/m2repo/org/springframework/boot/spring-boot-http-converter/4.0.6/spring-boot-http-converter-4.0.6.jar:/tmp/m2repo/org/springframework/boot/spring-boot/4.0.6/spring-boot-4.0.6.jar:/tmp/m2repo/org/springframework/spring-context/7.0.7/spring-context-7.0.7.jar:/tmp/m2repo/org/springframework/spring-web/7.0.7/spring-web-7.0.7.jar:/tmp/m2repo/org/springframework/spring-beans/7.0.7/spring-beans-7.0.7.jar:/tmp/m2repo/io/micrometer/micrometer-observation/1.16.5/micrometer-observation-1.16.5.jar:/tmp/m2repo/io/micrometer/micrometer-commons/1.16.5/micrometer-commons-1.16.5.jar:/tmp/m2repo/org/springframework/boot/spring-boot-webmvc/4.0.6/spring-boot-webmvc-4.0.6.jar:/tmp/m2repo/org/springframework/boot/spring-boot-servlet/4.0.6/spring-boot-servlet-4.0.6.jar:/tmp/m2repo/org/springframework/spring-webmvc/7.0.7/spring-webmvc-7.0.7.jar:/tmp/m2repo/org/springframework/spring-aop/7.0.7/spring-aop-7.0.7.jar:/tmp/m2repo/org/springframework/spring-expression/7.0.7/spring-expression-7.0.7.jar:/tmp/m2repo/com/fasterxml/jackson/core/jackson-databind/2.21.2/jackson-databind-2.21.2.jar:/tmp/m2repo/com/fasterxml/jackson/core/jackson-annotations/2.21/jackson-annotations-2.21.jar:/tmp/m2repo/com/fasterxml/jackson/core/jackson-core/2.21.2/jackson-core-2.21.2.jar:/tmp/m2repo/org/springframework/boot/spring-boot-starter-validation/4.0.6/spring-boot-starter-validation-4.0.6.jar:/tmp/m2repo/org/springframework/boot/spring-boot-starter/4.0.6/spring-boot-starter-4.0.6.jar:/tmp/m2repo/org/springframework/boot/spring-boot-starter-logging/4.0.6/spring-boot-starter-logging-4.0.6.jar:/tmp/m2repo/ch/qos/logback/logback-classic/1.5.32/logback-classic-1.5.32.jar:/tmp/m2repo/ch/qos/logback/logback-core/1.5.32/logback-core-1.5.32.jar:/tmp/m2repo/org/apache/logging/log4j/log4j-to-slf4j/2.25.4/log4j-to-slf4j-2.25.4.jar:/tmp/m2repo/org/apache/logging/log4j/log4j-api/2.25.4/log4j-api-2.25.4.jar:/tmp/m2repo/org/slf4j/jul-to-slf4j/2.0.17/jul-to-slf4j-2.0.17.jar:/tmp/m2repo/org/springframework/boot/spring-boot-autoconfigure/4.0.6/spring-boot-autoconfigure-4.0.6.jar:/tmp/m2repo/jakarta/annotation/jakarta.annotation-api/3.0.0/jakarta.annotation-api-3.0.0.jar:/tmp/m2repo/org/yaml/snakeyaml/2.5/snakeyaml-2.5.jar:/tmp/m2repo/org/springframework/boot/spring-boot-validation/4.0.6/spring-boot-validation-4.0.6.jar:/tmp/m2repo/org/apache/tomcat/embed/tomcat-embed-el/11.0.21/tomcat-embed-el-11.0.21.jar:/tmp/m2repo/org/hibernate/validator/hibernate-validator/9.0.1.Final/hibernate-validator-9.0.1.Final.jar:/tmp/m2repo/jakarta/validation/jakarta.validation-api/3.1.1/jakarta.validation-api-3.1.1.jar:/tmp/m2repo/org/jboss/logging/jboss-logging/3.6.3.Final/jboss-logging-3.6.3.Final.jar:/tmp/m2repo/com/fasterxml/classmate/1.7.3/classmate-1.7.3.jar:/tmp/m2repo/org/springframework/boot/spring-boot-starter-jdbc/4.0.6/spring-boot-starter-jdbc-4.0.6.jar:/tmp/m2repo/org/springframework/boot/spring-boot-jdbc/4.0.6/spring-boot-jdbc-4.0.6.jar:/tmp/m2repo/org/springframework/boot/spring-boot-sql/4.0.6/spring-boot-sql-4.0.6.jar:/tmp/m2repo/org/springframework/boot/spring-boot-transaction/4.0.6/spring-boot-transaction-4.0.6.jar:/tmp/m2repo/org/springframework/boot/spring-boot-persistence/4.0.6/spring-boot-persistence-4.0.6.jar:/tmp/m2repo/org/springframework/spring-tx/7.0.7/spring-tx-7.0.7.jar:/tmp/m2repo/org/springframework/spring-jdbc/7.0.7/spring-jdbc-7.0.7.jar:/tmp/m2repo/com/zaxxer/HikariCP/7.0.2/HikariCP-7.0.2.jar:/tmp/m2repo/org/slf4j/slf4j-api/2.0.17/slf4j-api-2.0.17.jar:/tmp/m2repo/com/h2database/h2/2.4.240/h2-2.4.240.jar:/tmp/m2repo/org/springframework/boot/spring-boot-starter-test/4.0.6/spring-boot-starter-test-4.0.6.jar:/tmp/m2repo/org/springframework/boot/spring-boot-test/4.0.6/spring-boot-test-4.0.6.jar:/tmp/m2repo/org/springframework/boot/spring-boot-test-autoconfigure/4.0.6/spring-boot-test-autoconfigure-4.0.6.jar:/tmp/m2repo/com/jayway/jsonpath/json-path/2.10.0/json-path-2.10.0.jar:/tmp/m2repo/jakarta/xml/bind/jakarta.xml.bind-api/4.0.4/jakarta.xml.bind-api-4.0.4.jar:/tmp/m2repo/jakarta/activation/jakarta.activation-api/2.1.4/jakarta.activation-api-2.1.4.jar:/tmp/m2repo/net/minidev/json-smart/2.6.0/json-smart-2.6.0.jar:/tmp/m2repo/net/minidev/accessors-smart/2.6.0/accessors-smart-2.6.0.jar:/tmp/m2repo/org/ow2/asm/asm/9.7.1/asm-9.7.1.jar:/tmp/m2repo/org/assertj/assertj-core/3.27.7/assertj-core-3.27.7.jar:/tmp/m2repo/net/bytebuddy/byte-buddy/1.17.8/byte-buddy-1.17.8.jar:/tmp/m2repo/org/awaitility/awaitility/4.3.0/awaitility-4.3.0.jar:/tmp/m2repo/org/hamcrest/hamcrest/3.0/hamcrest-3.0.jar:/tmp/m2repo/org/junit/jupiter/junit-jupiter/6.0.3/junit-jupiter-6.0.3.jar:/tmp/m2repo/org/junit/jupiter/junit-jupiter-api/6.0.3/junit-jupiter-api-6.0.3.jar:/tmp/m2repo/org/opentest4j/opentest4j/1.3.0/opentest4j-1.3.0.jar:/tmp/m2repo/org/junit/platform/junit-platform-commons/6.0.3/junit-platform-commons-6.0.3.jar:/tmp/m2repo/org/apiguardian/apiguardian-api/1.1.2/apiguardian-api-1.1.2.jar:/tmp/m2repo/org/junit/jupiter/junit-jupiter-params/6.0.3/junit-jupiter-params-6.0.3.jar:/tmp/m2repo/org/junit/jupiter/junit-jupiter-engine/6.0.3/junit-jupiter-engine-6.0.3.jar:/tmp/m2repo/org/junit/platform/junit-platform-engine/6.0.3/junit-platform-engine-6.0.3.jar:/tmp/m2repo/org/mockito/mockito-core/5.20.0/mockito-core-5.20.0.jar:/tmp/m2repo/net/bytebuddy/byte-buddy-agent/1.17.8/byte-buddy-agent-1.17.8.jar:/tmp/m2repo/org/objenesis/objenesis/3.3/objenesis-3.3.jar:/tmp/m2repo/org/mockito/mockito-junit-jupiter/5.20.0/mockito-junit-jupiter-5.20.0.jar:/tmp/m2repo/org/skyscreamer/jsonassert/1.5.3/jsonassert-1.5.3.jar:/tmp/m2repo/com/vaadin/external/google/android-json/0.0.20131108.vaadin1/android-json-0.0.20131108.vaadin1.jar:/tmp/m2repo/org/springframework/spring-core/7.0.7/spring-core-7.0.7.jar:/tmp/m2repo/commons-logging/commons-logging/1.3.6/commons-logging-1.3.6.jar:/tmp/m2repo/org/jspecify/jspecify/1.0.0/jspecify-1.0.0.jar:/tmp/m2repo/org/springframework/spring-test/7.0.7/spring-test-7.0.7.jar:/tmp/m2repo/org/xmlunit/xmlunit-core/2.10.4/xmlunit-core-2.10.4.jar:"/>
     <property name="sun.cpu.endian" value="little"/>
-    <property name="user.home" value="/home/tianjiaming"/>
-    <property name="user.language" value="zh"/>
+    <property name="user.home" value="/home/sunqian"/>
+    <property name="user.language" value="en"/>
     <property name="java.specification.vendor" value="Oracle Corporation"/>
     <property name="java.version.date" value="2026-04-21"/>
-    <property name="java.home" value="/home/tianjiaming/.local/toolchains/jdk-17-tmp/jdk-17.0.19+10"/>
+    <property name="java.home" value="/usr/lib/jvm/java-17-openjdk-amd64"/>
     <property name="file.separator" value="/"/>
-    <property name="basedir" value="/home/tianjiaming/learn/SWE/app-for-ISE"/>
-    <property name="java.vm.compressedOopsMode" value="Zero based"/>
+    <property name="basedir" value="/home/sunqian/app-for-ISE"/>
+    <property name="java.vm.compressedOopsMode" value="32-bit"/>
     <property name="line.separator" value="&#10;"/>
-    <property name="java.vm.specification.vendor" value="Oracle Corporation"/>
     <property name="java.specification.name" value="Java Platform API Specification"/>
+    <property name="java.vm.specification.vendor" value="Oracle Corporation"/>
     <property name="FILE_LOG_CHARSET" value="UTF-8"/>
     <property name="java.awt.headless" value="true"/>
-    <property name="surefire.real.class.path" value="/home/tianjiaming/learn/SWE/app-for-ISE/target/surefire/surefirebooter-20260629223014087_3.jar"/>
+    <property name="surefire.real.class.path" value="/home/sunqian/app-for-ISE/target/surefire/surefirebooter-20260630124501620_3.jar"/>
     <property name="sun.management.compiler" value="HotSpot 64-Bit Tiered Compilers"/>
-    <property name="java.runtime.version" value="17.0.19+10"/>
-    <property name="user.name" value="tianjiaming"/>
+    <property name="java.runtime.version" value="17.0.19+10-1-24.04.2-Ubuntu"/>
+    <property name="user.name" value="sunqian"/>
     <property name="path.separator" value=":"/>
-    <property name="os.version" value="6.8.0-90-generic"/>
+    <property name="os.version" value="6.6.87.2-microsoft-standard-WSL2"/>
     <property name="java.runtime.name" value="OpenJDK Runtime Environment"/>
     <property name="file.encoding" value="UTF-8"/>
     <property name="java.vm.name" value="OpenJDK 64-Bit Server VM"/>
-    <property name="java.vendor.version" value="Temurin-17.0.19+10"/>
     <property name="localRepository" value="/tmp/m2repo"/>
-    <property name="java.vendor.url.bug" value="https://github.com/adoptium/adoptium-support/issues"/>
+    <property name="java.vendor.url.bug" value="https://bugs.launchpad.net/ubuntu/+source/openjdk-17"/>
     <property name="java.io.tmpdir" value="/tmp"/>
     <property name="com.zaxxer.hikari.pool_number" value="1"/>
     <property name="java.version" value="17.0.19"/>
-    <property name="user.dir" value="/home/tianjiaming/learn/SWE/app-for-ISE"/>
+    <property name="user.dir" value="/home/sunqian/app-for-ISE"/>
     <property name="os.arch" value="amd64"/>
     <property name="java.vm.specification.name" value="Java Virtual Machine Specification"/>
-    <property name="PID" value="689567"/>
+    <property name="PID" value="22952"/>
     <property name="CONSOLE_LOG_CHARSET" value="UTF-8"/>
     <property name="native.encoding" value="UTF-8"/>
-    <property name="java.library.path" value="/usr/java/packages/lib:/usr/lib64:/lib64:/lib:/usr/lib"/>
+    <property name="java.library.path" value="/usr/java/packages/lib:/usr/lib/x86_64-linux-gnu/jni:/lib/x86_64-linux-gnu:/usr/lib/x86_64-linux-gnu:/usr/lib/jni:/lib:/usr/lib"/>
     <property name="java.vm.info" value="mixed mode, sharing"/>
-    <property name="java.vendor" value="Eclipse Adoptium"/>
-    <property name="java.vm.version" value="17.0.19+10"/>
+    <property name="java.vendor" value="Ubuntu"/>
+    <property name="java.vm.version" value="17.0.19+10-1-24.04.2-Ubuntu"/>
     <property name="java.specification.maintenance.version" value="1"/>
     <property name="sun.io.unicode.encoding" value="UnicodeLittle"/>
     <property name="maven.repo.local" value="/tmp/m2repo"/>
     <property name="java.class.version" value="61.0"/>
   </properties>
-  <testcase name="markReadShouldAffectUnreadResult" classname="com.ise.platform.modules.notice.NoticeServiceTest" time="0.013">
-    <system-out><![CDATA[2026-06-29T22:30:18.643+08:00 DEBUG 689567 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing SQL statement [create table if not exists biz_notice (
+  <testcase name="adminNoticeListShouldNotExposeReadCountAboveDeliveredCount" classname="com.ise.platform.modules.notice.NoticeServiceTest" time="0.005">
+    <system-out><![CDATA[2026-06-30T12:45:06.426+08:00 DEBUG 22952 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing SQL statement [create table if not exists stu_student (
+    id bigint primary key,
+    student_no varchar(32),
+    name varchar(64),
+    grade varchar(16),
+    major varchar(64),
+    class_name varchar(64),
+    political_status varchar(32),
+    status varchar(32),
+    is_deleted smallint
+)
+]
+2026-06-30T12:45:06.428+08:00 DEBUG 22952 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing SQL statement [create table if not exists biz_notice (
     id bigint primary key,
     title varchar(255),
     content varchar(2000),
@@ -79,43 +89,159 @@
     is_deleted smallint
 )
 ]
-2026-06-29T22:30:18.646+08:00 DEBUG 689567 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing SQL statement [create table if not exists biz_notice_read (
+2026-06-30T12:45:06.430+08:00 DEBUG 22952 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing SQL statement [create table if not exists biz_notice_read (
     id bigint primary key,
     notice_id bigint,
     user_id bigint,
     read_at timestamp
 )
 ]
-2026-06-29T22:30:18.647+08:00 DEBUG 689567 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing SQL update [delete from biz_notice_read]
-2026-06-29T22:30:18.648+08:00 DEBUG 689567 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing SQL update [delete from biz_notice]
-2026-06-29T22:30:18.648+08:00 DEBUG 689567 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing SQL update [insert into biz_notice (id, title, content, audience, channel_labels, tag_labels, delivered_count, read_count, status, publish_at, created_by, created_at, updated_at, is_deleted)
+2026-06-30T12:45:06.430+08:00 DEBUG 22952 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing SQL statement [create table if not exists sys_audit_log (
+    id bigint primary key,
+    actor_user_id bigint,
+    actor_name varchar(128),
+    module_name varchar(64),
+    action_text varchar(500),
+    result_text varchar(32),
+    created_at timestamp
+)
+]
+2026-06-30T12:45:06.431+08:00 DEBUG 22952 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing SQL update [delete from stu_student]
+2026-06-30T12:45:06.431+08:00 DEBUG 22952 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing SQL update [delete from sys_audit_log]
+2026-06-30T12:45:06.432+08:00 DEBUG 22952 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing SQL update [delete from biz_notice_read]
+2026-06-30T12:45:06.432+08:00 DEBUG 22952 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing SQL update [delete from biz_notice]
+2026-06-30T12:45:06.432+08:00 DEBUG 22952 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing SQL update [insert into stu_student (id, student_no, name, grade, major, class_name, political_status, status, is_deleted)
+values
+(1, '20220001', '赵晨曦', '2022', '软件工程', '软件工程2班', '预备党员', 'active', 0),
+(2, '20220018', '陈一诺', '2022', '软件工程', '软件工程2班', '发展对象', 'active', 0),
+(3, '20260031', '林嘉禾', '2026', '数据科学', '数据科学1班', '共青团员', 'active', 0),
+(4, '20230007', '周明远', '2023', '软件工程', '软件工程1班', '共青团员', 'warning', 0)
+]
+2026-06-30T12:45:06.432+08:00 DEBUG 22952 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing SQL update [insert into biz_notice (id, title, content, audience, channel_labels, tag_labels, delivered_count, read_count, status, publish_at, created_by, created_at, updated_at, is_deleted)
 values
 (1, '通知1', '内容1', '2022级', '站内,微信', '奖助', 100, 10, 'published', current_timestamp(), 8, current_timestamp(), current_timestamp(), 0),
-(2, '通知2', '内容2', '2022级', '站内', '党团', 100, 20, 'published', current_timestamp(), 8, current_timestamp(), current_timestamp(), 0)
+(2, '通知2', '内容2', '2022级', '站内', '党团', 100, 20, 'published', current_timestamp(), 8, current_timestamp(), current_timestamp(), 0),
+(3, '通知3', '内容3', '2026届毕业生', '站内', '就业', 0, 0, 'published', current_timestamp(), 8, current_timestamp(), current_timestamp(), 0)
 ]
-2026-06-29T22:30:18.650+08:00 DEBUG 689567 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL query
-2026-06-29T22:30:18.650+08:00 DEBUG 689567 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL statement [select count(*) from biz_notice where id = ? and is_deleted = 0]
-2026-06-29T22:30:18.651+08:00 DEBUG 689567 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL query
-2026-06-29T22:30:18.651+08:00 DEBUG 689567 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL statement [select count(*) from biz_notice_read where notice_id = ? and user_id = ?]
-2026-06-29T22:30:18.652+08:00 DEBUG 689567 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing SQL query [select coalesce(max(id), 0) + 1 from biz_notice_read]
-2026-06-29T22:30:18.652+08:00 DEBUG 689567 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL update
-2026-06-29T22:30:18.652+08:00 DEBUG 689567 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL statement [insert into biz_notice_read (id, notice_id, user_id, read_at) values (?, ?, ?, ?)]
-2026-06-29T22:30:18.653+08:00 DEBUG 689567 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL update
-2026-06-29T22:30:18.653+08:00 DEBUG 689567 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL statement [update biz_notice set read_count = read_count + 1, updated_at = ? where id = ?]
-2026-06-29T22:30:18.654+08:00 DEBUG 689567 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL query
-2026-06-29T22:30:18.654+08:00 DEBUG 689567 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL statement [select count(*)
+2026-06-30T12:45:06.433+08:00 DEBUG 22952 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing SQL update [insert into biz_notice (id, title, content, audience, channel_labels, tag_labels, delivered_count, read_count, status, publish_at, created_by, created_at, updated_at, is_deleted)
+values
+(10, '异常计数通知', '内容', '2022级', '站内', '测试', 1, 3, 'published', current_timestamp(), 8, current_timestamp(), current_timestamp(), 0)
+]
+2026-06-30T12:45:06.434+08:00 DEBUG 22952 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL query
+2026-06-30T12:45:06.434+08:00 DEBUG 22952 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL statement [select count(*)
   from biz_notice n
-  left join biz_notice_read r
-    on r.notice_id = n.id and r.user_id = ?
  where n.is_deleted = 0
-   and n.status = 'published'
    and (? is null
-        or (? = 'read' and r.notice_id is not null)
-        or (? = 'unread' and r.notice_id is null))
-   and (? is null or lower(coalesce(n.tag_labels, '')) like ?)
+        or (? = 'read' and n.read_count > 0)
+        or (? = 'unread' and n.read_count < n.delivered_count))
+   and (? is null or lower(n.title) like ? or lower(n.audience) like ? or lower(coalesce(n.tag_labels, '')) like ?)
 ]
-2026-06-29T22:30:18.659+08:00 DEBUG 689567 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL query
-2026-06-29T22:30:18.659+08:00 DEBUG 689567 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL statement [select n.id, n.title, n.content, n.tag_labels, n.channel_labels, n.audience,
+2026-06-30T12:45:06.435+08:00 DEBUG 22952 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL query
+2026-06-30T12:45:06.435+08:00 DEBUG 22952 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL statement [select n.id, n.title, n.content, n.tag_labels, n.channel_labels, n.audience,
+       n.delivered_count, n.read_count, n.publish_at,
+       case when n.read_count > 0 then 'read' else 'unread' end as read_status
+  from biz_notice n
+ where n.is_deleted = 0
+   and (? is null
+        or (? = 'read' and n.read_count > 0)
+        or (? = 'unread' and n.read_count < n.delivered_count))
+   and (? is null or lower(n.title) like ? or lower(n.audience) like ? or lower(coalesce(n.tag_labels, '')) like ?)
+ order by n.publish_at desc, n.id desc
+ limit ? offset ?
+]
+2026-06-30T12:45:06.436+08:00 DEBUG 22952 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL query
+2026-06-30T12:45:06.436+08:00 DEBUG 22952 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL statement [select count(*) from stu_student where is_deleted = 0 and status <> 'graduated' and (grade in (?))]
+]]></system-out>
+  </testcase>
+  <testcase name="markReadShouldAffectUnreadResult" classname="com.ise.platform.modules.notice.NoticeServiceTest" time="0.005">
+    <system-out><![CDATA[2026-06-30T12:45:06.438+08:00 DEBUG 22952 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing SQL statement [create table if not exists stu_student (
+    id bigint primary key,
+    student_no varchar(32),
+    name varchar(64),
+    grade varchar(16),
+    major varchar(64),
+    class_name varchar(64),
+    political_status varchar(32),
+    status varchar(32),
+    is_deleted smallint
+)
+]
+2026-06-30T12:45:06.439+08:00 DEBUG 22952 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing SQL statement [create table if not exists biz_notice (
+    id bigint primary key,
+    title varchar(255),
+    content varchar(2000),
+    audience varchar(255),
+    channel_labels varchar(255),
+    tag_labels varchar(255),
+    delivered_count int,
+    read_count int,
+    status varchar(32),
+    publish_at timestamp,
+    created_by bigint,
+    created_at timestamp,
+    updated_at timestamp,
+    is_deleted smallint
+)
+]
+2026-06-30T12:45:06.439+08:00 DEBUG 22952 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing SQL statement [create table if not exists biz_notice_read (
+    id bigint primary key,
+    notice_id bigint,
+    user_id bigint,
+    read_at timestamp
+)
+]
+2026-06-30T12:45:06.440+08:00 DEBUG 22952 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing SQL statement [create table if not exists sys_audit_log (
+    id bigint primary key,
+    actor_user_id bigint,
+    actor_name varchar(128),
+    module_name varchar(64),
+    action_text varchar(500),
+    result_text varchar(32),
+    created_at timestamp
+)
+]
+2026-06-30T12:45:06.440+08:00 DEBUG 22952 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing SQL update [delete from stu_student]
+2026-06-30T12:45:06.440+08:00 DEBUG 22952 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing SQL update [delete from sys_audit_log]
+2026-06-30T12:45:06.440+08:00 DEBUG 22952 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing SQL update [delete from biz_notice_read]
+2026-06-30T12:45:06.440+08:00 DEBUG 22952 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing SQL update [delete from biz_notice]
+2026-06-30T12:45:06.441+08:00 DEBUG 22952 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing SQL update [insert into stu_student (id, student_no, name, grade, major, class_name, political_status, status, is_deleted)
+values
+(1, '20220001', '赵晨曦', '2022', '软件工程', '软件工程2班', '预备党员', 'active', 0),
+(2, '20220018', '陈一诺', '2022', '软件工程', '软件工程2班', '发展对象', 'active', 0),
+(3, '20260031', '林嘉禾', '2026', '数据科学', '数据科学1班', '共青团员', 'active', 0),
+(4, '20230007', '周明远', '2023', '软件工程', '软件工程1班', '共青团员', 'warning', 0)
+]
+2026-06-30T12:45:06.441+08:00 DEBUG 22952 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing SQL update [insert into biz_notice (id, title, content, audience, channel_labels, tag_labels, delivered_count, read_count, status, publish_at, created_by, created_at, updated_at, is_deleted)
+values
+(1, '通知1', '内容1', '2022级', '站内,微信', '奖助', 100, 10, 'published', current_timestamp(), 8, current_timestamp(), current_timestamp(), 0),
+(2, '通知2', '内容2', '2022级', '站内', '党团', 100, 20, 'published', current_timestamp(), 8, current_timestamp(), current_timestamp(), 0),
+(3, '通知3', '内容3', '2026届毕业生', '站内', '就业', 0, 0, 'published', current_timestamp(), 8, current_timestamp(), current_timestamp(), 0)
+]
+2026-06-30T12:45:06.442+08:00 DEBUG 22952 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL query
+2026-06-30T12:45:06.442+08:00 DEBUG 22952 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL statement [select audience from biz_notice where id = ? and is_deleted = 0 and status = 'published']
+2026-06-30T12:45:06.443+08:00 DEBUG 22952 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL query
+2026-06-30T12:45:06.443+08:00 DEBUG 22952 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL statement [select grade, status
+  from stu_student
+ where id = ?
+   and is_deleted = 0
+   and status <> 'graduated'
+]
+2026-06-30T12:45:06.443+08:00 DEBUG 22952 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL query
+2026-06-30T12:45:06.443+08:00 DEBUG 22952 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL statement [select count(*) from biz_notice_read where notice_id = ? and user_id = ?]
+2026-06-30T12:45:06.443+08:00 DEBUG 22952 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing SQL query [select coalesce(max(id), 0) + 1 from biz_notice_read]
+2026-06-30T12:45:06.444+08:00 DEBUG 22952 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL update
+2026-06-30T12:45:06.444+08:00 DEBUG 22952 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL statement [insert into biz_notice_read (id, notice_id, user_id, read_at) values (?, ?, ?, ?)]
+2026-06-30T12:45:06.444+08:00 DEBUG 22952 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL update
+2026-06-30T12:45:06.444+08:00 DEBUG 22952 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL statement [update biz_notice set read_count = read_count + 1, updated_at = ? where id = ?]
+2026-06-30T12:45:06.444+08:00 DEBUG 22952 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL query
+2026-06-30T12:45:06.444+08:00 DEBUG 22952 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL statement [select grade, status
+  from stu_student
+ where id = ?
+   and is_deleted = 0
+   and status <> 'graduated'
+]
+2026-06-30T12:45:06.445+08:00 DEBUG 22952 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL query
+2026-06-30T12:45:06.445+08:00 DEBUG 22952 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL statement [select n.id, n.title, n.content, n.tag_labels, n.channel_labels, n.audience,
        n.delivered_count, n.read_count, n.publish_at,
        case when r.notice_id is null then 'unread' else 'read' end as read_status
   from biz_notice n
@@ -123,17 +249,27 @@ values
     on r.notice_id = n.id and r.user_id = ?
  where n.is_deleted = 0
    and n.status = 'published'
-   and (? is null
-        or (? = 'read' and r.notice_id is not null)
-        or (? = 'unread' and r.notice_id is null))
    and (? is null or lower(coalesce(n.tag_labels, '')) like ?)
  order by n.publish_at desc, n.id desc
- limit ? offset ?
 ]
+2026-06-30T12:45:06.446+08:00 DEBUG 22952 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL query
+2026-06-30T12:45:06.446+08:00 DEBUG 22952 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL statement [select count(*) from stu_student where is_deleted = 0 and status <> 'graduated' and (grade in (?))]
 ]]></system-out>
   </testcase>
-  <testcase name="markAllReadShouldClearUnreadList" classname="com.ise.platform.modules.notice.NoticeServiceTest" time="0.012">
-    <system-out><![CDATA[2026-06-29T22:30:18.663+08:00 DEBUG 689567 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing SQL statement [create table if not exists biz_notice (
+  <testcase name="noticeViewShouldExposeUnreadCount" classname="com.ise.platform.modules.notice.NoticeServiceTest" time="0.003">
+    <system-out><![CDATA[2026-06-30T12:45:06.447+08:00 DEBUG 22952 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing SQL statement [create table if not exists stu_student (
+    id bigint primary key,
+    student_no varchar(32),
+    name varchar(64),
+    grade varchar(16),
+    major varchar(64),
+    class_name varchar(64),
+    political_status varchar(32),
+    status varchar(32),
+    is_deleted smallint
+)
+]
+2026-06-30T12:45:06.448+08:00 DEBUG 22952 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing SQL statement [create table if not exists biz_notice (
     id bigint primary key,
     title varchar(255),
     content varchar(2000),
@@ -150,22 +286,454 @@ values
     is_deleted smallint
 )
 ]
-2026-06-29T22:30:18.663+08:00 DEBUG 689567 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing SQL statement [create table if not exists biz_notice_read (
+2026-06-30T12:45:06.448+08:00 DEBUG 22952 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing SQL statement [create table if not exists biz_notice_read (
     id bigint primary key,
     notice_id bigint,
     user_id bigint,
     read_at timestamp
 )
 ]
-2026-06-29T22:30:18.664+08:00 DEBUG 689567 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing SQL update [delete from biz_notice_read]
-2026-06-29T22:30:18.665+08:00 DEBUG 689567 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing SQL update [delete from biz_notice]
-2026-06-29T22:30:18.665+08:00 DEBUG 689567 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing SQL update [insert into biz_notice (id, title, content, audience, channel_labels, tag_labels, delivered_count, read_count, status, publish_at, created_by, created_at, updated_at, is_deleted)
+2026-06-30T12:45:06.448+08:00 DEBUG 22952 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing SQL statement [create table if not exists sys_audit_log (
+    id bigint primary key,
+    actor_user_id bigint,
+    actor_name varchar(128),
+    module_name varchar(64),
+    action_text varchar(500),
+    result_text varchar(32),
+    created_at timestamp
+)
+]
+2026-06-30T12:45:06.448+08:00 DEBUG 22952 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing SQL update [delete from stu_student]
+2026-06-30T12:45:06.449+08:00 DEBUG 22952 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing SQL update [delete from sys_audit_log]
+2026-06-30T12:45:06.449+08:00 DEBUG 22952 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing SQL update [delete from biz_notice_read]
+2026-06-30T12:45:06.449+08:00 DEBUG 22952 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing SQL update [delete from biz_notice]
+2026-06-30T12:45:06.450+08:00 DEBUG 22952 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing SQL update [insert into stu_student (id, student_no, name, grade, major, class_name, political_status, status, is_deleted)
+values
+(1, '20220001', '赵晨曦', '2022', '软件工程', '软件工程2班', '预备党员', 'active', 0),
+(2, '20220018', '陈一诺', '2022', '软件工程', '软件工程2班', '发展对象', 'active', 0),
+(3, '20260031', '林嘉禾', '2026', '数据科学', '数据科学1班', '共青团员', 'active', 0),
+(4, '20230007', '周明远', '2023', '软件工程', '软件工程1班', '共青团员', 'warning', 0)
+]
+2026-06-30T12:45:06.450+08:00 DEBUG 22952 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing SQL update [insert into biz_notice (id, title, content, audience, channel_labels, tag_labels, delivered_count, read_count, status, publish_at, created_by, created_at, updated_at, is_deleted)
 values
 (1, '通知1', '内容1', '2022级', '站内,微信', '奖助', 100, 10, 'published', current_timestamp(), 8, current_timestamp(), current_timestamp(), 0),
-(2, '通知2', '内容2', '2022级', '站内', '党团', 100, 20, 'published', current_timestamp(), 8, current_timestamp(), current_timestamp(), 0)
+(2, '通知2', '内容2', '2022级', '站内', '党团', 100, 20, 'published', current_timestamp(), 8, current_timestamp(), current_timestamp(), 0),
+(3, '通知3', '内容3', '2026届毕业生', '站内', '就业', 0, 0, 'published', current_timestamp(), 8, current_timestamp(), current_timestamp(), 0)
 ]
-2026-06-29T22:30:18.667+08:00 DEBUG 689567 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL query
-2026-06-29T22:30:18.667+08:00 DEBUG 689567 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL statement [select n.id
+2026-06-30T12:45:06.451+08:00 DEBUG 22952 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL query
+2026-06-30T12:45:06.451+08:00 DEBUG 22952 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL statement [select grade, status
+  from stu_student
+ where id = ?
+   and is_deleted = 0
+   and status <> 'graduated'
+]
+2026-06-30T12:45:06.451+08:00 DEBUG 22952 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL query
+2026-06-30T12:45:06.451+08:00 DEBUG 22952 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL statement [select n.id, n.title, n.content, n.tag_labels, n.channel_labels, n.audience,
+       n.delivered_count, n.read_count, n.publish_at,
+       case when r.notice_id is null then 'unread' else 'read' end as read_status
+  from biz_notice n
+  left join biz_notice_read r
+    on r.notice_id = n.id and r.user_id = ?
+ where n.is_deleted = 0
+   and n.status = 'published'
+   and (? is null or lower(coalesce(n.tag_labels, '')) like ?)
+ order by n.publish_at desc, n.id desc
+]
+2026-06-30T12:45:06.452+08:00 DEBUG 22952 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL query
+2026-06-30T12:45:06.452+08:00 DEBUG 22952 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL statement [select count(*) from stu_student where is_deleted = 0 and status <> 'graduated' and (grade in (?))]
+]]></system-out>
+  </testcase>
+  <testcase name="myNoticesShouldOnlyShowMatchedAudience" classname="com.ise.platform.modules.notice.NoticeServiceTest" time="0.01">
+    <system-out><![CDATA[2026-06-30T12:45:06.454+08:00 DEBUG 22952 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing SQL statement [create table if not exists stu_student (
+    id bigint primary key,
+    student_no varchar(32),
+    name varchar(64),
+    grade varchar(16),
+    major varchar(64),
+    class_name varchar(64),
+    political_status varchar(32),
+    status varchar(32),
+    is_deleted smallint
+)
+]
+2026-06-30T12:45:06.454+08:00 DEBUG 22952 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing SQL statement [create table if not exists biz_notice (
+    id bigint primary key,
+    title varchar(255),
+    content varchar(2000),
+    audience varchar(255),
+    channel_labels varchar(255),
+    tag_labels varchar(255),
+    delivered_count int,
+    read_count int,
+    status varchar(32),
+    publish_at timestamp,
+    created_by bigint,
+    created_at timestamp,
+    updated_at timestamp,
+    is_deleted smallint
+)
+]
+2026-06-30T12:45:06.454+08:00 DEBUG 22952 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing SQL statement [create table if not exists biz_notice_read (
+    id bigint primary key,
+    notice_id bigint,
+    user_id bigint,
+    read_at timestamp
+)
+]
+2026-06-30T12:45:06.455+08:00 DEBUG 22952 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing SQL statement [create table if not exists sys_audit_log (
+    id bigint primary key,
+    actor_user_id bigint,
+    actor_name varchar(128),
+    module_name varchar(64),
+    action_text varchar(500),
+    result_text varchar(32),
+    created_at timestamp
+)
+]
+2026-06-30T12:45:06.455+08:00 DEBUG 22952 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing SQL update [delete from stu_student]
+2026-06-30T12:45:06.455+08:00 DEBUG 22952 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing SQL update [delete from sys_audit_log]
+2026-06-30T12:45:06.455+08:00 DEBUG 22952 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing SQL update [delete from biz_notice_read]
+2026-06-30T12:45:06.455+08:00 DEBUG 22952 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing SQL update [delete from biz_notice]
+2026-06-30T12:45:06.456+08:00 DEBUG 22952 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing SQL update [insert into stu_student (id, student_no, name, grade, major, class_name, political_status, status, is_deleted)
+values
+(1, '20220001', '赵晨曦', '2022', '软件工程', '软件工程2班', '预备党员', 'active', 0),
+(2, '20220018', '陈一诺', '2022', '软件工程', '软件工程2班', '发展对象', 'active', 0),
+(3, '20260031', '林嘉禾', '2026', '数据科学', '数据科学1班', '共青团员', 'active', 0),
+(4, '20230007', '周明远', '2023', '软件工程', '软件工程1班', '共青团员', 'warning', 0)
+]
+2026-06-30T12:45:06.456+08:00 DEBUG 22952 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing SQL update [insert into biz_notice (id, title, content, audience, channel_labels, tag_labels, delivered_count, read_count, status, publish_at, created_by, created_at, updated_at, is_deleted)
+values
+(1, '通知1', '内容1', '2022级', '站内,微信', '奖助', 100, 10, 'published', current_timestamp(), 8, current_timestamp(), current_timestamp(), 0),
+(2, '通知2', '内容2', '2022级', '站内', '党团', 100, 20, 'published', current_timestamp(), 8, current_timestamp(), current_timestamp(), 0),
+(3, '通知3', '内容3', '2026届毕业生', '站内', '就业', 0, 0, 'published', current_timestamp(), 8, current_timestamp(), current_timestamp(), 0)
+]
+2026-06-30T12:45:06.457+08:00 DEBUG 22952 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing SQL query [select coalesce(max(id), 0) + 1 from biz_notice]
+2026-06-30T12:45:06.457+08:00 DEBUG 22952 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL query
+2026-06-30T12:45:06.457+08:00 DEBUG 22952 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL statement [select count(*) from stu_student where is_deleted = 0 and status <> 'graduated' and (grade in (?) or status in (?))]
+2026-06-30T12:45:06.458+08:00 DEBUG 22952 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL update
+2026-06-30T12:45:06.458+08:00 DEBUG 22952 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL statement [insert into biz_notice (
+    id, title, content, audience, channel_labels, tag_labels,
+    delivered_count, read_count, status, publish_at, created_by,
+    created_at, updated_at, is_deleted
+) values (?, ?, ?, ?, ?, ?, ?, 0, 'published', ?, ?, ?, ?, 0)
+]
+2026-06-30T12:45:06.458+08:00 DEBUG 22952 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing SQL query [select coalesce(max(id), 0) + 1 from sys_audit_log]
+2026-06-30T12:45:06.458+08:00 DEBUG 22952 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL update
+2026-06-30T12:45:06.458+08:00 DEBUG 22952 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL statement [insert into sys_audit_log (
+    id, actor_user_id, actor_name, module_name, action_text, result_text, created_at
+) values (?, ?, ?, ?, ?, ?, ?)
+]
+2026-06-30T12:45:06.459+08:00 DEBUG 22952 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL query
+2026-06-30T12:45:06.459+08:00 DEBUG 22952 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL statement [select grade, status
+  from stu_student
+ where id = ?
+   and is_deleted = 0
+   and status <> 'graduated'
+]
+2026-06-30T12:45:06.459+08:00 DEBUG 22952 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL query
+2026-06-30T12:45:06.459+08:00 DEBUG 22952 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL statement [select n.id, n.title, n.content, n.tag_labels, n.channel_labels, n.audience,
+       n.delivered_count, n.read_count, n.publish_at,
+       case when r.notice_id is null then 'unread' else 'read' end as read_status
+  from biz_notice n
+  left join biz_notice_read r
+    on r.notice_id = n.id and r.user_id = ?
+ where n.is_deleted = 0
+   and n.status = 'published'
+   and (? is null or lower(coalesce(n.tag_labels, '')) like ?)
+ order by n.publish_at desc, n.id desc
+]
+2026-06-30T12:45:06.460+08:00 DEBUG 22952 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL query
+2026-06-30T12:45:06.460+08:00 DEBUG 22952 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL statement [select count(*) from stu_student where is_deleted = 0 and status <> 'graduated' and (grade in (?))]
+2026-06-30T12:45:06.461+08:00 DEBUG 22952 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL query
+2026-06-30T12:45:06.462+08:00 DEBUG 22952 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL statement [select grade, status
+  from stu_student
+ where id = ?
+   and is_deleted = 0
+   and status <> 'graduated'
+]
+2026-06-30T12:45:06.462+08:00 DEBUG 22952 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL query
+2026-06-30T12:45:06.462+08:00 DEBUG 22952 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL statement [select n.id, n.title, n.content, n.tag_labels, n.channel_labels, n.audience,
+       n.delivered_count, n.read_count, n.publish_at,
+       case when r.notice_id is null then 'unread' else 'read' end as read_status
+  from biz_notice n
+  left join biz_notice_read r
+    on r.notice_id = n.id and r.user_id = ?
+ where n.is_deleted = 0
+   and n.status = 'published'
+   and (? is null or lower(coalesce(n.tag_labels, '')) like ?)
+ order by n.publish_at desc, n.id desc
+]
+2026-06-30T12:45:06.463+08:00 DEBUG 22952 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL query
+2026-06-30T12:45:06.463+08:00 DEBUG 22952 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL statement [select count(*) from stu_student where is_deleted = 0 and status <> 'graduated' and (grade in (?))]
+2026-06-30T12:45:06.464+08:00 DEBUG 22952 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL query
+2026-06-30T12:45:06.464+08:00 DEBUG 22952 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL statement [select grade, status
+  from stu_student
+ where id = ?
+   and is_deleted = 0
+   and status <> 'graduated'
+]
+2026-06-30T12:45:06.464+08:00 DEBUG 22952 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL query
+2026-06-30T12:45:06.464+08:00 DEBUG 22952 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL statement [select n.id, n.title, n.content, n.tag_labels, n.channel_labels, n.audience,
+       n.delivered_count, n.read_count, n.publish_at,
+       case when r.notice_id is null then 'unread' else 'read' end as read_status
+  from biz_notice n
+  left join biz_notice_read r
+    on r.notice_id = n.id and r.user_id = ?
+ where n.is_deleted = 0
+   and n.status = 'published'
+   and (? is null or lower(coalesce(n.tag_labels, '')) like ?)
+ order by n.publish_at desc, n.id desc
+]
+2026-06-30T12:45:06.465+08:00 DEBUG 22952 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL query
+2026-06-30T12:45:06.465+08:00 DEBUG 22952 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL statement [select count(*) from stu_student where is_deleted = 0 and status <> 'graduated' and (grade in (?))]
+]]></system-out>
+  </testcase>
+  <testcase name="createNoticeShouldSetDeliveredCountFromAudienceStudents" classname="com.ise.platform.modules.notice.NoticeServiceTest" time="0.003">
+    <system-out><![CDATA[2026-06-30T12:45:06.467+08:00 DEBUG 22952 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing SQL statement [create table if not exists stu_student (
+    id bigint primary key,
+    student_no varchar(32),
+    name varchar(64),
+    grade varchar(16),
+    major varchar(64),
+    class_name varchar(64),
+    political_status varchar(32),
+    status varchar(32),
+    is_deleted smallint
+)
+]
+2026-06-30T12:45:06.467+08:00 DEBUG 22952 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing SQL statement [create table if not exists biz_notice (
+    id bigint primary key,
+    title varchar(255),
+    content varchar(2000),
+    audience varchar(255),
+    channel_labels varchar(255),
+    tag_labels varchar(255),
+    delivered_count int,
+    read_count int,
+    status varchar(32),
+    publish_at timestamp,
+    created_by bigint,
+    created_at timestamp,
+    updated_at timestamp,
+    is_deleted smallint
+)
+]
+2026-06-30T12:45:06.467+08:00 DEBUG 22952 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing SQL statement [create table if not exists biz_notice_read (
+    id bigint primary key,
+    notice_id bigint,
+    user_id bigint,
+    read_at timestamp
+)
+]
+2026-06-30T12:45:06.467+08:00 DEBUG 22952 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing SQL statement [create table if not exists sys_audit_log (
+    id bigint primary key,
+    actor_user_id bigint,
+    actor_name varchar(128),
+    module_name varchar(64),
+    action_text varchar(500),
+    result_text varchar(32),
+    created_at timestamp
+)
+]
+2026-06-30T12:45:06.469+08:00 DEBUG 22952 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing SQL update [delete from stu_student]
+2026-06-30T12:45:06.470+08:00 DEBUG 22952 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing SQL update [delete from sys_audit_log]
+2026-06-30T12:45:06.470+08:00 DEBUG 22952 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing SQL update [delete from biz_notice_read]
+2026-06-30T12:45:06.470+08:00 DEBUG 22952 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing SQL update [delete from biz_notice]
+2026-06-30T12:45:06.470+08:00 DEBUG 22952 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing SQL update [insert into stu_student (id, student_no, name, grade, major, class_name, political_status, status, is_deleted)
+values
+(1, '20220001', '赵晨曦', '2022', '软件工程', '软件工程2班', '预备党员', 'active', 0),
+(2, '20220018', '陈一诺', '2022', '软件工程', '软件工程2班', '发展对象', 'active', 0),
+(3, '20260031', '林嘉禾', '2026', '数据科学', '数据科学1班', '共青团员', 'active', 0),
+(4, '20230007', '周明远', '2023', '软件工程', '软件工程1班', '共青团员', 'warning', 0)
+]
+2026-06-30T12:45:06.471+08:00 DEBUG 22952 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing SQL update [insert into biz_notice (id, title, content, audience, channel_labels, tag_labels, delivered_count, read_count, status, publish_at, created_by, created_at, updated_at, is_deleted)
+values
+(1, '通知1', '内容1', '2022级', '站内,微信', '奖助', 100, 10, 'published', current_timestamp(), 8, current_timestamp(), current_timestamp(), 0),
+(2, '通知2', '内容2', '2022级', '站内', '党团', 100, 20, 'published', current_timestamp(), 8, current_timestamp(), current_timestamp(), 0),
+(3, '通知3', '内容3', '2026届毕业生', '站内', '就业', 0, 0, 'published', current_timestamp(), 8, current_timestamp(), current_timestamp(), 0)
+]
+2026-06-30T12:45:06.472+08:00 DEBUG 22952 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing SQL query [select coalesce(max(id), 0) + 1 from biz_notice]
+2026-06-30T12:45:06.472+08:00 DEBUG 22952 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL query
+2026-06-30T12:45:06.472+08:00 DEBUG 22952 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL statement [select count(*) from stu_student where is_deleted = 0 and status <> 'graduated' and (grade in (?))]
+2026-06-30T12:45:06.473+08:00 DEBUG 22952 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL update
+2026-06-30T12:45:06.473+08:00 DEBUG 22952 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL statement [insert into biz_notice (
+    id, title, content, audience, channel_labels, tag_labels,
+    delivered_count, read_count, status, publish_at, created_by,
+    created_at, updated_at, is_deleted
+) values (?, ?, ?, ?, ?, ?, ?, 0, 'published', ?, ?, ?, ?, 0)
+]
+2026-06-30T12:45:06.473+08:00 DEBUG 22952 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing SQL query [select coalesce(max(id), 0) + 1 from sys_audit_log]
+2026-06-30T12:45:06.473+08:00 DEBUG 22952 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL update
+2026-06-30T12:45:06.473+08:00 DEBUG 22952 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL statement [insert into sys_audit_log (
+    id, actor_user_id, actor_name, module_name, action_text, result_text, created_at
+) values (?, ?, ?, ?, ?, ?, ?)
+]
+]]></system-out>
+  </testcase>
+  <testcase name="createNoticeShouldRecordAuditLog" classname="com.ise.platform.modules.notice.NoticeServiceTest" time="0.003">
+    <system-out><![CDATA[2026-06-30T12:45:06.474+08:00 DEBUG 22952 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing SQL statement [create table if not exists stu_student (
+    id bigint primary key,
+    student_no varchar(32),
+    name varchar(64),
+    grade varchar(16),
+    major varchar(64),
+    class_name varchar(64),
+    political_status varchar(32),
+    status varchar(32),
+    is_deleted smallint
+)
+]
+2026-06-30T12:45:06.474+08:00 DEBUG 22952 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing SQL statement [create table if not exists biz_notice (
+    id bigint primary key,
+    title varchar(255),
+    content varchar(2000),
+    audience varchar(255),
+    channel_labels varchar(255),
+    tag_labels varchar(255),
+    delivered_count int,
+    read_count int,
+    status varchar(32),
+    publish_at timestamp,
+    created_by bigint,
+    created_at timestamp,
+    updated_at timestamp,
+    is_deleted smallint
+)
+]
+2026-06-30T12:45:06.474+08:00 DEBUG 22952 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing SQL statement [create table if not exists biz_notice_read (
+    id bigint primary key,
+    notice_id bigint,
+    user_id bigint,
+    read_at timestamp
+)
+]
+2026-06-30T12:45:06.474+08:00 DEBUG 22952 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing SQL statement [create table if not exists sys_audit_log (
+    id bigint primary key,
+    actor_user_id bigint,
+    actor_name varchar(128),
+    module_name varchar(64),
+    action_text varchar(500),
+    result_text varchar(32),
+    created_at timestamp
+)
+]
+2026-06-30T12:45:06.475+08:00 DEBUG 22952 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing SQL update [delete from stu_student]
+2026-06-30T12:45:06.475+08:00 DEBUG 22952 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing SQL update [delete from sys_audit_log]
+2026-06-30T12:45:06.475+08:00 DEBUG 22952 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing SQL update [delete from biz_notice_read]
+2026-06-30T12:45:06.475+08:00 DEBUG 22952 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing SQL update [delete from biz_notice]
+2026-06-30T12:45:06.475+08:00 DEBUG 22952 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing SQL update [insert into stu_student (id, student_no, name, grade, major, class_name, political_status, status, is_deleted)
+values
+(1, '20220001', '赵晨曦', '2022', '软件工程', '软件工程2班', '预备党员', 'active', 0),
+(2, '20220018', '陈一诺', '2022', '软件工程', '软件工程2班', '发展对象', 'active', 0),
+(3, '20260031', '林嘉禾', '2026', '数据科学', '数据科学1班', '共青团员', 'active', 0),
+(4, '20230007', '周明远', '2023', '软件工程', '软件工程1班', '共青团员', 'warning', 0)
+]
+2026-06-30T12:45:06.475+08:00 DEBUG 22952 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing SQL update [insert into biz_notice (id, title, content, audience, channel_labels, tag_labels, delivered_count, read_count, status, publish_at, created_by, created_at, updated_at, is_deleted)
+values
+(1, '通知1', '内容1', '2022级', '站内,微信', '奖助', 100, 10, 'published', current_timestamp(), 8, current_timestamp(), current_timestamp(), 0),
+(2, '通知2', '内容2', '2022级', '站内', '党团', 100, 20, 'published', current_timestamp(), 8, current_timestamp(), current_timestamp(), 0),
+(3, '通知3', '内容3', '2026届毕业生', '站内', '就业', 0, 0, 'published', current_timestamp(), 8, current_timestamp(), current_timestamp(), 0)
+]
+2026-06-30T12:45:06.476+08:00 DEBUG 22952 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing SQL query [select coalesce(max(id), 0) + 1 from biz_notice]
+2026-06-30T12:45:06.477+08:00 DEBUG 22952 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL query
+2026-06-30T12:45:06.477+08:00 DEBUG 22952 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL statement [select count(*) from stu_student where is_deleted = 0 and status <> 'graduated' and (grade in (?))]
+2026-06-30T12:45:06.477+08:00 DEBUG 22952 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL update
+2026-06-30T12:45:06.477+08:00 DEBUG 22952 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL statement [insert into biz_notice (
+    id, title, content, audience, channel_labels, tag_labels,
+    delivered_count, read_count, status, publish_at, created_by,
+    created_at, updated_at, is_deleted
+) values (?, ?, ?, ?, ?, ?, ?, 0, 'published', ?, ?, ?, ?, 0)
+]
+2026-06-30T12:45:06.478+08:00 DEBUG 22952 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing SQL query [select coalesce(max(id), 0) + 1 from sys_audit_log]
+2026-06-30T12:45:06.478+08:00 DEBUG 22952 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL update
+2026-06-30T12:45:06.478+08:00 DEBUG 22952 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL statement [insert into sys_audit_log (
+    id, actor_user_id, actor_name, module_name, action_text, result_text, created_at
+) values (?, ?, ?, ?, ?, ?, ?)
+]
+2026-06-30T12:45:06.478+08:00 DEBUG 22952 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL query
+2026-06-30T12:45:06.478+08:00 DEBUG 22952 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL statement [select count(*)
+  from sys_audit_log
+ where actor_user_id = ?
+   and actor_name = ?
+   and module_name = ?
+   and action_text = ?
+   and result_text = ?
+]
+]]></system-out>
+  </testcase>
+  <testcase name="markAllReadShouldClearUnreadList" classname="com.ise.platform.modules.notice.NoticeServiceTest" time="0.008">
+    <system-out><![CDATA[2026-06-30T12:45:06.479+08:00 DEBUG 22952 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing SQL statement [create table if not exists stu_student (
+    id bigint primary key,
+    student_no varchar(32),
+    name varchar(64),
+    grade varchar(16),
+    major varchar(64),
+    class_name varchar(64),
+    political_status varchar(32),
+    status varchar(32),
+    is_deleted smallint
+)
+]
+2026-06-30T12:45:06.479+08:00 DEBUG 22952 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing SQL statement [create table if not exists biz_notice (
+    id bigint primary key,
+    title varchar(255),
+    content varchar(2000),
+    audience varchar(255),
+    channel_labels varchar(255),
+    tag_labels varchar(255),
+    delivered_count int,
+    read_count int,
+    status varchar(32),
+    publish_at timestamp,
+    created_by bigint,
+    created_at timestamp,
+    updated_at timestamp,
+    is_deleted smallint
+)
+]
+2026-06-30T12:45:06.480+08:00 DEBUG 22952 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing SQL statement [create table if not exists biz_notice_read (
+    id bigint primary key,
+    notice_id bigint,
+    user_id bigint,
+    read_at timestamp
+)
+]
+2026-06-30T12:45:06.481+08:00 DEBUG 22952 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing SQL statement [create table if not exists sys_audit_log (
+    id bigint primary key,
+    actor_user_id bigint,
+    actor_name varchar(128),
+    module_name varchar(64),
+    action_text varchar(500),
+    result_text varchar(32),
+    created_at timestamp
+)
+]
+2026-06-30T12:45:06.481+08:00 DEBUG 22952 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing SQL update [delete from stu_student]
+2026-06-30T12:45:06.481+08:00 DEBUG 22952 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing SQL update [delete from sys_audit_log]
+2026-06-30T12:45:06.481+08:00 DEBUG 22952 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing SQL update [delete from biz_notice_read]
+2026-06-30T12:45:06.481+08:00 DEBUG 22952 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing SQL update [delete from biz_notice]
+2026-06-30T12:45:06.481+08:00 DEBUG 22952 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing SQL update [insert into stu_student (id, student_no, name, grade, major, class_name, political_status, status, is_deleted)
+values
+(1, '20220001', '赵晨曦', '2022', '软件工程', '软件工程2班', '预备党员', 'active', 0),
+(2, '20220018', '陈一诺', '2022', '软件工程', '软件工程2班', '发展对象', 'active', 0),
+(3, '20260031', '林嘉禾', '2026', '数据科学', '数据科学1班', '共青团员', 'active', 0),
+(4, '20230007', '周明远', '2023', '软件工程', '软件工程1班', '共青团员', 'warning', 0)
+]
+2026-06-30T12:45:06.482+08:00 DEBUG 22952 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing SQL update [insert into biz_notice (id, title, content, audience, channel_labels, tag_labels, delivered_count, read_count, status, publish_at, created_by, created_at, updated_at, is_deleted)
+values
+(1, '通知1', '内容1', '2022级', '站内,微信', '奖助', 100, 10, 'published', current_timestamp(), 8, current_timestamp(), current_timestamp(), 0),
+(2, '通知2', '内容2', '2022级', '站内', '党团', 100, 20, 'published', current_timestamp(), 8, current_timestamp(), current_timestamp(), 0),
+(3, '通知3', '内容3', '2026届毕业生', '站内', '就业', 0, 0, 'published', current_timestamp(), 8, current_timestamp(), current_timestamp(), 0)
+]
+2026-06-30T12:45:06.483+08:00 DEBUG 22952 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL query
+2026-06-30T12:45:06.483+08:00 DEBUG 22952 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL statement [select grade, status
+  from stu_student
+ where id = ?
+   and is_deleted = 0
+   and status <> 'graduated'
+]
+2026-06-30T12:45:06.483+08:00 DEBUG 22952 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL query
+2026-06-30T12:45:06.483+08:00 DEBUG 22952 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL statement [select n.id, n.audience
   from biz_notice n
   left join biz_notice_read r
     on r.notice_id = n.id and r.user_id = ?
@@ -173,38 +741,47 @@ values
    and n.status = 'published'
    and r.notice_id is null
 ]
-2026-06-29T22:30:18.668+08:00 DEBUG 689567 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL query
-2026-06-29T22:30:18.668+08:00 DEBUG 689567 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL statement [select count(*) from biz_notice where id = ? and is_deleted = 0]
-2026-06-29T22:30:18.669+08:00 DEBUG 689567 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL query
-2026-06-29T22:30:18.669+08:00 DEBUG 689567 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL statement [select count(*) from biz_notice_read where notice_id = ? and user_id = ?]
-2026-06-29T22:30:18.669+08:00 DEBUG 689567 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing SQL query [select coalesce(max(id), 0) + 1 from biz_notice_read]
-2026-06-29T22:30:18.670+08:00 DEBUG 689567 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL update
-2026-06-29T22:30:18.670+08:00 DEBUG 689567 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL statement [insert into biz_notice_read (id, notice_id, user_id, read_at) values (?, ?, ?, ?)]
-2026-06-29T22:30:18.671+08:00 DEBUG 689567 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL update
-2026-06-29T22:30:18.671+08:00 DEBUG 689567 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL statement [update biz_notice set read_count = read_count + 1, updated_at = ? where id = ?]
-2026-06-29T22:30:18.671+08:00 DEBUG 689567 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL query
-2026-06-29T22:30:18.671+08:00 DEBUG 689567 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL statement [select count(*) from biz_notice where id = ? and is_deleted = 0]
-2026-06-29T22:30:18.672+08:00 DEBUG 689567 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL query
-2026-06-29T22:30:18.672+08:00 DEBUG 689567 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL statement [select count(*) from biz_notice_read where notice_id = ? and user_id = ?]
-2026-06-29T22:30:18.673+08:00 DEBUG 689567 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing SQL query [select coalesce(max(id), 0) + 1 from biz_notice_read]
-2026-06-29T22:30:18.674+08:00 DEBUG 689567 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL update
-2026-06-29T22:30:18.674+08:00 DEBUG 689567 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL statement [insert into biz_notice_read (id, notice_id, user_id, read_at) values (?, ?, ?, ?)]
-2026-06-29T22:30:18.674+08:00 DEBUG 689567 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL update
-2026-06-29T22:30:18.674+08:00 DEBUG 689567 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL statement [update biz_notice set read_count = read_count + 1, updated_at = ? where id = ?]
-2026-06-29T22:30:18.675+08:00 DEBUG 689567 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL query
-2026-06-29T22:30:18.675+08:00 DEBUG 689567 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL statement [select count(*)
-  from biz_notice n
-  left join biz_notice_read r
-    on r.notice_id = n.id and r.user_id = ?
- where n.is_deleted = 0
-   and n.status = 'published'
-   and (? is null
-        or (? = 'read' and r.notice_id is not null)
-        or (? = 'unread' and r.notice_id is null))
-   and (? is null or lower(coalesce(n.tag_labels, '')) like ?)
+2026-06-30T12:45:06.485+08:00 DEBUG 22952 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL query
+2026-06-30T12:45:06.485+08:00 DEBUG 22952 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL statement [select audience from biz_notice where id = ? and is_deleted = 0 and status = 'published']
+2026-06-30T12:45:06.485+08:00 DEBUG 22952 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL query
+2026-06-30T12:45:06.485+08:00 DEBUG 22952 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL statement [select grade, status
+  from stu_student
+ where id = ?
+   and is_deleted = 0
+   and status <> 'graduated'
 ]
-2026-06-29T22:30:18.677+08:00 DEBUG 689567 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL query
-2026-06-29T22:30:18.677+08:00 DEBUG 689567 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL statement [select n.id, n.title, n.content, n.tag_labels, n.channel_labels, n.audience,
+2026-06-30T12:45:06.486+08:00 DEBUG 22952 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL query
+2026-06-30T12:45:06.486+08:00 DEBUG 22952 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL statement [select count(*) from biz_notice_read where notice_id = ? and user_id = ?]
+2026-06-30T12:45:06.486+08:00 DEBUG 22952 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing SQL query [select coalesce(max(id), 0) + 1 from biz_notice_read]
+2026-06-30T12:45:06.486+08:00 DEBUG 22952 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL update
+2026-06-30T12:45:06.486+08:00 DEBUG 22952 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL statement [insert into biz_notice_read (id, notice_id, user_id, read_at) values (?, ?, ?, ?)]
+2026-06-30T12:45:06.486+08:00 DEBUG 22952 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL update
+2026-06-30T12:45:06.487+08:00 DEBUG 22952 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL statement [update biz_notice set read_count = read_count + 1, updated_at = ? where id = ?]
+2026-06-30T12:45:06.487+08:00 DEBUG 22952 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL query
+2026-06-30T12:45:06.487+08:00 DEBUG 22952 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL statement [select audience from biz_notice where id = ? and is_deleted = 0 and status = 'published']
+2026-06-30T12:45:06.487+08:00 DEBUG 22952 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL query
+2026-06-30T12:45:06.487+08:00 DEBUG 22952 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL statement [select grade, status
+  from stu_student
+ where id = ?
+   and is_deleted = 0
+   and status <> 'graduated'
+]
+2026-06-30T12:45:06.487+08:00 DEBUG 22952 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL query
+2026-06-30T12:45:06.487+08:00 DEBUG 22952 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL statement [select count(*) from biz_notice_read where notice_id = ? and user_id = ?]
+2026-06-30T12:45:06.488+08:00 DEBUG 22952 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing SQL query [select coalesce(max(id), 0) + 1 from biz_notice_read]
+2026-06-30T12:45:06.488+08:00 DEBUG 22952 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL update
+2026-06-30T12:45:06.488+08:00 DEBUG 22952 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL statement [insert into biz_notice_read (id, notice_id, user_id, read_at) values (?, ?, ?, ?)]
+2026-06-30T12:45:06.488+08:00 DEBUG 22952 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL update
+2026-06-30T12:45:06.488+08:00 DEBUG 22952 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL statement [update biz_notice set read_count = read_count + 1, updated_at = ? where id = ?]
+2026-06-30T12:45:06.488+08:00 DEBUG 22952 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL query
+2026-06-30T12:45:06.488+08:00 DEBUG 22952 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL statement [select grade, status
+  from stu_student
+ where id = ?
+   and is_deleted = 0
+   and status <> 'graduated'
+]
+2026-06-30T12:45:06.488+08:00 DEBUG 22952 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL query
+2026-06-30T12:45:06.488+08:00 DEBUG 22952 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL statement [select n.id, n.title, n.content, n.tag_labels, n.channel_labels, n.audience,
        n.delivered_count, n.read_count, n.publish_at,
        case when r.notice_id is null then 'unread' else 'read' end as read_status
   from biz_notice n
@@ -212,12 +789,179 @@ values
     on r.notice_id = n.id and r.user_id = ?
  where n.is_deleted = 0
    and n.status = 'published'
-   and (? is null
-        or (? = 'read' and r.notice_id is not null)
-        or (? = 'unread' and r.notice_id is null))
    and (? is null or lower(coalesce(n.tag_labels, '')) like ?)
  order by n.publish_at desc, n.id desc
- limit ? offset ?
+]
+2026-06-30T12:45:06.489+08:00 DEBUG 22952 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL query
+2026-06-30T12:45:06.489+08:00 DEBUG 22952 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL statement [select count(*) from stu_student where is_deleted = 0 and status <> 'graduated' and (grade in (?))]
+]]></system-out>
+  </testcase>
+  <testcase name="legacyZeroDeliveredNoticeShouldFallbackToAudienceStudentCount" classname="com.ise.platform.modules.notice.NoticeServiceTest" time="0.002">
+    <system-out><![CDATA[2026-06-30T12:45:06.490+08:00 DEBUG 22952 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing SQL statement [create table if not exists stu_student (
+    id bigint primary key,
+    student_no varchar(32),
+    name varchar(64),
+    grade varchar(16),
+    major varchar(64),
+    class_name varchar(64),
+    political_status varchar(32),
+    status varchar(32),
+    is_deleted smallint
+)
+]
+2026-06-30T12:45:06.491+08:00 DEBUG 22952 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing SQL statement [create table if not exists biz_notice (
+    id bigint primary key,
+    title varchar(255),
+    content varchar(2000),
+    audience varchar(255),
+    channel_labels varchar(255),
+    tag_labels varchar(255),
+    delivered_count int,
+    read_count int,
+    status varchar(32),
+    publish_at timestamp,
+    created_by bigint,
+    created_at timestamp,
+    updated_at timestamp,
+    is_deleted smallint
+)
+]
+2026-06-30T12:45:06.491+08:00 DEBUG 22952 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing SQL statement [create table if not exists biz_notice_read (
+    id bigint primary key,
+    notice_id bigint,
+    user_id bigint,
+    read_at timestamp
+)
+]
+2026-06-30T12:45:06.491+08:00 DEBUG 22952 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing SQL statement [create table if not exists sys_audit_log (
+    id bigint primary key,
+    actor_user_id bigint,
+    actor_name varchar(128),
+    module_name varchar(64),
+    action_text varchar(500),
+    result_text varchar(32),
+    created_at timestamp
+)
+]
+2026-06-30T12:45:06.491+08:00 DEBUG 22952 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing SQL update [delete from stu_student]
+2026-06-30T12:45:06.491+08:00 DEBUG 22952 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing SQL update [delete from sys_audit_log]
+2026-06-30T12:45:06.491+08:00 DEBUG 22952 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing SQL update [delete from biz_notice_read]
+2026-06-30T12:45:06.491+08:00 DEBUG 22952 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing SQL update [delete from biz_notice]
+2026-06-30T12:45:06.491+08:00 DEBUG 22952 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing SQL update [insert into stu_student (id, student_no, name, grade, major, class_name, political_status, status, is_deleted)
+values
+(1, '20220001', '赵晨曦', '2022', '软件工程', '软件工程2班', '预备党员', 'active', 0),
+(2, '20220018', '陈一诺', '2022', '软件工程', '软件工程2班', '发展对象', 'active', 0),
+(3, '20260031', '林嘉禾', '2026', '数据科学', '数据科学1班', '共青团员', 'active', 0),
+(4, '20230007', '周明远', '2023', '软件工程', '软件工程1班', '共青团员', 'warning', 0)
+]
+2026-06-30T12:45:06.492+08:00 DEBUG 22952 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing SQL update [insert into biz_notice (id, title, content, audience, channel_labels, tag_labels, delivered_count, read_count, status, publish_at, created_by, created_at, updated_at, is_deleted)
+values
+(1, '通知1', '内容1', '2022级', '站内,微信', '奖助', 100, 10, 'published', current_timestamp(), 8, current_timestamp(), current_timestamp(), 0),
+(2, '通知2', '内容2', '2022级', '站内', '党团', 100, 20, 'published', current_timestamp(), 8, current_timestamp(), current_timestamp(), 0),
+(3, '通知3', '内容3', '2026届毕业生', '站内', '就业', 0, 0, 'published', current_timestamp(), 8, current_timestamp(), current_timestamp(), 0)
+]
+2026-06-30T12:45:06.493+08:00 DEBUG 22952 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL query
+2026-06-30T12:45:06.493+08:00 DEBUG 22952 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL statement [select grade, status
+  from stu_student
+ where id = ?
+   and is_deleted = 0
+   and status <> 'graduated'
+]
+2026-06-30T12:45:06.493+08:00 DEBUG 22952 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL query
+2026-06-30T12:45:06.493+08:00 DEBUG 22952 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL statement [select n.id, n.title, n.content, n.tag_labels, n.channel_labels, n.audience,
+       n.delivered_count, n.read_count, n.publish_at,
+       case when r.notice_id is null then 'unread' else 'read' end as read_status
+  from biz_notice n
+  left join biz_notice_read r
+    on r.notice_id = n.id and r.user_id = ?
+ where n.is_deleted = 0
+   and n.status = 'published'
+   and (? is null or lower(coalesce(n.tag_labels, '')) like ?)
+ order by n.publish_at desc, n.id desc
+]
+2026-06-30T12:45:06.494+08:00 DEBUG 22952 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL query
+2026-06-30T12:45:06.494+08:00 DEBUG 22952 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL statement [select count(*) from stu_student where is_deleted = 0 and status <> 'graduated' and (grade in (?))]
+]]></system-out>
+  </testcase>
+  <testcase name="createNoticeShouldUnionGradeAndStatusAudience" classname="com.ise.platform.modules.notice.NoticeServiceTest" time="0.002">
+    <system-out><![CDATA[2026-06-30T12:45:06.495+08:00 DEBUG 22952 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing SQL statement [create table if not exists stu_student (
+    id bigint primary key,
+    student_no varchar(32),
+    name varchar(64),
+    grade varchar(16),
+    major varchar(64),
+    class_name varchar(64),
+    political_status varchar(32),
+    status varchar(32),
+    is_deleted smallint
+)
+]
+2026-06-30T12:45:06.495+08:00 DEBUG 22952 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing SQL statement [create table if not exists biz_notice (
+    id bigint primary key,
+    title varchar(255),
+    content varchar(2000),
+    audience varchar(255),
+    channel_labels varchar(255),
+    tag_labels varchar(255),
+    delivered_count int,
+    read_count int,
+    status varchar(32),
+    publish_at timestamp,
+    created_by bigint,
+    created_at timestamp,
+    updated_at timestamp,
+    is_deleted smallint
+)
+]
+2026-06-30T12:45:06.495+08:00 DEBUG 22952 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing SQL statement [create table if not exists biz_notice_read (
+    id bigint primary key,
+    notice_id bigint,
+    user_id bigint,
+    read_at timestamp
+)
+]
+2026-06-30T12:45:06.495+08:00 DEBUG 22952 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing SQL statement [create table if not exists sys_audit_log (
+    id bigint primary key,
+    actor_user_id bigint,
+    actor_name varchar(128),
+    module_name varchar(64),
+    action_text varchar(500),
+    result_text varchar(32),
+    created_at timestamp
+)
+]
+2026-06-30T12:45:06.495+08:00 DEBUG 22952 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing SQL update [delete from stu_student]
+2026-06-30T12:45:06.496+08:00 DEBUG 22952 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing SQL update [delete from sys_audit_log]
+2026-06-30T12:45:06.496+08:00 DEBUG 22952 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing SQL update [delete from biz_notice_read]
+2026-06-30T12:45:06.496+08:00 DEBUG 22952 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing SQL update [delete from biz_notice]
+2026-06-30T12:45:06.496+08:00 DEBUG 22952 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing SQL update [insert into stu_student (id, student_no, name, grade, major, class_name, political_status, status, is_deleted)
+values
+(1, '20220001', '赵晨曦', '2022', '软件工程', '软件工程2班', '预备党员', 'active', 0),
+(2, '20220018', '陈一诺', '2022', '软件工程', '软件工程2班', '发展对象', 'active', 0),
+(3, '20260031', '林嘉禾', '2026', '数据科学', '数据科学1班', '共青团员', 'active', 0),
+(4, '20230007', '周明远', '2023', '软件工程', '软件工程1班', '共青团员', 'warning', 0)
+]
+2026-06-30T12:45:06.496+08:00 DEBUG 22952 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing SQL update [insert into biz_notice (id, title, content, audience, channel_labels, tag_labels, delivered_count, read_count, status, publish_at, created_by, created_at, updated_at, is_deleted)
+values
+(1, '通知1', '内容1', '2022级', '站内,微信', '奖助', 100, 10, 'published', current_timestamp(), 8, current_timestamp(), current_timestamp(), 0),
+(2, '通知2', '内容2', '2022级', '站内', '党团', 100, 20, 'published', current_timestamp(), 8, current_timestamp(), current_timestamp(), 0),
+(3, '通知3', '内容3', '2026届毕业生', '站内', '就业', 0, 0, 'published', current_timestamp(), 8, current_timestamp(), current_timestamp(), 0)
+]
+2026-06-30T12:45:06.497+08:00 DEBUG 22952 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing SQL query [select coalesce(max(id), 0) + 1 from biz_notice]
+2026-06-30T12:45:06.498+08:00 DEBUG 22952 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL query
+2026-06-30T12:45:06.498+08:00 DEBUG 22952 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL statement [select count(*) from stu_student where is_deleted = 0 and status <> 'graduated' and (grade in (?) or status in (?))]
+2026-06-30T12:45:06.498+08:00 DEBUG 22952 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL update
+2026-06-30T12:45:06.498+08:00 DEBUG 22952 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL statement [insert into biz_notice (
+    id, title, content, audience, channel_labels, tag_labels,
+    delivered_count, read_count, status, publish_at, created_by,
+    created_at, updated_at, is_deleted
+) values (?, ?, ?, ?, ?, ?, ?, 0, 'published', ?, ?, ?, ?, 0)
+]
+2026-06-30T12:45:06.498+08:00 DEBUG 22952 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing SQL query [select coalesce(max(id), 0) + 1 from sys_audit_log]
+2026-06-30T12:45:06.499+08:00 DEBUG 22952 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL update
+2026-06-30T12:45:06.499+08:00 DEBUG 22952 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL statement [insert into sys_audit_log (
+    id, actor_user_id, actor_name, module_name, action_text, result_text, created_at
+) values (?, ?, ?, ?, ?, ?, ?)
 ]
 ]]></system-out>
   </testcase>

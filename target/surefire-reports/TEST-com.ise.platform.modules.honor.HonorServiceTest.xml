@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report.xsd" version="3.0.2" name="com.ise.platform.modules.kb.rag.KbRagServiceTest" time="0.032" tests="2" errors="0" skipped="0" failures="0" flakes="0">
+<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report.xsd" version="3.0.2" name="com.ise.platform.modules.honor.HonorServiceTest" time="0.018" tests="4" errors="0" skipped="0" failures="0" flakes="0">
   <properties>
     <property name="java.specification.version" value="17"/>
     <property name="sun.jnu.encoding" value="UTF-8"/>
@@ -59,6 +59,181 @@
     <property name="maven.repo.local" value="/tmp/m2repo"/>
     <property name="java.class.version" value="61.0"/>
   </properties>
-  <testcase name="qaShouldCallLlmWhenEmbeddingReturnsEmptyVector" classname="com.ise.platform.modules.kb.rag.KbRagServiceTest" time="0.03"/>
-  <testcase name="qaShouldCallLlmWhenVectorSearchHasNoChunks" classname="com.ise.platform.modules.kb.rag.KbRagServiceTest" time="0.002"/>
+  <testcase name="classCadreAllHonorsShouldStillBeScoped" classname="com.ise.platform.modules.honor.HonorServiceTest" time="0.007">
+    <system-out><![CDATA[2026-06-30T12:45:06.742+08:00 DEBUG 22952 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing SQL statement [create table if not exists stu_student (
+    id bigint primary key,
+    class_name varchar(64) not null,
+    is_deleted smallint not null default 0
+)
+]
+2026-06-30T12:45:06.744+08:00 DEBUG 22952 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing SQL statement [create table if not exists biz_honor (
+    id bigint primary key,
+    title varchar(255) not null,
+    owner_name varchar(128) not null,
+    owner_user_id bigint,
+    honor_scope varchar(32) not null,
+    honor_year varchar(8) not null,
+    category_label varchar(64) not null,
+    story varchar(500),
+    is_deleted smallint not null default 0
+)
+]
+2026-06-30T12:45:06.745+08:00 DEBUG 22952 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing SQL update [delete from biz_honor]
+2026-06-30T12:45:06.745+08:00 DEBUG 22952 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing SQL update [delete from stu_student]
+2026-06-30T12:45:06.746+08:00 DEBUG 22952 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL update
+2026-06-30T12:45:06.746+08:00 DEBUG 22952 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL statement [insert into stu_student (id, class_name, is_deleted) values (?, ?, ?)]
+2026-06-30T12:45:06.746+08:00 DEBUG 22952 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL update
+2026-06-30T12:45:06.746+08:00 DEBUG 22952 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL statement [insert into stu_student (id, class_name, is_deleted) values (?, ?, ?)]
+2026-06-30T12:45:06.746+08:00 DEBUG 22952 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing SQL update [insert into biz_honor (id, title, owner_name, owner_user_id, honor_scope, honor_year, category_label, story, is_deleted)
+values
+(1, '国家奖学金获得者', '赵晨曦', 1, 'personal', '2025', '国家奖学金', '个人荣誉', 0),
+(2, '优秀共青团干部', '陈一诺', 2, 'personal', '2026', '党团荣誉', '个人荣誉', 0),
+(3, '先进班集体', '软件工程2班', null, 'collective', '2025', '先进集体', '班级荣誉', 0),
+(4, '十佳团支部', '软件工程2班团支部', null, 'collective', '2026', '党团荣誉', '班级荣誉', 0),
+(5, '学院就业先锋宿舍', '梅园 3 栋 412', null, 'collective', '2026', '就业与成长', '非本班集体荣誉', 0),
+(6, '学院党建工作示范支部', '本科生第一党支部', null, 'party', '2025', '党团荣誉', '支部荣誉', 0)
+]
+2026-06-30T12:45:06.747+08:00 DEBUG 22952 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL query
+2026-06-30T12:45:06.747+08:00 DEBUG 22952 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL statement [select id, title, owner_name, honor_year, category_label, story, honor_scope
+  from biz_honor
+ where is_deleted = 0
+   and (
+      (honor_scope = 'personal' and owner_user_id = ?)
+      or (? is not null and honor_scope = 'collective' and lower(owner_name) like ?)
+   )
+ order by honor_year desc, id desc
+]
+]]></system-out>
+  </testcase>
+  <testcase name="classCadreShouldSeeOwnAndClassCollectiveHonorsOnly" classname="com.ise.platform.modules.honor.HonorServiceTest" time="0.003">
+    <system-out><![CDATA[2026-06-30T12:45:06.748+08:00 DEBUG 22952 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing SQL statement [create table if not exists stu_student (
+    id bigint primary key,
+    class_name varchar(64) not null,
+    is_deleted smallint not null default 0
+)
+]
+2026-06-30T12:45:06.749+08:00 DEBUG 22952 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing SQL statement [create table if not exists biz_honor (
+    id bigint primary key,
+    title varchar(255) not null,
+    owner_name varchar(128) not null,
+    owner_user_id bigint,
+    honor_scope varchar(32) not null,
+    honor_year varchar(8) not null,
+    category_label varchar(64) not null,
+    story varchar(500),
+    is_deleted smallint not null default 0
+)
+]
+2026-06-30T12:45:06.749+08:00 DEBUG 22952 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing SQL update [delete from biz_honor]
+2026-06-30T12:45:06.749+08:00 DEBUG 22952 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing SQL update [delete from stu_student]
+2026-06-30T12:45:06.749+08:00 DEBUG 22952 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL update
+2026-06-30T12:45:06.749+08:00 DEBUG 22952 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL statement [insert into stu_student (id, class_name, is_deleted) values (?, ?, ?)]
+2026-06-30T12:45:06.749+08:00 DEBUG 22952 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL update
+2026-06-30T12:45:06.749+08:00 DEBUG 22952 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL statement [insert into stu_student (id, class_name, is_deleted) values (?, ?, ?)]
+2026-06-30T12:45:06.749+08:00 DEBUG 22952 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing SQL update [insert into biz_honor (id, title, owner_name, owner_user_id, honor_scope, honor_year, category_label, story, is_deleted)
+values
+(1, '国家奖学金获得者', '赵晨曦', 1, 'personal', '2025', '国家奖学金', '个人荣誉', 0),
+(2, '优秀共青团干部', '陈一诺', 2, 'personal', '2026', '党团荣誉', '个人荣誉', 0),
+(3, '先进班集体', '软件工程2班', null, 'collective', '2025', '先进集体', '班级荣誉', 0),
+(4, '十佳团支部', '软件工程2班团支部', null, 'collective', '2026', '党团荣誉', '班级荣誉', 0),
+(5, '学院就业先锋宿舍', '梅园 3 栋 412', null, 'collective', '2026', '就业与成长', '非本班集体荣誉', 0),
+(6, '学院党建工作示范支部', '本科生第一党支部', null, 'party', '2025', '党团荣誉', '支部荣誉', 0)
+]
+2026-06-30T12:45:06.750+08:00 DEBUG 22952 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL query
+2026-06-30T12:45:06.750+08:00 DEBUG 22952 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL statement [select id, title, owner_name, honor_year, category_label, story, honor_scope
+  from biz_honor
+ where is_deleted = 0
+   and (
+      (honor_scope = 'personal' and owner_user_id = ?)
+      or (? is not null and honor_scope = 'collective' and lower(owner_name) like ?)
+   )
+ order by honor_year desc, id desc
+]
+]]></system-out>
+  </testcase>
+  <testcase name="studentShouldOnlySeeOwnPersonalHonors" classname="com.ise.platform.modules.honor.HonorServiceTest" time="0.002">
+    <system-out><![CDATA[2026-06-30T12:45:06.752+08:00 DEBUG 22952 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing SQL statement [create table if not exists stu_student (
+    id bigint primary key,
+    class_name varchar(64) not null,
+    is_deleted smallint not null default 0
+)
+]
+2026-06-30T12:45:06.752+08:00 DEBUG 22952 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing SQL statement [create table if not exists biz_honor (
+    id bigint primary key,
+    title varchar(255) not null,
+    owner_name varchar(128) not null,
+    owner_user_id bigint,
+    honor_scope varchar(32) not null,
+    honor_year varchar(8) not null,
+    category_label varchar(64) not null,
+    story varchar(500),
+    is_deleted smallint not null default 0
+)
+]
+2026-06-30T12:45:06.753+08:00 DEBUG 22952 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing SQL update [delete from biz_honor]
+2026-06-30T12:45:06.753+08:00 DEBUG 22952 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing SQL update [delete from stu_student]
+2026-06-30T12:45:06.753+08:00 DEBUG 22952 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL update
+2026-06-30T12:45:06.753+08:00 DEBUG 22952 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL statement [insert into stu_student (id, class_name, is_deleted) values (?, ?, ?)]
+2026-06-30T12:45:06.753+08:00 DEBUG 22952 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL update
+2026-06-30T12:45:06.753+08:00 DEBUG 22952 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL statement [insert into stu_student (id, class_name, is_deleted) values (?, ?, ?)]
+2026-06-30T12:45:06.753+08:00 DEBUG 22952 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing SQL update [insert into biz_honor (id, title, owner_name, owner_user_id, honor_scope, honor_year, category_label, story, is_deleted)
+values
+(1, '国家奖学金获得者', '赵晨曦', 1, 'personal', '2025', '国家奖学金', '个人荣誉', 0),
+(2, '优秀共青团干部', '陈一诺', 2, 'personal', '2026', '党团荣誉', '个人荣誉', 0),
+(3, '先进班集体', '软件工程2班', null, 'collective', '2025', '先进集体', '班级荣誉', 0),
+(4, '十佳团支部', '软件工程2班团支部', null, 'collective', '2026', '党团荣誉', '班级荣誉', 0),
+(5, '学院就业先锋宿舍', '梅园 3 栋 412', null, 'collective', '2026', '就业与成长', '非本班集体荣誉', 0),
+(6, '学院党建工作示范支部', '本科生第一党支部', null, 'party', '2025', '党团荣誉', '支部荣誉', 0)
+]
+2026-06-30T12:45:06.754+08:00 DEBUG 22952 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL query
+2026-06-30T12:45:06.754+08:00 DEBUG 22952 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL statement [select id, title, owner_name, honor_year, category_label, story, honor_scope
+ from biz_honor
+where is_deleted = 0
+  and honor_scope = 'personal'
+  and owner_user_id = ?
+ order by honor_year desc, id desc
+]
+]]></system-out>
+  </testcase>
+  <testcase name="managerShouldSeeAllHonors" classname="com.ise.platform.modules.honor.HonorServiceTest" time="0.004">
+    <system-out><![CDATA[2026-06-30T12:45:06.756+08:00 DEBUG 22952 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing SQL statement [create table if not exists stu_student (
+    id bigint primary key,
+    class_name varchar(64) not null,
+    is_deleted smallint not null default 0
+)
+]
+2026-06-30T12:45:06.756+08:00 DEBUG 22952 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing SQL statement [create table if not exists biz_honor (
+    id bigint primary key,
+    title varchar(255) not null,
+    owner_name varchar(128) not null,
+    owner_user_id bigint,
+    honor_scope varchar(32) not null,
+    honor_year varchar(8) not null,
+    category_label varchar(64) not null,
+    story varchar(500),
+    is_deleted smallint not null default 0
+)
+]
+2026-06-30T12:45:06.756+08:00 DEBUG 22952 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing SQL update [delete from biz_honor]
+2026-06-30T12:45:06.757+08:00 DEBUG 22952 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing SQL update [delete from stu_student]
+2026-06-30T12:45:06.757+08:00 DEBUG 22952 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL update
+2026-06-30T12:45:06.757+08:00 DEBUG 22952 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL statement [insert into stu_student (id, class_name, is_deleted) values (?, ?, ?)]
+2026-06-30T12:45:06.757+08:00 DEBUG 22952 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL update
+2026-06-30T12:45:06.757+08:00 DEBUG 22952 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL statement [insert into stu_student (id, class_name, is_deleted) values (?, ?, ?)]
+2026-06-30T12:45:06.757+08:00 DEBUG 22952 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing SQL update [insert into biz_honor (id, title, owner_name, owner_user_id, honor_scope, honor_year, category_label, story, is_deleted)
+values
+(1, '国家奖学金获得者', '赵晨曦', 1, 'personal', '2025', '国家奖学金', '个人荣誉', 0),
+(2, '优秀共青团干部', '陈一诺', 2, 'personal', '2026', '党团荣誉', '个人荣誉', 0),
+(3, '先进班集体', '软件工程2班', null, 'collective', '2025', '先进集体', '班级荣誉', 0),
+(4, '十佳团支部', '软件工程2班团支部', null, 'collective', '2026', '党团荣誉', '班级荣誉', 0),
+(5, '学院就业先锋宿舍', '梅园 3 栋 412', null, 'collective', '2026', '就业与成长', '非本班集体荣誉', 0),
+(6, '学院党建工作示范支部', '本科生第一党支部', null, 'party', '2025', '党团荣誉', '支部荣誉', 0)
+]
+2026-06-30T12:45:06.758+08:00 DEBUG 22952 --- [           main] o.s.jdbc.core.JdbcTemplate               : Executing SQL query [select id, title, owner_name, honor_year, category_label, story, honor_scope
+  from biz_honor
+ where is_deleted = 0
+ order by honor_year desc, id desc
+]
+]]></system-out>
+  </testcase>
 </testsuite>

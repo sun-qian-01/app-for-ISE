@@ -1,0 +1,1238 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>学院学生综合服务与党团管理平台 · 结项汇报</title>
+  <style>
+    :root {
+      --bg: #ffffff;
+      --surface: rgba(255, 255, 255, 0.94);
+      --surface-2: #f7fafc;
+      --border: rgba(10, 30, 70, 0.22);
+      --border-strong: #0a1e46;
+      --text-1: #0a1e46;
+      --text-2: #3a4a6a;
+      --text-3: #8090a8;
+      --blue: #1e5ac4;
+      --green: #16805c;
+      --orange: #c46a16;
+      --red: #c42a10;
+      --gold: #b88536;
+      --font-sans: "Inter", "Noto Sans SC", "Microsoft YaHei", Arial, sans-serif;
+      --font-mono: "JetBrains Mono", "IBM Plex Mono", "Consolas", monospace;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html,
+    body {
+      width: 100%;
+      height: 100%;
+      margin: 0;
+      overflow: hidden;
+      color: var(--text-1);
+      font-family: var(--font-sans);
+      letter-spacing: 0;
+      background:
+        repeating-linear-gradient(0deg, rgba(10, 30, 70, 0.07) 0 1px, transparent 1px 40px),
+        repeating-linear-gradient(90deg, rgba(10, 30, 70, 0.07) 0 1px, transparent 1px 40px),
+        #ffffff;
+    }
+
+    code,
+    pre,
+    .mono,
+    .kicker,
+    .pill,
+    .mini-label {
+      font-family: var(--font-mono);
+    }
+
+    .deck {
+      position: relative;
+      width: 100vw;
+      height: 100vh;
+      overflow: hidden;
+      background:
+        linear-gradient(90deg, rgba(30, 90, 196, 0.055) 0 1px, transparent 1px 40px),
+        linear-gradient(0deg, rgba(22, 128, 92, 0.04) 0 1px, transparent 1px 40px),
+        #ffffff;
+    }
+
+    .slide {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      padding: 50px 62px;
+      opacity: 0;
+      pointer-events: none;
+      transform: translateX(30px);
+      transition: opacity 0.35s ease, transform 0.35s ease;
+      overflow: hidden;
+    }
+
+    .slide.is-active {
+      z-index: 2;
+      opacity: 1;
+      pointer-events: auto;
+      transform: translateX(0);
+    }
+
+    .slide.is-prev {
+      transform: translateX(-30px);
+    }
+
+    .deck-header,
+    .deck-footer {
+      position: absolute;
+      left: 34px;
+      right: 34px;
+      z-index: 10;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      color: var(--text-3);
+      font-size: 12px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      pointer-events: none;
+    }
+
+    .deck-header {
+      top: 24px;
+    }
+
+    .deck-footer {
+      bottom: 24px;
+      text-transform: none;
+    }
+
+    .slide-number::before {
+      content: attr(data-current);
+    }
+
+    .slide-number::after {
+      content: " / " attr(data-total);
+    }
+
+    .progress-bar {
+      position: fixed;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      z-index: 20;
+      height: 3px;
+      background: transparent;
+    }
+
+    .progress-bar > span {
+      display: block;
+      width: 0;
+      height: 100%;
+      background: var(--blue);
+      transition: width 0.25s ease;
+    }
+
+    .kicker {
+      margin: 0;
+      color: var(--blue);
+      font-size: 14px;
+      font-weight: 800;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+    }
+
+    .h1,
+    .h2 {
+      margin: 8px 0 0;
+      color: var(--text-1);
+      font-weight: 650;
+      letter-spacing: -0.02em;
+    }
+
+    .h1 {
+      font-size: 78px;
+      line-height: 1.02;
+    }
+
+    .h2 {
+      font-size: 48px;
+      line-height: 1.12;
+    }
+
+    .lede {
+      max-width: 780px;
+      margin: 18px 0 0;
+      color: var(--text-2);
+      font-size: 23px;
+      line-height: 1.52;
+      font-weight: 350;
+    }
+
+    .mt-l {
+      margin-top: 28px;
+    }
+
+    .mt-m {
+      margin-top: 18px;
+    }
+
+    .cover-slide {
+      justify-content: center;
+    }
+
+    .cover-grid {
+      display: grid;
+      grid-template-columns: 1.02fr 0.98fr;
+      align-items: center;
+      gap: 58px;
+      min-height: 74vh;
+    }
+
+    .tag-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .pill {
+      display: inline-block;
+      padding: 4px 12px;
+      border: 1px solid var(--border-strong);
+      border-radius: 0;
+      background: var(--surface-2);
+      color: var(--text-2);
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    .pill.strong {
+      color: #fff;
+      background: var(--blue);
+      border-color: var(--blue);
+    }
+
+    .card,
+    .query-card,
+    .code-panel,
+    .metric-note,
+    .feature-card,
+    .case-card,
+    .method,
+    .timeline-card,
+    .team-card,
+    .check-card,
+    .info-panel {
+      background: var(--surface);
+      border: 1px solid var(--border-strong);
+      border-radius: 8px;
+      box-shadow: 0 10px 24px rgba(10, 30, 70, 0.07);
+    }
+
+    .query-card {
+      overflow: hidden;
+    }
+
+    .query-tabs {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      height: 42px;
+      padding: 0 18px;
+      border-bottom: 1px solid var(--border-strong);
+      background: #f7fafc;
+    }
+
+    .query-tabs span {
+      display: block;
+      width: 11px;
+      height: 11px;
+      border-radius: 50%;
+      background: var(--red);
+    }
+
+    .query-tabs span:nth-child(2) {
+      background: var(--orange);
+    }
+
+    .query-tabs span:nth-child(3) {
+      background: var(--green);
+    }
+
+    .query-card pre,
+    .code-panel pre {
+      margin: 0;
+      padding: 24px;
+      overflow: hidden;
+      color: #f8fafc;
+      background: #13213a;
+      font-size: 18px;
+      line-height: 1.55;
+      white-space: pre-wrap;
+    }
+
+    .panel-title {
+      display: flex;
+      align-items: center;
+      height: 42px;
+      padding: 0 18px;
+      border-bottom: 1px solid var(--border);
+      background: #f7fafc;
+      color: var(--text-1);
+      font-weight: 800;
+    }
+
+    .result-line {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 18px 22px;
+      border-top: 1px solid var(--border-strong);
+    }
+
+    .result-line b {
+      color: var(--orange);
+      font-size: 38px;
+      line-height: 1;
+    }
+
+    .grid {
+      display: grid;
+      gap: 20px;
+    }
+
+    .g2 {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    .g3 {
+      grid-template-columns: repeat(3, 1fr);
+    }
+
+    .g4 {
+      grid-template-columns: repeat(4, 1fr);
+    }
+
+    .feature-grid {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 12px;
+    }
+
+    .feature-card {
+      min-height: 132px;
+      padding: 17px;
+      border-top: 4px solid var(--blue);
+    }
+
+    .feature-card:nth-child(2n) {
+      border-top-color: var(--green);
+    }
+
+    .feature-card:nth-child(3n) {
+      border-top-color: var(--orange);
+    }
+
+    .feature-card b,
+    .case-card h3,
+    .method h3,
+    .metric-note h3,
+    .team-card h3,
+    .check-card b {
+      display: block;
+      margin: 0 0 8px;
+      color: var(--text-1);
+      font-size: 17px;
+    }
+
+    .feature-card p,
+    .case-card p,
+    .method p,
+    .metric-note p,
+    .team-card p,
+    .check-card p,
+    .info-panel p {
+      margin: 0;
+      color: var(--text-2);
+      font-size: 15px;
+      line-height: 1.5;
+    }
+
+    .change-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 22px;
+    }
+
+    .change-card {
+      min-height: 245px;
+      padding: 24px;
+      border-top: 5px solid var(--blue);
+    }
+
+    .change-card:nth-child(2) {
+      border-top-color: var(--green);
+    }
+
+    .change-card:nth-child(3) {
+      border-top-color: var(--orange);
+    }
+
+    .change-card .num {
+      display: inline-block;
+      margin-bottom: 18px;
+      color: var(--text-3);
+      font-family: var(--font-mono);
+      font-size: 13px;
+      font-weight: 800;
+    }
+
+    .change-card h3 {
+      margin: 0 0 12px;
+      color: var(--text-1);
+      font-size: 27px;
+      line-height: 1.2;
+    }
+
+    .change-card p {
+      margin: 0;
+      color: var(--text-2);
+      font-size: 17px;
+      line-height: 1.62;
+    }
+
+    .split {
+      display: grid;
+      grid-template-columns: 1fr 0.94fr;
+      align-items: stretch;
+      gap: 28px;
+    }
+
+    .definition-box {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 32px;
+    }
+
+    .mini-label {
+      margin: 0 0 10px;
+      color: var(--green);
+      font-size: 14px;
+      font-weight: 800;
+      text-transform: uppercase;
+    }
+
+    .big-equation {
+      margin-bottom: 18px;
+      color: var(--orange);
+      font-size: 56px;
+      font-weight: 850;
+      line-height: 1;
+    }
+
+    .flow {
+      display: grid;
+      grid-template-columns: 1fr 32px 1fr 32px 1fr 32px 1fr;
+      align-items: stretch;
+      gap: 12px;
+    }
+
+    .flow > div,
+    .task-node,
+    .arch-node {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      min-height: 112px;
+      padding: 18px;
+      border: 1px solid var(--border-strong);
+      border-radius: 8px;
+      background: #fff;
+      text-align: center;
+    }
+
+    .flow > span,
+    .task-map > span {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--orange);
+      font-size: 25px;
+      font-weight: 900;
+    }
+
+    .flow b,
+    .task-node b,
+    .arch-node b {
+      display: block;
+      color: var(--text-1);
+      font-size: 19px;
+    }
+
+    .flow small,
+    .task-node small,
+    .arch-node small {
+      display: block;
+      margin-top: 6px;
+      color: var(--text-3);
+      font-family: var(--font-mono);
+    }
+
+    .model-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+    }
+
+    .model-grid > div {
+      min-height: 112px;
+      padding: 18px 20px;
+      border-top: 4px solid var(--blue);
+    }
+
+    .model-grid > div:nth-child(2n) {
+      border-top-color: var(--green);
+    }
+
+    .model-grid > div:nth-child(3n) {
+      border-top-color: var(--orange);
+    }
+
+    .pipeline {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 8px;
+      margin-top: 24px;
+    }
+
+    .pipeline span {
+      padding: 10px 8px;
+      border-radius: 8px;
+      background: rgba(30, 90, 196, 0.08);
+      color: var(--blue);
+      font-family: var(--font-mono);
+      font-size: 14px;
+      font-weight: 800;
+      text-align: center;
+    }
+
+    .case-card {
+      display: flex;
+      flex-direction: column;
+      min-height: 350px;
+      padding: 22px;
+    }
+
+    .case-card pre {
+      min-height: 118px;
+      margin: 4px 0 16px;
+      padding: 14px;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      background: #f7fafc;
+      color: var(--text-1);
+      font-size: 13px;
+      line-height: 1.45;
+      white-space: pre-wrap;
+    }
+
+    .metric-note {
+      min-height: 155px;
+      padding: 24px;
+      border-top: 5px solid var(--blue);
+    }
+
+    .metric-note.warn {
+      border-top-color: var(--orange);
+    }
+
+    .metric-note.good {
+      border-top-color: var(--green);
+    }
+
+    .metric-note .value {
+      margin: 10px 0 8px;
+      color: var(--orange);
+      font-family: var(--font-mono);
+      font-size: 42px;
+      font-weight: 850;
+      line-height: 1;
+    }
+
+    .timeline {
+      display: grid;
+      grid-template-columns: 0.42fr 1fr;
+      gap: 12px 20px;
+      margin-top: 22px;
+      align-items: stretch;
+    }
+
+    .timeline .date {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 68px;
+      border: 1px solid var(--border-strong);
+      border-radius: 8px;
+      background: #fff;
+      color: var(--blue);
+      font-family: var(--font-mono);
+      font-weight: 850;
+    }
+
+    .timeline-card {
+      min-height: 68px;
+      padding: 14px 18px;
+      border-left: 5px solid var(--blue);
+    }
+
+    .timeline-card:nth-of-type(4n) {
+      border-left-color: var(--green);
+    }
+
+    .timeline-card:nth-of-type(6n) {
+      border-left-color: var(--orange);
+    }
+
+    .timeline-card b {
+      display: block;
+      margin-bottom: 3px;
+      color: var(--text-1);
+      font-size: 17px;
+    }
+
+    .timeline-card span {
+      color: var(--text-2);
+      font-size: 14px;
+    }
+
+    .team-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+    }
+
+    .team-card {
+      min-height: 180px;
+      padding: 22px;
+      border-top: 5px solid var(--blue);
+    }
+
+    .team-card:nth-child(2) {
+      border-top-color: var(--green);
+    }
+
+    .team-card:nth-child(3) {
+      border-top-color: var(--orange);
+    }
+
+    .team-card:nth-child(4) {
+      border-top-color: var(--red);
+    }
+
+    .check-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+    }
+
+    .check-card {
+      min-height: 135px;
+      padding: 20px;
+      border-top: 4px solid var(--green);
+    }
+
+    .check-card:nth-child(2n) {
+      border-top-color: var(--blue);
+    }
+
+    .check-card:nth-child(3n) {
+      border-top-color: var(--orange);
+    }
+
+    .callout {
+      padding: 18px 22px;
+      border-left: 5px solid var(--orange);
+      border-radius: 0 8px 8px 0;
+      background: rgba(196, 106, 22, 0.08);
+      color: var(--text-2);
+      font-size: 18px;
+      line-height: 1.55;
+    }
+
+    .quote-band {
+      padding: 32px 38px;
+      border: 1px solid var(--border-strong);
+      border-left: 7px solid var(--blue);
+      border-radius: 8px;
+      background: #fff;
+    }
+
+    .quote-band p {
+      margin: 0 0 16px;
+      color: var(--text-1);
+      font-size: 27px;
+      font-weight: 750;
+      line-height: 1.42;
+    }
+
+    .quote-band span {
+      color: var(--text-3);
+      font-family: var(--font-mono);
+    }
+
+    .summary-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 26px;
+    }
+
+    .info-panel {
+      min-height: 360px;
+      padding: 26px 30px;
+    }
+
+    .info-panel h3 {
+      margin: 0 0 18px;
+      color: var(--text-1);
+      font-size: 28px;
+    }
+
+    .info-panel ul {
+      margin: 0;
+      padding-left: 22px;
+      color: var(--text-2);
+      font-size: 18px;
+      line-height: 1.78;
+    }
+
+    .notes {
+      display: none;
+    }
+
+    .overview {
+      position: fixed;
+      inset: 0;
+      z-index: 50;
+      display: none;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 16px;
+      align-content: start;
+      padding: 36px;
+      overflow: auto;
+      background: rgba(10, 18, 38, 0.92);
+    }
+
+    .overview.open {
+      display: grid;
+    }
+
+    .thumb {
+      position: relative;
+      aspect-ratio: 16 / 9;
+      padding: 18px;
+      overflow: hidden;
+      border: 1px solid rgba(255, 255, 255, 0.25);
+      border-radius: 8px;
+      background:
+        repeating-linear-gradient(0deg, rgba(10, 30, 70, 0.07) 0 1px, transparent 1px 20px),
+        repeating-linear-gradient(90deg, rgba(10, 30, 70, 0.07) 0 1px, transparent 1px 20px),
+        #ffffff;
+      cursor: pointer;
+    }
+
+    .thumb b {
+      display: block;
+      color: var(--text-1);
+      font-size: 17px;
+    }
+
+    .thumb span {
+      position: absolute;
+      top: 9px;
+      right: 12px;
+      color: var(--text-3);
+      font-family: var(--font-mono);
+      font-weight: 800;
+    }
+
+    @media print {
+      html,
+      body {
+        height: auto;
+        overflow: visible;
+      }
+
+      .deck {
+        height: auto;
+        overflow: visible;
+      }
+
+      .slide {
+        position: relative;
+        width: 100vw;
+        height: 100vh;
+        page-break-after: always;
+        opacity: 1 !important;
+        pointer-events: auto;
+        transform: none !important;
+      }
+
+      .progress-bar,
+      .overview {
+        display: none !important;
+      }
+    }
+  </style>
+</head>
+<body>
+<div class="deck" id="deck">
+  <section class="slide cover-slide" data-title="封面">
+    <div class="deck-header"><span>软件工程导论 · 结项汇报</span><span>ISE Student Service Platform</span></div>
+    <div class="cover-grid">
+      <div>
+        <p class="kicker">Course Project</p>
+        <h1 class="h1">学院学生综合服务与党团管理平台</h1>
+        <p class="lede">面向学院学生事务、党团流程、政策问答、通知推送与院内审批的一站式综合服务平台。</p>
+        <div class="tag-row mt-l">
+          <span class="pill strong">Vue 3</span>
+          <span class="pill">Spring Boot</span>
+          <span class="pill">RAG</span>
+          <span class="pill">RBAC</span>
+          <span class="pill">104 Tests</span>
+        </div>
+      </div>
+      <div class="query-card">
+        <div class="query-tabs"><span></span><span></span><span></span></div>
+        <pre><code>platform.build({
+  users: ["student", "class_cadre",
+          "teacher_admin", "college_leader"],
+  modules: ["kb", "party", "notice",
+            "application", "profile", "audit"],
+  delivery: "Web + Backend MVP + Mini App",
+  tests: "104 passed"
+});</code></pre>
+        <div class="result-line"><span>Project status</span><b>Ready</b></div>
+      </div>
+    </div>
+    <div class="deck-footer"><span>团队成员：孙谦，田家铭，刘凡硕，林靖涛</span><span class="slide-number" data-current="1"></span></div>
+    <aside class="notes">开场说明项目不是单纯原型，而是已经形成可演示的全栈课程项目。</aside>
+  </section>
+
+  <section class="slide" data-title="汇报路线">
+    <div class="deck-header"><span>结项汇报</span><span>Agenda</span></div>
+    <p class="kicker">Agenda</p>
+    <h2 class="h2">汇报路线</h2>
+    <div class="change-grid mt-l">
+      <div class="card change-card"><span class="num">01</span><h3>项目概述</h3><p>目标场景、角色范围、当前交付物和部署方式。</p></div>
+      <div class="card change-card"><span class="num">02</span><h3>功能满足性</h3><p>基础需求完成情况、扩展能力和核心业务闭环。</p></div>
+      <div class="card change-card"><span class="num">03</span><h3>设计与实现</h3><p>架构、权限、RAG 问答、申请审批状态机。</p></div>
+    </div>
+    <div class="change-grid mt-m">
+      <div class="card change-card"><span class="num">04</span><h3>进度协作</h3><p>从需求原型到前后端 MVP 的迭代路径。</p></div>
+      <div class="card change-card"><span class="num">05</span><h3>测试结果</h3><p>自动化测试、构建验证、典型缺陷修复。</p></div>
+      <div class="card change-card"><span class="num">06</span><h3>工具与总结</h3><p>大模型辅助、问题经验和后续增强方向。</p></div>
+    </div>
+    <div class="deck-footer"><span>8 分钟展示版</span><span class="slide-number" data-current="2"></span></div>
+  </section>
+
+  <section class="slide" data-title="项目定位">
+    <div class="deck-header"><span>项目概述</span><span>Overview</span></div>
+    <p class="kicker">Overview</p>
+    <h2 class="h2">把分散的学生事务收敛到统一平台</h2>
+    <div class="split mt-l">
+      <div class="code-panel">
+        <div class="panel-title">业务痛点</div>
+        <pre><code>offline fragments:
+  - 政策咨询散落在群聊和文档
+  - 党团流程靠人工提醒
+  - 通知触达难统计
+  - 申请审批线下流转
+  - 学生数据分散、留痕不足</code></pre>
+      </div>
+      <div class="definition-box card">
+        <p class="mini-label">Project Goal</p>
+        <div class="big-equation">一站式</div>
+        <p>建设学生端、管理端、领导看板和移动端演示入口，把政策问答、党团流程、通知、申请审批和学生画像串成可追踪闭环。</p>
+      </div>
+    </div>
+    <div class="feature-grid mt-l">
+      <div class="feature-card"><b>普通学生</b><p>查看档案、通知、党团进度，提交材料和申请。</p></div>
+      <div class="feature-card"><b>班团骨干</b><p>查看授权范围内成员进展，辅助催办。</p></div>
+      <div class="feature-card"><b>管理老师</b><p>维护知识库、通知、学生信息、审批和日志。</p></div>
+      <div class="feature-card"><b>学院领导</b><p>查看学院汇总、运行态势和关键数据。</p></div>
+      <div class="feature-card"><b>系统管理员</b><p>权限、部署、日志和运行维护扩展。</p></div>
+    </div>
+    <div class="deck-footer"><span>Student service · Party/League workflow · Approval</span><span class="slide-number" data-current="3"></span></div>
+  </section>
+
+  <section class="slide" data-title="交付物">
+    <div class="deck-header"><span>项目概述</span><span>Delivery</span></div>
+    <p class="kicker">Current Delivery</p>
+    <h2 class="h2">当前工作区已经形成完整课程项目形态</h2>
+    <div class="grid g3 mt-l">
+      <div class="metric-note good"><h3>需求与设计文档</h3><div class="value">docs</div><p>架构、接口、数据库、权限、字典、前端规范、设计文档。</p></div>
+      <div class="metric-note"><h3>正式 Web 前端</h3><div class="value">Vue</div><p>学生端、管理端、领导看板、路由守卫、Pinia、API 封装。</p></div>
+      <div class="metric-note warn"><h3>后端 MVP</h3><div class="value">API</div><p>Spring Boot REST，认证、学生、知识库、党团、通知、申请、文件。</p></div>
+    </div>
+    <div class="grid g3 mt-m">
+      <div class="metric-note"><h3>本地数据库</h3><div class="value">H2</div><p>开发库和测试库，SQL 设计对齐 Kingbase/PostgreSQL 兼容。</p></div>
+      <div class="metric-note good"><h3>小程序演示</h3><div class="value">mini</div><p>首页、知识库、党团进度、通知中心、证明申请。</p></div>
+      <div class="metric-note warn"><h3>测试与部署</h3><div class="value">ship</div><p>Surefire 测试报告、Vite 构建、运行包和校园网部署脚本。</p></div>
+    </div>
+    <div class="deck-footer"><span>Documentation + Frontend + Backend + Test + Deploy</span><span class="slide-number" data-current="4"></span></div>
+  </section>
+
+  <section class="slide" data-title="功能满足性">
+    <div class="deck-header"><span>功能满足性</span><span>Feature Coverage</span></div>
+    <p class="kicker">Feature Coverage</p>
+    <h2 class="h2">核心业务闭环已具备演示能力</h2>
+    <div class="check-grid mt-l">
+      <div class="check-card"><b>完全实现</b><p>多角色登录与权限控制、学生端首页、管理端首页、院内申请审批核心闭环。</p></div>
+      <div class="check-card"><b>核心闭环</b><p>知识库与智能问答、党团流程、文件上传下载、RAG 降级链路。</p></div>
+      <div class="check-card"><b>部分实现</b><p>学生画像、精准通知、荣誉展示、审计日志、小程序端。</p></div>
+    </div>
+    <div class="model-grid mt-l">
+      <div class="card"><b>认证与权限</b><p>角色、菜单、权限码、数据范围；前端守卫，后端校验。</p></div>
+      <div class="card"><b>学生画像</b><p>本人档案、学生列表、标签、成长记录、批量注册。</p></div>
+      <div class="card"><b>知识库问答</b><p>来源展示、低置信度提示、RAG/Codex-first。</p></div>
+      <div class="card"><b>党团流程</b><p>流程定义、学生进度、阶段材料、管理审核。</p></div>
+      <div class="card"><b>院内申请</b><p>创建、详情、撤回、待审批、通过、驳回。</p></div>
+      <div class="card"><b>部署交付</b><p>本地运行、运行包构建、Nginx/systemd 脚本。</p></div>
+    </div>
+    <div class="deck-footer"><span>Full · Core · Partial</span><span class="slide-number" data-current="5"></span></div>
+  </section>
+
+  <section class="slide" data-title="总体架构">
+    <div class="deck-header"><span>设计理念</span><span>Architecture</span></div>
+    <p class="kicker">Architecture</p>
+    <h2 class="h2">前后端分离 + 模块化单体</h2>
+    <div class="flow mt-l">
+      <div><b>用户层</b><small>学生 / 老师 / 领导</small></div>
+      <span>&gt;</span>
+      <div><b>前端层</b><small>Vue / Router / Pinia</small></div>
+      <span>&gt;</span>
+      <div><b>后端层</b><small>Spring Boot / REST</small></div>
+      <span>&gt;</span>
+      <div><b>数据层</b><small>H2 / Kingbase design</small></div>
+    </div>
+    <div class="model-grid mt-l">
+      <div class="card"><b>统一接口</b><p>`/api/v1` 前缀，统一 `code/message/data/requestId` 响应。</p></div>
+      <div class="card"><b>统一权限</b><p>RBAC 角色权限 + 数据范围；前端展示，后端兜底。</p></div>
+      <div class="card"><b>统一异常</b><p>全局异常处理、错误码、requestId 追踪。</p></div>
+      <div class="card"><b>业务模块</b><p>auth、student、kb、party、notice、application、file、audit。</p></div>
+      <div class="card"><b>本地数据库</b><p>H2 file/mem 模式，兼顾开发运行和自动化测试。</p></div>
+      <div class="card"><b>部署路径</b><p>前端静态资源 + 后端 jar + Nginx + systemd。</p></div>
+    </div>
+    <div class="deck-footer"><span>REST API / Modular Monolith / RBAC</span><span class="slide-number" data-current="6"></span></div>
+  </section>
+
+  <section class="slide" data-title="关键设计">
+    <div class="deck-header"><span>设计理念</span><span>Key Decisions</span></div>
+    <p class="kicker">Key Decisions</p>
+    <h2 class="h2">三个关键设计决策</h2>
+    <div class="change-grid mt-l">
+      <div class="card change-card"><span class="num">01</span><h3>正式前端工程</h3><p>不继续堆静态 HTML，而是使用 Vue 3 + Vite 支撑路由、组件、状态和构建部署。</p></div>
+      <div class="card change-card"><span class="num">02</span><h3>模块化单体</h3><p>课程周期内优先保证交付效率，同时按业务域划分 Controller 和 Service。</p></div>
+      <div class="card change-card"><span class="num">03</span><h3>有来源问答</h3><p>知识库问答坚持 sources 返回和低置信度提示，无可靠依据时不编造政策。</p></div>
+    </div>
+    <div class="quote-band mt-l">
+      <p>前端隐藏不是安全措施，后端必须校验权限、数据范围和对象归属。</p>
+      <span>RBAC + Data Scope + State Machine</span>
+    </div>
+    <div class="deck-footer"><span>Engineering choices under course constraints</span><span class="slide-number" data-current="7"></span></div>
+  </section>
+
+  <section class="slide" data-title="RAG智能问答">
+    <div class="deck-header"><span>核心功能示例</span><span>Knowledge QA</span></div>
+    <p class="kicker">Core Feature 01</p>
+    <h2 class="h2">知识库与 RAG 智能问答</h2>
+    <div class="flow mt-l">
+      <div><b>学生提问</b><small>question + history</small></div>
+      <span>&gt;</span>
+      <div><b>知识检索</b><small>published articles</small></div>
+      <span>&gt;</span>
+      <div><b>AI 回答</b><small>Codex-first</small></div>
+      <span>&gt;</span>
+      <div><b>来源展示</b><small>sources + confidence</small></div>
+    </div>
+    <div class="split mt-l">
+      <div class="code-panel">
+        <div class="panel-title">降级链路</div>
+        <pre><code>if (RAG_ENABLED) {
+  answer = codex(evidence, question)
+        ?? responses_api(evidence, question)
+        ?? keyword_match(question);
+}
+return answer.withSources();</code></pre>
+      </div>
+      <div class="definition-box card">
+        <p class="mini-label">Principle</p>
+        <div class="big-equation">可信</div>
+        <p>优先基于知识条目、标准答案和附件证据回答。没有可靠来源时，返回低置信度提示或“未检索到可靠依据”。</p>
+      </div>
+    </div>
+    <div class="deck-footer"><span>Codex-first · Responses API fallback · Keyword fallback</span><span class="slide-number" data-current="8"></span></div>
+  </section>
+
+  <section class="slide" data-title="审批状态机">
+    <div class="deck-header"><span>核心功能示例</span><span>Application Workflow</span></div>
+    <p class="kicker">Core Feature 02</p>
+    <h2 class="h2">院内申请与审批状态机</h2>
+    <div class="flow mt-l">
+      <div><b>提交申请</b><small>submitted</small></div>
+      <span>&gt;</span>
+      <div><b>审核中</b><small>reviewing</small></div>
+      <span>&gt;</span>
+      <div><b>通过 / 驳回</b><small>approved / rejected</small></div>
+      <span>&gt;</span>
+      <div><b>记录留痕</b><small>approval record</small></div>
+    </div>
+    <div class="grid g3 mt-l">
+      <div class="case-card"><h3>状态后端驱动</h3><pre><code>POST /applications
+POST /{id}/revoke
+POST /{id}/approve
+POST /{id}/reject</code></pre><p>前端不能直接提交任意状态，只能调用业务动作接口。</p></div>
+      <div class="case-card"><h3>事务一致性</h3><pre><code>@Transactional
+update biz_application
+insert biz_approval_record</code></pre><p>状态更新和审批记录必须同时成功或同时回滚。</p></div>
+      <div class="case-card"><h3>数据范围</h3><pre><code>teacher_admin:
+  scope = class
+college_leader:
+  scope = department</code></pre><p>管理老师只能查看和审批授权班级范围内的申请。</p></div>
+    </div>
+    <div class="deck-footer"><span>Status conflict returns 40900</span><span class="slide-number" data-current="9"></span></div>
+  </section>
+
+  <section class="slide" data-title="用户体验">
+    <div class="deck-header"><span>设计理念</span><span>User Experience</span></div>
+    <p class="kicker">UX Design</p>
+    <h2 class="h2">学生端轻量办理，管理端高效处理</h2>
+    <div class="grid g2 mt-l">
+      <div class="method">
+        <p class="mini-label">Student</p>
+        <h3>少操作、快办理</h3>
+        <p>学生端入口集中在首页、知识库、党团进度、通知、申请和个人画像；问答展示来源，申请和材料提交尽量单页完成。</p>
+        <div class="pipeline"><span>首页</span><span>问答</span><span>通知</span><span>申请</span></div>
+      </div>
+      <div class="method">
+        <p class="mini-label">Admin</p>
+        <h3>高密度、可追踪</h3>
+        <p>管理端使用侧边栏组织多业务模块，列表页保留筛选、分页、状态标签、空状态、错误态，审批和敏感字段访问强调留痕。</p>
+        <div class="pipeline"><span>画像</span><span>审批</span><span>通知</span><span>日志</span></div>
+      </div>
+    </div>
+    <div class="deck-footer"><span>Mobile-first for students · Dense workspace for admins</span><span class="slide-number" data-current="10"></span></div>
+  </section>
+
+  <section class="slide" data-title="进度安排">
+    <div class="deck-header"><span>进度安排</span><span>Timeline</span></div>
+    <p class="kicker">Timeline</p>
+    <h2 class="h2">从需求原型逐步推进到全栈 MVP</h2>
+    <div class="timeline">
+      <div class="date">04/19</div><div class="timeline-card"><b>需求整理与静态 Web 原型</b><span>README、入口页、学生端、管理端、共享样式与模拟脚本。</span></div>
+      <div class="date">05/07</div><div class="timeline-card"><b>微信小程序学生端演示版</b><span>首页、知识库、党团进度、通知中心、证明申请。</span></div>
+      <div class="date">05/11</div><div class="timeline-card"><b>软件设计文档与接口边界</b><span>架构、API、数据库、权限、字典、前端规范。</span></div>
+      <div class="date">05/18</div><div class="timeline-card"><b>正式前端工程与后端 MVP</b><span>Vue 3 工程、Spring Boot 工程、H2 初始化和交互测试页。</span></div>
+      <div class="date">05/27</div><div class="timeline-card"><b>注册、改密、画像维护</b><span>学生注册、联系方式维护、管理端批量注册。</span></div>
+      <div class="date">05/28</div><div class="timeline-card"><b>申请提交与数据范围修复</b><span>院内申请提交、知识库上传、管理老师班级范围校验。</span></div>
+      <div class="date">06</div><div class="timeline-card"><b>RAG、测试、部署和结项材料</b><span>智能问答增强、自动化测试通过、部署脚本和汇报材料。</span></div>
+    </div>
+    <div class="deck-footer"><span>Plan vs Actual: 原型交付扩展为可演示全栈项目</span><span class="slide-number" data-current="11"></span></div>
+  </section>
+
+  <section class="slide" data-title="团队协作">
+    <div class="deck-header"><span>团队协作</span><span>Team</span></div>
+    <p class="kicker">Teamwork</p>
+    <h2 class="h2">按模块推进，用文档和测试收口</h2>
+    <div class="team-grid mt-l">
+      <div class="team-card"><h3>孙谦</h3><p>项目整体推进、后端接口与联调、RAG 问答增强、测试验证、结项材料整理。</p></div>
+      <div class="team-card"><h3>田家铭</h3><p>部署运行、脚本与环境验证、前后端联调支持、运行文档补充。</p></div>
+      <div class="team-card"><h3>刘凡硕</h3><p>软件设计文档、小程序学生端演示版、需求与设计材料整理。</p></div>
+      <div class="team-card"><h3>林靖涛</h3><p>前端页面完善、测试用例与缺陷验证、汇报材料和演示流程支持。</p></div>
+    </div>
+    <div class="grid g3 mt-l">
+      <div class="metric-note"><h3>版本控制</h3><p>Git/GitHub 管理代码，保留功能迭代、修复和合并记录。</p></div>
+      <div class="metric-note good"><h3>文档协作</h3><p>`docs/` 沉淀架构、接口、数据库、权限、字典和部署说明。</p></div>
+      <div class="metric-note warn"><h3>问题追踪</h3><p>`developer-diary` 与 `problems-track` 记录阶段工作和缺陷修复。</p></div>
+    </div>
+    <div class="deck-footer"><span>Git · Markdown docs · Problem tracking · Automated verification</span><span class="slide-number" data-current="12"></span></div>
+  </section>
+
+  <section class="slide" data-title="测试结果">
+    <div class="deck-header"><span>测试过程与结果</span><span>Testing</span></div>
+    <p class="kicker">Testing</p>
+    <h2 class="h2">自动化验证通过，核心风险有覆盖</h2>
+    <div class="grid g4 mt-l">
+      <div class="metric-note good"><h3>后端用例</h3><div class="value">104</div><p>JUnit / Spring Boot Test / MockMvc。</p></div>
+      <div class="metric-note"><h3>测试报告</h3><div class="value">14</div><p>Surefire reports，覆盖主要模块。</p></div>
+      <div class="metric-note good"><h3>失败数</h3><div class="value">0</div><p>0 failures，0 errors，0 skipped。</p></div>
+      <div class="metric-note warn"><h3>前端验证</h3><div class="value">Pass</div><p>Vite build + kbQa 测试通过。</p></div>
+    </div>
+    <div class="grid g2 mt-l">
+      <div class="info-panel">
+        <h3>测试覆盖重点</h3>
+        <ul>
+          <li>认证、仪表盘、学生画像、党团、通知、申请、文件。</li>
+          <li>知识库、RAG 客户端、荣誉展示、数据范围和异常分支。</li>
+          <li>非法状态流转、越权审批、无可靠知识来源等风险点。</li>
+        </ul>
+      </div>
+      <div class="info-panel">
+        <h3>典型缺陷修复</h3>
+        <ul>
+          <li>知识库文章详情页、申请提交入口、老师上传资源。</li>
+          <li>审批列表 SQL 字段歧义和班级范围过滤。</li>
+          <li>学院领导入口、管理老师数据范围、RAG 降级链路。</li>
+        </ul>
+      </div>
+    </div>
+    <div class="deck-footer"><span>mvn test -q · npm run build · npm test</span><span class="slide-number" data-current="13"></span></div>
+  </section>
+
+  <section class="slide" data-title="工具使用与问题">
+    <div class="deck-header"><span>工具使用与问题</span><span>Tools & Issues</span></div>
+    <p class="kicker">Tools & Lessons</p>
+    <h2 class="h2">大模型加速开发，但关键规则必须人工确认</h2>
+    <div class="summary-grid mt-l">
+      <div class="info-panel">
+        <h3>大模型使用场景</h3>
+        <ul>
+          <li>需求提取、用户故事、接口草案和文档表格。</li>
+          <li>Vue 页面、DTO、Service、测试骨架生成。</li>
+          <li>SQL、构建、权限范围问题调试分析。</li>
+          <li>README、部署说明、结项汇报材料整理。</li>
+        </ul>
+      </div>
+      <div class="info-panel">
+        <h3>遇到的问题</h3>
+        <ul>
+          <li>前后端 mock 与真实接口字段需要持续对齐。</li>
+          <li>H2 与 Kingbase/PostgreSQL 需要保持兼容意识。</li>
+          <li>RAG 依赖外部模型和向量库，必须有降级。</li>
+          <li>依赖安全、E2E、小程序联调仍是后续增强项。</li>
+        </ul>
+      </div>
+    </div>
+    <div class="callout mt-l">经验：先文档后实现，先闭环后扩展；前端隐藏不等于安全，后端权限和状态机才是主防线。</div>
+    <div class="deck-footer"><span>AI-assisted development with human validation</span><span class="slide-number" data-current="14"></span></div>
+  </section>
+
+  <section class="slide" data-title="总结">
+    <div class="deck-header"><span>总结</span><span>Summary</span></div>
+    <p class="kicker">Summary</p>
+    <h2 class="h2">结项成果与后续计划</h2>
+    <div class="summary-grid mt-l">
+      <div class="info-panel">
+        <h3>本次成果</h3>
+        <ul>
+          <li>完成从需求、设计、原型到全栈 MVP 的闭环。</li>
+          <li>学生端、管理端、后端接口、小程序演示均可展示。</li>
+          <li>核心流程覆盖登录、问答、党团材料、通知、申请审批。</li>
+          <li>通过自动化测试和部署脚本提高验收稳定性。</li>
+        </ul>
+      </div>
+      <div class="info-panel">
+        <h3>后续增强</h3>
+        <ul>
+          <li>迁移 Kingbase 生产数据库并补迁移脚本。</li>
+          <li>完善知识库版本管理、真实通知渠道、日志自动落库。</li>
+          <li>补浏览器 E2E、小程序接口联调和依赖安全治理。</li>
+          <li>完善 HTTPS、备份、日志轮转和文件存储策略。</li>
+        </ul>
+      </div>
+    </div>
+    <div class="quote-band mt-l">
+      <p>谢谢，请老师和同学批评指正。</p>
+      <span>学院学生综合服务与党团管理平台 · 2026-06-30</span>
+    </div>
+    <div class="deck-footer"><span>End</span><span class="slide-number" data-current="15"></span></div>
+  </section>
+</div>
+
+<div class="overview" id="overview" aria-hidden="true"></div>
+<div class="progress-bar"><span id="progress"></span></div>
+
+<script>
+  const slides = Array.from(document.querySelectorAll(".slide"));
+  const total = slides.length;
+  const progress = document.getElementById("progress");
+  const overview = document.getElementById("overview");
+  let current = 0;
+
+  document.querySelectorAll(".slide-number").forEach((node) => {
+    node.dataset.total = String(total);
+  });
+
+  slides.forEach((slide, index) => {
+    const thumb = document.createElement("button");
+    thumb.className = "thumb";
+    thumb.type = "button";
+    thumb.innerHTML = `<span>${index + 1}</span><b>${slide.dataset.title || "Slide"}</b>`;
+    thumb.addEventListener("click", () => {
+      overview.classList.remove("open");
+      show(index);
+    });
+    overview.appendChild(thumb);
+  });
+
+  function indexFromHash() {
+    const match = location.hash.match(/#\/?(\d+)/);
+    if (!match) return 0;
+    return Math.min(Math.max(parseInt(match[1], 10) - 1, 0), total - 1);
+  }
+
+  function show(index, updateHash = true) {
+    const next = Math.min(Math.max(index, 0), total - 1);
+    slides.forEach((slide, i) => {
+      slide.classList.toggle("is-active", i === next);
+      slide.classList.toggle("is-prev", i < next);
+      const number = slide.querySelector(".slide-number");
+      if (number) number.dataset.current = String(i + 1);
+    });
+    current = next;
+    progress.style.width = `${((current + 1) / total) * 100}%`;
+    document.title = `${slides[current].dataset.title || "结项汇报"} · ${current + 1}/${total}`;
+    if (updateHash) {
+      history.replaceState(null, "", `#/${current + 1}`);
+    }
+  }
+
+  function next() {
+    show(current + 1);
+  }
+
+  function prev() {
+    show(current - 1);
+  }
+
+  window.addEventListener("hashchange", () => show(indexFromHash(), false));
+  window.addEventListener("keydown", (event) => {
+    if (event.key === "ArrowRight" || event.key === "PageDown" || event.key === " ") {
+      event.preventDefault();
+      next();
+    }
+    if (event.key === "ArrowLeft" || event.key === "PageUp") {
+      event.preventDefault();
+      prev();
+    }
+    if (event.key === "Home") show(0);
+    if (event.key === "End") show(total - 1);
+    if (event.key.toLowerCase() === "o") {
+      overview.classList.toggle("open");
+    }
+    if (event.key === "Escape") {
+      overview.classList.remove("open");
+    }
+  });
+
+  show(indexFromHash(), false);
+</script>
+</body>
+</html>
